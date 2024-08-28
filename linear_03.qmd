@@ -1,0 +1,110 @@
+# Statistische Significantie {#sec-statistical-significance}
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+library(rio)             #laden van data
+library(tidyverse)       #data manipulatie en grafieken
+library(broom)           #samenvattingen regressiemodellen
+
+demdata <- import("data/demdata.rds") |> 
+  as_tibble() 
+
+demdata <- demdata |>  
+  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
+         Typeregime2006 = factorize(Typeregime2006))
+```
+
+Regressiecoëfficiënten vertellen ons iets over de gemiddelde verwachte waarde voor onze afhankelijke variabele: welke waarde verwachten we als de score van de onafhankelijke variabele 0 is (Intercept of constante) en hoe verwachten we dat de afhankelijke variabele verandert als de onafhankelijke variabele met 1 stijgt (de coëfficiënt van de predictor). Echter moeten we ook iets zeggen over de onzekerheid rond deze schattingen. Kunnen onze coëfficiënten ook andere waarden aannemen? Dit wordt behandeld in dit hoofdstuk.
+
+We laden eerst de packages en de data en doen voorbereidend data management.
+
+```{r}
+#| eval: false
+
+#Packages
+library(rio)             #laden van data
+library(tidyverse)       #data manipulatie en grafieken
+library(broom)           #samenvattingen regressiemodellen
+
+#Importeer data via rio::import()
+demdata <- import("demdata.rds") |> 
+  as_tibble()  
+
+#Data management (zie vorig hoofdstuk)
+demdata <- demdata |>  
+  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
+         Typeregime2006 = factorize(Typeregime2006))
+```
+
+## t- en p-waarden via `summary()`
+
+De meeste relevant informatie over statistische significantie en onzekerheid vinden we met de `summary()` functie.
+
+```{r}
+#Schat model en sla op in object
+model_binary <- lm(v2x_polyarchy ~ TYPEDEMO1984, data=demdata)
+
+#Gebruik summary om de resultaten te bekijken
+summary(model_binary)
+```
+
+::: callout-note
+#### Output uitleg
+
+Informatie over onzekerheid van de schattingen en statistische significantie vinden we in het gedeelte met de coëfficiënten.
+
+-   Std. Error: Standaardfout van de coëfficiënt
+-   t value: De t-waarde of t-statistiek voor de coëfficiënt ($t = \frac{\textrm{Coefficient}}{\textrm{Std.Error}}$)
+-   Pr(\>\|t\|): De p-waarde voor de t-statistiek- de probabiliteit dat we deze t-waarde of een grotere krijgen als we ervanuit gaan dat de nulhypothese van geen effect correct is en de assumpties voldaan zijn.
+-   Asterisken en Signif. codes: Je kunt deze symbolen zien naast de waarde onder Pr(\>\|t\|), indien van toepassing. Ze geven weer of de coëfficiënt significant is en zo ja, op welk niveau. De "Signif. codes" rij legt uit waar de codes voor staan. Een enkele asterisk (\*), bijvoorbeeld, toont dat de p-waarde kleiner is dan 0.05 maar groter dan 0.01. Twee asterisks (\*\*) vertelt dat de p-waarde kleiner is dan 0.01 maar groter dan 0.001.
+:::
+
+Doorgaans gaan we statistische significantie na door te kijken naar de symbolen naast de waarden in de Pr(\>\|t\|) kolom. Zie @sec-reporting-linear-regression voor verdere informatie over hoe hierover te rapporteren.
+
+## Betrouwbaarheidsintervallen via `tidy()`
+
+De output die we verkrijgen met `summary()` geeft ons niet de 95% betrouwbaarheidsintervallen voor de coëfficiënten. Deze kunnen we verkrijgen met de `tidy()` functie vanuit het `broom` package (geladen aan het begin van dit hoofdstuk).
+
+```{r}
+#| echo: true
+
+tidy(model_binary, conf.int = TRUE)
+```
+
+`tidy(`
+
+:   Naam van de functie, toegepast op model tussen haakjes.
+
+`model_binary,`
+
+:   Naam van het model.
+
+`conf.int=TRUE)`
+
+:   Hier vragen we om de betrouwbaarheidsintervallen op te nemen in de output. Dit wordt niet standaard gedaan. We kunnen ook "conf.int=T" schrijven ("T" = "TRUE").
+
+::: callout-note
+#### Output uitleg
+
+De `tidy()` functie geeft ons een tabel met resultaten van het model.
+
+-   term: De termen in het model (i.e., intercept en onafhankelijke variabelen).
+-   estimate: coëfficiënt voor elke variabele (en voor het intercept)
+-   std.error: de standaardfout voor de coëfficiënten
+-   statistic: de t-waarde
+-   p.value: de p-waarde
+-   conf.low & conf.high: de 95% betrouwbaarheidsintervallen met onder "conf.low" de ondergrens en onder "conf.high" de bovengrens van het interval
+:::
+
+We kunnen het betrouwbaarheidsniveau aanpassen. Als we het 99% betrouwbaarheidsniveau willen, voegen we bijvoorbeeld "conf.level = 0.99" toe:
+
+```{r}
+tidy(model_binary, conf.int = T, conf.level = 0.99)
+
+```
+
+Zowel `summary()` als `tidy()` geven ons de coëfficiënten van het model. Een voordeel van `tidy()` is dat de output in een [tidy](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html){target="_blank"} dataframe wordt weergegeven. Dit dataframe kunnen we manipuleren (bv. hernoemen kolommen, variabelen enz.). Hier maken we in latere lessen gebruik van.

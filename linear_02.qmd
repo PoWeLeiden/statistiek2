@@ -1,0 +1,212 @@
+---
+code-annotations: hover
+citation-location: margin
+---
+
+# Bivariate Regressie met Binaire en Categorische Predictoren {#sec-binary-predictors}
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+library(rio)
+library(tidyverse)
+
+demdata <- import("data/demdata.rds") |> 
+  as_tibble() 
+```
+
+In het vorige hoofdstuk bespraken we hoe een lineaire regressieanalyse te gebruiken om de relatie tussen continue variabelen na te gaan. In dit hoofdstuk wordt uitgelegd hoe je een bivariate regressie kan uitvoeren met binaire en categorische variabelen.
+
+We beginnen zoals gewoonlijk met het laden van relevante R packages ('libraries'). Deze packages zijn reeds geïnstalleerd op de universitaire computers, maar moeten eerst geladen worden. We laden ook onze dataset.
+
+```{r}
+#| eval: false
+
+library(rio)             #laden van data
+library(tidyverse)       #data manipulatie en grafieken
+library(broom)           #samenvattingen regressiemodellen
+library(marginaleffects) #voorspelde waarden berekenen
+
+demdata <- import("demdata.rds") |> 
+  as_tibble()
+```
+
+## Data Management: Converteren naar een factor variabele
+
+Via lineaire regressieanalyse kunnen we een continue afhankelijke variable ook voorspellen aan de hand van binaire (2 waarden) en categorische (3 of meer waarden) variabelen.
+
+Om deze variabelen te gebruiken in een regressiemodel moeten ze toegevoegd worden als dichotome of "[dummy](https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faqwhat-is-dummy-coding/){target="_blank"}" variabelen. Als de variabele binair is, wordt 1 dummy gebruikt, als de variabelen meer categorieën kent, worden meerdere dummies gebruikt.[^linear_02-1] R voegt automatisch dummies toe voor factor variabelen, dus transformeren we binaire en categorische variabelen naar factor variabelen voor we ze in een regressie analyse gebruiken.[^linear_02-2]
+
+[^linear_02-1]: We gebruiken k-1 dummies, waarbij k = aantal categorieën. Als een categorische variabele 4 categorieën heeft (Bijvoorbeeld: Noorden, Westen, Zuiden en Oosten), dan gebruiken we (4-1=) 3 dummies.
+
+[^linear_02-2]: Transformatie is niet nodig als de originele variabelen reeds opgeslaan zijn als factor in de dataset, maar misschien moet de referentiecategorie wel aangepast worden (zie verder).
+
+In dit voorbeeld maken we gebruik van de variabele "TYPEDEMO1984". Deze binaire variabele toont of een land een democratie of autocratie was in het jaar 1984. De variabele is numeriek opgeslaan (dit kunnen we controleren met behulp van de functie `class()`). De waarde 1 staat voor autocratie, de waarde 2 voor democratie.
+
+```{r}
+#Informatie over type variabele: 
+class(demdata$TYPEDEMO1984)
+
+#simpele tabel
+table(demdata$TYPEDEMO1984)
+```
+
+Aangezien de variabele numeriek is, transformeren we deze eerst naar een factor variabele. We kunnen dit doen met de ingebouwde `factor()` functie (zie [Statistiek I, 1.6.3](https://poweleiden.github.io/statistiek1/data_01_basics.html#creating-variables-in-r){target="_blank"}) of met de `factorize()` functie afkomstig uit het `rio` package. Deze laatste functie is vooral handig als de waarden labels hebben zoals hier het geval is ( 1 = "Autocratie", 2 = "Democratie"). Als er geen labels zijn, moet je `factor()` gebruiken gezien `factorize()` in dat geval niet de juiste uitkomsten geeft. Zie @sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models voor meer informatie.
+
+De labels kun je zien met behulp van de `view_df()` functie uit het `sjPlot` package (zie @sec-recall-peeking-inside-data-objects) of door gebruik te maken van de ingebouwde functie `attributes()` (vooraleer je transformeert naar factor): `attributes(demdata$TYPEDEMO1984)`. Daarbij kijk je of er informatie is waar "\$labels" staat.
+
+```{r}
+attributes(demdata$TYPEDEMO1984)
+```
+
+We gebruiken `factorize()` gezien de waarden van onze variabelen labels hebben (1 = "Autocratie", 2 = "Democratie"). We kijken ook na of de functie gelukt is.
+
+```{r}
+# transformeren naar factor
+demdata <- demdata |> 
+  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984))
+
+#Niveaus (levels) bekijken en tabel om te checken
+levels(demdata$TYPEDEMO1984)
+table(demdata$TYPEDEMO1984)
+
+```
+
+De syntax is eenvoudig:
+
+`factorize(`
+
+:   Naam van functie die wordt toegepast op variabele tussen haakjes.
+
+`TYPEDEMO1984`
+
+:   Aangeduide variabele. Het laagste numerieke niveau van deze variabele zal als eerste niveau van de factor gebruikt worden en dus als referentiecategorie.
+
+Dezelfde procedure wordt gehanteerd voor een categorische variabele met 3 of meer categorieën. Bijvoorbeeld, de variabele `Typeregime2006` geeft weer of een land een liberale democratie was (=1), een electorale democratie (=2), of een autocratie (=3) in het jaar 2006. Deze variabele heeft ook waardenlabels dus kunnen we opnieuw `factorize()` gebruiken:
+
+```{r}
+#transformeer naar factor variabele
+demdata <- demdata |> 
+  mutate(Typeregime2006 = factorize(Typeregime2006))
+
+#Werk checken
+levels(demdata$Typeregime2006)
+table(demdata$Typeregime2006)
+```
+
+::: callout-warning
+#### Waarschuwing!
+
+We raden aan om nieuwe variabelen aan te maken wanneer je een bestaande variabele omzet naar een factorvariabele (of wanneer je hercodeert) ook al deden we dit hierboven niet (bv., `mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))`). Als je een nieuwe variabele aanmaakt overschrijf je nooit de originele. Dit kan helpen om fouten makkelijker te corrigeren (zonder dat je dataset opnieuw moet inladen en eerdere syntax runnen).
+:::
+
+### Veranderen van de referentiecategorie {#sec-relevelling}
+
+Bij de transformatie naar een factor variabele wordt de categorie met laagste numerieke waarde als referentiecategorie genomen. Het kan zijn dat we dit willen veranderen. Dit kunnen we doen met behulp van de `relevel()` functie. Hieronder veranderen we de referentiecategorie voor "Typeregime2006" naar "Electoral Democracy".
+
+```{r}
+demdata <- demdata |> 
+  mutate(Typeregime2006_relevel = relevel(Typeregime2006, "Electoral democracy"))
+
+```
+
+`relevel(`
+
+:   Naam van de functie
+
+`Typeregime2006,`
+
+:   We gebruiken "Typeregime2006" uit de "demdata" dataset.
+
+`"Electoral democracy")`
+
+:   We geven de naam op van de categorie die we als referentiecategorie willen nemen tussen dubbele aanhalingstekens. We gebruiken de naam tussen aanhalingstekens omdat de variabele reeds hierboven naar een factor is omgezet, anders zou dit niet werken.
+
+We checken altijd beter of alles goed is gegaan:
+
+```{r}
+#Checken:
+levels(demdata$Typeregime2006)
+levels(demdata$Typeregime2006_relevel)
+```
+
+## Factor variabelen als predictors
+
+We voegen binaire en categorische onafhankelijke variabelen toe aan de regressieanalyse op dezelfde manier als bij continue variabelen:
+
+```{r}
+# Met binaire predictor: 
+model_binary <- lm(v2x_polyarchy ~ TYPEDEMO1984, data=demdata)
+summary(model_binary)
+
+# Met categorische predictor: 
+model_categorical <- lm(v2x_polyarchy ~ Typeregime2006, data=demdata)
+summary(model_categorical)
+```
+
+::: callout-note
+#### Output uitleg
+
+De output van een model met binaire/categorische predictor is dezelfde als die van een model met een continue predictor met 1 verschil. R zal de variabelenaam bij de coëfficiënten anders weergeven als er een factor variabele is. Dan krijg je de naam van de variabele, onmiddellijk gevolgd door de categorie die de waarde 1 aanneemt in de dummy. Bijvoorbeeld: "TypeDemo1984Democracies" or "Typeregime2006Autocracy."
+:::
+
+Er zijn subtiele verschillen in de interpretatie als een factor variabele opgenomen wordt in het model:
+
+::: callout-warning
+#### Interpretatie
+
+De `Estimate` kolom toont de coëfficiënten van het regressiemodel.
+
+Het"(Intercept)" toont nog steeds de verwachte waarde op de afhankelijke variabele als de onafhankelijke variabele gelijk is aan 0. Als de enige onafhankelijke variabele een factor is dan toont het intercept de gemiddelde waarde op Y voor de referentiegroep (factor dummy = 0).
+
+Hier vinden we dat de gemiddelde waarde voor `v2x_polyarchy` voor autocratieën (gemeten volgens de `TYPEDEMO1984` variabele) gelijk is aan het Intercept dat we hierboven vonden.
+
+```{r}
+demdata |> 
+  filter(TYPEDEMO1984 == "Autocracies") |> # <1> 
+  summarize(mean_democracy = mean(v2x_polyarchy, na.rm=T)) |> 
+  as.data.frame() # <2>
+
+```
+
+1.  De filter verwijdert observaties die niet de waarde "Autocracies" hebben voor TYPEDEMO1984
+2.  Deze optie dwingt R om alle decimalen weer te geven voor een betere vergelijking met het Intercept.
+
+De coëfficiënten voor binaire en categorische variabelen worden best gezien als het verschil in de gemiddelde score voor Y tussen de referentiecategorie en andere categorieën. De coëfficiënt voor "TYPEDEMO1984Democracies" is bijvoorbeeld `r coef(model_binary)[2]`.[^linear_02-3] Dit betekent dat de gemiddelde score op Y voor democratieën `r coef(model_binary)[2]` schaalpunten groter is dan de gemiddelde waarde voor autocratieën (de referentiecategorie).
+
+We kunnen dit wiskundig nagaan:
+
+```{r}
+# Gemiddelde voor democratieën
+demdata |> 
+  group_by(TYPEDEMO1984) |> 
+  summarize(mean_democracy = mean(v2x_polyarchy, na.rm = T)) |>
+  as.data.frame() 
+
+# gemiddelde democratieën - gemiddelde autocratieën
+ 0.6902456 - 0.4175698
+
+```
+
+Hetzelfde geldt voor categorische factorvariabelen. De "(Intercept)" waarde in `model_categorical` is de gemiddelde waarde voor de observaties in de referentiecategorie (hier: "Liberal Democracy"). De coefficiënten tonen hoe de andere groepen verschillen van dit gemiddelde. De gemiddelde 2020 democratiescore voor landen die in 2006 een "Electoral Democracy" waren is `r round(coef(model_categorical)[2],2)` schaalpunten lager dan de gemiddelde 2020 democratiescore voor de "Liberal Democracy" referentiegroep.
+
+```{r}
+demdata |> 
+  group_by(Typeregime2006) |> 
+  summarize(mean_democracy = mean(v2x_polyarchy, na.rm=T)) |> 
+  as.data.frame() 
+
+# gemiddelde Elec Democracy - gemiddelde in Lib Democracy
+0.4329811 - 0.7540423
+
+# gemiddelde in Autocracy - gemiddelde in Lib Democracy
+0.2482683 - 0.7540423
+```
+
+Zie @sec-reporting-linear-regression voor verdere informatie over hoe de resultaten te presenteren in taken en papers.
+:::
+
+[^linear_02-3]: Normaal ronden we af op 2 of 3 decimalen, maar hier tonen we de hele coëfficiënt zodat deze beter vergeleken kan worden met het verschil tussen de gemiddelden.

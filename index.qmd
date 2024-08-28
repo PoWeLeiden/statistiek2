@@ -1,0 +1,74 @@
+---
+code-annotations: hover
+---
+
+# Voorwoord {.unnumbered}
+
+Dit boek bevat het R-materiaal voor de cursus *Statistiek II*.
+
+We hebben het boek in drie delen verdeeld:
+
+1.  **Lineaire Statistische Modellen**: Dit onderdeel richt zich op het verklaren van de variatie in een continue afhankelijke variabele met behulp van lineaire statische analyses, in het bijzonder de regressieanalyse.
+2.  **Logistische Regressiemodellen**: Dit onderdeel richt zich op het voorspellen van een binaire afhankelijke variabele met logistische regressieanalyse.
+3.  **Interacties in Lineaire en Logistische Modellen**: Dit onderdeel richt zich op het gebruik van interactietermen in zowel de lineaire als logistische regressie.
+
+De drie onderdelen presenteren de belangrijkste syntax om de aangeleerde analysemethoden uit te voeren. De syntax wordt stapsgewijs uitgelegd en de logica van de verschillende functies wordt toegelicht. We voorzien de syntax ook van bijkomende commentaar waar nodig (in tekst met grijze achtergrond of in commentaarvakjes die je ziet als je met je computermuis hierop staat). Een voorbeeld:
+
+```{r}
+#| eval: false
+
+# Packages
+library(tidyverse)   #voor data management en grafieken
+
+# Een linear regressiemodel
+model1 <- lm(mpg ~ drat, data = mtcars) # <1>
+
+```
+
+1.  Sommige opmerkingen zetten we in deze tekstvakjes, vooral als ze wat langer zijn of wanneer ze zaken die al behandeld zijn herhalen.
+
+Dit overzicht bevat ook algemene richtlijnen over hoe de resultaten van statistische analyses te presenteren en te rapporteren. Je vindt de resultaten ('output') van analyses en bijkomende uitleg in volgende tekstvakken:
+
+::: callout-note
+#### Output uitleg
+
+In dit vak vind je uitleg over de R output van je analyses.
+:::
+
+::: callout-warning
+#### Interpretatie
+
+In dit vak vind je uitleg over het interpreteren van resultaten (bv. vuistregels over de sterkte van effecten).
+:::
+
+::: callout-tip
+#### Rapportage
+
+✓ Dit vak geeft uitleg over het presenteren van je resultaten aan een breder publiek.
+:::
+
+::: callout-important
+#### Waarschuwing!
+
+Dit vak wijst op mogelijke problemen die je kunt tegenkomen bij het uitvoeren van de analyse.
+:::
+
+Het laatste deel van het boek bevat twee bijlagen met bijkomende informatie. Appendix A geeft een overzicht van veel voorkomende fouten ('Common Errors') bij het uitvoeren van de analyses en bij het omzetten van een R Markdown bestand naar een html bestand (nodig voor de opdrachten). Appendix B geeft een overzicht van de R 'libraries' of 'packages' (en hun functies) die we gebruiken in deze cursus en de week waarin ze worden geïntroduceerd, en bevat ook het script waarmee je alle packages in 1 keer op je computer kunt installeren.
+
+## Statistiek I Boek
+
+De inhoud van dit boek bouwt verder op de leerstof van Statistiek 1. Data management (bv. filteren, hercoderen van variabelen, ontbrekende waarden aanduiden) blijft ook van belang voor dit vak. Deze leerstof kun je raadplegen in het Statistiek 1 [boek](https://poweleiden.github.io/statistiek1/). Soms verwijzen we in dit boek ook naar specifieke onderdelen van Statistiek 1 waar dit relevant is.
+
+## Overzicht per week
+
+Voor elke week in de cursus moet je relevante hoofdstukken lezen. In 2024-2025 is dit:
+
+| Week | Sectie                | Hoofdstukken                                                                                                                                      |
+|-----------|-----------|---------------------------------------------------|
+| 1    | Lineaire Modellen     | @sec-linear-covcor ; @sec-reporting-and-presenting-results (8.1 & 8.2)                                                                            |
+| 2    | Lineaire Modellen     | @sec-binary-predictors ; @sec-statistical-significance ; @sec-predicted-residual-values (5.1 & 5.2) ; @sec-reporting-and-presenting-results (8.3) |
+| 3    | Lineaire Modellen     | @sec-multiple-linear-regression ; @sec-predicted-residual-values (5.3) ; @sec-model-fit ; @sec-reporting-and-presenting-results (8.3 - 8.6)       |
+| 4    | Lineaire Modellen     | @sec-ols-assumptions                                                                                                                              |
+| 5    | Logistische Regressie | @sec-logistic-regression-odds-ratios ; @sec-marginal-effects ; @sec-logit-predicted-probabilities ; @sec-reporting-logit                          |
+| 6    | Logistische Regressie | @sec-logit-comparing ; @sec-logistic-regression-assumptions                                                                                       |
+| 7    | Interacties           | @sec-including-an-interaction-term-in-a-regression-model ; @sec-inter-marginal ; @sec-predicted-values-from-interaction-models                    |

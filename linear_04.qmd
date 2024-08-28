@@ -1,0 +1,183 @@
+# Meervoudige Lineaire Regressie {#sec-multiple-linear-regression}
+
+```{r}
+#| label: setupa²
+#| echo: false
+#| message: false
+#| warning: false
+
+library(rio)             #laden van data
+library(tidyverse)       #data manipulatie en grafieken
+library(broom)           #samenvattingen regressiemodellen
+library(parameters)      #berekenen gestandaardiseerde coëfficiënten
+
+demdata <- import("data/demdata.rds") |> 
+  as_tibble()
+
+demdata <- demdata |>  
+  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
+         Typeregime2006 = factorize(Typeregime2006))
+```
+
+In dit hoofdstuk ligt de focus op multiple (meervoudige) lineaire regressie, waarbij meerdere onafhankelijke variabelen gebruikt worden. We bespreken ook hoe *gestandaardiseerde* regressiecoëfficiënten te verkrijgen.
+
+We beginnen weer met het laden van relevante R packages. Deze packages zijn reeds geïnstalleerd op de universitaire computers, maar moeten eerst geladen worden. We laden ook onze dataset.
+
+```{r}
+#| eval: false
+
+#Packages
+library(rio)             #laden van data
+library(tidyverse)       #data manipulatie en grafieken
+library(broom)           #samenvattingen regressiemodellen
+library(parameters)      #berekenen gestandaardiseerde coëfficiënten
+
+##Import data
+demdata <- import("demdata.rds") |> 
+  as_tibble()
+
+```
+
+## Uitvoeren van de meervoudige lineaire regressie {#sec-performing-a-multiple-linear-regression}
+
+In dit voorbeeld voorspellen we het niveau van electorale democratie in een land (v2x_polyarchy) aan de hand van 3 onafhankelijke variabelen (2 continue en 1 binair):
+
+-   cpi: CPI staat voor "corruption perception index" en meet de mate van corruptie in de publieke sector van een land. Hogere waarden staan voor minder corruptie.
+-   v2caviol: De variabele meet de mate van politiek geweld uitgevoerd door niet-statelijke actoren. Hogere waarden betekenen meer geweld.
+-   TYPEDEMO1984: Binaire variabele die meet of een land in 1984 een democratie of autocratie was.
+
+Voor we de regressie kunnen uitvoeren, moeten we eerst de binaire variabele transformeren naar een factor:
+
+```{r}
+#omzetten naar factor variabele
+demdata <- demdata |> 
+  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984))
+```
+
+Voor meervoudige regressie gebruiken we ook de `lm()` functie. We kunnen meerdere onafhankelijke variabelen toevoegen met een '+' teken:
+
+```{r}
+#Model schatten en opslaan in data-object 
+model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984, 
+                     data=demdata)
+```
+
+`multiple <-`
+
+:   We slaan de resultaten op in een data object dat we 'multiple' noemen. Deze naam kun je zelf bepalen.
+
+`lm(v2x_polyarchy ~)`
+
+:   We voeren een lineaire regressie uit met de afhankelijke variabele "v2x_polyarchy". Deze plaatsen we links van de tilde (\~).
+
+`cpi + v2caviol + TYPEDEMO1984,`
+
+:   De onafhankelijke variabelen worden rechts van de tilde toegevoegd, van elkaar gescheiden door een '+' teken. De volgorde maakt geen verschil voor de resultaten (wel de volgorde van de coëfficiënten in de output).
+
+`data = demdata)`
+
+:   De naam van de dataset komt aan het einde van de syntax.
+
+De resultaten bekijken we via `summary()`:
+
+```{r}
+summary(model_multiple)
+```
+
+::: callout-warning
+#### Interpretatie
+
+De interpretatie van de coëfficiënten is gelijkaardig aan die van bivariate modellen, maar we moeten wel de inclusie van meerdere predictoren in rekening brengen.
+
+De "(Intercept)" waarde geeft weer welke waarde we kunnen verwachten voor de afhankelijke variabele als *alle* onafhankelijke variabelen de waarde 0 aannemen. We verwachten op basis van het model dat een land met score 0 op zowel `cpi`, `v2caviol`, als `TYPEDEMO1984` (de referentiecategorie, namelijk een autocratie in 1984) gemiddeld een score op electorale democratie in 2020 van `r round(coef(model_multiple)[1],2)` zal hebben.
+
+De coëfficiënten van de onafhankelijke variabelen vertellen ons nog steeds welke verandering we verwachten in de afhankelijke variabele als de predictor met 1 eenheid stijgt. Nu wordt dit effect echter "gecontroleerd op" de andere predictoren in het model. Het effect geldt als de andere variabelen constant worden gehouden ('ceteris paribus'). Bijvoorbeeld:
+
+-   **v2caviol**: Op basis van het model verwachten we dat electorale democratiescores dalen met `r round(coef(model_multiple)[3],2)` eenheden als politiek geweld met 1 eenheid stijgt, met de effecten van regimestatus in 1984 en corruptie constant gehouden.
+-   **TYPEDEMO1984**: Als we landen met dezelfde corruptie en politieke geweldscores vergelijken, verwachten we dat de electorale democratiescore in 2020 `r round(coef(model_multiple)[4],2)` eenheden hoger is voor landen die in 1984 democratieën waren dan landen die autocratieën waren.
+:::
+
+## Gestandaardiseerde coëfficiënten {#sec-standardized-coefficients}
+
+We kunnen in plaats van de ongestandaardiseerde coëfficiënten ook de gestandaardiseerde coëfficiënten berekenen. We kunnen hiervoor de `standardize_parameters()` functie gebruiken uit het `parameters` package.
+
+```{r}
+multiple_std <- standardize_parameters(model_multiple, 
+                       method = "refit")
+```
+
+De syntax lees je zo:
+
+`multiple_std <-`
+
+:   We slaan de resultaten op in een nieuw data object "multiple_std".
+
+`standardize_parameters(multiple,`
+
+:   We passen de functie toe op het model tussen haakjes
+
+`method = 'refit')`
+
+:   We gebruiken de `refit` methode, de standaardmethode. Met deze methode worden de afhankelijke en onafhankelijke variabelen gestandaardiseerd en dan wordt het model opnieuw geschat met deze gestandaardiseerde versies.
+
+We kunnen de resultaten vergelijken:
+
+`standardize_parameters()` creëert een data frame met volgende kolommen:
+
+```{r}
+glimpse(multiple_std)
+```
+
+::: callout-note
+#### Output uitleg
+
+-   Parameter: Naam van de term of variabele in het model
+-   Std_Coefficient: De waarde van de gestandaardiseerde coëfficiënt voor elke variabele
+-   CI: Niveau van het betrouwbaarheidsinterval voor de gestandaardiseerde coëfficiënt.
+-   CI_low en CI_high: De onder -en bovengrenzen van het betrouwbaarheidsinterval. Deze waarden worden gecombineerd in 1 cel als we de waarden straks printen.
+:::
+
+We kunnen de resultaten vergelijken met het ongestandaardiseerde model. We gebruiken `tidy()` hier om de output te vereenvoudigen.
+
+```{r}
+#Oorspronkelijk model
+tidy(model_multiple)
+
+#gestandaardiseerd model
+multiple_std
+```
+
+Voor de continue variabelen geven de gestandaardiseerde coëfficiënten weer hoeveel *standaardafwijkingen* de afhankelijke variabele gaat veranderen als de onafhankelijke variabele met *1 standaardafwijking* stijgt.[^linear_04-1]
+
+[^linear_04-1]: We zouden ook kunnen vragen enkel de onafhankelijke variabelen te standaardiseren en de schaal van de afhankelijke variabele te behouden met de optie "include_response = F" (F=False). Dit zou ons zeggen hoeveel Y verwacht wordt te veranderen op de originele schaal als de onafhankelijke variabele met 1 standaardafwijking stijgt. We kunnen dit doen als de schaal van de afhankelijke variabele zeer intuïtief is, bijvoorbeeld percentage stemmen voor een bepaalde partij.
+
+Voor factor variabelen ligt de interpretatie anders. De gestandaardiseerde coëfficiënt die we krijgen is de ongestandaardiseerde coëfficiënt gedeeld door de standaardafwijking van de afhankelijke variabele. De gestandaardiseerde coëfficiënten van continue en factor variabelen kunnen niet direct vergeleken worden.[^linear_04-2]
+
+[^linear_04-2]: De gestandaardiseerde coëfficiënten van continue en factor variabelen kunnen meer direct vergeleken worden als we de optie "two_sd = TRUE" toevoegen. De coëfficiënt van de continue onafhankelijke variabele geeft dan weer wat er gebeurt met Y als de onafhankelijke met *2 standaardafwijkingen* stijgt, ongeveer het volledige bereik van de onafhankelijke variabele.
+
+::: callout-warning
+#### Interpretatie
+
+We verwachten dat democratiescores met`r round(multiple_std$Std_Coefficient[3],2)` standaardafwijkingen dalen als politiek geweld met 1 standaardafwijking stijgt (en met de effecten van corruptie en regimestatus in het verleden constant gehouden).
+
+Als we landen met dezelfde corruptie en politieke geweldscores vergelijken, verwachten we dat de electorale democratiescore in 2020 `r round(multiple_std$Std_Coefficient[4],2)` standaardafwijkingen hoger is voor landen die in 1984 democratieën waren dan landen die autocratieën waren.
+:::
+
+::: callout-important
+#### Waarschuwing!
+
+Je zult opgemerkt hebben dat we noch `summary()` noch `tidy()` gebruikt hebben om de gestandaardiseerde coëfficiënten te printen in R. Deze functies zijn niet nodig omdat de output van `standardize_parameters()` reeds opgeslagen is in een dataframe.
+
+Indien je `summary()` zou gebruiken zou je samenvattende statistieken vinden voor elke kolom in het dataframe:
+
+```{r}
+summary(multiple_std)
+```
+
+Met `tidy()` krijg je een foutmelding gezien `tidy()` bedoeld is voor objecten die afkomstig zijn van statistische modellen:
+
+```{r}
+#| error: true
+tidy(multiple_std)
+```
+:::

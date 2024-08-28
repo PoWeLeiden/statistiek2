@@ -1,0 +1,197 @@
+# Model Fit en Modellen Vergelijken {#sec-logit-comparing}
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+#Packages
+library(rio)             #laden van data
+library(tidyverse)       #data manipulatie en grafieken
+library(performance)     #goodness-of-fit statistieken en tests
+
+#Data
+ESS9NL <- import("data/ESS9e03, Netherlands.sav")
+```
+
+In vorige hoofdstukken lag de focus op de effecten van de onafhaneklijke variabelen en hoe ze te begrijpen op basis van coëfficiënten, odds ratios, marginale effecten en voorspelde kansen. In dit hoofdstuk richten we ons op het model als geheel en hoe goed het bij de data past ('fit').
+
+We laden de packages en data:
+
+```{r}
+#| eval: false
+
+#Packages
+#Packages
+library(rio)             #laden van data
+library(tidyverse)       #data manipulatie en grafieken
+library(performance)     #goodness-of-fit statistieken en tests
+
+#Data
+ESS9NL <- import("ESS9e03, Netherlands.sav")
+
+```
+
+## Fit statistieken met `summary()`
+
+Laten we teruggaan naar het logistisch model waar we ook in vorige hoofdstukken mee werkten: wat is de kans dat iemand gaat stemmen op basis van informatie over gender, leeftijd, vertouwen in politici en links-rechtsideologie?
+
+```{r}
+#Data management
+ESS9NL <- ESS9NL |>
+  #Factor maken van categorische variabelen
+  mutate(gndr = factorize(gndr), 
+         vote = factorize(vote))  |> 
+  #Not Eligible op missing zetten
+  mutate(vote = na_if(vote,"Not eligible to vote")) |> 
+  #Relevel van variabelen
+  mutate(vote = relevel(vote, "No"), 
+         gndr = relevel(gndr, "Female"))
+
+#Het model
+Vote_model_mp <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+                data = ESS9NL, family = "binomial")
+
+#Resultaten printen
+summary(Vote_model_mp)
+```
+
+::: callout-note
+#### Output uitleg
+
+Zoals bij een lineair model (`lm`), zal de `summary()` functie in het onderste gedeelte van de output informatie bevatten over model fit. We krijgen informatie over de "Null" en "Residual Deviance" statistieken. De Residual Deviance statistiek duidt het verschil ("deviance") aan tussen het geschatte model en een "perect' model dat precies bij de data past. De Null Deviance statistiek doet dezelfde vergelijking, maar ten opzichte van een nulmodel dat enkel het intercept bevat.
+
+*Kleinere* Residual Deviance waarden duiden beter passende modellen aan. Echter is het niet gewenst om de deviance statistiek op zicht te interpreteren gezien de schaal onduidelijk is en er geen maximumwaarde is. Daarom maken we gebruik van andere statistieken en test gebaseerd op de deviance statistiek (zie onder).
+:::
+
+## Modellen vergelijken: Likelihood Ratio Test
+
+We kunnen de likelihood ratio test gebruiken om verschillende logistische regressiemodellen te vergelijken met elkaar en na te gaan welke beter past. De LRT berekent de ratio tussen de deviance statistieken van de modellen en gaat na of er een significant verschil is.
+
+Als we modellen willen verglijken moeten we net zoals bij lineaire regressie (zie @sec-linear-comparing-models) zorgen dat de modellen een gelijke N hebben en dat complexere modellen alle predictors bevatten van simpelere modellen (nested). We zorgen dat we eerst een dataset maken met complete observaties voor het meest complexe model (alle predictors).
+
+```{r}
+ESS9NL_glm <- ESS9NL |>
+  filter(complete.cases(vote,  gndr,  agea,  trstplt,  lrscale))
+```
+
+Dan schatten we een reeks modellen waaraan we telkens 1 van de onafhankelijke varaibelen toevoegen. We beginnen met een nulmodel dat enkel het intercept bevat. Het model met 1 onafhankelijke variabele kan daar dan mee vergeleken worden.
+
+```{r}
+#Nulmodel
+Vote_model0 <- glm(vote ~ 1,
+                      data = ESS9NL_glm, family = "binomial")
+# + gndr
+Vote_model1 <- glm(vote ~ gndr , 
+                data = ESS9NL_glm, family = "binomial")
+# + agea
+Vote_model2 <- glm(vote ~ gndr + agea , 
+                data = ESS9NL_glm, family = "binomial")
+
+# + trst
+Vote_model3 <- glm(vote ~ gndr + agea + trstplt, 
+                data = ESS9NL_glm, family = "binomial")
+
+# + lrscale
+Vote_model4 <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+                data = ESS9NL_glm, family = "binomial")
+
+```
+
+Nu kunnen we de likelihood ratios van deze modellen met elkaar vergelijken en significantietoetsen uitvoeren. We gebruiken het `performance` package met de `test_likelihoodratio` functie. De test vergelijkt de deviance statistiek (-2LL) van elk model, de verandering in vrijheidsgraden (df= degrees of freedom) per model, en gebruikt een Chi^2^ ($\chi^2$) toets.
+
+```{r}
+test_likelihoodratio(Vote_model0,
+                     Vote_model1,
+                     Vote_model2,
+                     Vote_model3,
+                     Vote_model4)
+```
+
+`test_likelihoodratio(`
+
+:   : We voeren de likelihood ratio test uit op de modellen tussen haakjes. Er moeten minstens twee modellen aangeduid zijn en de volgorde bepaalt welke vergelijking gemaakt wordt.
+
+::: callout-note
+#### Output uitleg
+
+De output lees je als volgt:
+
+-   `Name`: naam van het object waarin het model is opgeslagen
+-   `Model`: informatie over het type model. Te negeren.
+-   `df`: Geeft weer hoeveel termen gebruikt werden in het model. `Vote_model0` heeft een `df` van 1 gezien er maar 1 term is: het intercept. `Vote_model4` heeft 5 `df` omdat er 5 termen zijn: het intercept en de coëfficiënten voor de 4 onafhankelijke variabelen.
+-   `df_diff`: Geeft weer hoeveel het model verschilt van het vorige model in termen van `df`. Dit is telkens 1 hier omdat we telkens maar 1 nieuwe predictor hebben toegevoegd.
+-   `Chi2` & `p`: Dit is de Chi^2^ statistiek en bijhorende p-waarde. De test gaat na of de fit van een model beter is dan de fit van het model in de rij erboven. De nulhypothese is dat er geen verschil is in fit. Een significante toets betekent dat het model beter past.
+:::
+
+In dit voorbeeld:
+
+-   Model 1 heeft *geen* significant betere fit dan een nulmodel (`vote_model0`)
+-   Model 2 heeft een betere fit dan Model 1
+-   Model 3 heeft een betere fit dan Model 1 Model 2
+-   Model 4 heeft *geen* significant betere fit dan Model 3.
+
+We kunnen concluderen dat Model 3 (`vote_model3`) het best passende model is zonder inclusie van nietszeggende variabelen (i.e. het model is het meest 'parsimonious').
+
+Zoals het geval was voor de `anova()` functie bij lineaire regressie kun je ook specifieke groepen van modellen vergelijken:
+
+```{r}
+#Past Model 4 beter dan Model 1?: Ja!
+test_likelihoodratio(Vote_model1, Vote_model4)
+
+#Past Model 3 beter dan een nulmodel?: Ja!
+test_likelihoodratio(Vote_model0, Vote_model3)
+```
+
+::: callout-important
+#### Waarschuwing!
+
+De volgorde waarin we onze modellen aanduiden in de `test_likelihoodratio()` syntax bepaalt welke modellen precies vergeleken worden net zoals met `anova()` bij lineaire regressie ( @sec-linear-comparing-models). Bij een verkeerde volgorde krijg je een error in R. Een juiste volgorde houdt in dat je van minder naar meer complex gaat:
+
+```{r}
+#| error: true
+
+test_likelihoodratio(Vote_model0,
+                     Vote_model4,
+                     Vote_model2,
+                     Vote_model1,
+                     Vote_model3)
+
+```
+
+Als we 2 modellen testen en de eerste in de syntax is de meest complexe, dan krijgen we dezelfde Chi^2^ en p-waarde vergeleken met een juiste volgorde, maar de `df_diff` zal negatief zijn (-3 ipv +3 in dit voorbeeld). Op zich is dit geen probleem, zolang we maar weten wat we precies aan het vergelijken zijn zodat we geen interpretatiefouten maken.
+
+```{r}
+test_likelihoodratio(Vote_model4, Vote_model1)
+```
+:::
+
+## Pseudo R^2^
+
+Bij een lineair regressiemodel beoordelen we fit met de R^2^ waarde. Een logistisch model is anders geschat en dus hebben we deze waarde niet. Verschillende zogenaamde *pseudo* R^2^ statistieken werden ontwikkeld om meer intuïtief inzicht te verkrijgen in de verklarende kracht van een model. De *pseudo* R^2^ maatstaven zijn gebaseerd op de lieklihood ratio test en kunnen niet als 'proportie verklaarde variantie' geïnterpreteerd worden.
+
+Hier gebruiken we de Nagelkerke R². De waarde van deze maatstaf ligt tussen 0 en 1. Lage waarden wijzen op een lage verklarende kracht, hoge waarden op een hoge verklarende kracht.
+
+We kunnen de Nagelkerke R² statistiek opvragen met de `r2_nagelkerke()` functie uit het `performance` package.
+
+```{r}
+# Nagelkerke R2: Model 3
+r2_nagelkerke(Vote_model3)
+
+# Nagelkerke R2: Model 4
+r2_nagelkerke(Vote_model4)
+
+```
+
+`r2_nagelkerke(`
+
+:   Deze functie berekent de Nagelkerke R^2^ voor het model tussen haakjes. Er kan slecht 1 model opgegeven worden.
+
+De Nagelkerke R^2^ is hoger voor Model 4 dan Model 3. Echter is een likelihood ratio test nodig om te weten of dit verschil significant is. Zoals we hierboven zagen is dit niet het geval.
+
+::: callout-important
+#### Waarschuwing!
+
+Er bestaan verschillende pseudo R^2^ statistieken om de fit van logistische regressiemodellen te helpen interpreteren. *Geen enkele* van hen kan geïnterpreteerd worden in termen van 'proprotie verklaarde variantie'.
+:::
