@@ -1,0 +1,258 @@
+---
+code-annotations: hover
+---
+
+# Voorspelde Waarden van Interactiemodellen {#sec-predicted-values-from-interaction-models}
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+#Packages
+library(broom)        #Modelresultaten
+library(rio)          #laden van data
+library(tidyverse)    #data manipulatie en grafieken
+library(marginaleffects) #marginale effecten en voorspelde waarden berekenen
+
+#Data
+anes <- import("data/anes_interactions.rda")
+
+#Modellen
+biden_int <- lm(biden ~ pid * right_track + rural_urban, data = anes)
+righttrack_int <- glm(right_track ~ vote2016 * age + rural_urban, 
+                      family = "binomial", data = anes)
+```
+
+```{r}
+#| eval: false
+
+#Packages
+library(broom)        #Modelresultaten
+library(rio)          #laden van data
+library(tidyverse)    #data manipulatie en grafieken
+library(marginaleffects) #marginale effecten en voorspelde waarden berekenen
+
+#Data
+anes <- import("data/anes_interactions.rda")
+
+#Modellen
+biden_int <- lm(biden ~ pid * right_track + rural_urban, data = anes)
+righttrack_int <- glm(right_track ~ vote2016 * age + rural_urban, 
+                      family = "binomial", data = anes)
+```
+
+We kunnen marginale effecten gebruiken om interactie-effecten te verduidelijken zoals we in het vorige hoofdstuk gezien hebben. Maar we kunnen ook kijken naar voorspelde waarden (of kansen bij logistische regressie) van Y als een onafhankelijke variabele X en een onafhankelijke variable Z (de moderator) andere waarden aannemen. We gebruiken de `predictions()` functie uit het `marginaleffects` package. We bouwen verder op reeds geziene informatie in andere hoofdstukken (lineaire regressie: @sec-predicted-residual-values; logistische regressie: @sec-logit-predicted-probabilities).
+
+## Binaire X Continue Interactie
+
+We hebben reeds een model geschat waarbij scores voor kandidaat Biden voorspeld worden met een interactie van partij-identificatie (pid) en perceptie over de richting dat het land uitgaat (right_track).
+
+Op basis van dit model (biden_int), berekenen we nu met `predictions()` de voorspelde waarden voor elke combinatie van waarden voor de 2 onafhankelijke variabelen in de interactie (bv. pid = 1 & right_track = "Right Direction", pid = 1 & right_track = "Wrong Track", pid = 2 & right_track = "Right Direction"...). Als er te veel waarden zouden zijn om realistisch op deze manier te werk te gaan dan kiezen we voorspellingen op basis van een subset van waarden (bv. minimum, gemiddelde, maximum).
+
+Andere onafhankelijke variabelen in het model worden op hun gemiddelde (continue variabelen) of modus (factor variabelen) gehouden.
+
+```{r}
+#Voorspelde waarden berekenen en opslaan in data object
+biden_int_preds <- predictions(biden_int, 
+            newdata = datagrid(pid = c(1,2,3,4,5,6,7), 
+                               right_track = c("Right Direction", "Wrong Track")))
+
+```
+
+`biden_int_preds <- predictions(biden_int,`
+
+:   We passen de functie 'predictions' toe op het model tussen haakjes en slaan de resultaten op in een data object ("biden_int_preds") dat we later weer kunnen gebruiken.
+
+`newdata = datagrid(pid = c(1,2,...7), right_track = c("Right Direction", "Wrong Track")))`
+
+:   We duiden de gewenste waarden van de predictoren aan waarvoor voorspellingen berekend zullen worden met de "newdata = datagrid()" optie. We duiden alle waarden voor pid aan (1 tot 7) en de 2 mogelijke waarden voor right_track (Right Direction or Wrong Track).[^interaction_03-1] In eigen toepassingen wordt dit aangepast volgens de eigen variabelen.
+
+[^interaction_03-1]: De waarden voor pid zouden we ook als volgt kunnen aanduiden: `pid = c(1:7)`.
+
+De dataset die we verkrijgen heeft 14 rijen met voorspelde waarden: 7 (waarden voor `pid`) * 2 (waarden voor `right_track`).
+
+```{r}
+# print resultaten
+biden_int_preds
+```
+
+De voorspellingen kunnen we visueel presenteren in een plot. Het proces dat we volgen is vrijwel hetzelfde als wat we doen voor een model zonder interactie (zie @sec-presenting-linear-regression-predicted-values-plots). Er is echter een belangrijke toevoeging: het `linetype` gedeelte van de syntax, dat enkel gebruikt kan worden indien er een factor variabele is. 
+
+Voor we het plot produceren veranderen we de waarden voor right_track naar het Nederlands zodat ze correct worden weergegeven op het plot. Net zoals bij marginale effecten zouden we de code voor predictions ook kunnen combineren met de `ggplot` code via de pipe operator.
+
+```{r}
+biden_int_preds |>
+  mutate(right_track = recode(right_track, 
+                       "Wrong Track" = "Verkeerde richting",
+                       "Right Direction" = "Goede richting")) |>
+ggplot(aes(x=pid, y=estimate, linetype = right_track)) + 
+  geom_line() + 
+  geom_ribbon(aes(ymin=conf.low, ymax=conf.high), alpha = 0.2) + 
+  labs(title = "Voorspelde score voor Biden", 
+       x = "Partij-identificatie", 
+       y = "Voorspelde waarden", 
+       linetype = "Richting land" ) + 
+  scale_x_continuous(breaks=c(1,2,3,4,5,6,7))
+```
+
+`ggplot(..., linetype = right_track)) + geom_line() + geom_ribbon(...) +`
+
+:   Dit gedeelte van de syntax is grotendeels ook al gebruikt in eerdere weken. Een belangrijke toevoeging is `linetype = right_track`. Zo vragen we `ggplot()` om de voorspelde waarden voor elke categorie van "right_track" weer te geven als verschillende lijnen. We zouden de voorspellingen ook kunnen onderscheiden op een andere manier, bv. met kleur (`color = right_track`). De `linetype` (en `color`) functies werken enkel met factor variabelen. De variabele `right_track`is hier reeds een factor dus we hebben geen verdere data managment stappen moeten ondernemen. Zie @sec-linetype-error voor meer informatie.
+
+## Continue X Continue Interactie
+
+Om voorspelde waarden voor interacties tussen continue variabelen te berekenen en te plotten, is het proces iets ingewikkelder, omdat er veel mogelijke combinaties van waarden zijn om voorspellingen voor te maken.
+
+In het vorige hoofdstuk hebben we het `biden_int2` model gebruikt om Biden scores te voorspellen met een interactie tussen `age` en `socialists`. We schatten dat model opnieuw hieronder.
+
+
+```{r}
+#Model schatten en resultaten opslaan
+biden_int2 <- lm(biden ~ socialists * age + rural_urban, data = anes)
+
+#resultaten bekijekn
+tidy(biden_int2)
+```
+
+Beide variabelen kunnen veel mogelijke waarden aannemen. We zouden voorspellingen kunnen maken voor waarden van 0 tot 100 voor `socialists` met intervallen van 10, en van 20 tot 80 voor `age`met intervallen van 10. Dit zou ons echter veel waarden opleveren die we moeilijk zouden kunnen plotten (en begrijpen). 
+
+Wat vaak gebeurt in de praktijk is dat we 1 van de 2 predictoren kiezen en voorspellingen maken voor 3 waarden: het gemiddelde, 1 standaarddeviatie (SD) onder het gemiddelde en 1 standaarddeviatie (SD) boven het gemiddelde. De continue variabele zal eigenlijk getransformeerd worden in een factor met 3 waarden. Zo kunnen we een plot maken met 3 lijnen. We transformeren doorgaans de moderator (Z).
+
+Voor het 'biden_int2' model, nemen we nu (bij wijze van voorbeeld) socialists als de moderator. Eerst berekenen we de drie relevante waarden (gemiddelde, 1 SD daaronder, 1 SD daarboven. Deze statistieken moeten we berekenen op basis van de observaties gebruikt in het model. Dit zijn niet altijd het aantal observaties in de dataset door missende waarden op andere variabelen. Als tussenstap gebruiken we hier de `predictions()` functie van het `marginaleffects` package gezien deze functie een nieuwe dataset creëert met alle complete observaties. [^interaction_03-2]
+
+[^interaction_03-2]: We zouden ook de originele dataset (`anes`) kunnen nemen, missing waarden voor de variabelen gebruikt in het model wegfilteren en de juiste statistieken berekenen: `anes \|\> filter(complete.cases(biden, socialists, age, rural_urban)) \|\> summarize(...)`.`predictions()` combineert deze stappen voor ons.
+
+```{r}
+predictions(biden_int2) |>   #nieuw dataobject met complete observaties
+  summarise(
+    mean_below = mean(socialists) - sd(socialists), #1 SD onder gemiddelde
+    mean = mean(socialists),                        #gemiddelde
+    mean_above = mean(socialists) + sd(socialists)) #1 SD boven gemiddelde
+```
+
+Nu kunnen we de voorspelde waarden berekenen op basis van de waarden voor socialists die we net berekend hebben. Voor leeftijd vragen we ook geen voorspellingen over de hele schaal, maar voor de leeftijden van 20 tot 80 met tussenstappen van 10 jaar.
+
+```{r}
+#voorspelde waarden
+biden_int2_preds <- predictions(biden_int2, 
+            newdata = datagrid(
+              socialists = c(9.72, 38.34, 66.96), 
+              age = c(20,30,40,50,60,70,80))) 
+
+#print resultaten
+biden_int2_preds
+```
+
+Deze dataset heeft 21 observaties: 7 waarden voor age * 3 waarden voor socialists.
+
+We plotten de voorspelde waarden zoals hiervoor met het `linetype` statement. We moeten de socialist variabele in de predictions dataset wel veranderen in een factor om het statement te kunnen gebruiken. We gebruiken hier de 'factor' functie gezien de data numeriek is en niet gelabeld (bij labels gebruiken we doorgaans factorize).
+
+```{r}
+#Class variabele
+class(biden_int2_preds$socialists)
+
+#factor maken
+biden_int2_preds <- biden_int2_preds |> 
+  mutate(socialists = factor(socialists, 
+                             levels = c(9.72, 38.34, 66.96), 
+                             labels = c("1SD < Gemiddelde", "Gemiddelde", "1SD > Gemiddelde")))
+```
+
+We kunnen dan de plot maken op een vergelijkbare manier als eerder:
+
+```{r}
+ggplot(biden_int2_preds, aes(x=age, y=estimate, linetype=socialists)) + 
+  geom_line() + 
+  geom_ribbon(aes(ymin=conf.low, ymax=conf.high), alpha = .2) + 
+  labs(title = "Voorspelde score voor Biden", 
+       y = "Voorspelde score", 
+       x = "Leeftijd", 
+       linetype= "Voorkeur socialisten (hoger = meer voorkeur)")
+```
+
+## Binaire x Binaire Interactie
+
+Voor een interactie met twee binaire variabelen gelden gelijkaardige principes.
+
+Een dergelijke interactie gebruiken we in het `biden_int3`-model, namelijk een interactie tussen (`right_track`) en `vote2016` (Clinton kiezer = 0, Trump kiezer = 1). Als controlevariabele voegen we `rural_urban` toe.
+
+```{r}
+#Model schatten en resultaten oplsaan
+biden_int3 <- lm(biden ~ right_track * vote2016 + rural_urban, data = anes)
+
+#resultaten printen
+tidy(biden_int3)
+```
+
+We gebruiken `predictions()` om voor alle combinaties van deze twee variabelen voorspelde waarden te berekenen. Dit resulteert in 4 voorspelde waarden: Clinton voter & "right direction", Clinton voter & "wrong track", Trump voter & "right direction", en Trump voter & "wrong track".
+
+```{r}
+predictions(
+  biden_int3, 
+  by = c("right_track", "vote2016"), 
+  newdata = "mean")
+```
+
+
+`by = c("right_track", "vote2016")`
+
+:   Om voorspelde waarden te verkrijgen voor alle categorieën van een binaire/categorische variabele kunnen we gebruik maken van de by = "variable name" optie. Gezien beide predictoren factor variabelen zijn duiden we ze beiden aan.
+
+`newdata = "mean")`
+
+:   Deze optie hebben we hier nodig (gezien we het 'by' statement gebruiken) om de overige onafhankelijke variabelen op hun gemiddelde of modus te houden.
+
+De resultaten kunnen we in een plot visualiseren. De syntax is vrijwel hetzelfde als die voor plots van voorspelde waarden voor 1 factor variable (@sec-presenting-linear-regression-predicted-values-plots). We moeten gebruikmaken van `geom_pointrange()`. Nieuw is dat we voorspellingen onderscheiden van elkaar op basis van de waarden van de moderator via de `shape =` optie. Deze vertelt aan ggplot verschillende vormen te gebruiken voor de voorspelde waarden.[^interaction_03-3] 
+
+Voor we plotten vertalen we de labels voor `vote2016` naar het Nederlands.
+
+[^interaction_03-3] Dit zou eventueel ook kunnen via kleuren (bv. `color = vote2016)`. Let er wel op dat niet iedereen kleuren kan zien (R heeft wel color-bind palettes beschikbaar). Bovendien kan een plot met kleuren onduidelijk worden afgedrukt in zwart/wit.
+
+```{r}
+predictions( #<1> 
+  biden_int3, 
+  by = c("right_track", "vote2016"), 
+  newdata = "mean") |> 
+  ggplot(aes(x = right_track, y=estimate, shape = vote2016)) + 
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) +  # <2>
+  geom_text(aes(label = round(estimate, 2), hjust=-0.2)) + 
+  labs(title = "Voorspelde score voor Biden", 
+       x = "Richting van het land", 
+       y = "Voorspelde score Biden", 
+       shape = "Stemkeuze 2016") + 
+  scale_y_continuous(limits = c(0 , 100)) + #<3>
+    scale_x_discrete(labels = c("Wrong Track" = "Verkeerde richting", "Right Direction" = "Goede richting"))
+```
+
+1.  We doen hier alles in 1 syntax-stap. We zouden dit in meerdere stappen kunnen opspitsen: eerst voorspellingen maken en oplsaan in data-object, dan data doorvoeren naar `ggplot()`.
+2.  Indien voorspelde waarden gelijkaardig zijn dan kunnen de markers overlappen. Om dit te verhelpen kun je de markers wat verplaatsen door `, position = position_dodge(width = 0.2)` toe te voegen aan het `geom_pointrange()` gedeelte, na het `aes()` gedeelte. De waarde waarmmee markers verschoven worden (hier: 0.2) kun je veranderen.
+3.  We zetten de y-as op een schaal van 0 tot 100. Dit is niet strikt nodig, maar kan de figuur duidelijker maken.
+
+## Logistische regressie: voorbeeld
+
+Bovenstaande syntax is ook van toepassing voor logistische regressie. Hier voorspellen we probabiliteiten in plaats van scores. In dit voorbeeld gebruiken we een `rightrack_int` model waarin we `rightrack` voorspellen en een interactie hebben tussen `vote2016` en `age`.
+
+```{r}
+tidy(righttrack_int)
+```
+
+We berekenen de voorspelde kans dat een respondent vindt dat het land de goede richting uitgaat met combinaties van waarden voor `age` en `vote2016`. We maken voorspellingen, vertalen de labels en maken het plot:
+
+```{r}
+right_track_int_preds <-predictions(righttrack_int, 
+            newdata = datagrid(age = seq(from=20,to=80, by=10), 
+                               vote2016 = c("Trump Vote", "Clinton Vote"))) |>
+  mutate(vote2016 = recode(vote2016, 
+                       "Clinton Vote" = "Clinton Stem",
+                       "Trump Vote" = "Trump Stem"))
+  ggplot(right_track_int_preds, aes(x=age, y=estimate, linetype=vote2016)) + 
+  geom_line() + 
+  geom_ribbon(aes(ymin=conf.low, ymax=conf.high), alpha = 0.2) + 
+  labs(title = "Voorspelde kans dat respondent vindt dat het land de goede richting uitgaat", 
+       y = "Voorspelde kans", 
+       x = "Leeftijd", 
+       linetype = "2016 Stemkeuze") + 
+  scale_y_continuous(limits=c(0,1)) 
+```

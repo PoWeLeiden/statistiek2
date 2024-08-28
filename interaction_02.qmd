@@ -1,0 +1,286 @@
+---
+code-annotations: hover
+---
+
+# Marginale Effecten in Interactiemodellen {#sec-inter-marginal}
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+#Packages
+
+library(broom)        #Modelresultaten
+library(rio)          #laden van data
+library(tidyverse)    #data manipulatie en grafieken
+library(marginaleffects) #marginale effecten en voorspelde waarden berekenen
+
+
+#Data
+anes <- import("data/anes_interactions.rda")
+
+#Modellen
+biden_int <- lm(biden ~ pid * right_track + rural_urban, data = anes)
+righttrack_int <- glm(right_track ~ vote2016 * age + rural_urban, 
+                      family = "binomial", data = anes)
+```
+
+```{r}
+#| eval: false
+
+#Packages
+library(broom)        #Modelresultaten
+library(rio)          #laden van data
+library(tidyverse)    #data manipulatie en grafieken
+library(marginaleffects) #marginale effecten en voorspelde waarden berekenen
+
+#Data
+anes <- import("data/anes_interactions.rda")
+
+#Modellen
+biden_int <- lm(biden ~ pid * right_track + rural_urban, data = anes)
+righttrack_int <- glm(right_track ~ vote2016 * age + rural_urban, 
+                      family = "binomial", data = anes)
+
+```
+
+In het vorige hoofdstuk bespraken we hoe we een interactieterm toe te voegen aan een regressiemodel. Zo kunnen we nagaan of het effect van een onfahankelijke variabele verschilt naargelang een andere onafhankelijke variabale andere waarden aanneemt:
+
+![](figures/Interaction.png){fig-align="center"}
+
+In dit model bekijken we bijvoorbeeld of iemands evaluatie van Joe Biden afhangt van partij-identificatie, oordeel of het land in de juiste of verkeerde richting gaat, en de interactie tussen deze 2 predictors.
+
+```{r}
+tidy(biden_int, conf.int = TRUE) 
+```
+
+Wat betekenen deze coëfficiënten nu? Het toevoegen van een interactieterm leidt tot andere interpretaties dan degene die we hiervoor hebben gezien in modellen zonder interacties.
+
+::: callout-warning
+#### Interpretatie
+
+De coëfficiënten van de variabelen die de interactie opmaken interpreteren we niet op dezelfde manier als coëfficiënten die geen deel uitmaken van een interactie.
+
+Stel bijvoorbeeld dat we het volgende model hebben: Y = Constante + Variabele 1 + Variabele 2 + (Variabele 1 \* Variabele 2).
+
+-   Coëfficiënt voor Variabele 1 (bv., `pid`): het verband tussen de Variabele 1 en Y als Variabele 2 (bv., `right_track`) gelijk is aan 0.
+-   Coëfficiënt voor Variable 2 (bv., `right_track`): het verband tussen de Variabele 2 en Y als Variabele 1 (bv., `pid`) gelijk is aan 0.[^interaction_02-1]
+-   Coëfficiënt voor de interactievariabele (bv., `right_trackRight Direction`): Hoe verandert de regressiecoëfficiënt voor een van de variabelen in de interactie als de andere variabele met 1 eenheid stijgt?
+    -   1\) Hoe verandert het verband tussen `pid` en `biden` als `right_track` met 1 eenheid stijgt? OF
+    -   2\) Hoe verandert het verband tussen `right_track` en `v2x_polyarchy` als `pid` met 1 eenheid stijgt?
+:::
+
+[^interaction_02-1]: Onze `pid` variabele heeft een bereik van 1 tot 7 en kent dus geen nulwaarde. Het effect wordt geëxtrapoleerd alsof er een nulwaarde zou zijn. Dit vormt niet echt een probleem.
+
+Interactietermen kunnen moeilijk zijn om te interpreteren op basis van de standaard output van een regressieanalyse. Het berekenen en plotten van *marginale effecten* kan de interpretatie vergemakkelijken voor jezelf en je lezers: Wat is de verwachte verandering in Y als X met 1 eenheid stijgt. Deze verandering drukken we uit in eenheden voor een continue Y (OLS) en in percenpunten kans voor een binaire Y. Bij een interactie-effect berekenen (en plotten) we de verwachte verandering in Y als X met 1 eenheid stijgt voor verschillende waarden van een andere predictor Z. We gebruiken de `slopes()` functie uit het `marginaleffects` package.
+
+We geven hieronder voorbeelden voor verschillende types onafhankelijke variabelen (bv. binair *x* continu, continu * continue etc).[^interaction_02-2]
+
+[^interaction_02-2]: We tonen geen voorbeeld voor een interactie met een categorische variabele met 3 of meer categorieën maar dezelfde principes als binaire variabelen worden gevolgd hiervoor.
+
+## Binaire X Continue Interactie
+
+### Berekening en interpretatie
+
+We bekijken eerst hoe we de marginale effecten berekenen voor een interactie tussen een binaire en continue variabele. Dit was het geval voor ons 'biden_int' model waarin een interactie werd toegevoegd tussen partij-identificatie (pid, loopt van 1 'Overtuigd Democraat' tot 7 'Overtuigd Republikein') en right_track (waarbij '0' betekent dat een respondent vindt dat het de verkeerde richting uitgaat met het land en '1' dat het de goede richting uitgaat met het land).
+
+Hier gebruiken we de `slopes()` functie om het effect van pid op Biden scores te berekenen voor elke waarde van right_track. Wanneer de moderator (Z) een factor variabele is, zoals hier het geval is, gebruiken we de volgende code:
+
+
+```{r}
+slopes(biden_int, 
+       variables = "pid", 
+       by = "right_track")
+```
+
+`slopes(biden_int,`
+
+:   We passen de functie `slopes` toe op het model tussen haakjes.
+
+`variables = "pid"`
+
+:   We duiden hier de onafhankelijke variabele aan waarvoor we de verschillende marginale effecten willen berekenen. Voor eigen toepassingen voeg je hier je eigen continue variabele toe.
+
+`by = "right_track"`
+
+:   Hier wordt de moderator variabele aangeduid. De code kan enkel gebruikt worden als de moderator een factor is.
+
+De helling van de regressielijn voor `pid` als `right_track` = 'Right Direction'" is -7.11. De helling van pid wanneer `right_track` = 'Wrong Track' is -10.82. Het effect van partij-identificatie op de score voor Biden is sterker (negatiever) als respondenten vinden dat het de verkeerde richting uitgaat met het land. Dit effect is ook statistisch significant (p \< 0.001). Dit zien we aan de p-waarde voor de interactie-term (zie onder). We kunnen de nulhypothese verwerpen dat het effect van `pid` niet verschilt naargelang `right_track` andere waarden aanneemt.
+
+Je ziet ook dat het effect van `pid`als `right_track` = 'Wrong Track' gelijk is aan de coëfficiënt van `pid` in het model (dit effect geldt als moderator 0 is). Het verschil tussen de 2 marginale effecten is gelijk aan de waarde van de interactiecoëfficiënt.
+
+```{r}
+#resultaten om coëfficiënten en significantie te tonen
+tidy(biden_int) |> select(term, estimate, p.value)
+
+#Marginaal effect (Right Direction) - Marginaal effect (Wrong Track) = coëfficiënt van de interactieterm
+-7.11 - (-10.82)
+```
+
+We kunnen ook onderzoeken hoe het effect van de factor variabele `right_track` op de afhankelijke variabele anders is voor verschillende waarden van partij-identificatie. We kiezen er hier voor de effecten te berekenen voor elke waarde van pid gezien er maar 7 waarden zijn.
+
+```{r}
+slopes(biden_int, 
+       variables = "right_track", 
+       newdata = datagrid(pid = c(1,2,3,4,5,6,7)))
+```
+
+`newdata = datagrid(pid = c(1,2,3,4,5,6,7)))`
+
+:   We geven hier de waarden op van de moderator waarvoor marginale effecten van de andere predictor berekend moeten worden. De waarden dien je te veranderen voor eigen toepassingen. We gebruiken "newdata = datagrid()" omdat pid hier als continue variabele wordt gebruikt.
+
+De output hierboven toont dat het effect van `right_ direction'_track`ongeveer -29.47 punten is voor overtuigde Democraten (pid=1), -25.76 punten voor minder overtuigde Democraten (pid = 2), en -7.19 punten voor overtuigde Republikeinen (pid=7). Het effect van de `right_track` variabele daalt met 3.71 eenheden telkens als `pid`met 1 eenheid stijgt: dit is de waarde van de interactiecoëfficiënt.
+
+
+```{r}
+##resultaten om coëfficiënten en significantie te tonen
+tidy(biden_int) |> select(term, estimate, p.value)
+
+#Marginaal effect (PID = 2) - Marginaal effect (PID = 1) = coëfficiënt van de interactieterm
+-25.76 - (-29.47)
+
+#Marginaal effect (PID = 7) - Marginaal effect (PID = 6) = coëfficiënt van de interactieterm
+-7.19 - (-10.90)
+```
+
+De statistisch significante interactieterm leidt ertoe dat we de nulhypothese verwerpen dat het effect van `right_track` gelijk blijft als `pid`verandert.
+
+### Plotten {#sec-ame-plotting}
+
+Marginale effecten worden vaak gevisualiseerd in een grafiek. De y-as in deze grafieken is het geschatte marginale effect en de x-as is de waarde die de moderator aanneemt. We bekijken eerst het voorbeeld waarbij de factor variabele de moderator is. De ggplot code hebben we gebruikt in eerdere weken. Belangrijk: we gebruiken `geom_pointrange` wanneer de moderator een factor is (hier: `right_track`).
+
+```{r}
+slopes(biden_int, # <1> 
+       variables = "pid",  
+       by = "right_track") |> 
+  ggplot(aes(x = right_track, y = estimate)) + 
+  geom_pointrange(aes(ymin = conf.low, ymax = conf.high)) + 
+  labs(title = "Marginaal effect van partij-identificatie op Biden score", 
+       y = "Effect van partij-identificatie (pid)", 
+       x = "Land gaat goede of verkeerde richting uit?")  + 
+  geom_text(aes(label = round(estimate, 2)), hjust = -0.2) +
+   geom_hline(yintercept = 0, linetype = 'dashed', color = 'red') +
+  scale_x_discrete(labels = c("Wrong Track" = "Verkeerde richting", "Right Direction" = "Goede richting"))
+```
+
+1.  In dit voorbeeld nemen we de output van `slopes()` onmiddellijk op met `ggplot()` via de pipe operator. We zouden ook de resultaten van `slopes()` in een data object kunnen opslaan en die resultaten gebruiken voor een nieuwe `ggplot()` functie.
+
+En hier is het voorbeeld waarbij de continue variabele de moderator is. We gebruiken nu `geom_line()` in combinatie met `geom_ribbon`:
+
+```{r}
+#Effect van right_track bij verschillende waarden pid
+slopes(biden_int, 
+       variables = "right_track", 
+       newdata = datagrid(pid = c(1,2,3,4,5,6,7))) |> 
+  ggplot(aes(x=pid, y=estimate)) + 
+  geom_line() + 
+  geom_ribbon(aes(ymin=conf.low, ymax=conf.high), alpha = 0.2) + 
+  labs(title = "Marginaal effect van perceptie over de richting van het land" ,
+       y = "Verkeerde richting (0) - Goede richting (1)", 
+       x = "Partij-identificatie (hogere waarden: meer Republikeins)") + 
+  geom_hline(yintercept = 0, linetype = 'dashed', color = 'red') + 
+  scale_x_continuous(breaks=c(1,2,3,4,5,6,7)) # <1>
+```
+
+1.  Zonder deze regel zou `ggplot()` enkel ticks tonen bij 2, 4, and 6. Dit is vaak voldoende maar hier is het handig het volledige bereik van de continue variabele te kunnen plotten (1 tot 7).
+
+## Continue X Continue Interactie
+
+De code voor de berekening van marginale effecten bij een interactie tussen 2 continue variabelen volgt dezelfde principes. In het voorbeeld hier voorspellen we de score voor Biden op basis van de volgende onafhankelijke variabelen: `age` (leeftijd), `socialists` (evaluatie van socialisten op een schaal van 0 ('heel koud of ongunstig') tot 100 ('heel warm of gunstig'), en `rural_urban` als controlevariabele.
+
+
+```{r}
+#Model schatten en resultaten opslaan in object
+biden_int2 <- lm(biden ~ socialists * age + rural_urban, data = anes)
+
+#Resultaten printen
+tidy(biden_int2)
+```
+
+Het interactie-effect is statistisch significant. We kunnen dit effect op twee manieren onderzoeken. We kunnen de marginale effecten berekenen van leeftijd op Biden score bij verschillende waarden voor socialisten. Of we berekenen de marginale effecten van socialisten op Biden score bij verschillende leeftijden. In beide gevallen moeten we waarden voor de continue moderator aanduiden in de syntax. We kiezen hier logische waarden in lijn met de schaal van de variabelen.
+
+```{r}
+#Marginaal effect van leeftijd bij socialists = 0, 10, 20...100
+slopes(biden_int2, 
+       variables = "age", 
+       newdata = datagrid(socialists = seq(from = 0, to = 100, by = 10))) 
+
+#Marginaal effect van socialists bij leeftijd = 20,30,40...80
+slopes(biden_int2, 
+       variables = "socialists", 
+       newdata = datagrid(age = seq(from = 20, to = 80, by = 10))) # <1>
+```
+
+1.  Leeftijd reikt van 18 tot 80 in de dataset (respondeten ouder dan 80 krijgen gewoon de score 80).
+
+We kunnen in de output zien dat het effect van leeftijd negatief en statistisch signficant is als de `socialists`variabele de waarde 0 aanneemt (-0.0752 \[95% CI: -0.143, -0.008\]). Dit is gelijk aan de coëfficiënt voor `age`. Het effect van leeftijd wordt steeds positiever als `socialists` hogere waarden aanneemt. We wien ook dat het effect van `socialists`positief is voor jonge mensen (bv., het effect voor respondenten van 20 jaar is 0.39 \[0.34, 0.44\]). Dit effect wordt positiver naarmate mensen ouder zijn.[^interaction_02-3]
+
+[^interaction_02-3]: Hier hebben we intervallen van 10 gebruikt voor de moderator (`age` = 20, 30, 40...). Als we telkens intervallen van 1 eenheid hadden gekozen, dan hadden we gezien dat het verschil in marginale effecten gelijk is aan de interactiecoëfficiënt. Het effect van `socialists` is 0.393 wanneer `age` = 20 en 0.403 wanneer `age` =21. 0.403 - 0.393 = 0.01 is gelijk aan de interactieterm (met afrondingen bij berekening).
+
+Om te plotten gebruiken we de code voor wanneer de moderator een continue variabele is (zie boven, @sec-ame-plotting).
+
+## Binaire x Binaire Interactie
+
+Wanneer de interactievariabele een vermenigvuldiging is van 2 binaire factor variabelen zijn wederom dezelfde principes van toepassing. Hier voorspellen we de score voor Biden met een interactie tussen `right_track` en `vote2016` (met `rural_urban` als controlevariabele).
+
+```{r}
+#Model schatten en resultaten opslaan
+biden_int3 <- lm(biden ~ right_track * vote2016 + rural_urban, data = anes)
+
+#Overzicht resultaten
+summary(biden_int3)
+```
+
+De marginale effecten worden als volgt berekend:
+
+```{r}
+#right_track als moderator
+slopes(biden_int3, 
+       variables = "vote2016", 
+       by = "right_track")
+
+#vote2016 als moderator
+slopes(biden_int3, 
+       variables = "right_track", 
+       by = "vote2016")
+```
+
+De eerste resultaten tonen dat 2016 Trump kiezers een slechtere indruk van Biden hebben dan 2016 Clinton kiezers, ongeacht wat ze vinden van het land. Maar het verschil is groter voor respondenten die vinden dat het land de verkeerde richting opgaat (verschil = -51.6) dan zij die vinden dat het de goede kant uitgaat (-37.80). Dit verschil is gelijk aan de interactiecoëfficiënt. Deze coëfficiënt was ook statistisch significant.
+
+Om dit te plotten gebruiken we de code voor wanneer de moderator een factor variabele is (zie boven @sec-ame-plotting).
+
+## Logistische regressie: voorbeeld
+
+Bij logistische regressie worden de marginale effecten met dezelfde code berekend. Hier geven deze effecten de gemiddelde verandering in voorspelde kans weer in percentpunten (zie @sec-marginal-effects).
+
+We hebben reeds een `righttrack_int` model berekend, waarin we een interactie tussen `age` en `vote2016` hebben toegevoegd. We bekijken de resultaten nogmaals:
+
+Here are the interaction model again:
+
+```{r}
+#Our model
+tidy(righttrack_int)
+
+```
+
+De interactie is tussen `age` (continue variabele) en `vote2016` (binaire factor variabelen). We berekenen de marginale effecten als volgt:
+
+```{r}
+# age als moderator op = 20, 30...80
+slopes(righttrack_int, 
+       variables = "vote2016", 
+       newdata = datagrid(age = seq(from = 20, to = 80, by = 10))) 
+
+# vote2016 als moderator
+slopes(righttrack_int, 
+       variables = "age", 
+       by = "vote2016")
+```
+
+We verwachten dat mensen die op Trump gestemd hebben in 2016 een grotere kans hebben om te zeggen dat het land de goede richting uitgaat dan mensen die Clinton stemden. Dit effect geldt al voor jonge mensen maar wordt sterker met leeftijd. Voor respondenten die 30 jaar oud zijn is de kans om te zeggen dat het land de goede richting uitgaat 45.5 percentpunten hoger voor Trump kiezers. Voor respondenten van 80 jaar is dit 51.2 percentpunten.[^interaction_02-4]
+
+[^interaction_02-4]: Hier berekenen we effecten voor respondenten die 20 jaar oud zijn. Deze respondenten konden echter nog niet stemmen in 2016. Het effect dat we hier vinden voor deze respondenten is niet betekenisvol. We moeten hiervoor blijven oppassen als we interpretaties maken.
+
+Zie eerder secties voor instructies over plotten..
