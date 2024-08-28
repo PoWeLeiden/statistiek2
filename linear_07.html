@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.433">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Statistische analyse en presentatie met R - 7&nbsp; OLS Assumpties</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./linear_08.html" rel="next">
+<link href="./linear_06.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_07.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistische analyse en presentatie met R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Voorwoord</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_07.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistische Regressiemodellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-linear-autocorr-DW" id="toc-sec-linear-autocorr-DW" class="nav-link active" data-scroll-target="#sec-linear-autocorr-DW"><span class="header-section-number">7.1</span> Onafhankelijke fouten en de Durbin-Watson test</a></li>
+  <li><a href="#sec-linear-no-excessive-multicollinearity" id="toc-sec-linear-no-excessive-multicollinearity" class="nav-link" data-scroll-target="#sec-linear-no-excessive-multicollinearity"><span class="header-section-number">7.2</span> Beperkte multicollineariteit</a></li>
+  <li><a href="#lineariteit-en-additiviteit" id="toc-lineariteit-en-additiviteit" class="nav-link" data-scroll-target="#lineariteit-en-additiviteit"><span class="header-section-number">7.3</span> Lineariteit en additiviteit</a>
+  <ul class="collapse">
+  <li><a href="#logaritmische-functies" id="toc-logaritmische-functies" class="nav-link" data-scroll-target="#logaritmische-functies"><span class="header-section-number">7.3.1</span> Logaritmische functies</a></li>
+  <li><a href="#sec-quadratic-relationships" id="toc-sec-quadratic-relationships" class="nav-link" data-scroll-target="#sec-quadratic-relationships"><span class="header-section-number">7.3.2</span> Kwadratische functies</a></li>
+  </ul></li>
+  <li><a href="#homoskedasticiteit" id="toc-homoskedasticiteit" class="nav-link" data-scroll-target="#homoskedasticiteit"><span class="header-section-number">7.4</span> Homoskedasticiteit</a></li>
+  <li><a href="#normaal-verdeelde-errors" id="toc-normaal-verdeelde-errors" class="nav-link" data-scroll-target="#normaal-verdeelde-errors"><span class="header-section-number">7.5</span> Normaal verdeelde errors</a></li>
+  <li><a href="#beperkte-impact-outliers-en-influential-cases" id="toc-beperkte-impact-outliers-en-influential-cases" class="nav-link" data-scroll-target="#beperkte-impact-outliers-en-influential-cases"><span class="header-section-number">7.6</span> Beperkte impact outliers en influential cases</a>
+  <ul class="collapse">
+  <li><a href="#sec-linear-investigating-outliers" id="toc-sec-linear-investigating-outliers" class="nav-link" data-scroll-target="#sec-linear-investigating-outliers"><span class="header-section-number">7.6.1</span> Outliers analyseren</a></li>
+  <li><a href="#sec-linear-investigating-influential-cases" id="toc-sec-linear-investigating-influential-cases" class="nav-link" data-scroll-target="#sec-linear-investigating-influential-cases"><span class="header-section-number">7.6.2</span> Influential cases analyseren</a></li>
+  <li><a href="#specifieke-probleemgevallen-analyseren" id="toc-specifieke-probleemgevallen-analyseren" class="nav-link" data-scroll-target="#specifieke-probleemgevallen-analyseren"><span class="header-section-number">7.6.3</span> Specifieke probleemgevallen analyseren</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-ols-assumptions" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>In dit hoofdstuk ligt de focus op het testen van de assumpties van OLS regressie. Deze 6 assumpties worden getest:</p>
+<ul>
+<li>Onafhankelijke fouten (autocorrelatie)</li>
+<li>Beperkte multicollineariteit</li>
+<li>Lineariteit en additiviteit</li>
+<li>Homoskedasticiteit</li>
+<li>Normaal verdeelde errors (residuals)</li>
+<li>Beperkte impact ‘outliers’ en ‘influential cases’</li>
+</ul>
+<p>We beginnen met het laden van relevante R packages. Deze packages zijn reeds geïnstalleerd op de universitaire computers, maar moeten eerst geladen worden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#specifieke packages voor testen assumpties</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)             <span class="co">#meerdere assumptie testen</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggResidpanel)    <span class="co">#assumpties testen met grafieken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(expss)           <span class="co">#frequentietabellen maken</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#algemene packages</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#data voor residuals en influential cases</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Waarschuwing!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Het is belangrijk te vermelden dat 2 packages die we hier gebruiken voor het testen van assumpties niet altijd compatibel zijn met het <code>dplyr</code> package (uit <code>tidyverse</code>): <code>car</code> en <code>expss</code>. Deze 2 packages hebben namelijk ook een <code>recode</code> functie die een verschillende syntax gebruikt dan dezelfde functie in <code>dplyr</code>. Als je de <code>recode</code> syntax van <code>dplyr</code> gebruikt (onze standaard) na het laden van <code>car</code> of <code>expss</code> kun je een foutmelding krijgen. Er zijn 3 manieren om hier mee om te gaan:</p>
+<ul>
+<li><p>We laden <code>car</code> en <code>expss</code> vooraleer we <code>tidyverse</code> laden om ervoor te zorgen dat de <code>recode</code> functie van <code>dplyr</code> geïnstalleerd wordt als de finale versie. Dit is wat we doen in de R code hierboven;</p></li>
+<li><p>Wanneer je gebruik maakt van <code>recode</code>, kun je het specifieke package voor de functie ook aanduiden in de syntax. In plaats van gewoon <code>recode</code> te schrijven, schrijf je dan <code>dplyr::recode</code>.</p></li>
+<li><p>Je kunt <code>car</code> en <code>expss</code> ook ontkoppelen nadat je ze gebruikt hebt om specifieke assumpties te testen met de <code>detach</code> functie. De R code hieronder toont hoe je dit kan doen. Hier wordt er een hashtag voor de syntax geplaatst zodat de code niet echt wordt gebruikt, gezien we de packages verder nog gebruiken in dit overzicht.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detach("package:car")</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># detach("package:expss")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<section id="sec-linear-autocorr-DW" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-linear-autocorr-DW"><span class="header-section-number">7.1</span> Onafhankelijke fouten en de Durbin-Watson test</h2>
+<p>De assumptie van onafhankelijke fouten is gerelateerd aan de voorwaarde dat observaties onafhankelijk van elkaar geselecteerd moeten zijn. Aan deze voorwaarde is niet voldaan als er een tijdsrelatie is tussen de observaties of als er sprake is van geografische clustering (bv. gebruik van multistage sampling voor een survey).</p>
+<p>De Durbin-Watson test kan gebruikt worden om na te gaan of een tijdsrelatie leidt tot een te sterke correlatie tussen de fouten (errors/residuals). De test kan niet gebruikt worden als er geen tijdsrelatie is (bv. een cross-sectionele survey). Bovendien moet de dataset geordend zijn volgens tijd: van oud naar nieuw of van nieuw naar oud.</p>
+<p>De voorbeelddataset “gdp-dem, time order.csv” voldoet aan deze voorwaarden. Het bevat het BBP (“gdp”) en de democratiescore (“democracy”) voor een enkel land over de jaren heen. De dataset is fictief. Er is geen missing data, maar de syntax kan ook gebruikt worden indien er ontbrekende waarden zijn (‘NA’).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"gdp-dem, time order.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dta, <span class="at">n =</span> 10L) <span class="co">#Zodat we enkel 10 eerste rijen zien</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   year  gdp democracy
+1  1990 8400        50
+2  1991 8500        55
+3  1992 8800        60
+4  1993 8700        60
+5  1994 8600        60
+6  1995 8800        65
+7  1996 9200        65
+8  1997 9300        65
+9  1998 9500        70
+10 1999 9700        70</code></pre>
+</div>
+</div>
+<p>Indien de dataset niet gesorteerd is, kun je dit zelf doen met behulp van de <code>arrange</code> functie uit het <code>dplyr</code> package (onderdeel van <code>tidyverse</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#sorteer oud-nieuw</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#sort nieuw-oud</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt><code>dta &lt;- dta</code></dt>
+<dd>
+<p>Met deze code verduidelijken we dat we willen dat de nieuwe, gesorteerde dataset, de oude overschrijft. We zouden ook een nieuwe dataset kunnen creëren zonder de oude te vervangen, maar dat is meestal niet nodig.</p>
+</dd>
+<dt><code>arrange(year)</code></dt>
+<dd>
+<p>Met deze functie sorteren (‘arrange’) we de dataset volgens de waarden van de variabele tussen haakjes. Op deze manier wordt gesorteerd van lage (oud) naar hogere waarden (nieuw). We kunnen op meerdere variabelen sorteren door deze tussen haakjes toe te voegen, gescheiden van elkaar door een komma.</p>
+</dd>
+<dt><code>arrange(desc(year))</code></dt>
+<dd>
+<p>Met deze syntax laten we de dataset sorteren van hoge (nieuw) naar lage (oud) waarden (“descending”).</p>
+</dd>
+</dl>
+<p>We voeren een bivariate regressieanalyse uit met gdp als onafhankelijke variabele en democratie als afhankelijke variabele:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>time_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(democracy <span class="sc">~</span> gdp, <span class="at">data =</span> dta)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(time_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  term        estimate std.error statistic      p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+1 (Intercept) -36.2     13.9         -2.61 0.0143      
+2 gdp           0.0111   0.00148      7.50 0.0000000291</code></pre>
+</div>
+</div>
+<p>Dan gebruiken we de Durbin-Watson uit het <a href="https://CRAN.R-project.org/package=car">car</a> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(time_model) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> lag Autocorrelation D-W Statistic p-value
+   1       0.5124721     0.8369625       0
+ Alternative hypothesis: rho != 0</code></pre>
+</div>
+</div>
+<dl>
+<dt><code>durbinWatsonTest(modelname)</code></dt>
+<dd>
+<p>We voeren de Durbin-Watson test uit op het model tussen haakjes.</p>
+</dd>
+</dl>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output uitleg
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Autocorrelation: Mate van correlatie tussen de fouten (errors of residuals)</li>
+<li>D-W Statistic: De Durbin-Watson statistiek. Waarden lager dan 1 en hoger dan 3 wijzen op te hoge autocorrelatie</li>
+<li>p-waarde: p-waarde voor de nulhypothese dat de autocorrelatie niet significant van 0 verschilt, de alternatieve hypothese is dat die wel verschilt.</li>
+</ul>
+</div>
+</div>
+<p>De D-W statistiek voor dit model is 0.84. Dit wijst op een probleem met autocorrelatie.</p>
+</section>
+<section id="sec-linear-no-excessive-multicollinearity" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-linear-no-excessive-multicollinearity"><span class="header-section-number">7.2</span> Beperkte multicollineariteit</h2>
+<p>Voor de andere assumptietests maken we gebruik van data zonder autocorrelatie. We gebruiken onze landendataset (<code>demadata.rds</code>) en schatten een meervoudig regressiemodel waarbij V-Dem polyarchy scores (<code>v2x_polyarchy</code>) voorspeld worden op basis van economische ongelijkheid (<code>gini_2019</code>), regime in het verleden (<code>TYPEDEMO1984</code>: democratie of autocratie in 1984, naar een factor variabele getransformeerd) en BBP in 2006 (<code>GDP2006</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data laden</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Factor maken van binaire variabele</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984 =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Meervoudig model schatten en resultaten bekijken</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> GDP2006, <span class="at">data =</span> demdata)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multiple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 7
+  term                   estimate std.error statistic p.value conf.low conf.high
+  &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)             6.78e-1   2.02e-1      3.36 0.00153  2.72e-1 1.08     
+2 gini_2019              -4.99e-3   4.98e-3     -1.00 0.322   -1.50e-2 0.00502  
+3 TYPEDEMO1984Democraci…  7.00e-2   5.95e-2      1.18 0.246   -4.97e-2 0.190    
+4 GDP2006                 8.58e-6   2.70e-6      3.17 0.00261  3.14e-6 0.0000140</code></pre>
+</div>
+</div>
+<p>De coëfficienten voor <code>gini_2019</code> (p = 0.322) en <code>TYPEDEMO1984</code> (p = 0.246) zijn niet significant. Om te kijken of er sprake is van te hoge multicollineariteit gebruiken we opnieuw het <code>car</code> package, nu voor de <code>vif()</code> functie.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model_multiple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   gini_2019 TYPEDEMO1984      GDP2006 
+    1.811074     1.171946     2.039059 </code></pre>
+</div>
+</div>
+<dl>
+<dt><code>vif(multiple)</code></dt>
+<dd>
+<p>We gebruiken de vif functie op het model tussen haakjes</p>
+</dd>
+</dl>
+<p>De output geeft de VIF statistieken voor elke onafhankelijke variabele. Geen van de waarden is hoger dan 5 dus is er geen sprake van te hoge multicollineariteit.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Waarschuwing!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Indien je een factor variabele opneemt met 3 of meer oorspronkelijke categorieën (bv. meerdere regio’s, onderwijsniveaus) dan krijg je licht andere output:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006 =</span> <span class="fu">factorize</span>(Typeregime2006))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>vif_example <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> GDP2006 <span class="sc">+</span> Typeregime2006, <span class="at">data =</span> demdata) </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(vif_example)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   GVIF Df GVIF^(1/(2*Df))
+gini_2019      1.385354  1        1.177011
+GDP2006        1.448928  1        1.203714
+Typeregime2006 1.346530  2        1.077219</code></pre>
+</div>
+</div>
+<p><code>vif()</code> geeft nu een <code>GVIF</code> en <code>GVIF^(1/(2*DF))</code>. Dit zijn aanpassingen gezien categorische variabelen meerdere coëfficiënten hebben en dus vrijheidsgraden. We evalueren multicollineariteit door <code>GVIF^(1/(2*DF))</code> te kwadrateren en we gebruiken dezelfde vuistregels als bij de gewone VIF. In principe kunnen we ook kijken of <code>GVIF^(1/(2*DF))</code> op zich hoger is dan 2.23 (gezien 2.23²= 5).</p>
+</div>
+</div>
+</section>
+<section id="lineariteit-en-additiviteit" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="lineariteit-en-additiviteit"><span class="header-section-number">7.3</span> Lineariteit en additiviteit</h2>
+<p>Een lineair regressiemodel berust op de assumptie dat er een lineaire relatie is tussen de predictoren en de afhankelijke variabele. Om te onderzoeken of de assumptie niet geschonden is maken we gebruik van plots, aangemaakt via het <a href="https://CRAN.R-project.org/package=ggResidpanel">ggResidpanel</a> package.</p>
+<p>We gaan hier eerst de assumptie na voor een simpel model waarbij electorale democratie (<code>v2x_polyarchy</code>) voorspeld wordt door ongelijkheid (<code>gini_2019</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>bivar_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019, <span class="at">data=</span>demdata)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(bivar_model, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<dl>
+<dt><code>resid_panel(bivar_model,</code></dt>
+<dd>
+<p>We voeren de functie resid_panel uit op het model tussen haakjes.</p>
+</dd>
+<dt><code>plots = c("resid"))</code></dt>
+<dd>
+<p>De functie kan gebruikt worden voor meerdere soorten plots. Hier verduidelijken we dat we het plot van residuals tegen voorspelde waarden willen (“resid”).</p>
+</dd>
+</dl>
+<p>Op het plot zien we geen duidelijk patroon in de data, over het algemeen gewoon een puntenwolk. Het ontbreken van een patroon duidt erop dat de relatie tussen ongelijkheid en democratiescores als lineair kan beschouwd worden.</p>
+<p>Wanneer je een ordinale variabele gebruikt als predictor in plaats van een echt continue variabele, dan ziet het plot er anders uit (i.e.&nbsp;neerwaarts gaande lijnen van residuals).</p>
+<section id="logaritmische-functies" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="logaritmische-functies"><span class="header-section-number">7.3.1</span> Logaritmische functies</h3>
+<p>We krijgen niet altijd gewoon een puntenwolk zonder patroon te zien. Laten we het plot bekijken voor ons complexer model voor democratiescores (<code>model_multiple</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(model_multiple, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>In het plot zien we een lijnpatroon bij hogere waarden op de x-as. We kunnen onderzoeken welke onafhankelijke variabele dit patroon veroorzaakt door te kijken naar de partiële regressieplots via de <code>avPlots()</code> functie uit het <code>car</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(model_multiple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<dl>
+<dt><code>avPlots(model_multiple)</code></dt>
+<dd>
+<p>We vragen R om de partiële regressieplots voor het model tussen haakjes.</p>
+</dd>
+</dl>
+<p>Deze partiële regressieplots (“added-variable plot”) tonen de relatie tussen de predictor en de afhankelijke variabele gecontroleerd voor de andere predictoren in het model.</p>
+<p>Voor de onafhankelijke variabele gini_2019, vinden we een relatief vlakke lijn (de coëfficiënt was ook niet significant). De residuals zijn vrij gelijk verspreid onder en boven de lijn dus er lijkt geen afwijking van lineariteit te zijn.</p>
+<p>Voor de TYPEDEMO1984 factor bekijken we het plot niet gezien we slechts twee waarden voor deze variabele hebben.</p>
+<p>Als we de onafhankelijke variabele GDP2006 bekijken vinden we een positief hellende regressielijn (de coëfficiënt was ook significant), maar de punten zijn niet gelijk verspreid rond de lijn. Het lijkt hier eerder dat de relatie een degressieve curve volgt dan een rechte lijn.</p>
+<p>Om hiervoor te compenseren voeren we een logaritmische transformatie uit op GDP2006.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">LNGDP2006 =</span> <span class="fu">log</span>(GDP2006))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Deze nieuwe gelogde versie van de variabele wordt vervolgens gebruikt in de regressie in de plaats van de originele variabele. We zouden dan het residual plot en de partiële regressieplots opnieuw kunnen inspecteren.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Opnieuw schatten model </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>multiple_ln <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Residual Plot</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Partiële regressieplots</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(multiple_ln)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="sec-quadratic-relationships" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-quadratic-relationships"><span class="header-section-number">7.3.2</span> Kwadratische functies</h3>
+<p>Een andere niet-lineaire relatie die we kunnen tegenkomen is de kwadratische of curvilineaire relatie. Bij wijze van voorbeeld hier inspireren we ons op de ‘meer geweld in het midden’-these, namelijk het idee dat landen met hybride regimes (gemiddelde democratiescores) meer geweld en instabiliteit ervaren dan zowel autoritaire systemen (lage democratiescores) als democratische systemen (hoge democratiescores).</p>
+<p>De variabele voor politiek geweld en instabiliteit is hier <code>pve</code> en is gebaseerd of de 2021 World Governance Indicators. Hogere waarden staan voor minder geweld en instabiliteit. Hier gebruiken we electorale democratie (<code>v2x_polyarchy</code>) als onafhankelijke variabele.</p>
+<p>We inspecteren hier eerst de empirische, bivariate relatie met behulp van een scatterplot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(demdata, <span class="fu">aes</span>(<span class="at">x =</span> v2x_polyarchy, <span class="at">y =</span> pve)) <span class="sc">+</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Politiek geweld en democratie"</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Electorale democratie (2020)"</span>, </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Afwezigheid van politiek geweld en instabiliteit (2021)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>De syntax lijkt sterk op wat we eerder gezien hebben (<a href="linear_01.html#sec-visualizing-bivariate-relationships-with-a-scatterplot"><span>Section&nbsp;1.2</span></a>), met 1 belangrijk verschil:</p>
+<dl>
+<dt><code>geom_smooth(method = "loess")</code></dt>
+<dd>
+<p>Hier vragen we R om een lijn te tekenen om de relatie tussen de 2 variabelen te vatten. We vragen hier niet om een rechte lijn (method=“lm”), maar een ‘locally estimated scatterplot smoothing’ (loess) lijn (method = “loess”). Deze lijn volgt de data zo nauwgezet mogelijk om de relatie tussen de variabelen weer te geven. De loess methode is de standaard (default) methode om de lijn te tekenen. We zouden dus ook gewoon <code>geom_smooth()</code> kunnen schrijven om dezelfde uitkomst te verkrijgen.</p>
+</dd>
+</dl>
+<p>Zoals we kunnen zien als we naar het scatterplot kijken is er enige steun voor een curvilineaire relatie. We schatten nu eerst een lineair regressiemodel:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#schat het model</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Violence_linmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pve <span class="sc">~</span> v2x_polyarchy, <span class="at">data =</span> demdata)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#bekijk resultaten</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Violence_linmodel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 7
+  term          estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)      -1.34     0.135     -9.90 2.36e-18    -1.60     -1.07
+2 v2x_polyarchy     2.19     0.233      9.38 5.75e-17     1.73      2.65</code></pre>
+</div>
+</div>
+<p>De niet-lineaire relatie kun je soms zien uit het residuals plot, in de vorm van een gebogen patroon, maar dit is visueel minder zichtbaar hier:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(Violence_linmodel, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Om te onderzoeken of de relatie beter als kwadratisch wordt gevat voegen we een kwadratische term toe aan het model. We maken deze variabele eerst aan en voegen die dan toe aan het model, samen met de originele variabele.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gewadrateerde variabele maken</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">v2x_polyarchy_sq =</span> v2x_polyarchy<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#nieuw model schatten</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>Violence_sqmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pve <span class="sc">~</span> v2x_polyarchy <span class="sc">+</span> v2x_polyarchy_sq, </span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Violence_sqmodel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 7
+  term             estimate std.error statistic  p.value conf.low conf.high
+  &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)        -0.589     0.243     -2.42 0.0165      -1.07    -0.109
+2 v2x_polyarchy      -1.73      1.10      -1.58 0.117       -3.90     0.438
+3 v2x_polyarchy_sq    3.83      1.05       3.64 0.000361     1.75     5.90 </code></pre>
+</div>
+</div>
+<p>We vinden hier dat de kwadratische variabele significant is (p &lt; 0.001) en dus dat de relatie tussen <code>v2x_polyarchy</code> en <code>pve</code> beter als curvilineair dan lineair te beschrijven is.</p>
+<p>We kunnen dan het residuals plot opnieuw inspecteren (zie onder).</p>
+</section>
+</section>
+<section id="homoskedasticiteit" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="homoskedasticiteit"><span class="header-section-number">7.4</span> Homoskedasticiteit</h2>
+<p>Om te onderzoeken of de assumptie van homoskedasticiteit geschonden is maken we opnieuw gebruik van het residuals plot (scatterplot van voorspelde waarden en residuals). Hier vinden we bijvoorbeeld heteroskedasticiteit voor het kwadratische model (<code>Violence_sqmodel</code>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(Violence_sqmodel, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Opnieuw zien we liever een wolk van toevallig verspreide punten (homoskedasticiteit) eerder daan een trechter-vorm (heteroskedasticiteit). De trechter-vorm in het plot wijst erop dat de assumptie geschonden is.</p>
+</section>
+<section id="normaal-verdeelde-errors" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="normaal-verdeelde-errors"><span class="header-section-number">7.5</span> Normaal verdeelde errors</h2>
+<p>We onderzoeken of de assumptie van normaal verdeelde errors is geschonden met behulp van 2 mogelijke plots uit het <code>ggResidpanel</code> package: een histogram van de fouten en een kwartielplot (qq-plot) van de fouten.</p>
+<p>Hier gaan we na of de assumptie geschonden is voor ons meervoudig regressiemodel met gelogde GDP predictor (multiple_ln):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"hist"</span>, <span class="st">"qq"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<dl>
+<dt><code>plots = c("hist", "qq"))</code></dt>
+<dd>
+<p>Hier vragen we om het histogram (“hist”) samen met het qq-plot (“qq”).</p>
+</dd>
+</dl>
+<p>We zouden ook het residuals plot (“resid”) kunnen toevoegen indien we meerdere assumpties vlug samen willen testen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>, <span class="st">"hist"</span>, <span class="st">"qq"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="beperkte-impact-outliers-en-influential-cases" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="beperkte-impact-outliers-en-influential-cases"><span class="header-section-number">7.6</span> Beperkte impact outliers en influential cases</h2>
+<p>We gebruiken de <code>augment()</code> functie uit het <code>broom</code> package op de meervoudig regressie met gelogde GDP predictor (<code>multiple_ln</code>). De statistieken worden in een nieuwe dataset opgeslagen in onderstaande code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#augment gebruiken en resultaten opslaan in nieuw object</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>demdata_multln <span class="ot">&lt;-</span> <span class="fu">augment</span>(multiple_ln)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt><code>demdata_multln &lt;-augment(multiple_ln)</code></dt>
+<dd>
+<p>We gebruiken de augment functie op het model tussen haakjes en slaan de resultaten op in een nieuw data object (<code>demdata_multln</code>).</p>
+</dd>
+</dl>
+<p>De gegevens in het dataobject zien er als volgt uit:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>demdata_multln</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 53 × 11
+   .rownames v2x_polyarchy gini_2019 TYPEDEMO1984 LNGDP2006 .fitted   .resid
+   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+ 1 3                 0.908      26.5 Democracies      10.3    0.857  0.0514 
+ 2 4                 0.894      30.1 Democracies      10.5    0.881  0.0129 
+ 3 10                0.485      37.5 Autocracies       7.38   0.480  0.00510
+ 4 13                0.652      48   Democracies       7.75   0.559  0.0925 
+ 5 14                0.632      29.3 Autocracies       8.62   0.625  0.00694
+ 6 15                0.678      47.6 Democracies       8.31   0.632  0.0464 
+ 7 16                0.807      38.7 Democracies      10.5    0.906 -0.0995 
+ 8 17                0.882      32.1 Democracies       9.32   0.733  0.149  
+ 9 18                0.577      37.3 Democracies       7.68   0.530  0.0466 
+10 20                0.327      40.7 Democracies       6.99   0.447 -0.120  
+# ℹ 43 more rows
+# ℹ 4 more variables: .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Output uitleg
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>augment()</code> creëert een dataframe met alle observaties die gebruikt zijn om het model te schatten. Je vindt de volgende kolommen terug:</p>
+<ul>
+<li><code>.rownames</code>: Di is het rijnummer van de observatie zoals je die vindt in de originele dataset (zonder eventuele missing waarden)</li>
+<li><code>v2x_polyarchy</code> tot en met <code>LNGDP2006</code>: Dit zijn de variabelen gebruikt in het model met de waarden die elke observatie ervoor heeft.</li>
+<li><code>.fitted</code>: De voorspelde (‘fitted’) waarden op basis van de schattingen in het model.</li>
+<li><code>resid</code>: De residuals (fouten/errors) voor elke observatie, waarbij Residual = Observed - Fitted/Predicted. Hier: Residual = <code>v2x_polyarchy</code> - <code>.fitted</code></li>
+<li><code>.hat</code>: Diagonaal van de hat matrix (te negeren).</li>
+<li><code>.sigma:</code> Geschatte standaardafwijking van de fouten als de observatie uit het model zou worden verwijderd (te negeren)</li>
+<li><code>.cooksd</code>: De Cook’s D waarde voor de observatie. Zie onder.</li>
+<li><code>.std.resid</code>: Niet getoond in de output hierboven maar aanwezig in de dataset. Deze kolom bevat de <em>gestandaardiseerde</em> residuals van het model. Zie onder.</li>
+</ul>
+</div>
+</div>
+<p>We gebruiken de gestandaardiseerde residuals (<code>.std.resid</code>) om eerst outliers te onderzoeken. Vervolgens gebruiken we de Cook’s D waarden (<code>.cooksd</code>) om influential cases te onderzoeken.</p>
+<section id="sec-linear-investigating-outliers" class="level3" data-number="7.6.1">
+<h3 data-number="7.6.1" class="anchored" data-anchor-id="sec-linear-investigating-outliers"><span class="header-section-number">7.6.1</span> Outliers analyseren</h3>
+<p>Om te beginnen bekijken we de descriptieve statistieken voor de gestandaardiseerde residuals (opgeslagen in het data object <code>demdata_multln</code>) . We kijken specifiek naar de minimum en maximum waarden als eerste check voor outliers. We bekijken in het bijzonder of gestandaardiseerde residuals hoger zijn dan de drempelwaarden van (|1.96|, |2.54|, en zeker |3.29|).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_multln<span class="sc">$</span>.std.resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
+-3.1281471 -0.2252984  0.2109869 -0.0007828  0.5831831  1.7394397 </code></pre>
+</div>
+</div>
+<p>We vinden waarden die zorgwekkend kunnen zijn. Zo is er al zeker 1 observatie waarvan de gestandaardiseerde residual een absolute waarde hoger dan 2.58 heeft (aangezien het minimum -3.128 is). Maar we moeten nog nagaan hoeveel observaties precies de drempelwaarden overschrijden.</p>
+<p>We doen dit door 3 dummy variabelen aan te maken in onze dataset: SRE1.96, SRE2.58, SRE3.29. Deze dummy variabelen nemen de waarde ‘1’ aan als de gestandaardiseerde residual van een observatie hoger is dan de drempelwaarde in de naam van de variabele. Als de waarde van de gestandaardiseerde residual lager is, neemt de dummy de waarde ‘0’ aan. We gebruiken hier de <code>case when</code> functie (uit <code>dplyr</code>) voor de hercodering. Zie <a href="https://poweleiden.github.io/statistiek1/data_05_advanced_recoding.html#recoding-variables-using-case_when" target="_blank">Statistiek I, 5.1</a></p>
+<p>Onderstaande code kun je grotendeels onaangepast laten in je eigen voorbeelden, enkel de naam van de dataset (hier: <code>demdata_multln</code>) moet aangepast worden voor eigen toepassingen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>demdata_multln <span class="ot">&lt;-</span> demdata_multln <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SRE1.96 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">1.96</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">1.96</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">1.96</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">SRE2.58 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">2.58</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">2.58</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">2.58</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">2.58</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">SRE3.29 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">3.29</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">3.29</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">3.29</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">3.29</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt><code>demdata_multln &lt;- demdata_multln |&gt;</code></dt>
+<dd>
+<p>De nieuwe variabelen maken gebruik van de demdata_multln dataset (voor de .std.resid variabele), en worden ook zelf opgeslagen in deze dataset.</p>
+</dd>
+<dt><code>mutate(SRE1.96 = case_when(</code></dt>
+<dd>
+<p>We creëren hier de nieuwe variabele SRE1.96. De waarden worden bepaald door de <code>case_when</code> functie.</p>
+</dd>
+<dt><code>.std.resid &gt; 1.96 | .std.resid &lt; -1.96 ~ 1,</code></dt>
+<dd>
+<p>Hier duiden we aan dat wanneer gestandaardiseerde residuals groter dan 1.96 of (de streep ‘|’ staat symbool voor ‘of’ ) lager dan -1.96 zijn, de SRE1.96 variabele de waarde 1 aanneemt (~). Let erop dat de variabele .std.resid twee keer geschreven moet worden.</p>
+</dd>
+<dt><code>.std.resid &gt; -1.96 &amp; .std.resid &lt; 1.96 ~ 0),</code></dt>
+<dd>
+<p>Hier duiden we aan dat wanneer gestandaardiseerde residuals groter dan -1.96 en (de ‘&amp;’ staat hier voor ‘en’) lager dan 1.96 zijn, de SRE1.96 variabele de waarde 0 aanneemt (~).</p>
+</dd>
+</dl>
+<p>Nu we de dummies aangemaakt hebben kunnen we frequentietabellen voor elk van hen bekijken. We maken gebruik van de <code>fre()</code> functie uit het <code>expss</code> package.</p>
+<p>De code hieronder kun je wederom grotendeels gebruiken voor eigen voorbeelden; enkel de naam van de dataset (hier: <code>demdata_multln</code>) dient veranderd te worden voor eigen toepassingen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE1<span class="fl">.96</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="gmisc_table table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: 1px solid grey; font-weight: 900; border-top: 2px solid grey;">demdata_multln$SRE1.96</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Count&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Valid percent&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Percent&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Responses, %&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Cumulative responses, %&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;0&nbsp;</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">92.5</td>
+<td style="text-align: right;">92.5</td>
+<td style="text-align: right;">92.5</td>
+<td style="text-align: right;">92.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&nbsp;1&nbsp;</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">7.5</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;#Total&nbsp;</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&lt;NA&gt;&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">0</td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+<td style="text-align: right; border-bottom: 2px solid grey;">0.0</td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE2<span class="fl">.58</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="gmisc_table table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: 1px solid grey; font-weight: 900; border-top: 2px solid grey;">demdata_multln$SRE2.58</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Count&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Valid percent&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Percent&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Responses, %&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Cumulative responses, %&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;0&nbsp;</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">96.2</td>
+<td style="text-align: right;">96.2</td>
+<td style="text-align: right;">96.2</td>
+<td style="text-align: right;">96.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&nbsp;1&nbsp;</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3.8</td>
+<td style="text-align: right;">3.8</td>
+<td style="text-align: right;">3.8</td>
+<td style="text-align: right;">100.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;#Total&nbsp;</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&lt;NA&gt;&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">0</td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+<td style="text-align: right; border-bottom: 2px solid grey;">0.0</td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE3<span class="fl">.29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="gmisc_table table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" style="text-align: center; border-bottom: 1px solid grey; font-weight: 900; border-top: 2px solid grey;">demdata_multln$SRE3.29</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Count&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Valid percent&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Percent&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Responses, %&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="text-align: center; font-weight: 900; border-bottom: 1px solid grey; border-top: 2px solid grey;">&nbsp;Cumulative responses, %&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;0&nbsp;</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&nbsp;#Total&nbsp;</td>
+<td style="text-align: right;">53</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&lt;NA&gt;&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">0</td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+<td style="text-align: right; border-bottom: 2px solid grey;">0</td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+<td style="text-align: right; border-bottom: 2px solid grey;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We vinden hier dat meer dan 5% van de observaties een gestandaardiseerde residual heeft met een absolute waarde hoger dan 1.96, meer dan 1% heeft een gestandaardiseerde residual met een absolute waarde hoger dan 2.58. Er is geen enkele observatie met een absolute waarde hoger dan 3.29 (dit konden we reeds aflezen uit de descriptieve statistieken).</p>
+<p>Om te onderzoeken of de outliers ook een invloed hebben op de resultaten van het model vergelijken we de resultaten van ons model met die van een nieuw model zonder outliers. Hier doen we dit voor outliers met gestandaardiseerde residuals met absolute waarde hoger dan 1.96. De SRE1.96 variabele kan vervangen worden met de SRE2.58 en SRE3.29 variabelen om alternatieve manieren om outliers uit te sluiten te onderzoeken.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>multiple_ln1<span class="fl">.96</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006,</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln, SRE1<span class="fl">.96</span> <span class="sc">==</span> <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt><code>data = subset(demdata_multln, SRE1.96 == 0))</code></dt>
+<dd>
+<p>Met deze code gebruiken we de demdata_multln dataset gecreëerd met augment, maar we behouden enkel observaties die voor de variabele SRE1.96 de waarde 0 hebben.</p>
+</dd>
+</dl>
+<p>Als we de modellen met en zonder outliers vergelijken gaan we na of de coëfficiënten en hun significantie substantieel veranderd zijn. Let wel, outliers kunnen niet zomaar verwijderd worden om om de model fit te verbeteren. Er moet een gemotiveerde, theoretische reden zijn voor uitsluiting van observaties.</p>
+</section>
+<section id="sec-linear-investigating-influential-cases" class="level3" data-number="7.6.2">
+<h3 data-number="7.6.2" class="anchored" data-anchor-id="sec-linear-investigating-influential-cases"><span class="header-section-number">7.6.2</span> Influential cases analyseren</h3>
+<p>Om influential cases te onderzoeken gaan we na of er observaties zijn in de dataset met hoge Cook’s D waarden:</p>
+<ul>
+<li><p>waarden hoger dan 1 zijn over het algemeen zorgwekkend;</p></li>
+<li><p>waarden hoger dan 0.5 moeten nader bestudeerd worden en kunnen een risico vormen;</p></li>
+<li><p>waarden die veel hoger zijn dan de andere Cook’s D waarden behoeven ook verdere aandacht.</p></li>
+</ul>
+<p>We bekijken eerst de overzichtsstatistieken voor de Cook’s D waarden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_multln<span class="sc">$</span>.cooksd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+0.0000036 0.0007700 0.0035030 0.0292621 0.0162039 0.6608136 </code></pre>
+</div>
+</div>
+<p>Het overzicht toont dat er minstens 1 observatie is met een hoge Cook’s D waarde. De maximum waarde is 0.66 en deze waarde is substantieel hoger dan de andere waarden. De waarde voor het 3de kwartiel is slechts 0.016, wat betekent dat 75% van de observaties een waarde lager hebben dan 0.016.</p>
+<p>We kunnen ook een visualisatie maken van de Cook’s D waarden met het <code>ggResidpanel</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"cookd"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<dl>
+<dt><code>plots = c("cookd"))</code></dt>
+<dd>
+<p>We vragen hier om een plot met Cook’s D waarden op de y-as. Het rijnummer van de observatie in de dataset komt op de x-as.</p>
+</dd>
+</dl>
+<p>De grafiek toont dat er slechts 1 case is om ons zorgen over te maken. Dit is de case met de maximum waarde van 0.66.</p>
+<p>We kunnen deze case verwijderen uit het model om na te gaan of de resultaten beïnvloed worden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>multiple_lncook <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln, .cooksd <span class="sc">&lt;</span> <span class="fl">0.65</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt><code>data = subset(demdata_multln, .cooksd &lt; 0.65))</code></dt>
+<dd>
+<p>We gebruiken de demdata_multln dataset maar vragen om een subset van de data met enkel die observaties met een waarde lager dan 0.65 voor .cooksd. We kiezen deze waarde hier omdat de case die we willen uitsluiten een waarde van 0.66 heeft. In principe hadden we ook 0.66 zelf, 0.64 enz. kunnen kiezen, zolang het een grenswaarde is die de mogelijk invloedrijke casus uitsluit.</p>
+</dd>
+</dl>
+<p>We kunnen ook outliers en influential cases tegelijk uitsluiten als we in de syntax gebruik maken van het ‘&amp;’ teken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>multiple_ln_excl <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006,</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>                             SRE1<span class="fl">.96</span><span class="sc">==</span><span class="dv">0</span> <span class="sc">&amp;</span> .cooksd <span class="sc">&lt;</span> <span class="fl">0.65</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="specifieke-probleemgevallen-analyseren" class="level3" data-number="7.6.3">
+<h3 data-number="7.6.3" class="anchored" data-anchor-id="specifieke-probleemgevallen-analyseren"><span class="header-section-number">7.6.3</span> Specifieke probleemgevallen analyseren</h3>
+<p>Wat we in vorige analyses niet bekeken hebben is welke specifieke observaties outliers of influential cases waren. Om dit te kunnen doen moeten we de gestandaardiseerde residuals en Cook’s D waarden toevoegen aan onze originele dataset, waar we de country name variabele hebben.</p>
+<p>Indien er missende waarden zijn, zoals hier het geval is, kunnen we deze statistieken niet zomaar met augment toevoegen aan de originele dataset. Een oplossing is om eerst een dataset te creëren met niet-missende waarden voor de variabelen gebruikt in het model en dan met augment de statistieken aan deze ‘complete cases’ dataset toe te voegen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset van de dataset zonder 'NA' waarden</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(v2x_polyarchy, gini_2019, TYPEDEMO1984, LNGDP2006))</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># model opnieuw geschat met nieuwe dataset</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>multiple_ln <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006, </span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata_complete)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="co"># augment gebruiken om statistieken toe te voegen</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="ot">&lt;-</span><span class="fu">augment</span>(multiple_ln, <span class="at">data=</span>demdata_complete)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nu kunnen we specifieke outliers onderzoeken met de volgende code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="sc">|&gt;</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.std.resid <span class="sc">&gt;</span> <span class="fl">1.96</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, .std.resid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  country_name .std.resid
+  &lt;chr&gt;             &lt;dbl&gt;
+1 Thailand          -2.17
+2 Venezuela         -2.68
+3 China             -2.53
+4 Singapore         -3.13</code></pre>
+</div>
+</div>
+<dl>
+<dt><code>filter(.std.resid &gt; 1.96 | .std.resid &lt; -1.96)</code></dt>
+<dd>
+<p>Hier willen we outliers vinden, dus we filteren voor observaties met gestandaardiseerde residual hoger dan 1.96 of lager dan -1.96.</p>
+</dd>
+<dt><code>select(country_name.std.resid)</code></dt>
+<dd>
+<p>Hier vragen we R om de namen van de landen en hun specifieke gestandaardiseerde residual.</p>
+</dd>
+</dl>
+<p>De influential case vinden we op een gelijkaardige manier:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="sc">|&gt;</span> </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.cooksd <span class="sc">&gt;</span> <span class="fl">0.65</span>) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, .cooksd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  country_name .cooksd
+  &lt;chr&gt;          &lt;dbl&gt;
+1 Singapore      0.661</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Handle positioning of the toggle
+      window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./linear_06.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./linear_08.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

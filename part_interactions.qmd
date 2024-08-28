@@ -1,6 +1,0 @@
-# Interacties in Lineaire en Logistische Regressiemodellen
-
-In dit onderdeel ligt de focus op de inclusie van interactie-effecten in regressieanalyses en hun interpretatie. Je leert hoe je...
-
--   Interactievariabelen toevoegt aan regressiemodellen
--   gemiddelde marginale effecten en voorspelde waarden/kansen gebruikt om interactie te interpreteren.

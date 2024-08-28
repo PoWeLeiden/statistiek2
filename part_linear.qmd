@@ -1,7 +1,0 @@
-# Lineaire Statistische Modellen
-
-Dit onderdeel richt zich op het uitvoeren van lineaire statistische analyses. Je leert...
-
--   de correlatiecoëfficiënt tussen 2 continue variabelen te berekenen en interpreteren.
--   een lineair regressiemodel uit te voeren met zowel continue als categorische onafhankelijke variabelen.
--   schendingen van assumpties van lineaire modellen na te gaan.

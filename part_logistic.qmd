@@ -1,7 +1,0 @@
-# Logistische Regressiemodellen
-
-In dit onderdeel richten we ons op logistische regressies voor binaire afhankelijke variabelen. We leren hoe...
-
--   Een logistisch model te schatten
--   Hoe het model te interpreteren op basis van de coëfficiënten, de odds ratios, marginale effecten en voorspelde waarden.
--   De assumpties van deze modellen te testen
