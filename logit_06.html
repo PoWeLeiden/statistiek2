@@ -401,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-annotation="1" data-code-lines="12">Deze data management stap zorgt ervoor dat we straks de gemiddelde marginale effecten kunnen berekene zonder error zie <a href="logit_02.html"><span>Hoofdstuk&nbsp;10</span></a> . Dit is niet nodig als je <code>factor()</code> gebruikt in plaats van <code>factorize()</code>.</span>
+<span data-code-lines="12" data-code-cell="annotated-cell-2" data-code-annotation="1">Deze data management stap zorgt ervoor dat we straks de gemiddelde marginale effecten kunnen berekene zonder error zie <a href="logit_02.html"><span>Hoofdstuk&nbsp;10</span></a> . Dit is niet nodig als je <code>factor()</code> gebruikt in plaats van <code>factorize()</code>.</span>
 </dd>
 </dl>
 </div>
@@ -591,11 +591,11 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-annotation="1" data-code-lines="2">Vraagt <code>modelsummary()</code> de logistische coëfficiënten te exponentiëren, wat de odds ratios oplevert.</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-4" data-code-annotation="1">Vraagt <code>modelsummary()</code> de logistische coëfficiënten te exponentiëren, wat de odds ratios oplevert.</span>
 </dd>
 <dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-annotation="2" data-code-lines="3">Vraagt <code>modelsummary()</code> de 95% betrouwbaarheidsintervallen te produceren. Dit is gebruikelijk bij odds ratios.</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-4" data-code-annotation="2">Vraagt <code>modelsummary()</code> de 95% betrouwbaarheidsintervallen te produceren. Dit is gebruikelijk bij odds ratios.</span>
 </dd>
 </dl>
 </div>
@@ -712,15 +712,15 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-annotation="1" data-code-lines="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>tidy</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot maken.</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-5" data-code-annotation="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>tidy</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot maken.</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-annotation="2" data-code-lines="2">Het intercept wordt doorgaans niet getoond.</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-5" data-code-annotation="2">Het intercept wordt doorgaans niet getoond.</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-annotation="3" data-code-lines="3">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a>.</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-5" data-code-annotation="3">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a>.</span>
 </dd>
 </dl>
 </div>
@@ -749,11 +749,11 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-annotation="1" data-code-lines="1"><code>exponentiate = TRUE</code> voor de odds ratios</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-6" data-code-annotation="1"><code>exponentiate = TRUE</code> voor de odds ratios</span>
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-annotation="2" data-code-lines="14">Odds ratios zijn multiplicatief. Daarom moet de referentielijn op 1 komen te staan</span>
+<span data-code-lines="14" data-code-cell="annotated-cell-6" data-code-annotation="2">Odds ratios zijn multiplicatief. Daarom moet de referentielijn op 1 komen te staan</span>
 </dd>
 </dl>
 </div>
@@ -794,15 +794,15 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-annotation="1" data-code-lines="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>avg_slopes</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-7" data-code-annotation="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>avg_slopes</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot</span>
 </dd>
 <dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-annotation="2" data-code-lines="2">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a>.</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-7" data-code-annotation="2">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-annotation="3" data-code-lines="3"><code>avg_slopes()</code> combineert niet de variabelenaam en de categorielabel bij factor variabelen in <code>term</code> (bv. het toont <code>gndr</code> in plaats van <code>gndrMale</code>).</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-7" data-code-annotation="3"><code>avg_slopes()</code> combineert niet de variabelenaam en de categorielabel bij factor variabelen in <code>term</code> (bv. het toont <code>gndr</code> in plaats van <code>gndrMale</code>).</span>
 </dd>
 </dl>
 </div>
@@ -854,7 +854,7 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-annotation="1" data-code-lines="3">We zouden <code>predictions()</code> ook intervallen van 1pt kunnen laten berekenen, maar dit is doorgaans niet nodig. <code>ggplot()</code> verbindt de punten in een lijn.</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-9" data-code-annotation="1">We zouden <code>predictions()</code> ook intervallen van 1pt kunnen laten berekenen, maar dit is doorgaans niet nodig. <code>ggplot()</code> verbindt de punten in een lijn.</span>
 </dd>
 </dl>
 </div>
@@ -883,19 +883,19 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-annotation="1" data-code-lines="1">Zegt <code>ggplot()</code> welke data te gebruiken (<code>Pred_conts</code>) en wat op de x- (<code>trstplt</code>) en y-as (<code>estimate</code>) te zetten.</span>
+<span data-code-lines="1" data-code-cell="annotated-cell-10" data-code-annotation="1">Zegt <code>ggplot()</code> welke data te gebruiken (<code>Pred_conts</code>) en wat op de x- (<code>trstplt</code>) en y-as (<code>estimate</code>) te zetten.</span>
 </dd>
 <dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-annotation="2" data-code-lines="2">Zegt <code>ggplot()</code> dat we een verbindingslijn willen tussen de voorspellingen.</span>
+<span data-code-lines="2" data-code-cell="annotated-cell-10" data-code-annotation="2">Zegt <code>ggplot()</code> dat we een verbindingslijn willen tussen de voorspellingen.</span>
 </dd>
 <dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-annotation="3" data-code-lines="3">Zegt <code>ggplot()</code> dat we een band met betrouwbaarheidsintervallen willen en hoe donker de kleur daarvan mag zijn (<code>alpha = 0.2</code>).</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-10" data-code-annotation="3">Zegt <code>ggplot()</code> dat we een band met betrouwbaarheidsintervallen willen en hoe donker de kleur daarvan mag zijn (<code>alpha = 0.2</code>).</span>
 </dd>
 <dt data-target-cell="annotated-cell-10" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-annotation="4" data-code-lines="4">Informatieve labels.</span>
+<span data-code-lines="4" data-code-cell="annotated-cell-10" data-code-annotation="4">Informatieve labels.</span>
 </dd>
 </dl>
 </div>
