@@ -44,5 +44,8 @@ install.packages(package_list)
 
 Moest er een probleem optreden bij de installatie van het `marginaleffects` package, probeer dan volgende syntax:
 
-```{r} #| eval: false  install.packages("marginaleffects", type="binary")}
+```{r}
+#| eval: false 
+
+install.packages("marginaleffects", type="binary")
 ```
