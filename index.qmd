@@ -63,12 +63,12 @@ De inhoud van dit boek bouwt verder op de leerstof van Statistiek 1. Data manage
 
 Voor elke week in de cursus moet je relevante hoofdstukken lezen. In 2024-2025 is dit:
 
-| Week | Sectie                | Hoofdstukken                                                                                                                                      |
-|-----------|-----------|---------------------------------------------------|
-| 1    | Lineaire Modellen     | @sec-linear-covcor ; @sec-reporting-and-presenting-results (8.1 & 8.2)                                                                            |
-| 2    | Lineaire Modellen     | @sec-binary-predictors ; @sec-statistical-significance ; @sec-predicted-residual-values (5.1 & 5.2) ; @sec-reporting-and-presenting-results (8.3) |
-| 3    | Lineaire Modellen     | @sec-multiple-linear-regression ; @sec-predicted-residual-values (5.3) ; @sec-model-fit ; @sec-reporting-and-presenting-results (8.3 - 8.6)       |
-| 4    | Lineaire Modellen     | @sec-ols-assumptions                                                                                                                              |
-| 5    | Logistische Regressie | @sec-logistic-regression-odds-ratios ; @sec-marginal-effects ; @sec-logit-predicted-probabilities ; @sec-reporting-logit                          |
-| 6    | Logistische Regressie | @sec-logit-comparing ; @sec-logistic-regression-assumptions                                                                                       |
-| 7    | Interacties           | @sec-including-an-interaction-term-in-a-regression-model ; @sec-inter-marginal ; @sec-predicted-values-from-interaction-models                    |
+| Week | Sectie | Hoofdstukken |
+|----|----|----|
+| 1 | Lineaire Modellen | @sec-linear-covcor ; @sec-reporting-and-presenting-results (8.1 & 8.2) |
+| 2 | Lineaire Modellen | @sec-binary-predictors ; @sec-statistical-significance ; @sec-predicted-residual-values (5.1 & 5.2) ; @sec-reporting-and-presenting-results (8.3) |
+| 3 | Lineaire Modellen | @sec-multiple-linear-regression ; @sec-predicted-residual-values (5.3) ; @sec-model-fit ; @sec-reporting-and-presenting-results (8.3 - 8.6) |
+| 4 | Lineaire Modellen | @sec-ols-assumptions |
+| 5 | Logistische Regressie | @sec-logistic-regression-odds-ratios ; @sec-marginal-effects ; @sec-logit-predicted-probabilities ; @sec-reporting-logit |
+| 6 | Logistische Regressie | @sec-logit-comparing ; @sec-logistic-regression-assumptions |
+| 7 | Interacties | @sec-including-an-interaction-term-in-a-regression-model ; @sec-inter-marginal ; @sec-predicted-values-from-interaction-models |
