@@ -88,11 +88,11 @@ Hieronder vind je een voorbeeld voor `gndr` (binaire factor) en `trstplt` (conti
 ::: callout-tip
 #### Rapportagevoorbeeld
 
-**trstplt**: De kans dat iemand gaat stemmen is hoger als vertrouwen in politici hoger is. De kans neemt gemiddeld genomen met 2.3 percentpunten toe als vertouwen met 1 eenheid stijgt. De relatie is statistisch significant (p \< 0.001).
+**trstplt (AME)**: De kans dat iemand gaat stemmen is hoger als vertrouwen in politici hoger is. De kans neemt gemiddeld genomen met 2.3 percentpunten toe als vertouwen met 1 eenheid stijgt. De relatie is statistisch significant (p \< 0.001).
 
-**gndr (AME example)**: De kans om te stemmen is gemiddeld 4.3 percentpunten hoger voor mannen dan voor vrouwen. Deze relatie is echter niet statistisch significant (p = 0.78).
+**gndr (AME)**: De kans om te stemmen is gemiddeld 0.5 percentpunten hoger voor mannen dan voor vrouwen. Deze relatie is echter niet statistisch significant (p = 0.78).
 
-**gndr (Odds Ratio Example)**: De odds om te stemmen voor mannen zijn 1.04 keer hoger dan die voor vrouwen. Het verschil is echter niet statistisch significant (p = 0.78).
+**gndr (Odds Ratio)**: De odds om te stemmen voor mannen zijn 1.04 keer hoger dan die voor vrouwen. Het verschil is echter niet statistisch significant (p = 0.78).
 :::
 
 Bijkomende richtlijnen voor besprekingen in papers:
