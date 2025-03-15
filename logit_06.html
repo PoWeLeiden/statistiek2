@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistische analyse en presentatie met R - 14&nbsp; Rapporteren en Presenteren van Resultaten</title>
+<title>14&nbsp; Rapporteren en Presenteren van Resultaten – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Geen resultaten",
     "search-matching-documents-text": "Gevonden documenten",
@@ -92,14 +98,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "meer overeenkomst in dit document",
     "search-more-matches-text": "meer overeenkomsten in dit document",
     "search-clear-button-title": "Wissen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Annuleren",
     "search-submit-button-title": "Verzenden",
     "search-label": "Zoeken"
   }
 }</script>
-
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 </head>
@@ -110,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalk in" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_logistic.html">Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./logit_06.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalk in" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_logistic.html">Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./logit_06.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -125,12 +129,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus in"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
 </div>
     </div>
       </div>
@@ -151,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -210,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -257,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -284,9 +288,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -314,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -346,7 +350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_logistic.html">Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./logit_06.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-reporting-logit" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></h1>
 </div>
@@ -361,7 +365,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>Logistische regressiemodellen moeten we net zoals lineaire modellen ook kunnen presenteren en uitleggen aan anderen. In dit hoofdstuk bespreken we de gangbare manieren om dit te doen.</p>
 <p>We gebruiken deze packages en data:</p>
@@ -401,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="12" data-code-cell="annotated-cell-2" data-code-annotation="1">Deze data management stap zorgt ervoor dat we straks de gemiddelde marginale effecten kunnen berekene zonder error zie <a href="logit_02.html"><span>Hoofdstuk&nbsp;10</span></a> . Dit is niet nodig als je <code>factor()</code> gebruikt in plaats van <code>factorize()</code>.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="12" data-code-annotation="1">Deze data management stap zorgt ervoor dat we straks de gemiddelde marginale effecten kunnen berekene zonder error zie <a href="logit_02.html" class="quarto-xref"><span>Hoofdstuk 10</span></a> . Dit is niet nodig als je <code>factor()</code> gebruikt in plaats van <code>factorize()</code>.</span>
 </dd>
 </dl>
 </div>
@@ -464,14 +470,14 @@ Rapportagevoorbeeld
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>trstplt</strong>: De kans dat iemand gaat stemmen is hoger als vertrouwen in politici hoger is. De kans neemt gemiddeld genomen met 2.3 percentpunten toe als vertouwen met 1 eenheid stijgt. De relatie is statistisch significant (p &lt; 0.001).</p>
-<p><strong>gndr (AME example)</strong>: De kans om te stemmen is gemiddeld 4.3 percentpunten hoger voor mannen dan voor vrouwen. Deze relatie is echter niet statistisch significant (p = 0.78).</p>
-<p><strong>gndr (Odds Ratio Example)</strong>: De odds om te stemmen voor mannen zijn 1.04 keer hoger dan die voor vrouwen. Het verschil is echter niet statistisch significant (p = 0.78).</p>
+<p><strong>trstplt (AME)</strong>: De kans dat iemand gaat stemmen is hoger als vertrouwen in politici hoger is. De kans neemt gemiddeld genomen met 2.3 percentpunten toe als vertouwen met 1 eenheid stijgt. De relatie is statistisch significant (p &lt; 0.001).</p>
+<p><strong>gndr (AME)</strong>: De kans om te stemmen is gemiddeld 0.5 percentpunten hoger voor mannen dan voor vrouwen. Deze relatie is echter niet statistisch significant (p = 0.78).</p>
+<p><strong>gndr (Odds Ratio)</strong>: De odds om te stemmen voor mannen zijn 1.04 keer hoger dan die voor vrouwen. Het verschil is echter niet statistisch significant (p = 0.78).</p>
 </div>
 </div>
 <p>Bijkomende richtlijnen voor besprekingen in papers:</p>
 <ul>
-<li>In je rapportage kun je ook een bespreking van de voorspelde waarden opnemen (bv. wat is de voorspelde kans dat iemand gaat stemmen bij lage en hoge niveaus van vetrouwen in politici?) Een plot van voorspelde waarden kan de bespreking verder verduidelijken. Zie <a href="#sec-presentation-predicted-probability-plots"><span>Paragraaf&nbsp;14.5</span></a> voor meer informatie.</li>
+<li>In je rapportage kun je ook een bespreking van de voorspelde waarden opnemen (bv. wat is de voorspelde kans dat iemand gaat stemmen bij lage en hoge niveaus van vetrouwen in politici?) Een plot van voorspelde waarden kan de bespreking verder verduidelijken. Zie <a href="#sec-presentation-predicted-probability-plots" class="quarto-xref"><span>Paragraaf 14.5</span></a> voor meer informatie.</li>
 <li>Als je onderzoek vooral gericht is op de relatie tussen een specifieke onafhankelijke variabele en de afhankelijke variabele dan is een discussie over de controlevariabelen doorgaans niet nodig.</li>
 <li>Het intercept wordt zelden besproken bij logistische regressies.</li>
 <li>Wees voorzichting in je bespreking van de relatie tussen de variabelen. Causaliteit is moeilijk te bepalen en is onderhevig aan sterke voorwaarden. Je schrijft bijgevolg dus meestal niet het “effect van X op Y” , maar “de verandering in X is geassocieerd met de verandering in Y”.</li>
@@ -479,7 +485,7 @@ Rapportagevoorbeeld
 </section>
 <section id="sec-presentation-regression-tables-logit" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="sec-presentation-regression-tables-logit"><span class="header-section-number">14.2</span> Presentatie: Regressietabellen</h2>
-<p>We gebruiken de <code>modelsummary()</code> funcie uit het <code>modelsummary</code> package om regressietabellen te produceren. De procedure en syntax is gelijkaardig aan die voor lineaire regressietabellen (zie <a href="linear_08.html#sec-presenting-linear-regression-regression-tables"><span>Paragraaf&nbsp;8.4</span></a>). Het belangrijkste verschil zit in de model fit statistieken.</p>
+<p>We gebruiken de <code>modelsummary()</code> funcie uit het <code>modelsummary</code> package om regressietabellen te produceren. De procedure en syntax is gelijkaardig aan die voor lineaire regressietabellen (zie <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Paragraaf 8.4</span></a>). Het belangrijkste verschil zit in de model fit statistieken.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(Vote_model_mp,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> <span class="cn">TRUE</span>,</span>
@@ -492,77 +498,154 @@ Rapportagevoorbeeld
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Opkomst in Nederland (ESS9)"</span>,</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> (<span class="st">"Logistische regressiecoëfficiënten met standaardfouten tussen haakjes"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Opkomst in Nederland (ESS9)</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Constante</td>
-<td style="text-align: center;">-0.284</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.380)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Man</td>
-<td style="text-align: center;">0.043</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.154)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Leeftijd</td>
-<td style="text-align: center;">0.018***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.005)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Vertrouwen in politici</td>
-<td style="text-align: center;">0.195***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.039)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">links-recht positie</td>
-<td style="text-align: center;">0.029</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.039)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">1425</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">-567.653</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> Logistische regressiecoëfficiënten met standaardfouten tussen haakjes</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
 
+      function styleCell_7xislbpu29ggj0dxn5ya(i, j, css_id) {
+          var table = document.getElementById("tinytable_7xislbpu29ggj0dxn5ya");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_7xislbpu29ggj0dxn5ya');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_7xislbpu29ggj0dxn5ya(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_7xislbpu29ggj0dxn5ya");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 12, j: 1 },  ], css_id: 'tinytable_css_r2xwjp6agwlg54qo07pe',}, 
+          { positions: [ { i: 10, j: 1 },  ], css_id: 'tinytable_css_ll9feknmnq2k808dg7tv',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 },  ], css_id: 'tinytable_css_l0gzvth4e1ja8ivjhot2',}, 
+          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_j9ctuz1wb0dk3dtloc94',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_elynft9qpcnmotgxhe5z',}, 
+          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 11, j: 1 },  ], css_id: 'tinytable_css_adpy28kdbz0bmp9w41i2',}, 
+          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_7pp2ddz8uyf151asa00t',}, 
+          { positions: [ { i: 12, j: 0 },  ], css_id: 'tinytable_css_3nm1xjc8dcok92acwmso',}, 
+          ];
 
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_7xislbpu29ggj0dxn5ya(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_r2xwjp6agwlg54qo07pe, .table th.tinytable_css_r2xwjp6agwlg54qo07pe { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_ll9feknmnq2k808dg7tv, .table th.tinytable_css_ll9feknmnq2k808dg7tv { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_l0gzvth4e1ja8ivjhot2, .table th.tinytable_css_l0gzvth4e1ja8ivjhot2 { text-align: left; }
+      .table td.tinytable_css_j9ctuz1wb0dk3dtloc94, .table th.tinytable_css_j9ctuz1wb0dk3dtloc94 { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_elynft9qpcnmotgxhe5z, .table th.tinytable_css_elynft9qpcnmotgxhe5z { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_adpy28kdbz0bmp9w41i2, .table th.tinytable_css_adpy28kdbz0bmp9w41i2 { text-align: center; }
+      .table td.tinytable_css_7pp2ddz8uyf151asa00t, .table th.tinytable_css_7pp2ddz8uyf151asa00t { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_3nm1xjc8dcok92acwmso, .table th.tinytable_css_3nm1xjc8dcok92acwmso { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_7xislbpu29ggj0dxn5ya" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        </thead><caption>Opkomst in Nederland (ESS9)</caption>
+              <tbody><tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        
+        </tbody><tfoot><tr><td colspan="2">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="2">Logistische regressiecoëfficiënten met standaardfouten tussen haakjes</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>Constante</td>
+                  <td>-0.284</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.380)</td>
+                </tr>
+                <tr>
+                  <td>Man</td>
+                  <td>0.043</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.154)</td>
+                </tr>
+                <tr>
+                  <td>Leeftijd</td>
+                  <td>0.018***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.005)</td>
+                </tr>
+                <tr>
+                  <td>Vertrouwen in politici</td>
+                  <td>0.195***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.039)</td>
+                </tr>
+                <tr>
+                  <td>links-recht positie</td>
+                  <td>0.029</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.039)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>1425</td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.</td>
+                  <td>-567.653</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <dl>
@@ -591,86 +674,163 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-4" data-code-annotation="1">Vraagt <code>modelsummary()</code> de logistische coëfficiënten te exponentiëren, wat de odds ratios oplevert.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1">Vraagt <code>modelsummary()</code> de logistische coëfficiënten te exponentiëren, wat de odds ratios oplevert.</span>
 </dd>
 <dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-4" data-code-annotation="2">Vraagt <code>modelsummary()</code> de 95% betrouwbaarheidsintervallen te produceren. Dit is gebruikelijk bij odds ratios.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="2">Vraagt <code>modelsummary()</code> de 95% betrouwbaarheidsintervallen te produceren. Dit is gebruikelijk bij odds ratios.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Opkomst in Nederland (ESS9)</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Constante</td>
-<td style="text-align: center;">0.753</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">[0.357, 1.588]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Man</td>
-<td style="text-align: center;">1.044</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">[0.772, 1.413]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Leeftijd</td>
-<td style="text-align: center;">1.019***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">[1.010, 1.028]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Vertrouwen in politici</td>
-<td style="text-align: center;">1.215***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">[1.126, 1.311]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">links-recht positie</td>
-<td style="text-align: center;">1.030</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">[0.953, 1.112]</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">1425</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Log.Lik.</td>
-<td style="text-align: center;">-567.653</td>
-</tr>
-</tbody><tfoot>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> Odds ratios met 95% betrouwbaarheidsintervallen</td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
 
+      function styleCell_xaq6fo4h90qe12jh2vhw(i, j, css_id) {
+          var table = document.getElementById("tinytable_xaq6fo4h90qe12jh2vhw");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_xaq6fo4h90qe12jh2vhw');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_xaq6fo4h90qe12jh2vhw(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_xaq6fo4h90qe12jh2vhw");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 11, j: 1 },  ], css_id: 'tinytable_css_zfixlouzor9qgq9yioh7',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 },  ], css_id: 'tinytable_css_sxfxad6gjzualscvu3mx',}, 
+          { positions: [ { i: 12, j: 1 },  ], css_id: 'tinytable_css_sgv92ohq6bnq7mvd4tma',}, 
+          { positions: [ { i: 12, j: 0 },  ], css_id: 'tinytable_css_sbkdy4j8vuk31rjs9wou',}, 
+          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_k6zigu66dwp1zugwuy9q',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_d1l0v9joaenksbctn46o',}, 
+          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_16negqe319lcjah9dy1h',}, 
+          { positions: [ { i: 10, j: 1 },  ], css_id: 'tinytable_css_009lnc98qnzsqskrh0ed',}, 
+          ];
 
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_xaq6fo4h90qe12jh2vhw(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_zfixlouzor9qgq9yioh7, .table th.tinytable_css_zfixlouzor9qgq9yioh7 { text-align: center; }
+      .table td.tinytable_css_sxfxad6gjzualscvu3mx, .table th.tinytable_css_sxfxad6gjzualscvu3mx { text-align: left; }
+      .table td.tinytable_css_sgv92ohq6bnq7mvd4tma, .table th.tinytable_css_sgv92ohq6bnq7mvd4tma { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_sbkdy4j8vuk31rjs9wou, .table th.tinytable_css_sbkdy4j8vuk31rjs9wou { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_k6zigu66dwp1zugwuy9q, .table th.tinytable_css_k6zigu66dwp1zugwuy9q { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_d1l0v9joaenksbctn46o, .table th.tinytable_css_d1l0v9joaenksbctn46o { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_16negqe319lcjah9dy1h, .table th.tinytable_css_16negqe319lcjah9dy1h { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_009lnc98qnzsqskrh0ed, .table th.tinytable_css_009lnc98qnzsqskrh0ed { text-align: center; border-bottom: solid black 0.05em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_xaq6fo4h90qe12jh2vhw" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        </thead><caption>Opkomst in Nederland (ESS9)</caption>
+              <tbody><tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+              </tr>
+        
+        </tbody><tfoot><tr><td colspan="2">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="2">Odds ratios met 95% betrouwbaarheidsintervallen</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>Constante</td>
+                  <td>0.753</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>[0.357, 1.588]</td>
+                </tr>
+                <tr>
+                  <td>Man</td>
+                  <td>1.044</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>[0.772, 1.413]</td>
+                </tr>
+                <tr>
+                  <td>Leeftijd</td>
+                  <td>1.019***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>[1.010, 1.028]</td>
+                </tr>
+                <tr>
+                  <td>Vertrouwen in politici</td>
+                  <td>1.215***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>[1.126, 1.311]</td>
+                </tr>
+                <tr>
+                  <td>links-recht positie</td>
+                  <td>1.030</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>[0.953, 1.112]</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>1425</td>
+                </tr>
+                <tr>
+                  <td>Log.Lik.</td>
+                  <td>-567.653</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <dl>
@@ -691,7 +851,7 @@ Rapportagevoorbeeld
 </section>
 <section id="presentatie-plots-van-coëfficiënten-en-odds-ratios" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="presentatie-plots-van-coëfficiënten-en-odds-ratios"><span class="header-section-number">14.3</span> Presentatie: Plots van coëfficiënten (en odds ratios)</h2>
-<p>We kunnen de output ook presenteren in de vorm van een coefficiëntenplot (eventueel met de volledige regressietabel in Appendix), net zoals bij lineaire regressiemodellen. De procedure wordt beschreven in <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a> . Hier is een voorbeeld op basis van bovenstaand model:</p>
+<p>We kunnen de output ook presenteren in de vorm van een coefficiëntenplot (eventueel met de volledige regressietabel in Appendix), net zoals bij lineaire regressiemodellen. De procedure wordt beschreven in <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a> . Hier is een voorbeeld op basis van bovenstaand model:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Vote_model_mp, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-2" class="code-annotation-target"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span></span>
@@ -712,20 +872,24 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-cell="annotated-cell-5" data-code-annotation="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>tidy</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot maken.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>tidy</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot maken.</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-5" data-code-annotation="2">Het intercept wordt doorgaans niet getoond.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="2" data-code-annotation="2">Het intercept wordt doorgaans niet getoond.</span>
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-5" data-code-annotation="3">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a>.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="3" data-code-annotation="3">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a>.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<p><img src="logit_06_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="logit_06_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Als we odds ratios willen plotten vragen we eerts dat <code>tidy()</code> odds ratios produceert en vervolgens zetten we de referentielijn voor statistische significantie op 1. We veranderen ook het label op de x-as.:</p>
@@ -749,23 +913,27 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-cell="annotated-cell-6" data-code-annotation="1"><code>exponentiate = TRUE</code> voor de odds ratios</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="1" data-code-annotation="1"><code>exponentiate = TRUE</code> voor de odds ratios</span>
 </dd>
 <dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="14" data-code-cell="annotated-cell-6" data-code-annotation="2">Odds ratios zijn multiplicatief. Daarom moet de referentielijn op 1 komen te staan</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="14" data-code-annotation="2">Odds ratios zijn multiplicatief. Daarom moet de referentielijn op 1 komen te staan</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<p><img src="logit_06_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="logit_06_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="instructies" class="level3" data-number="14.3.1">
 <h3 data-number="14.3.1" class="anchored" data-anchor-id="instructies"><span class="header-section-number">14.3.1</span> Instructies</h3>
 <ul>
 <li>Meestal plaats je de coëfficiënt op de x-as en de naam van de variabele op de y-as. Het is mogelijk dit te veranderen met de <code>ggplot</code> syntax, maar dan kunnen de variabelenamen makkelijker overlappen. Lange variabelennamen leiden wel vaker tot problemen met de visualisatie (in deze <a href="https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/">blog</a> vind je enkele tips).</li>
-<li>Standaard plot <code>ggplot</code> de coëfficiënten in alfabetische volgorde. Dit kan ervoor zorgen dat variabelen die bij elkaar horen (bv. meerdere dummies van 1 onderliggende categorische variabele) niet bij elkaar staan in het plot (zoals in het voorbeeld hierboven). We kunnen de volgorde aanpassen als we de <code>term</code> variabele omzetten in een factor variabele en de volgorde van de levels zelf bepalen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a></li>
+<li>Standaard plot <code>ggplot</code> de coëfficiënten in alfabetische volgorde. Dit kan ervoor zorgen dat variabelen die bij elkaar horen (bv. meerdere dummies van 1 onderliggende categorische variabele) niet bij elkaar staan in het plot (zoals in het voorbeeld hierboven). We kunnen de volgorde aanpassen als we de <code>term</code> variabele omzetten in een factor variabele en de volgorde van de levels zelf bepalen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a></li>
 <li>Het toevoegen van de (afgeronde) coëfficiënt-waarde kan lezers helpen de resultaten beter te vatten.</li>
 <li>Meestal plotten we de 95% betrouwbaarheidsintervallen, maar dit kan aangepast worden (we kunnen <code>tidy</code> om andere niveaus vragen).</li>
 <li>In een rapport voeg je best een notitie onderaan de figuur toe, bv. “Notitie: OLS coëfficiënten met 95% betrouwbaarheidsinterval”.</li>
@@ -794,20 +962,24 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-cell="annotated-cell-7" data-code-annotation="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>avg_slopes</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="1" data-code-annotation="1">We produceren het plot in 1 stap, gebruikmakend van de <code>|&gt;</code> operator. Je zou de syntax echter kunnen opbreken in meerdere stappen: (1) <code>avg_slopes</code>resultaten opslaan in nieuw object; (2) Hercoderen van de <code>term</code> variabelen in dat object; en (3) plot</span>
 </dd>
 <dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-7" data-code-annotation="2">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a>.</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="2">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-7" data-code-annotation="3"><code>avg_slopes()</code> combineert niet de variabelenaam en de categorielabel bij factor variabelen in <code>term</code> (bv. het toont <code>gndr</code> in plaats van <code>gndrMale</code>).</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="3"><code>avg_slopes()</code> combineert niet de variabelenaam en de categorielabel bij factor variabelen in <code>term</code> (bv. het toont <code>gndr</code> in plaats van <code>gndrMale</code>).</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<p><img src="logit_06_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="logit_06_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Bovenstaand voorbeeld plot probabiliteiten lopende van 0 tot 1. We kunnen deze ook in percentagepunten uitdrukken wanneer we de AME (<code>estimate</code>) en de betrouwbaarheidsintervallen (<code>conf.low</code>, <code>conf.high</code>) met 100 vermenigvuldigen:</p>
@@ -829,17 +1001,21 @@ Rapportagevoorbeeld
 <span id="annotated-cell-8-15"><a href="#annotated-cell-8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">'dashed'</span>, <span class="at">color =</span><span class="st">'red'</span>) <span class="sc">+</span> </span>
 <span id="annotated-cell-8-16"><a href="#annotated-cell-8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(estimate, <span class="dv">2</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="logit_06_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="logit_06_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="instructies-1" class="level3" data-number="14.4.1">
 <h3 data-number="14.4.1" class="anchored" data-anchor-id="instructies-1"><span class="header-section-number">14.4.1</span> Instructies</h3>
-<p>De richtlijnen voor coëfficiënteplots worden ook hier gehanteerd (zie boven en <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots"><span>Paragraaf&nbsp;8.5</span></a>).</p>
+<p>De richtlijnen voor coëfficiënteplots worden ook hier gehanteerd (zie boven en <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a>).</p>
 </section>
 </section>
 <section id="sec-presentation-predicted-probability-plots" class="level2" data-number="14.5">
 <h2 data-number="14.5" class="anchored" data-anchor-id="sec-presentation-predicted-probability-plots"><span class="header-section-number">14.5</span> Presentatie: Plots van Voorspelde Waarden</h2>
-<p>Ten slotte kunnen we de resultaten van een model ook grafisch presenteren met behulp van voorspelde waarden. We zagen eerder hoe we de voorspelde waarden plotten voor specifieke waarden van een continue of categorische onafhankelijke variabele in een lineair regressiemodel (see <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots"><span>Paragraaf&nbsp;8.6</span></a>). Nu doen we hetzelfde voor logistische modellen.</p>
+<p>Ten slotte kunnen we de resultaten van een model ook grafisch presenteren met behulp van voorspelde waarden. We zagen eerder hoe we de voorspelde waarden plotten voor specifieke waarden van een continue of categorische onafhankelijke variabele in een lineair regressiemodel (see <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a>). Nu doen we hetzelfde voor logistische modellen.</p>
 <section id="continue-onafhankelijke-variabele" class="level3" data-number="14.5.1">
 <h3 data-number="14.5.1" class="anchored" data-anchor-id="continue-onafhankelijke-variabele"><span class="header-section-number">14.5.1</span> Continue onafhankelijke variabele</h3>
 <p>De output van het model toonde dat stemmen waarcshijnlijker wordt naarmate mensen meer vertouwen hebben in politici. De AME toonde dat de stijging gemiddeld 2.3 percentpunten was per eenheid vertrouwen. Maar hoeveel impact heeft dit dan echt op stemgedrag? Gaat men van heel onwaarschijnlijk tot zeer waarschijnlijk om te stemmen? Een plot kan helpen dit te veruidelijken.</p>
@@ -854,7 +1030,7 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-9" data-code-annotation="1">We zouden <code>predictions()</code> ook intervallen van 1pt kunnen laten berekenen, maar dit is doorgaans niet nodig. <code>ggplot()</code> verbindt de punten in een lijn.</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="3" data-code-annotation="1">We zouden <code>predictions()</code> ook intervallen van 1pt kunnen laten berekenen, maar dit is doorgaans niet nodig. <code>ggplot()</code> verbindt de punten in een lijn.</span>
 </dd>
 </dl>
 </div>
@@ -883,24 +1059,28 @@ Rapportagevoorbeeld
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="1" data-code-cell="annotated-cell-10" data-code-annotation="1">Zegt <code>ggplot()</code> welke data te gebruiken (<code>Pred_conts</code>) en wat op de x- (<code>trstplt</code>) en y-as (<code>estimate</code>) te zetten.</span>
+<span data-code-cell="annotated-cell-10" data-code-lines="1" data-code-annotation="1">Zegt <code>ggplot()</code> welke data te gebruiken (<code>Pred_conts</code>) en wat op de x- (<code>trstplt</code>) en y-as (<code>estimate</code>) te zetten.</span>
 </dd>
 <dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="2" data-code-cell="annotated-cell-10" data-code-annotation="2">Zegt <code>ggplot()</code> dat we een verbindingslijn willen tussen de voorspellingen.</span>
+<span data-code-cell="annotated-cell-10" data-code-lines="2" data-code-annotation="2">Zegt <code>ggplot()</code> dat we een verbindingslijn willen tussen de voorspellingen.</span>
 </dd>
 <dt data-target-cell="annotated-cell-10" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-10" data-code-annotation="3">Zegt <code>ggplot()</code> dat we een band met betrouwbaarheidsintervallen willen en hoe donker de kleur daarvan mag zijn (<code>alpha = 0.2</code>).</span>
+<span data-code-cell="annotated-cell-10" data-code-lines="3" data-code-annotation="3">Zegt <code>ggplot()</code> dat we een band met betrouwbaarheidsintervallen willen en hoe donker de kleur daarvan mag zijn (<code>alpha = 0.2</code>).</span>
 </dd>
 <dt data-target-cell="annotated-cell-10" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="4" data-code-cell="annotated-cell-10" data-code-annotation="4">Informatieve labels.</span>
+<span data-code-cell="annotated-cell-10" data-code-lines="4" data-code-annotation="4">Informatieve labels.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<p><img src="logit_06_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="logit_06_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>We zouden ook de schaal van y kunnen aanpassen om het volledige theoretische bereik van probabiliteiten (0 tot 1) weer te geven, indien we denken dat resultaten misleidend kunnen zijn zonder deze aanpassing:</p>
@@ -913,7 +1093,11 @@ Rapportagevoorbeeld
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde kans om te stemmen"</span>) <span class="sc">+</span> </span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="logit_06_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="logit_06_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -927,12 +1111,13 @@ Rapportagevoorbeeld
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#en bekijken</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Pred_cat)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 11
-  rowid gndr  estimate  p.value s.value conf.low conf.high  agea trstplt lrscale
-  &lt;int&gt; &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1 Fema…    0.863 1.35e-60    199.    0.835     0.887  50.7    5.34    5.15
-2     2 Male     0.868 1.44e-64    212.    0.841     0.891  50.7    5.34    5.15
-# ℹ 1 more variable: vote &lt;fct&gt;</code></pre>
+<pre><code># A tibble: 2 × 13
+  rowid gndr   estimate std.error statistic p.value s.value conf.low conf.high
+  &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1     1 Female    0.863    0.0133      65.1       0     Inf    0.837     0.889
+2     2 Male      0.868    0.0127      68.2       0     Inf    0.843     0.893
+# ℹ 4 more variables: agea &lt;dbl&gt;, trstplt &lt;dbl&gt;, lrscale &lt;dbl&gt;,
+#   rowid_dedup &lt;int&gt;</code></pre>
 </div>
 </div>
 <p>De data wordt dan naar een plot overgezet:</p>
@@ -946,7 +1131,11 @@ Rapportagevoorbeeld
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.9</span>))<span class="sc">+</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"Man"</span>, <span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"Vrouw"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="logit_06_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="logit_06_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -956,7 +1145,7 @@ Rapportagevoorbeeld
 <li>Welke variabelen en waarden plot je?
 <ul>
 <li>Als de variabele binair/categorisch is, gebruik je alle categorieën die relevant zijn voor de discussie.</li>
-<li>Als de variabele continue is gebruik je het minimum en maximum met redelijke tussenintervallen. Om het minimum en maximum te bepalen kijk je naar de data voor de observaties gebruikt in het model (dit is niet noodzakelijk de volledige dataset gezien observaties kunnen wegvallen door missing waarden). Met de <code>predictions()</code> kun je gemakkelijk een dataset aanmaken met alle observaties gebruikt in het model en vervolgens gebruik je <code>summary</code> om minimum en maximum te bepalen (zie <a href="linear_05.html#sec-predictions-for-a-continuous-predictor-variable"><span>Paragraaf&nbsp;5.3.1</span></a>).</li>
+<li>Als de variabele continue is gebruik je het minimum en maximum met redelijke tussenintervallen. Om het minimum en maximum te bepalen kijk je naar de data voor de observaties gebruikt in het model (dit is niet noodzakelijk de volledige dataset gezien observaties kunnen wegvallen door missing waarden). Met de <code>predictions()</code> kun je gemakkelijk een dataset aanmaken met alle observaties gebruikt in het model en vervolgens gebruik je <code>summary</code> om minimum en maximum te bepalen (zie <a href="linear_05.html#sec-predictions-for-a-continuous-predictor-variable" class="quarto-xref"><span>Paragraaf 5.3.1</span></a>).</li>
 </ul></li>
 <li>We gebruiken een lijn met betrouwbaarheidsintervallen voor contnue predictoren; voor categorische doen we beroep op <code>geom_pointrange()</code> of <code>geom_errorbar()</code>.</li>
 <li>De y-schaal verdient bijzonder aandacht bij dit soort plots. In het voorbeeld wordt <code>scale_y_continuous()</code> gebruikt om ervoor te zorgen dat het plot het volledige bereik van de afhankelijke variabele (democratiescore) omvat. Soms maakt <code>ggplot()</code> zelf de schaal kleiner (om ongebruikte ruimte weg te laten), maar dan kan een effect groter lijken dan het is. Deze aanpak heeft ook wel nadelen, bijvoorbeeld juist veel ongebruikte ruimte in een plot en minder duidelijke visualisatie. Socioloog Kieran Healy geeft een verdere <a href="https://socviz.co/lookatdata.html#problems-of-honesty-and-good-judgment">bespreking</a> over deze verschillende manieren om de schaal vorm te geven in zijn boek over datavisualisatie.</li>
@@ -1014,6 +1203,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1082,13 +1298,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1123,18 +1341,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1166,11 +1373,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1180,8 +1426,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1193,7 +1448,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1237,6 +1615,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1262,8 +1641,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-      // Handle positioning of the toggle
-      window.addEventListener(
+        // Handle positioning of the toggle
+    window.addEventListener(
       "resize",
       throttle(() => {
         elRect = undefined;
@@ -1271,23 +1650,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           selectCodeLines(selectedAnnoteEl);
         }
       }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
               fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
       for (let i=0; i<annoteTargets.length; i++) {
         const annoteTarget = annoteTargets[i];
@@ -1332,7 +1711,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1388,17 +1767,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./logit_05.html" class="pagination-link">
+      <a href="./logit_05.html" class="pagination-link" aria-label="Assumpties van Logistische Regressie">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./part_interactions.html" class="pagination-link">
+      <a href="./part_interactions.html" class="pagination-link" aria-label="Interacties in Lineaire en Logistische Regressiemodellen">
         <span class="nav-page-text">Interacties in Lineaire en Logistische Regressiemodellen</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

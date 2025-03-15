@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistische analyse en presentatie met R - 16&nbsp; Marginale Effecten in Interactiemodellen</title>
+<title>16&nbsp; Marginale Effecten in Interactiemodellen – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Geen resultaten",
     "search-matching-documents-text": "Gevonden documenten",
@@ -92,6 +98,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "meer overeenkomst in dit document",
     "search-more-matches-text": "meer overeenkomsten in dit document",
     "search-clear-button-title": "Wissen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Annuleren",
     "search-submit-button-title": "Verzenden",
     "search-label": "Zoeken"
@@ -107,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalk in" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_02.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalk in" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_02.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -122,12 +129,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus in"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
 </div>
     </div>
       </div>
@@ -148,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -207,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -254,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -281,9 +288,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -311,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -332,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_02.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-inter-marginal" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></h1>
 </div>
@@ -347,7 +354,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
@@ -367,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In het vorige hoofdstuk bespraken we hoe we een interactieterm toe te voegen aan een regressiemodel. Zo kunnen we nagaan of het effect van een onfahankelijke variabele verschilt naargelang een andere onafhankelijke variabale andere waarden aanneemt:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/Interaction.png" class="img-fluid figure-img"></p>
+<p><img src="figures/Interaction.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>In dit model bekijken we bijvoorbeeld of iemands evaluatie van Joe Biden afhangt van partij-identificatie, oordeel of het land in de juiste of verkeerde richting gaat, en de interactie tussen deze 2 predictors.</p>
@@ -424,15 +433,13 @@ Interpretatie
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">by =</span> <span class="st">"right_track"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Term    Contrast     right_track Estimate Std. Error     z Pr(&gt;|z|)     S
-  pid mean(dY/dX) Wrong Track       -10.82      0.147 -73.7   &lt;0.001   Inf
-  pid mean(dY/dX) Right Direction    -7.11      0.344 -20.7   &lt;0.001 312.7
-  2.5 % 97.5 %
- -11.11 -10.54
-  -7.78  -6.44
+     right_track Estimate Std. Error     z Pr(&gt;|z|)     S  2.5 % 97.5 %
+ Wrong Track       -10.82      0.147 -73.7   &lt;0.001   Inf -11.11 -10.54
+ Right Direction    -7.11      0.344 -20.7   &lt;0.001 312.7  -7.78  -6.44
 
-Columns: term, contrast, right_track, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, predicted_lo, predicted_hi, predicted 
-Type:  response </code></pre>
+Term: pid
+Type:  response 
+Comparison: dY/dX</code></pre>
 </div>
 </div>
 <dl>
@@ -479,25 +486,18 @@ Type:  response </code></pre>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">pid =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>)))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-        Term                      Contrast pid Estimate Std. Error      z
- right_track Right Direction - Wrong Track   1   -29.47      1.811 -16.28
- right_track Right Direction - Wrong Track   2   -25.76      1.473 -17.48
- right_track Right Direction - Wrong Track   3   -22.05      1.158 -19.04
- right_track Right Direction - Wrong Track   4   -18.33      0.888 -20.64
- right_track Right Direction - Wrong Track   5   -14.62      0.718 -20.37
- right_track Right Direction - Wrong Track   6   -10.90      0.721 -15.13
- right_track Right Direction - Wrong Track   7    -7.19      0.895  -8.03
- Pr(&gt;|z|)     S  2.5 % 97.5 %
-   &lt;0.001 195.4 -33.02 -25.92
-   &lt;0.001 224.9 -28.65 -22.87
-   &lt;0.001 266.0 -24.32 -19.78
-   &lt;0.001 311.9 -20.07 -16.59
-   &lt;0.001 303.9 -16.02 -13.21
-   &lt;0.001 169.4 -12.31  -9.49
-   &lt;0.001  49.9  -8.94  -5.43
+ pid Estimate Std. Error      z Pr(&gt;|z|)     S  2.5 % 97.5 %
+   1   -29.47      1.811 -16.28   &lt;0.001 195.4 -33.02 -25.92
+   2   -25.76      1.473 -17.48   &lt;0.001 224.9 -28.65 -22.87
+   3   -22.05      1.158 -19.04   &lt;0.001 266.0 -24.32 -19.78
+   4   -18.33      0.888 -20.64   &lt;0.001 311.9 -20.07 -16.59
+   5   -14.62      0.718 -20.37   &lt;0.001 303.9 -16.02 -13.21
+   6   -10.90      0.721 -15.13   &lt;0.001 169.4 -12.31  -9.49
+   7    -7.19      0.895  -8.03   &lt;0.001  49.9  -8.94  -5.43
 
-Columns: rowid, term, contrast, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, pid, predicted_lo, predicted_hi, predicted, right_track, rural_urban, biden 
-Type:  response </code></pre>
+Term: right_track
+Type:  response 
+Comparison: Right Direction - Wrong Track</code></pre>
 </div>
 </div>
 <dl>
@@ -554,12 +554,16 @@ Type:  response </code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-annotation="1" data-code-lines="1">In dit voorbeeld nemen we de output van <code>slopes()</code> onmiddellijk op met <code>ggplot()</code> via de pipe operator. We zouden ook de resultaten van <code>slopes()</code> in een data object kunnen opslaan en die resultaten gebruiken voor een nieuwe <code>ggplot()</code> functie.</span>
+<span data-code-cell="annotated-cell-10" data-code-lines="1" data-code-annotation="1">In dit voorbeeld nemen we de output van <code>slopes()</code> onmiddellijk op met <code>ggplot()</code> via de pipe operator. We zouden ook de resultaten van <code>slopes()</code> in een data object kunnen opslaan en die resultaten gebruiken voor een nieuwe <code>ggplot()</code> functie.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<p><img src="interaction_02_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="interaction_02_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>En hier is het voorbeeld waarbij de continue variabele de moderator is. We gebruiken nu <code>geom_line()</code> in combinatie met <code>geom_ribbon</code>:</p>
@@ -580,12 +584,16 @@ Type:  response </code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-annotation="1" data-code-lines="12">Zonder deze regel zou <code>ggplot()</code> enkel ticks tonen bij 2, 4, and 6. Dit is vaak voldoende maar hier is het handig het volledige bereik van de continue variabele te kunnen plotten (1 tot 7).</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="12" data-code-annotation="1">Zonder deze regel zou <code>ggplot()</code> enkel ticks tonen bij 2, 4, and 6. Dit is vaak voldoende maar hier is het handig het volledige bereik van de continue variabele te kunnen plotten (1 tot 7).</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<p><img src="interaction_02_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="interaction_02_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -627,43 +635,46 @@ Type:  response </code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-annotation="1" data-code-lines="9">Leeftijd reikt van 18 tot 80 in de dataset (respondeten ouder dan 80 krijgen gewoon de score 80).</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="9" data-code-annotation="1">Leeftijd reikt van 18 tot 80 in de dataset (respondeten ouder dan 80 krijgen gewoon de score 80).</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Term socialists Estimate Std. Error      z Pr(&gt;|z|)     S   2.5 %   97.5 %
-  age          0  -0.0752     0.0345 -2.177   0.0295   5.1 -0.1429 -0.00751
-  age         10   0.0228     0.0292  0.781   0.4350   1.2 -0.0344  0.07990
-  age         20   0.1207     0.0247  4.895   &lt;0.001  20.0  0.0724  0.16907
-  age         30   0.2187     0.0215 10.156   &lt;0.001  78.1  0.1765  0.26090
-  age         40   0.3167     0.0204 15.528   &lt;0.001 178.2  0.2767  0.35664
-  age         50   0.4146     0.0216 19.239   &lt;0.001 271.6  0.3724  0.45688
-  age         60   0.5126     0.0247 20.724   &lt;0.001 314.5  0.4641  0.56108
-  age         70   0.6106     0.0293 20.841   &lt;0.001 318.0  0.5532  0.66799
-  age         80   0.7085     0.0346 20.457   &lt;0.001 306.6  0.6407  0.77643
-  age         90   0.8065     0.0405 19.919   &lt;0.001 290.9  0.7272  0.88587
-  age        100   0.9045     0.0467 19.373   &lt;0.001 275.3  0.8130  0.99599
+ socialists Estimate Std. Error      z Pr(&gt;|z|)     S   2.5 %   97.5 %
+          0  -0.0752     0.0345 -2.177   0.0295   5.1 -0.1429 -0.00751
+         10   0.0228     0.0292  0.781   0.4350   1.2 -0.0344  0.07990
+         20   0.1207     0.0247  4.895   &lt;0.001  20.0  0.0724  0.16907
+         30   0.2187     0.0215 10.156   &lt;0.001  78.1  0.1765  0.26090
+         40   0.3167     0.0204 15.528   &lt;0.001 178.2  0.2767  0.35664
+         50   0.4146     0.0216 19.239   &lt;0.001 271.6  0.3724  0.45688
+         60   0.5126     0.0247 20.724   &lt;0.001 314.5  0.4641  0.56108
+         70   0.6106     0.0293 20.841   &lt;0.001 318.0  0.5532  0.66799
+         80   0.7085     0.0346 20.457   &lt;0.001 306.6  0.6407  0.77643
+         90   0.8065     0.0405 19.919   &lt;0.001 290.9  0.7272  0.88587
+        100   0.9045     0.0467 19.373   &lt;0.001 275.3  0.8130  0.99599
 
-Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, socialists, predicted_lo, predicted_hi, predicted, age, rural_urban, biden 
+Term: age
 Type:  response 
+Comparison: dY/dX
 
-       Term age Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
- socialists  20    0.393     0.0253 15.6   &lt;0.001 178.7 0.343  0.442
- socialists  30    0.491     0.0195 25.2   &lt;0.001 463.6 0.453  0.529
- socialists  40    0.589     0.0147 40.1   &lt;0.001   Inf 0.560  0.618
- socialists  50    0.687     0.0123 55.9   &lt;0.001   Inf 0.663  0.711
- socialists  60    0.785     0.0136 57.8   &lt;0.001   Inf 0.758  0.811
- socialists  70    0.883     0.0178 49.7   &lt;0.001   Inf 0.848  0.917
- socialists  80    0.981     0.0233 42.0   &lt;0.001   Inf 0.935  1.026
 
-Columns: rowid, term, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, age, predicted_lo, predicted_hi, predicted, socialists, rural_urban, biden 
-Type:  response </code></pre>
+ age Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
+  20    0.393     0.0253 15.6   &lt;0.001 178.7 0.343  0.442
+  30    0.491     0.0195 25.2   &lt;0.001 463.6 0.453  0.529
+  40    0.589     0.0147 40.1   &lt;0.001   Inf 0.560  0.618
+  50    0.687     0.0123 55.9   &lt;0.001   Inf 0.663  0.711
+  60    0.785     0.0136 57.8   &lt;0.001   Inf 0.758  0.811
+  70    0.883     0.0178 49.7   &lt;0.001   Inf 0.848  0.917
+  80    0.981     0.0233 42.0   &lt;0.001   Inf 0.935  1.026
+
+Term: socialists
+Type:  response 
+Comparison: dY/dX</code></pre>
 </div>
 </div>
 <p>We kunnen in de output zien dat het effect van leeftijd negatief en statistisch signficant is als de <code>socialists</code>variabele de waarde 0 aanneemt (-0.0752 [95% CI: -0.143, -0.008]). Dit is gelijk aan de coëfficiënt voor <code>age</code>. Het effect van leeftijd wordt steeds positiever als <code>socialists</code> hogere waarden aanneemt. We wien ook dat het effect van <code>socialists</code>positief is voor jonge mensen (bv., het effect voor respondenten van 20 jaar is 0.39 [0.34, 0.44]). Dit effect wordt positiver naarmate mensen ouder zijn.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<p>Om te plotten gebruiken we de code voor wanneer de moderator een continue variabele is (zie boven, <a href="#sec-ame-plotting"><span>Paragraaf&nbsp;16.1.2</span></a>).</p>
+<p>Om te plotten gebruiken we de code voor wanneer de moderator een continue variabele is (zie boven, <a href="#sec-ame-plotting" class="quarto-xref"><span>Paragraaf 16.1.2</span></a>).</p>
 </section>
 <section id="binaire-x-binaire-interactie" class="level2" data-number="16.3">
 <h2 data-number="16.3" class="anchored" data-anchor-id="binaire-x-binaire-interactie"><span class="header-section-number">16.3</span> Binaire x Binaire Interactie</h2>
@@ -717,15 +728,13 @@ F-statistic:  1687 on 6 and 5195 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">by =</span> <span class="st">"right_track"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-     Term                              Contrast     right_track Estimate
- vote2016 mean(Trump Vote) - mean(Clinton Vote) Wrong Track        -51.6
- vote2016 mean(Trump Vote) - mean(Clinton Vote) Right Direction    -37.8
- Std. Error     z Pr(&gt;|z|)     S 2.5 % 97.5 %
-       0.77 -67.0   &lt;0.001   Inf -53.1  -50.1
-       2.15 -17.6   &lt;0.001 227.0 -42.1  -33.6
+     right_track Estimate Std. Error     z Pr(&gt;|z|)     S 2.5 % 97.5 %
+ Wrong Track        -51.6       0.77 -67.0   &lt;0.001   Inf -53.1  -50.1
+ Right Direction    -37.8       2.15 -17.6   &lt;0.001 227.0 -42.1  -33.6
 
-Columns: term, contrast, right_track, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, predicted_lo, predicted_hi, predicted 
-Type:  response </code></pre>
+Term: vote2016
+Type:  response 
+Comparison: Trump Vote - Clinton Vote</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#vote2016 als moderator</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slopes</span>(biden_int3, </span>
@@ -733,23 +742,21 @@ Type:  response </code></pre>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">by =</span> <span class="st">"vote2016"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-        Term                                  Contrast     vote2016 Estimate
- right_track mean(Right Direction) - mean(Wrong Track) Clinton Vote    -25.2
- right_track mean(Right Direction) - mean(Wrong Track) Trump Vote      -11.5
- Std. Error     z Pr(&gt;|z|)     S 2.5 % 97.5 %
-      2.107 -12.0   &lt;0.001 107.5 -29.4 -21.12
-      0.866 -13.2   &lt;0.001 130.7 -13.2  -9.78
+     vote2016 Estimate Std. Error     z Pr(&gt;|z|)     S 2.5 % 97.5 %
+ Clinton Vote    -25.2      2.107 -12.0   &lt;0.001 107.5 -29.4 -21.12
+ Trump Vote      -11.5      0.866 -13.2   &lt;0.001 130.7 -13.2  -9.78
 
-Columns: term, contrast, vote2016, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, predicted_lo, predicted_hi, predicted 
-Type:  response </code></pre>
+Term: right_track
+Type:  response 
+Comparison: Right Direction - Wrong Track</code></pre>
 </div>
 </div>
 <p>De eerste resultaten tonen dat 2016 Trump kiezers een slechtere indruk van Biden hebben dan 2016 Clinton kiezers, ongeacht wat ze vinden van het land. Maar het verschil is groter voor respondenten die vinden dat het land de verkeerde richting opgaat (verschil = -51.6) dan zij die vinden dat het de goede kant uitgaat (-37.80). Dit verschil is gelijk aan de interactiecoëfficiënt. Deze coëfficiënt was ook statistisch significant.</p>
-<p>Om dit te plotten gebruiken we de code voor wanneer de moderator een factor variabele is (zie boven <a href="#sec-ame-plotting"><span>Paragraaf&nbsp;16.1.2</span></a>).</p>
+<p>Om dit te plotten gebruiken we de code voor wanneer de moderator een factor variabele is (zie boven <a href="#sec-ame-plotting" class="quarto-xref"><span>Paragraaf 16.1.2</span></a>).</p>
 </section>
 <section id="logistische-regressie-voorbeeld" class="level2" data-number="16.4">
 <h2 data-number="16.4" class="anchored" data-anchor-id="logistische-regressie-voorbeeld"><span class="header-section-number">16.4</span> Logistische regressie: voorbeeld</h2>
-<p>Bij logistische regressie worden de marginale effecten met dezelfde code berekend. Hier geven deze effecten de gemiddelde verandering in voorspelde kans weer in percentpunten (zie <a href="logit_02.html"><span>Hoofdstuk&nbsp;10</span></a>).</p>
+<p>Bij logistische regressie worden de marginale effecten met dezelfde code berekend. Hier geven deze effecten de gemiddelde verandering in voorspelde kans weer in percentpunten (zie <a href="logit_02.html" class="quarto-xref"><span>Hoofdstuk 10</span></a>).</p>
 <p>We hebben reeds een <code>righttrack_int</code> model berekend, waarin we een interactie tussen <code>age</code> en <code>vote2016</code> hebben toegevoegd. We bekijken de resultaten nogmaals:</p>
 <p>Here are the interaction model again:</p>
 <div class="cell">
@@ -776,25 +783,18 @@ Type:  response </code></pre>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">age =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">20</span>, <span class="at">to =</span> <span class="dv">80</span>, <span class="at">by =</span> <span class="dv">10</span>))) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-     Term                  Contrast age Estimate Std. Error    z Pr(&gt;|z|)     S
- vote2016 Trump Vote - Clinton Vote  20    0.443     0.0300 14.8   &lt;0.001 161.9
- vote2016 Trump Vote - Clinton Vote  30    0.455     0.0244 18.7   &lt;0.001 255.6
- vote2016 Trump Vote - Clinton Vote  40    0.467     0.0199 23.4   &lt;0.001 400.7
- vote2016 Trump Vote - Clinton Vote  50    0.479     0.0173 27.7   &lt;0.001 558.2
- vote2016 Trump Vote - Clinton Vote  60    0.490     0.0172 28.6   &lt;0.001 593.7
- vote2016 Trump Vote - Clinton Vote  70    0.501     0.0195 25.7   &lt;0.001 481.7
- vote2016 Trump Vote - Clinton Vote  80    0.512     0.0235 21.8   &lt;0.001 347.1
- 2.5 % 97.5 %
- 0.384  0.502
- 0.407  0.503
- 0.428  0.506
- 0.445  0.513
- 0.456  0.524
- 0.463  0.539
- 0.466  0.558
+ age Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
+  20    0.443     0.0300 14.8   &lt;0.001 161.9 0.384  0.502
+  30    0.455     0.0244 18.7   &lt;0.001 255.6 0.407  0.503
+  40    0.467     0.0199 23.4   &lt;0.001 400.7 0.428  0.506
+  50    0.479     0.0173 27.7   &lt;0.001 558.2 0.445  0.513
+  60    0.490     0.0172 28.6   &lt;0.001 593.7 0.456  0.524
+  70    0.501     0.0195 25.7   &lt;0.001 481.7 0.463  0.539
+  80    0.512     0.0235 21.8   &lt;0.001 347.1 0.466  0.558
 
-Columns: rowid, term, contrast, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, age, predicted_lo, predicted_hi, predicted, vote2016, rural_urban, right_track 
-Type:  response </code></pre>
+Term: vote2016
+Type:  response 
+Comparison: Trump Vote - Clinton Vote</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vote2016 als moderator</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slopes</span>(righttrack_int, </span>
@@ -802,15 +802,13 @@ Type:  response </code></pre>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">by =</span> <span class="st">"vote2016"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- Term    Contrast     vote2016  Estimate Std. Error     z Pr(&gt;|z|)   S
-  age mean(dY/dX) Clinton Vote -0.000312   0.000209 -1.49    0.136 2.9
-  age mean(dY/dX) Trump Vote    0.000854   0.000650  1.31    0.189 2.4
-     2.5 %   97.5 %
- -0.000723 9.84e-05
- -0.000421 2.13e-03
+     vote2016  Estimate Std. Error     z Pr(&gt;|z|)   S     2.5 %   97.5 %
+ Clinton Vote -0.000312   0.000209 -1.49    0.136 2.9 -0.000723 9.84e-05
+ Trump Vote    0.000854   0.000650  1.31    0.189 2.4 -0.000421 2.13e-03
 
-Columns: term, contrast, vote2016, estimate, std.error, statistic, p.value, s.value, conf.low, conf.high, predicted_lo, predicted_hi, predicted 
-Type:  response </code></pre>
+Term: age
+Type:  response 
+Comparison: dY/dX</code></pre>
 </div>
 </div>
 <p>We verwachten dat mensen die op Trump gestemd hebben in 2016 een grotere kans hebben om te zeggen dat het land de goede richting uitgaat dan mensen die Clinton stemden. Dit effect geldt al voor jonge mensen maar wordt sterker met leeftijd. Voor respondenten die 30 jaar oud zijn is de kans om te zeggen dat het land de goede richting uitgaat 45.5 percentpunten hoger voor Trump kiezers. Voor respondenten van 80 jaar is dit 51.2 percentpunten.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
@@ -870,6 +868,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -938,13 +963,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -979,18 +1006,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1022,11 +1038,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1036,8 +1091,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1049,7 +1113,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1093,6 +1280,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1118,8 +1306,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-      // Handle positioning of the toggle
-      window.addEventListener(
+        // Handle positioning of the toggle
+    window.addEventListener(
       "resize",
       throttle(() => {
         elRect = undefined;
@@ -1127,23 +1315,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           selectCodeLines(selectedAnnoteEl);
         }
       }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
               fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
       for (let i=0; i<annoteTargets.length; i++) {
         const annoteTarget = annoteTargets[i];
@@ -1188,7 +1376,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1244,17 +1432,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./interaction_01.html" class="pagination-link">
+      <a href="./interaction_01.html" class="pagination-link" aria-label="Interacties in het Regressiemodel">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./interaction_03.html" class="pagination-link">
+      <a href="./interaction_03.html" class="pagination-link" aria-label="Voorspelde Waarden van Interactiemodellen">
         <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 

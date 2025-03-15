@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Statistische analyse en presentatie met R - 15&nbsp; Interacties in het Regressiemodel</title>
+<title>15&nbsp; Interacties in het Regressiemodel – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -83,7 +83,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Geen resultaten",
     "search-matching-documents-text": "Gevonden documenten",
@@ -92,14 +98,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "meer overeenkomst in dit document",
     "search-more-matches-text": "meer overeenkomsten in dit document",
     "search-clear-button-title": "Wissen",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Annuleren",
     "search-submit-button-title": "Verzenden",
     "search-label": "Zoeken"
   }
 }</script>
-
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 </head>
@@ -110,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalk in" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_01.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalk in" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_01.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -125,12 +129,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus in"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
 </div>
     </div>
       </div>
@@ -151,7 +155,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -210,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -257,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -284,9 +288,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -314,7 +318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -322,14 +326,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#een-interactie-in-het-regressiemodel" id="toc-een-interactie-in-het-regressiemodel" class="nav-link active" data-scroll-target="#een-interactie-in-het-regressiemodel"><span class="header-section-number">15.1</span> Een interactie in het regressiemodel</a></li>
-  <li><a href="#regressietabellen" id="toc-regressietabellen" class="nav-link" data-scroll-target="#regressietabellen"><span class="header-section-number">15.2</span> Regressietabellen</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_01.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span id="sec-including-an-interaction-term-in-a-regression-model" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></h1>
 </div>
@@ -344,7 +347,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>In vorige hoofdstukken hebben we regressiemodellen geschat waarbij een afhankelijke variabele voorspeld werd door 1 of meer onafhankelijke variabelen. In dit hoofdstuk kijken we naar interacties tussen onafhankelijke variabelen: hangt het effect van 1 predictor af van waarden van de andere predictor? We laden eerst de packages en dataset waar we mee gaan werken.</p>
 <div class="cell">
@@ -362,7 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(anes)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Data frame: anes</caption>
 <colgroup>
 <col style="width: 20%">
@@ -578,325 +583,483 @@ AIC: 4047.5
 Number of Fisher Scoring iterations: 6</code></pre>
 </div>
 </div>
-<p>::: callout-warning #### Interpretatie</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interpretatie
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>Wanneer we een interactie testen, vragen we ons eigenlijk af of het effect van een bepaalde predictor (X) op de afhankelijke variable (Y) anders is wanneer een tweede predictor (Z) andere waarden aanneemt..</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="figures/Interaction.png" class="img-fluid figure-img"></p>
+<p><img src="figures/Interaction.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>De coëfficiënt van de interactie vertelt ons of dit het geval is. In het lineaire “biden_int” model, bijvoorbeeld, vinden we dat de coëfficiënt statistisch significant is: de relatie tussen partij-identificatie en hoe een respondent Biden evalueert, hangt af van de opinie van de respondent over de richting dat het land uitgaat.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> De interactievariabele in het logistische “righttrack_int” model is echter niet statistisch significant (we gebruiken hier een standaard 95% betrouwbaarheidsniveau). Dit betekent dat bijvoorbeeld de relatie tussen leeftijd en opinie over het land hetzelfde is ongeacht of respondenten in 2016 op Clinton of Trump hebben gestemd.</p>
 <p>Om interactietermen beter te begrijpen, kunnen we R gebruiken om:</p>
 <ul>
-<li>Het marginale effect van 1 onafhankelijke variabele (X) op Y te berekenen bij verschillende waarden van de andere onafhankelijke (Z) (<a href="interaction_02.html"><span>Hoofdstuk&nbsp;16</span></a>).</li>
-<li>De voorspelde waarden voor Y te berekenen voor verschillende combinaties van waarden van de 2 onafhankelijke variabelen (<a href="interaction_03.html"><span>Hoofdstuk&nbsp;17</span></a>).</li>
+<li>Het marginale effect van 1 onafhankelijke variabele (X) op Y te berekenen bij verschillende waarden van de andere onafhankelijke (Z) (<a href="interaction_02.html" class="quarto-xref"><span>Hoofdstuk 16</span></a>).</li>
+<li>De voorspelde waarden voor Y te berekenen voor verschillende combinaties van waarden van de 2 onafhankelijke variabelen (<a href="interaction_03.html" class="quarto-xref"><span>Hoofdstuk 17</span></a>).</li>
 </ul>
-</section>
 <section id="regressietabellen" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="regressietabellen"><span class="header-section-number">15.2</span> Regressietabellen</h2>
-<p>In de volgende 2 hoofdstukken gaan we dieper in op hoe je interactie-effecten best kan begrijpen en communiceren met plot. Hier lichten we kort toe hoe ze te presenteren in regressietabellen. We maken hiervoor weer gebruik van de <code>modelsummary()</code> functie uit het <code>modelsummary</code> package. De basisprincipes zijn dezelfde als degene die we bespraken in eerdere hoofdstukken (lineaire regressietabellen: <a href="linear_08.html#sec-presenting-linear-regression-regression-tables"><span>Paragraaf&nbsp;8.4</span></a> ; logistische regressietabellen: <a href="logit_06.html#sec-presentation-regression-tables-logit"><span>Paragraaf&nbsp;14.2</span></a> ).</p>
+<p>In de volgende 2 hoofdstukken gaan we dieper in op hoe je interactie-effecten best kan begrijpen en communiceren met plot. Hier lichten we kort toe hoe ze te presenteren in regressietabellen. We maken hiervoor weer gebruik van de <code>modelsummary()</code> functie uit het <code>modelsummary</code> package. De basisprincipes zijn dezelfde als degene die we bespraken in eerdere hoofdstukken (lineaire regressietabellen: <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Paragraaf 8.4</span></a> ; logistische regressietabellen: <a href="logit_06.html#sec-presentation-regression-tables-logit" class="quarto-xref"><span>Paragraaf 14.2</span></a> ).</p>
 <p>We zullen de resultaten van het model zonder en het model met interactie naast elkaar presenteren. Zo ziet de lezer onmiddellijk het verschil tussen beide modellen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lijst van modellen</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>interaction_lm_models <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>  biden_model, biden_int</span>
-<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Tabel maken</span></span>
-<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-8" class="code-annotation-target"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3">3</button><span id="annotated-cell-6-9" class="code-annotation-target"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
-<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
-<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
-<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
-<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>, </span>
-<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>), </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4">4</button><span id="annotated-cell-6-17" class="code-annotation-target"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5">5</button><span id="annotated-cell-6-18" class="code-annotation-target"><a href="#annotated-cell-6-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6">6</button><span id="annotated-cell-6-19" class="code-annotation-target"><a href="#annotated-cell-6-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lijst van modellen</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-2" class="code-annotation-target"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>interaction_lm_models <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>  biden_model, biden_int</span>
+<span id="annotated-cell-9-4"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Tabel maken</span></span>
+<span id="annotated-cell-9-7"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2">2</button><span id="annotated-cell-9-8" class="code-annotation-target"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3">3</button><span id="annotated-cell-9-9" class="code-annotation-target"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
+<span id="annotated-cell-9-10"><a href="#annotated-cell-9-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
+<span id="annotated-cell-9-11"><a href="#annotated-cell-9-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
+<span id="annotated-cell-9-12"><a href="#annotated-cell-9-12" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
+<span id="annotated-cell-9-13"><a href="#annotated-cell-9-13" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-9-14"><a href="#annotated-cell-9-14" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-9-15"><a href="#annotated-cell-9-15" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>, </span>
+<span id="annotated-cell-9-16"><a href="#annotated-cell-9-16" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>), </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="4">4</button><span id="annotated-cell-9-17" class="code-annotation-target"><a href="#annotated-cell-9-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="5">5</button><span id="annotated-cell-9-18" class="code-annotation-target"><a href="#annotated-cell-9-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="6">6</button><span id="annotated-cell-9-19" class="code-annotation-target"><a href="#annotated-cell-9-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="2" data-code-annotation="1" data-code-cell="annotated-cell-6">Lijst van modellen om te gebruiken in de tabel</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="2" data-code-annotation="1">Lijst van modellen om te gebruiken in de tabel</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="8" data-code-annotation="2" data-code-cell="annotated-cell-6">Toevoegen van stersymbolen voor statistische significantie</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="8" data-code-annotation="2">Toevoegen van stersymbolen voor statistische significantie</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-lines="9" data-code-annotation="3" data-code-cell="annotated-cell-6">Duidelijke namen geven aan variabelen <code>coef_rename()</code></span>
+<span data-code-cell="annotated-cell-9" data-code-lines="9" data-code-annotation="3">Duidelijke namen geven aan variabelen <code>coef_rename()</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-lines="17" data-code-annotation="4" data-code-cell="annotated-cell-6">Model fit statistieken selecteren <code>gof_map()</code></span>
+<span data-code-cell="annotated-cell-9" data-code-lines="17" data-code-annotation="4">Model fit statistieken selecteren <code>gof_map()</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-lines="18" data-code-annotation="5" data-code-cell="annotated-cell-6">Informatieve titel met <code>title =</code></span>
+<span data-code-cell="annotated-cell-9" data-code-lines="18" data-code-annotation="5">Informatieve titel met <code>title =</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-lines="19" data-code-annotation="6" data-code-cell="annotated-cell-6">Duidelijke notitie over wat we precies weergeven in de tabel <code>notes =</code></span>
+<span data-code-cell="annotated-cell-9" data-code-lines="19" data-code-annotation="6">Duidelijke notitie over wat we precies weergeven in de tabel <code>notes =</code></span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Evaluatie van kandidaat Biden</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Constante</td>
-<td style="text-align: center;">93.917***</td>
-<td style="text-align: center;">95.659***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.654)</td>
-<td style="text-align: center;">(0.673)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Partij-Identificatie (PID)</td>
-<td style="text-align: center;">-10.261***</td>
-<td style="text-align: center;">-10.824***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.136)</td>
-<td style="text-align: center;">(0.147)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Land gaat in de goede richting</td>
-<td style="text-align: center;">-12.815***</td>
-<td style="text-align: center;">-33.188***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.699)</td>
-<td style="text-align: center;">(2.160)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-4.167***</td>
-<td style="text-align: center;">-4.084***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.822)</td>
-<td style="text-align: center;">(0.816)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Kleine stad (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-2.985***</td>
-<td style="text-align: center;">-2.808***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.701)</td>
-<td style="text-align: center;">(0.697)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Stad (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-0.308</td>
-<td style="text-align: center;">-0.320</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.671)</td>
-<td style="text-align: center;">(0.667)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PID x Juiste Richting</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">3.714***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.373)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">7147</td>
-<td style="text-align: center;">7147</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.602</td>
-<td style="text-align: center;">0.607</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.602</td>
-<td style="text-align: center;">0.607</td>
-</tr>
-</tbody><tfoot>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> OLS coëfficiënten met standaardfouten tussen haakjes</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
 
+      function styleCell_awh7psm560hzt3a7wvl5(i, j, css_id) {
+          var table = document.getElementById("tinytable_awh7psm560hzt3a7wvl5");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_awh7psm560hzt3a7wvl5');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_awh7psm560hzt3a7wvl5(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_awh7psm560hzt3a7wvl5");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 }, { i: 15, j: 0 }, { i: 16, j: 0 },  ], css_id: 'tinytable_css_y2t06oe3u25ncagvegl1',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_u5ievnvlsdcr0qrhl5pb',}, 
+          { positions: [ { i: 14, j: 1 }, { i: 14, j: 2 },  ], css_id: 'tinytable_css_t6oayb4h1y24w2816b6s',}, 
+          { positions: [ { i: 14, j: 0 },  ], css_id: 'tinytable_css_rebjswsl69tw0ofgpt55',}, 
+          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_av6ewgmrkgmfm0w8xj9f',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_8l9oys1wes4j8dkvbo98',}, 
+          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 13, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 16, j: 2 }, { i: 15, j: 2 },  ], css_id: 'tinytable_css_374b67sy3xx2mbkb8vca',}, 
+          { positions: [ { i: 17, j: 1 }, { i: 17, j: 2 },  ], css_id: 'tinytable_css_02sadtcy96k2lm2djn11',}, 
+          ];
 
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_awh7psm560hzt3a7wvl5(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_y2t06oe3u25ncagvegl1, .table th.tinytable_css_y2t06oe3u25ncagvegl1 { text-align: left; }
+      .table td.tinytable_css_u5ievnvlsdcr0qrhl5pb, .table th.tinytable_css_u5ievnvlsdcr0qrhl5pb { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_t6oayb4h1y24w2816b6s, .table th.tinytable_css_t6oayb4h1y24w2816b6s { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_rebjswsl69tw0ofgpt55, .table th.tinytable_css_rebjswsl69tw0ofgpt55 { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_av6ewgmrkgmfm0w8xj9f, .table th.tinytable_css_av6ewgmrkgmfm0w8xj9f { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_8l9oys1wes4j8dkvbo98, .table th.tinytable_css_8l9oys1wes4j8dkvbo98 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_374b67sy3xx2mbkb8vca, .table th.tinytable_css_374b67sy3xx2mbkb8vca { text-align: center; }
+      .table td.tinytable_css_02sadtcy96k2lm2djn11, .table th.tinytable_css_02sadtcy96k2lm2djn11 { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_awh7psm560hzt3a7wvl5" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        </thead><caption>Evaluatie van kandidaat Biden</caption>
+              <tbody><tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+                <th scope="col">(2)</th>
+              </tr>
+        
+        </tbody><tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="3">OLS coëfficiënten met standaardfouten tussen haakjes</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>Constante</td>
+                  <td>93.917***</td>
+                  <td>95.659***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.654)</td>
+                  <td>(0.673)</td>
+                </tr>
+                <tr>
+                  <td>Partij-Identificatie (PID)</td>
+                  <td>-10.261***</td>
+                  <td>-10.824***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.136)</td>
+                  <td>(0.147)</td>
+                </tr>
+                <tr>
+                  <td>Land gaat in de goede richting</td>
+                  <td>-12.815***</td>
+                  <td>-33.188***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.699)</td>
+                  <td>(2.160)</td>
+                </tr>
+                <tr>
+                  <td>Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
+                  <td>-4.167***</td>
+                  <td>-4.084***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.822)</td>
+                  <td>(0.816)</td>
+                </tr>
+                <tr>
+                  <td>Kleine stad (Ref. Stedelijke buitenwijk)</td>
+                  <td>-2.985***</td>
+                  <td>-2.808***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.701)</td>
+                  <td>(0.697)</td>
+                </tr>
+                <tr>
+                  <td>Stad (Ref. Stedelijke buitenwijk)</td>
+                  <td>-0.308</td>
+                  <td>-0.320</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.671)</td>
+                  <td>(0.667)</td>
+                </tr>
+                <tr>
+                  <td>PID x Juiste Richting</td>
+                  <td></td>
+                  <td>3.714***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>(0.373)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>7147</td>
+                  <td>7147</td>
+                </tr>
+                <tr>
+                  <td>R2</td>
+                  <td>0.602</td>
+                  <td>0.607</td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.</td>
+                  <td>0.602</td>
+                  <td>0.607</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>Wat we hier nog zouden willen veranderen is de interactieterm dichter bij de hoofdvariabelen van de interactie zetten in plaats van standaard onderaan de tabel. Dit kunnen we door i.p.v. <code>coef_rename</code> gebruik te maken van <code>coef_map</code>. Zo kunnen we ook de volgorde van de variabelen bepalen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
-<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_map =</span> <span class="fu">c</span>(</span>
-<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
-<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
-<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>,</span>
-<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-7-9"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>),</span>
-<span id="annotated-cell-7-11"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
-<span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
-<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>) </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
+<span id="annotated-cell-10-2"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_map =</span> <span class="fu">c</span>(</span>
+<span id="annotated-cell-10-4"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
+<span id="annotated-cell-10-5"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
+<span id="annotated-cell-10-6"><a href="#annotated-cell-10-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2">2</button><span id="annotated-cell-10-7" class="code-annotation-target"><a href="#annotated-cell-10-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>,</span>
+<span id="annotated-cell-10-8"><a href="#annotated-cell-10-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-10-9"><a href="#annotated-cell-10-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-10-10"><a href="#annotated-cell-10-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>),</span>
+<span id="annotated-cell-10-11"><a href="#annotated-cell-10-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
+<span id="annotated-cell-10-12"><a href="#annotated-cell-10-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
+<span id="annotated-cell-10-13"><a href="#annotated-cell-10-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>) </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="3" data-code-annotation="1" data-code-cell="annotated-cell-7">Verander <code>coef_rename</code> naar <code>coef_map</code></span>
+<span data-code-cell="annotated-cell-10" data-code-lines="3" data-code-annotation="1">Verander <code>coef_rename</code> naar <code>coef_map</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="7" data-code-annotation="2" data-code-cell="annotated-cell-7">Interactieterm dichter bij hoofdvariabelen.</span>
+<span data-code-cell="annotated-cell-10" data-code-lines="7" data-code-annotation="2">Interactieterm dichter bij hoofdvariabelen.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Evaluatie van kandidaat Biden</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Constante</td>
-<td style="text-align: center;">93.917***</td>
-<td style="text-align: center;">95.659***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.654)</td>
-<td style="text-align: center;">(0.673)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Partij-Identificatie (PID)</td>
-<td style="text-align: center;">-10.261***</td>
-<td style="text-align: center;">-10.824***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.136)</td>
-<td style="text-align: center;">(0.147)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Land gaat in de goede richting</td>
-<td style="text-align: center;">-12.815***</td>
-<td style="text-align: center;">-33.188***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.699)</td>
-<td style="text-align: center;">(2.160)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PID x Juiste Richting</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">3.714***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.373)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Stad (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-0.308</td>
-<td style="text-align: center;">-0.320</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.671)</td>
-<td style="text-align: center;">(0.667)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-4.167***</td>
-<td style="text-align: center;">-4.084***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.822)</td>
-<td style="text-align: center;">(0.816)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Kleine stad (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-2.985***</td>
-<td style="text-align: center;">-2.808***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.701)</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.697)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">7147</td>
-<td style="text-align: center;">7147</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.602</td>
-<td style="text-align: center;">0.607</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.602</td>
-<td style="text-align: center;">0.607</td>
-</tr>
-</tbody><tfoot>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> OLS coëfficiënten met standaardfouten tussen haakjes</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
 
+      function styleCell_cic49bq35lmrrhkscnxd(i, j, css_id) {
+          var table = document.getElementById("tinytable_cic49bq35lmrrhkscnxd");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_cic49bq35lmrrhkscnxd');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_cic49bq35lmrrhkscnxd(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_cic49bq35lmrrhkscnxd");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_lm6y0edhi3oxvin54hd9',}, 
+          { positions: [ { i: 14, j: 0 },  ], css_id: 'tinytable_css_iy6m9g7uu3tjkuucvrkb',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 }, { i: 15, j: 0 }, { i: 16, j: 0 },  ], css_id: 'tinytable_css_h3g6ftrhkry9fbnfxxki',}, 
+          { positions: [ { i: 17, j: 1 }, { i: 17, j: 2 },  ], css_id: 'tinytable_css_bp5ku2uxftbgjrmvbili',}, 
+          { positions: [ { i: 14, j: 1 }, { i: 14, j: 2 },  ], css_id: 'tinytable_css_avfrfc2gcz8hd24tv9fz',}, 
+          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 13, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 16, j: 2 }, { i: 15, j: 2 },  ], css_id: 'tinytable_css_928s5orgood7ft34jn1u',}, 
+          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_8ugoijjxe08j19w21gg1',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_466vmyfaubss1d9amw1v',}, 
+          ];
 
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_cic49bq35lmrrhkscnxd(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_lm6y0edhi3oxvin54hd9, .table th.tinytable_css_lm6y0edhi3oxvin54hd9 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_iy6m9g7uu3tjkuucvrkb, .table th.tinytable_css_iy6m9g7uu3tjkuucvrkb { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_h3g6ftrhkry9fbnfxxki, .table th.tinytable_css_h3g6ftrhkry9fbnfxxki { text-align: left; }
+      .table td.tinytable_css_bp5ku2uxftbgjrmvbili, .table th.tinytable_css_bp5ku2uxftbgjrmvbili { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_avfrfc2gcz8hd24tv9fz, .table th.tinytable_css_avfrfc2gcz8hd24tv9fz { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_928s5orgood7ft34jn1u, .table th.tinytable_css_928s5orgood7ft34jn1u { text-align: center; }
+      .table td.tinytable_css_8ugoijjxe08j19w21gg1, .table th.tinytable_css_8ugoijjxe08j19w21gg1 { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_466vmyfaubss1d9amw1v, .table th.tinytable_css_466vmyfaubss1d9amw1v { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_cic49bq35lmrrhkscnxd" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        </thead><caption>Evaluatie van kandidaat Biden</caption>
+              <tbody><tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+                <th scope="col">(2)</th>
+              </tr>
+        
+        </tbody><tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="3">OLS coëfficiënten met standaardfouten tussen haakjes</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>Constante</td>
+                  <td>93.917***</td>
+                  <td>95.659***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.654)</td>
+                  <td>(0.673)</td>
+                </tr>
+                <tr>
+                  <td>Partij-Identificatie (PID)</td>
+                  <td>-10.261***</td>
+                  <td>-10.824***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.136)</td>
+                  <td>(0.147)</td>
+                </tr>
+                <tr>
+                  <td>Land gaat in de goede richting</td>
+                  <td>-12.815***</td>
+                  <td>-33.188***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.699)</td>
+                  <td>(2.160)</td>
+                </tr>
+                <tr>
+                  <td>PID x Juiste Richting</td>
+                  <td></td>
+                  <td>3.714***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>(0.373)</td>
+                </tr>
+                <tr>
+                  <td>Stad (Ref. Stedelijke buitenwijk)</td>
+                  <td>-0.308</td>
+                  <td>-0.320</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.671)</td>
+                  <td>(0.667)</td>
+                </tr>
+                <tr>
+                  <td>Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
+                  <td>-4.167***</td>
+                  <td>-4.084***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.822)</td>
+                  <td>(0.816)</td>
+                </tr>
+                <tr>
+                  <td>Kleine stad (Ref. Stedelijke buitenwijk)</td>
+                  <td>-2.985***</td>
+                  <td>-2.808***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.701)</td>
+                  <td>(0.697)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>7147</td>
+                  <td>7147</td>
+                </tr>
+                <tr>
+                  <td>R2</td>
+                  <td>0.602</td>
+                  <td>0.607</td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.</td>
+                  <td>0.602</td>
+                  <td>0.607</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>Met deze syntax zetten we de interactieterm net onder de twee variabelen waaruit de interactie bestaat (<code>pid</code> en <code>right_track</code>).</p>
@@ -912,123 +1075,198 @@ Waarschuwing!
 <div class="callout-body-container callout-body">
 <p><code>coef_map</code> is handig maar is gevoelig aan het juist typen van de variabelenamen. Waar <code>coef_rename</code> bij een typfout gewoon de oude naam geeft, doet <code>coef_map</code> de variabele in z’n geheel verdwijnen. Laten we bij wijze van voorbeeld 2 typfouten maken. We schrijven “right_trackRight direction” i.p.v. “right_trackRight Direction” en “rural_urbancity” i.p.v. “rural_urbanCity”:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
-<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_map =</span> <span class="fu">c</span>(</span>
-<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
-<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>,</span>
-<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>,  </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-8" class="code-annotation-target"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbancity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>), </span>
-<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
-<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
-<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)  </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
+<span id="annotated-cell-11-2"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<span id="annotated-cell-11-3"><a href="#annotated-cell-11-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_map =</span> <span class="fu">c</span>(</span>
+<span id="annotated-cell-11-4"><a href="#annotated-cell-11-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
+<span id="annotated-cell-11-5"><a href="#annotated-cell-11-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-6" class="code-annotation-target"><a href="#annotated-cell-11-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>,</span>
+<span id="annotated-cell-11-7"><a href="#annotated-cell-11-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>,  </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2">2</button><span id="annotated-cell-11-8" class="code-annotation-target"><a href="#annotated-cell-11-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbancity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-11-9"><a href="#annotated-cell-11-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-11-10"><a href="#annotated-cell-11-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>), </span>
+<span id="annotated-cell-11-11"><a href="#annotated-cell-11-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
+<span id="annotated-cell-11-12"><a href="#annotated-cell-11-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
+<span id="annotated-cell-11-13"><a href="#annotated-cell-11-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)  </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="6" data-code-annotation="1" data-code-cell="annotated-cell-1">Direction naar direction</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="6" data-code-annotation="1">Direction naar direction</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="8" data-code-annotation="2" data-code-cell="annotated-cell-1">City naar city</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="8" data-code-annotation="2">City naar city</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Evaluatie van kandidaat Biden</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th"></th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;(1)</th>
-<th style="text-align: center;" data-quarto-table-cell-role="th">&nbsp;&nbsp;(2)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Constante</td>
-<td style="text-align: center;">93.917***</td>
-<td style="text-align: center;">95.659***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.654)</td>
-<td style="text-align: center;">(0.673)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Partij-Identificatie (PID)</td>
-<td style="text-align: center;">-10.261***</td>
-<td style="text-align: center;">-10.824***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.136)</td>
-<td style="text-align: center;">(0.147)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PID x Juiste Richting</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">3.714***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">(0.373)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-4.167***</td>
-<td style="text-align: center;">-4.084***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"></td>
-<td style="text-align: center;">(0.822)</td>
-<td style="text-align: center;">(0.816)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Kleine stad (Ref. Stedelijke buitenwijk)</td>
-<td style="text-align: center;">-2.985***</td>
-<td style="text-align: center;">-2.808***</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; box-shadow: 0px 1.5px;"></td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.701)</td>
-<td style="text-align: center; box-shadow: 0px 1.5px;">(0.697)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Num.Obs.</td>
-<td style="text-align: center;">7147</td>
-<td style="text-align: center;">7147</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">R2</td>
-<td style="text-align: center;">0.602</td>
-<td style="text-align: center;">0.607</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">R2 Adj.</td>
-<td style="text-align: center;">0.602</td>
-<td style="text-align: center;">0.607</td>
-</tr>
-</tbody><tfoot>
-<tr class="even">
-<td style="text-align: left; padding: 0;"><sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0;"><sup></sup> OLS coëfficiënten met standaardfouten tussen haakjes</td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-</tr>
-</tfoot>
+<!-- preamble start -->
 
-</table>
+    <script>
 
+      function styleCell_1iqkxqle5ele8nleyw5f(i, j, css_id) {
+          var table = document.getElementById("tinytable_1iqkxqle5ele8nleyw5f");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_1iqkxqle5ele8nleyw5f');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_1iqkxqle5ele8nleyw5f(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_1iqkxqle5ele8nleyw5f");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 13, j: 1 }, { i: 13, j: 2 },  ], css_id: 'tinytable_css_to9mgtrvhwe15gun8srw',}, 
+          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_pfgkp580eo0dcaw6z4yd',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_o4x3lbk6h65q6xtnjy9d',}, 
+          { positions: [ { i: 13, j: 0 },  ], css_id: 'tinytable_css_lfdpo65rzburf3pk89bi',}, 
+          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 9, j: 2 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 12, j: 2 }, { i: 1, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 11, j: 2 },  ], css_id: 'tinytable_css_ea6x1fazpq63ztm03fg9',}, 
+          { positions: [ { i: 10, j: 1 }, { i: 10, j: 2 },  ], css_id: 'tinytable_css_9owwwegixtua3xjss0f9',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 },  ], css_id: 'tinytable_css_96qz2ozwy50q5cxwh6rj',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_19eei3e21sx8zzped3e6',}, 
+          ];
 
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_1iqkxqle5ele8nleyw5f(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_to9mgtrvhwe15gun8srw, .table th.tinytable_css_to9mgtrvhwe15gun8srw { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_pfgkp580eo0dcaw6z4yd, .table th.tinytable_css_pfgkp580eo0dcaw6z4yd { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_o4x3lbk6h65q6xtnjy9d, .table th.tinytable_css_o4x3lbk6h65q6xtnjy9d { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_lfdpo65rzburf3pk89bi, .table th.tinytable_css_lfdpo65rzburf3pk89bi { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_ea6x1fazpq63ztm03fg9, .table th.tinytable_css_ea6x1fazpq63ztm03fg9 { text-align: center; }
+      .table td.tinytable_css_9owwwegixtua3xjss0f9, .table th.tinytable_css_9owwwegixtua3xjss0f9 { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_96qz2ozwy50q5cxwh6rj, .table th.tinytable_css_96qz2ozwy50q5cxwh6rj { text-align: left; }
+      .table td.tinytable_css_19eei3e21sx8zzped3e6, .table th.tinytable_css_19eei3e21sx8zzped3e6 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_1iqkxqle5ele8nleyw5f" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        </thead><caption>Evaluatie van kandidaat Biden</caption>
+              <tbody><tr>
+                <th scope="col"> </th>
+                <th scope="col">(1)</th>
+                <th scope="col">(2)</th>
+              </tr>
+        
+        </tbody><tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+<tr><td colspan="3">OLS coëfficiënten met standaardfouten tussen haakjes</td></tr></tfoot>
+        <tbody>
+                <tr>
+                  <td>Constante</td>
+                  <td>93.917***</td>
+                  <td>95.659***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.654)</td>
+                  <td>(0.673)</td>
+                </tr>
+                <tr>
+                  <td>Partij-Identificatie (PID)</td>
+                  <td>-10.261***</td>
+                  <td>-10.824***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.136)</td>
+                  <td>(0.147)</td>
+                </tr>
+                <tr>
+                  <td>PID x Juiste Richting</td>
+                  <td></td>
+                  <td>3.714***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>(0.373)</td>
+                </tr>
+                <tr>
+                  <td>Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
+                  <td>-4.167***</td>
+                  <td>-4.084***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.822)</td>
+                  <td>(0.816)</td>
+                </tr>
+                <tr>
+                  <td>Kleine stad (Ref. Stedelijke buitenwijk)</td>
+                  <td>-2.985***</td>
+                  <td>-2.808***</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>(0.701)</td>
+                  <td>(0.697)</td>
+                </tr>
+                <tr>
+                  <td>Num.Obs.</td>
+                  <td>7147</td>
+                  <td>7147</td>
+                </tr>
+                <tr>
+                  <td>R2</td>
+                  <td>0.602</td>
+                  <td>0.607</td>
+                </tr>
+                <tr>
+                  <td>R2 Adj.</td>
+                  <td>0.602</td>
+                  <td>0.607</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
 <p>De coëfficiënten voor deze variabelen zijn nu verdwenen uit de tabel. Je krijgt geen waarschuwing dus moet je extra opletten. Meer info over <code>coef_map</code> vind je op de <code>modelsummary</code> website (<a href="https://modelsummary.com/vignettes/modelsummary.html#coef_map" target="_blank">link</a>)</p>
@@ -1036,6 +1274,9 @@ Waarschuwing!
 </div>
 
 
+</section>
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -1087,6 +1328,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1155,13 +1423,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1196,18 +1466,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1239,11 +1498,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1253,8 +1551,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1266,7 +1573,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1310,6 +1740,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1335,8 +1766,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-      // Handle positioning of the toggle
-      window.addEventListener(
+        // Handle positioning of the toggle
+    window.addEventListener(
       "resize",
       throttle(() => {
         elRect = undefined;
@@ -1344,23 +1775,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
           selectCodeLines(selectedAnnoteEl);
         }
       }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
               fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
       for (let i=0; i<annoteTargets.length; i++) {
         const annoteTarget = annoteTargets[i];
@@ -1405,7 +1836,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
               options: {
                 flipVariations: false, // true by default
                 allowedAutoPlacements: ['right'],
-                fallbackPlacements: ['right', 'top', 'top-start', 'top-end'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
               },
             },
             {
@@ -1461,17 +1892,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./part_interactions.html" class="pagination-link">
+      <a href="./part_interactions.html" class="pagination-link" aria-label="Interacties in Lineaire en Logistische Regressiemodellen">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Interacties in Lineaire en Logistische Regressiemodellen</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./interaction_02.html" class="pagination-link">
+      <a href="./interaction_02.html" class="pagination-link" aria-label="Marginale Effecten in Interactiemodellen">
         <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
