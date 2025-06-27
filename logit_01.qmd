@@ -4,7 +4,7 @@ code-annotations: hover
 
 # Logistische Regressie & Odds Ratios {#sec-logistic-regression-odds-ratios}
 
-Logistische regressiemodellen worden gebruikt voor binaire afhankelijke variabelen.We maken hier gebruik van de Nederlandse survey voor ronde 9 van de [European Social Survey](https://www.europeansocialsurvey.org) (ESS). Deze dataset is op de ESS website beschikbaar in SPSS format (.sav). We kunnen de `view_df` functie in `sjplot` gebruiken om de variabelen en hun labels in de dataset te inspecteren. Zie @sec-recall-peeking-inside-data-objects
+Logistische regressiemodellen worden gebruikt voor binaire afhankelijke variabelen. We maken hier gebruik van de Nederlandse survey voor ronde 9 van de [European Social Survey](https://www.europeansocialsurvey.org) (ESS). Deze dataset is op de ESS website beschikbaar in SPSS format (.sav). We kunnen de `view_df` functie in `sjplot` gebruiken om de variabelen en hun labels in de dataset te inspecteren. Zie @sec-recall-peeking-inside-data-objects
 
 ```{r}
 #| eval: false
@@ -12,7 +12,7 @@ Logistische regressiemodellen worden gebruikt voor binaire afhankelijke variabel
 #Packages
 library(rio)             #laden van data
 library(sjPlot)          #overzichten van data objecten
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #resultaten van regressiemodellen
 
 #Data
@@ -32,7 +32,7 @@ ESS9NL |>
 #Packages
 library(rio)             #laden van data
 library(sjPlot)          #overzichten van data objecten
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #resultaten van regressiemodellen
 
 #Data
@@ -45,7 +45,7 @@ ESS9NL |>
   sjPlot::view_df()
 ```
 
-De`view_df()` output toont dat er numerieke waarden zijn die geaasocieerd zijn met ontbrekende waarden (bv. respondenten die "Don't Know" antwoorden krijgen een score van 8 op `polintr`). Deze waarden werden al naar 'NA' omgezet zoals je kunt zien in onderstaande tabel en dus is er geen verdere data managament nodig. Zie [Section 4.2](https://poweleiden.github.io/statistiek1/data_04_missing_data.html#recoding-missing-data){target="_blank"} van het Statistiek 1 boek om deze leerstof op te frissen.
+De`view_df()` output toont dat er numerieke waarden zijn die geassocieerd zijn met ontbrekende waarden (bv. respondenten die "Don't Know" antwoorden krijgen een score van 8 op `polintr`). Deze waarden werden al naar 'NA' omgezet zoals je kunt zien in onderstaande tabel en dus is er geen verdere data managament nodig. Zie [Section 4.2](https://poweleiden.github.io/statistiek1/data_04_missing_data.html#recoding-missing-data){target="_blank"} van het Statistiek 1 boek om deze leerstof op te frissen.
 
 ```{r}
 table(ESS9NL$polintr)
@@ -54,7 +54,7 @@ table(ESS9NL$polintr)
 ::: callout-important
 #### Waarschuwing!
 
-Kijk altijd goed naar instructies van opdrachten alsook verdere informatie over de dataset (bv. het codeboek, of informatie over de dataset te verkrijgen met functies zoals `view_df()` of `attributes()`) om te weten welke data management stappen je moet zetten vooraleer je je analyse kan uitvoeren.
+Kijk altijd goed naar instructies van opdrachten alsook verdere informatie over de dataset (bv. het codeboek, of informatie over de dataset te verkrijgen met functies zoals `view_df()` of `attributes()`) om te weten welke datamanagement stappen je moet zetten vooraleer je je analyse kan uitvoeren.
 :::
 
 ## Logistische regressieanalyse
@@ -81,12 +81,12 @@ De onafhankelijke variabele heeft 2 categorieën en moet in een factor variabele
 ```{r}
 #Factor maken
 ESS9NL <- ESS9NL |>
-  mutate(gndr = factorize(gndr), #<1> 
-         vote = factorize(vote)) #<2>  
+  mutate(gndr_F = factorize(gndr), #<1> 
+         vote_F = factorize(vote)) #<2>  
 
 #not eligible op NA
 ESS9NL <- ESS9NL |>
-  mutate(vote = na_if(vote,"Not eligible to vote"))
+  mutate(vote_F = na_if(vote_F,"Not eligible to vote"))
 
 ```
 
@@ -96,8 +96,8 @@ ESS9NL <- ESS9NL |>
 We checken de niveaus van de variabelen, in het bijzonder van de vote variabele:
 
 ```{r}
-levels(ESS9NL$vote)
-table(ESS9NL$vote)
+levels(ESS9NL$vote_F)
+table(ESS9NL$vote_F)
 
 ```
 
@@ -108,7 +108,7 @@ De `vote` variabele is nu een factor variabele met "Yes" als de referentiecatego
 ```{r}
 #Relevel de variabele
 ESS9NL <- ESS9NL |> 
-  mutate(vote = relevel(vote, "No"))
+  mutate(vote_F = relevel(vote_F, "No"))
 
 #en controleer het resultaat
 levels(ESS9NL$vote)
@@ -119,21 +119,21 @@ levels(ESS9NL$vote)
 
 :   We gebruiken de relevel functie op de `vote` variabele. We creëren hier geen nieuwe variabele, maar overschrijven de oude. Je zou er ook voor kunnen kiezen een nieuwe variabele te maken. De categorie tussen dubbele aanhalingstekens zal de eerste categorie worden en dus de referentiecategorie in de regressie. We gebruiken het label "No" omdat de variabele reeds tot factor is getransformeerd (en dus niet de originele numerieke waarde '2').
 
-Laten we nu kijken naar de `gndr` variabele:
+Laten we nu kijken naar de `gndr_F` variabele:
 
 ```{r}
-table(ESS9NL$gndr)
-levels(ESS9NL$gndr)
+table(ESS9NL$gndr_F)
+levels(ESS9NL$gndr_F)
 ```
 
 Als we de niveaus bekijken zien we dat 'Male' als referentie zal worden genomen. Dit is prima, maar bij wijze van voorbeeld veranderen we dit hieronder naar 'Female'. We zien ook een derde categorie 'No answer'. Dit label werd gegeven aan de waarde in de variabele maar is leeg. R zal deze dus verwijderen in de analyses.
 
 ```{r}
 ESS9NL <- ESS9NL |> 
-  mutate(gndr = relevel(gndr, "Female"))
+  mutate(gndr_F = relevel(gndr_F, "Female"))
 
 #controleer je codering
-levels(ESS9NL$gndr)
+levels(ESS9NL$gndr_F)
 ```
 
 ::: callout-important
@@ -142,13 +142,13 @@ levels(ESS9NL$gndr)
 De afhankelijke variabele voor een logistische regressie is een (factor) binaire variabele. Zorg ervoor dat de referentiecategorie de uitkomst is die je niet wil voorspellen en de hoogste categorie net die is die je wil voorspellen. Anders zal je interpretatie foutief zijn.
 :::
 
-### Logistic regressie uitvoeren
+### Logistische regressie uitvoeren
 
 Het uitvoeren van logistische regressie in R is gelijkaardig aan lineare regressie. In plaats van de ingebouwde functie `lm()`, gebruiken we de eveneens ingebouwde `glm()` functie. De afkorting staat voor '**g**eneralized **l**inear **m**odel'.
 
 ```{r}
 #Schat het model
-Vote_model <- glm(vote ~ gndr, 
+Vote_model <- glm(vote_F ~ gndr_F, 
                 data = ESS9NL, family = "binomial")
 
 ```
@@ -157,9 +157,9 @@ Vote_model <- glm(vote ~ gndr,
 
 :   We slaan de resultaten op in een data object met naam naar keuze.
 
-`glm(vote ~ gndr,`
+`glm(vote_F ~ gndr_F,`
 
-:   We voeren de glm functie uit met vote als afhankelijke variabele, voorspeld (\~) door onze enige onafhankelijke variabele: gndr. We kunnen meerdere onafhankelijke variabelen toevoegen, gescheiden van elkaar met een '+' teken.
+:   We voeren de glm functie uit met gefactoriseerde vote als afhankelijke variabele, voorspeld (\~) door onze enige onafhankelijke variabele: gndr (gefactoriseerd). We kunnen meerdere onafhankelijke variabelen toevoegen, gescheiden van elkaar met een '+' teken.
 
 `data = ESS9NL,`
 
@@ -188,11 +188,11 @@ De output is gelijkaardig aan die van de lineaire regressie met `lm()`.
 -   Number of Fisher Scoring Iterations: Aantal iteraties van het algoritme.
 :::
 
-We kunnen meerdere predictoren toevoegen aan het model op een gelijkaardige manier als bij lineaire regressie: door ze te scheiden met een `+` teken. Hier voegen we leeftijd (`agea`), vertrouwen in politici (`trstplt`), en links-rechts positie (`lrscale`) toe. data management voor deze variabelen is niet nodig: ze zijn continue en missing waarden zijn reeds als NA aangeduid.
+We kunnen meerdere predictoren toevoegen aan het model op een gelijkaardige manier als bij lineaire regressie: door ze te scheiden met een `+` teken. Hier voegen we leeftijd (`agea`), vertrouwen in politici (`trstplt`), en links-rechts positie (`lrscale`) toe. Datamanagement voor deze variabelen is niet nodig: ze zijn continue en missing waarden zijn reeds als NA aangeduid.
 
 ```{r}
 #Schat het model
-Vote_model_mp <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+Vote_model_mp <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 
                 data = ESS9NL, family = "binomial")
 
 #Bekijk de output
@@ -203,19 +203,19 @@ summary(Vote_model_mp)
 ::: callout-warning
 #### Interpretatie
 
-Logistische regressiecoëfficiënten geven een schatting van de verandering in de log van de odds dat Y=1 als X met 1 eenheid stijgt. Ze zijn dus niet makkelijk direct te interpreteren. We kunnen ze wel gebruiken om iets over de richting van de relatie te zeggen. Een positive coëfficiënt toont dat de kans dat Y=1 stijgt als de onafhankelijke variabele stijgt. Een negatieve coëfficiënt toont dat de kans dat Y=1 daalt als de onafhankelijke variabele stijgt. Voor verdere interpretatie maak je best gebruik van de odds ratios (in minder mate), de gemiddelde marginale effecten (average marginal effects) (zie @sec-marginal-effects) of de voorspelde kansen (zie @sec-logit-predicted-probabilities) .
+Logistische regressiecoëfficiënten geven een schatting van de verandering in de log van de odds dat Y=1 als X met 1 eenheid stijgt. Ze zijn dus niet makkelijk direct te interpreteren. We kunnen ze wel gebruiken om iets over de richting van de relatie te zeggen. Een positieve coëfficiënt toont dat de kans dat Y=1 stijgt als de onafhankelijke variabele stijgt. Een negatieve coëfficiënt toont dat de kans dat Y=1 daalt als de onafhankelijke variabele stijgt. Voor verdere interpretatie maak je best gebruik van de odds ratios (in minder mate), de gemiddelde marginale effecten (average marginal effects) (zie @sec-marginal-effects) of de voorspelde kansen (zie @sec-logit-predicted-probabilities) .
 
 Voor dit voorbeeld:
 
--   Mannen hebben een grotere kans om te stemmen dan vrouwen, maar het verschil is niet statistisch signficant (p = 0.28).
--   Oudere respondenten hebben een grotere kans om te gaan stemmen en dit verband is statistisch signficant (p \< 0.001).
--   Respondenten met meer vertouwen in politici hebben een grotere kans om te gaan stemmen. deze relatie is statistisch significant (p \< 0.001).
--   Stemmen is meer waarschijnlijk naarmate respondten zich rechtser psitioneren op de ideologieschaal, maar dit effect is niet statistisch signficant (p = 0.74).
+-   Mannen hebben een grotere kans om te stemmen dan vrouwen, maar het verschil is niet statistisch significant (p = 0.28).
+-   Oudere respondenten hebben een grotere kans om te gaan stemmen en dit verband is statistisch significant (p \< 0.001).
+-   Respondenten met meer vertrouwen in politici hebben een grotere kans om te gaan stemmen. deze relatie is statistisch significant (p \< 0.001).
+-   Stemmen is meer waarschijnlijk naarmate respondenten zich rechtser positioneren op de ideologieschaal, maar dit effect is niet statistisch significant (p = 0.74).
 :::
 
 ## Odds Ratios
 
-Logistische regressiecoëfficiënten kunnen omgezet worden in odds ratios die (iets) intuïtiever zijn om te interpereteren..
+Logistische regressiecoëfficiënten kunnen omgezet worden in odds ratios die (iets) intuïtiever zijn om te interpereteren.
 
 We kunnen de odds ratios en 95% betrouwbaarheidsintervallen verkrijgen met de `tidy` functie uit het `broom` package:
 
@@ -251,5 +251,5 @@ Ten eerste, odds ratios vertellen ons iets over de relatieve *odds* dat Y = 1 (b
 
 Ten tweede, odds ratios zijn multiplicatief en worden geïnterpreteerd in termen van 1 in plaats van 0. Een odds ratio groter dan 1 betekent een hogere kans dat Y=1. Een odds ratio lager dan 1 betekent een lagere kans dat Y=1. Een odds ratio van 1 betekent dat er geen effect is. Een betrouwbaarheidsinterval voor een odds ratio waar 1 niet in voorkomt duidt een statistisch significant effect aan. Een odds ratio kan niet negatief zijn.
 
-Ten derde interpreteren we ook de odds ratios met een multiplicatieve logica. In het voorbeeld vinden we dat de odds om te stemmen `r round(tidy(Vote_model_mp, exponentiate = T)[2,2],2)` *keer groter* zijn voor mannelijke respondenten dan vrouwelijke respondenten, ceteris paribus. het effect is wel niet significant. De odds om te stemmen vermenigvuldigen met 1.02 telkens leeftijd met 1 eenheid omhoog gaat (de andere onafhankelijke variabelen constant gehouden).
+Ten derde interpreteren we ook de odds ratios met een multiplicatieve logica. In het voorbeeld vinden we dat de odds om te stemmen `r round(tidy(Vote_model_mp, exponentiate = T)[2,2],2)` *keer groter* zijn voor mannelijke respondenten dan vrouwelijke respondenten, ceteris paribus. Het effect is wel niet significant. De odds om te stemmen vermenigvuldigen met 1.02 telkens leeftijd met 1 eenheid omhoog gaat (de andere onafhankelijke variabelen constant gehouden).
 :::

@@ -13,7 +13,7 @@ citation-location: margin
 
 #Packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(marginaleffects) #voorspelde waarden en marginale effecten berekenen
 
 #Data
@@ -21,7 +21,7 @@ ESS9NL <- import("data/ESS9e03, Netherlands.sav")
 
 ```
 
-In het vorige hoofdstuk leerden we een logistisch regressiemodel schatten en interpreteren met behulp van de coëeificiënten en odds ratios. Beide zijn echter niet erg intuïtief. Wat we vaak echt willen weten is hoeveel de kans op Y=1 verandert als de onafhankelijke variabele met 1 eenheid stijgt. We kunnen naar de marginale effecten van onze onafhankelijke variabelen kijken om iets te zeggen over de verandering in de *probabiliteit* dat Y=1. We gebruiken hiervoor functies uit het `marginaleffects` package.
+In het vorige hoofdstuk leerden we een logistisch regressiemodel schatten en interpreteren met behulp van de coëfficiënten en odds ratios. Beide zijn echter niet erg intuïtief. Wat we vaak echt willen weten is hoeveel de kans op Y=1 verandert als de onafhankelijke variabele met 1 eenheid stijgt. We kunnen naar de marginale effecten van onze onafhankelijke variabelen kijken om iets te zeggen over de verandering in de *probabiliteit* dat Y=1. We gebruiken hiervoor functies uit het `marginaleffects` package.
 
 We gebruiken volgende packages en data:
 
@@ -30,7 +30,7 @@ We gebruiken volgende packages en data:
 
 #Packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(marginaleffects) #voorspelde waarden en marginale effecten berekenen
 
 #Data
@@ -42,19 +42,19 @@ ESS9NL <- import("ESS9e03, Netherlands.sav")
 We maken gebruiken van eenzelfde model dat we gebruikt hebben in vorig hoofdstuk. Daarin voorspelden we stemmen op basis van gender, leeftijd, vertouwen in politici en linsk-rechtsideologie. We herhalen eerst een paar data management stappen:
 
 ```{r}
-#Data Preparation
+#Datamanagement
 ESS9NL <- ESS9NL |>
   #Factor maken van categorische variabelen
-  mutate(gndr = factorize(gndr), # <1> 
-         vote = factorize(vote))  |> 
+  mutate(gndr_F = factorize(gndr), # <1> 
+         vote_F = factorize(vote))  |> 
   #Not Eligible op missing zetten
-  mutate(vote = na_if(vote,"Not eligible to vote")) |> # <1> 
+  mutate(vote_F = na_if(vote_F,"Not eligible to vote")) |> # <1> 
   #Relevel van variabelen
-  mutate(vote = relevel(vote, "No"), 
-         gndr = relevel(gndr, "Female"))
+  mutate(vote_F = relevel(vote_F, "No"), 
+         gndr_F = relevel(gndr_F, "Female"))
 
 #Het model
-Vote_model_mp <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+Vote_model_mp <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 
                 data = ESS9NL, family = "binomial")
 
 #Resultaten printen
@@ -63,31 +63,31 @@ summary(Vote_model_mp)
 
 1.  We zouden ook deze 3 `mutate()` stappen in 1 stap kunnen combineren.
 
-Het `marginaleffects`package is niet volledig compatibel met de `factorize` functie die we hierboven hebben gebruikt voor gender. Laten we even kijken naar de `gndr`variabele:
+Het `marginaleffects`package is niet volledig compatibel met de `factorize` functie die we hierboven hebben gebruikt voor gender. Laten we even kijken naar de `gndr_F`variabele:
 
 ```{r}
-levels(ESS9NL$gndr)
-table(ESS9NL$gndr)
+levels(ESS9NL$gndr_F)
+table(ESS9NL$gndr_F)
 
 ```
 
-Er zijn 3 niveaus of levels voor `gndr`: "Female", "Male", en "No Answer". Er vallen echter 0 respondente onder "No Answer". In dergelijke situaties zal onderstaande functie een error geven omdat de functie zoekt naar een derde niveau dat er niet is.
+Er zijn 3 niveaus of levels voor `gndr_F`: "Female", "Male", en "No Answer". Er vallen echter 0 respondenten onder "No Answer". In dergelijke situaties zal onderstaande functie een error geven omdat de functie zoekt naar een derde niveau dat er niet is.
 
-Om dit te voorkomen kunnen we gebruik maken va de `droplevels()` functie om lege niveaus te verwijderen. Of we gebruiken `factor()` om `gndr` een factor variabele te maken. Zie. @sec-slopes-error in de Veelvoorkomende Fouten Appendix voor meer informatie.
+Om dit te voorkomen kunnen we gebruik maken van de `droplevels()` functie om lege niveaus te verwijderen. Of we gebruiken `factor()` ipv `factorize`om `gndr` een factor variabele te maken. Zie. @sec-slopes-error in de Veelvoorkomende Fouten Appendix voor meer informatie.
 
 ```{r}
 #Drop levels: verwijderen van categorieën zonder observaties
 ESS9NL <- ESS9NL |>
-  mutate(gndr = droplevels(gndr))
+  mutate(gndr_F = droplevels(gndr_F))
 
 #Checken van syntax
-levels(ESS9NL$gndr)
-table(ESS9NL$gndr)
+levels(ESS9NL$gndr_F)
+table(ESS9NL$gndr_F)
 ```
 
 ## Gemiddelde Marginale Effecten (AME)
 
-De eerste soort marginale effecten die we bekijken zijn de gemiddelde marginale effecten: de Average Marginal Effect (AME). We gebruiken hiervoor de `avg_slopes()` functie uit `marginaleffects`. De AME geeft de gemiddelde verandering in probabiliteit dat Y=1 weer (in termen van percentpunten) als de onafhankelijke met 1 eenheid omhoog gaat (dy/dx). We bereken het marginale effect voor elke observatie en elke variabele in het model en nemen dan het gemiddelde per variabele. Deze figuur beschrijft het proces (uit @heiss2022):
+De eerste soort marginale effecten die we bekijken zijn de gemiddelde marginale effecten: de Average Marginal Effects (AME). We gebruiken hiervoor de `avg_slopes()` functie uit `marginaleffects`. De AME geeft de gemiddelde verandering in probabiliteit dat Y=1 weer (in termen van percentpunten) als de onafhankelijke met 1 eenheid omhoog gaat (dy/dx). We bereken het marginale effect voor elke observatie en elke variabele in het model en nemen dan het gemiddelde per variabele. Deze figuur beschrijft het proces (uit @heiss2022):
 
 ![AME berekening door avg_slopes](figures/flow-ame.png)
 
@@ -116,12 +116,12 @@ Dit is de output:
 tibble(AME) # <1> 
 ```
 
-1.  We zouden `AME` kunne typen eerder dan `tibble(AME)` maar dit geeft andere kolomnamen. We gebruiken `tibble()` om de kolomnamen te zien zoals ze ook in de dataset zijn opgeslagen. Zie de waarschuwing hiervover in Hoofdstuk 5 @sec-predicted-residual-values.
+1.  We zouden `AME` kunnen typen eerder dan `tibble(AME)` maar dit geeft andere kolomnamen. We gebruiken `tibble()` om de kolomnamen te zien zoals ze ook in de dataset zijn opgeslagen. Zie de waarschuwing hiervover in Hoofdstuk 5 @sec-predicted-residual-values.
 
 ::: callout-note
 #### Output uitleg
 
--   `term`: bevat de namen van de variabelen (bv., `agea`, `gndr`, etc.).
+-   `term`: bevat de namen van de variabelen (bv., `agea`, `gndr_F`, etc.).
 -   `contrast`: Het 'contrast' duidt aan welke vergelijking gemaakt wordt: 1 eenheid toename voor continue variabelen, een verandering van categorie voor factor variabelen.
 -   `estimate`: De AME
 -   `std.error` t.e.m. `conf.high`: Informatie over de onzekerheid van de schatting.
@@ -165,7 +165,7 @@ Behalve estimate, standaardfout, test statistiek, p-waarde, en onder- en bovengr
 
 ```{r}
 MEM |> 
-  select(gndr, agea, trstplt, lrscale) |> 
+  select(gndr_F, agea, trstplt, lrscale) |> 
   as_tibble()
 ```
 

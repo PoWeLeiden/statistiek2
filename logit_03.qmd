@@ -13,7 +13,7 @@ code-annotations: hover
 #Packages
 library(rio)             #laden van data
 library(sjPlot)          #overzichten van data objecten
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(marginaleffects) #voorspelde waarden berekenen
 
 #Data
@@ -36,7 +36,7 @@ We gebruiken deze packages en data:
 #Packages
 library(rio)             #laden van data
 library(sjPlot)          #overzichten van data objecten
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(marginaleffects) #voorspelde waarden berekenen
 
 #Data
@@ -46,19 +46,19 @@ ESS9NL <- import("ESS9e03, Netherlands.sav")
 We maken gebruik van hetzelfde model als in het vorige hoofdstuk. We voorspelden daarin de kans dat iemand ging stemmen op basis van gender, leeftijd, vertrouwen in politici en links-rechtsideologie. We doen hier eerst de nodige data management, meer informatie over deze stappen vind je in vorige hoofdstukken:
 
 ```{r}
-#Data management
+#Datamanagement
 ESS9NL <- ESS9NL |>
   #Factor maken van categorische variabelen
-  mutate(gndr = factorize(gndr), 
-         vote = factorize(vote))  |> 
+  mutate(gndr_F = factorize(gndr), # <1> 
+         vote_F = factorize(vote))  |> 
   #Not Eligible op missing zetten
-  mutate(vote = na_if(vote,"Not eligible to vote")) |> 
+  mutate(vote_F = na_if(vote_F,"Not eligible to vote")) |> # <1> 
   #Relevel van variabelen
-  mutate(vote = relevel(vote, "No"), 
-         gndr = relevel(gndr, "Female"))
+  mutate(vote_F = relevel(vote_F, "No"), 
+         gndr_F = relevel(gndr_F, "Female"))
 
 #Het model
-Vote_model_mp <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+Vote_model_mp <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 
                 data = ESS9NL, family = "binomial")
 
 #Resultaten printen
@@ -142,27 +142,27 @@ tibble(Pred_conts) # <1>
 
 De output is gelijkaardig aan die voor voorspellingen voor lineaire regressiemodellen (zie @sec-predicted-residual-values):
 
--   De `estimate` kolom bevat de voorspelde kans.
+-   De `estimate` kolom bevat de voorspelde kans. We doen dit getal \*100 om de kans in percent uit te drukken. bv. Voor iemand met een score van '0' op de schaal `trstplt` verwachten we een kans om te stemmen van 69,86%.
 -   De `p.value` t.e.m. `conf.high` kolommen geven de onzekerheid van de schatting weer.
--   We kunnen ook de kolommen zien voor de andere onafhankelijke variabelen in het model (`gndr`, `agea`, `lrscale)` . Deze kolommen tonen de waarde waarop deze variabelen constant worden gehouden. De `predictions()` functie houdt continue variabelen op hun gemiddelde en factor variabelen op hun modus als je `newdata = datagrid()` gebruikt zoals we hierboven gedaan hebben.
--   De laatste 2 kolommen tonen `trstplt`, met de waarden gebruikt om de voorspelling te berekenen en een kolom (niet zichtbaar hier) met de Y (`vote`) die toont welke categorie voorspeld wordt.
+-   We kunnen ook de kolommen zien voor de andere onafhankelijke variabelen in het model (`gndr_F`, `agea`, `lrscale)` . Deze kolommen tonen de waarde waarop deze variabelen constant worden gehouden. De `predictions()` functie houdt continue variabelen op hun gemiddelde en factor variabelen op hun modus als je `newdata = datagrid()` gebruikt zoals we hierboven gedaan hebben.
+-   De laatste 2 kolommen tonen `trstplt`, met de waarden gebruikt om de voorspelling te berekenen en een kolom (niet zichtbaar hier) met de Y (`vote_F`) die toont welke categorie voorspeld wordt.
 :::
 
 ### Factor onafhankelijke variabele
 
-De code voor categorische variabelen is licht anders. We gebruiken hier de `by=` optie. In dit voorbeeld bereken we de gemiddelde voorspelde kans voor mannen en vrouwen (met andere predictoren constant gehouden op hun gemiddelde).
+De code voor categorische variabelen is licht anders. We gebruiken hier de `by=` optie. In dit voorbeeld berekenen we de gemiddelde voorspelde kans voor mannen en vrouwen (met andere predictoren constant gehouden op hun gemiddelde).
 
 ```{r}
 #voorspellingen in nieuw object
 Pred_cat <- predictions(Vote_model_mp,
-              by="gndr", 
+              by="gndr_F", 
               newdata = "mean") 
 
 #tibble voor overzicht
 tibble(Pred_cat)
 ```
 
-`by="gndr"`
+`by="gndr_F"`
 
 :   Met deze optie duiden we aan dat we voor elk niveau van de factor variabele een voorspelde kans willen berekenen.
 
@@ -179,7 +179,7 @@ Bijvoorbeeld, hier berekenen we de voorspelde kans om te stemmen voor een man (`
 ```{r}
 #Berekenen en opslaan in object
 Pred_specific <- predictions(Vote_model_mp,
-                             newdata = datagrid(gndr=c("Male"), # <1>
+                             newdata = datagrid(gndr_F=c("Male"), # <1>
                                                 agea=c(33),   
                                                 trstplt=c(2), 
                                                 lrscale=c(8)))

@@ -17,7 +17,7 @@ library(expss)           #frequentietabellen maken
 
 #algemene packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #data voor residuals en influential cases
 
 
@@ -43,7 +43,7 @@ library(expss)           #frequentietabellen maken
 
 #algemene packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #data voor residuals en influential cases
 
 #Data
@@ -51,37 +51,37 @@ ESS9NL <- import("data/ESS9e03, Netherlands.sav")
 
 ```
 
-We hebben natuurlijk een model nodig. We gebruiken `vote_model4` uit het vorige hoofdstuk waarin we de kans voorspellen dat iemand gaat stemmen op basis van informatie over gender, leeftijd, vertouwen in politici en links-rechtsideologie.
+We hebben natuurlijk een model nodig. We gebruiken `vote_model4` uit het vorige hoofdstuk waarin we de kans voorspellen dat iemand gaat stemmen op basis van informatie over gender, leeftijd, vertrouwen in politici en links-rechtsideologie.
 
 ```{r}
 #Data management
 ESS9NL <- ESS9NL |>
   #Factor maken van categorische variabelen
-  mutate(gndr = factorize(gndr), 
-         vote = factorize(vote))  |> 
+  mutate(gndr_F = factorize(gndr), 
+         vote_F = factorize(vote))  |> 
   #Not Eligible op missing zetten
-  mutate(vote = na_if(vote,"Not eligible to vote")) |> 
+  mutate(vote_F = na_if(vote_F,"Not eligible to vote")) |> 
   #Relevel van variabelen
-  mutate(vote = relevel(vote, "No"), 
-         gndr = relevel(gndr, "Female"))
+  mutate(vote_F = relevel(vote_F, "No"), 
+         gndr_F = relevel(gndr_F, "Female"))
 
 #Subset van de data
 ESS9NL_glm <- ESS9NL |>
-  filter(complete.cases(vote,  gndr,  agea,  trstplt,  lrscale)) # <1> 
+  filter(complete.cases(vote_F,  gndr_F,  agea,  trstplt,  lrscale)) # <1> 
 
 #Het model
-Vote_model4 <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+Vote_model4 <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 
                 data = ESS9NL_glm, family = "binomial")
 
 #Resultaten
 summary(Vote_model4)
 ```
 
-1.  We gebruiken een subset van de data met enkel complete observaties. Dit hebben we gedaan in het vorige hoofdstuk en is ook nuttig voor sommige asumptiechecks..
+1.  We gebruiken een subset van de data met enkel complete observaties. Dit hebben we gedaan in het vorige hoofdstuk en is ook nuttig voor sommige asumptiechecks.
 
 ## Beperkte multicollineariteit
 
-We kunnen nagaan of ons model onderhevig is aan te sterke multicollineariteit met de `vif()` functie uit het `car` package. Dit is gelijkaardig aan wat we deden voor lineaire regressie ( @sec-linear-no-excessive-multicollinearity). dezelfde vuistregels zijn van toepassing. Voor logistische regressiemodellen wordt een 'generalized VIF' berekend.
+We kunnen nagaan of ons model onderhevig is aan te sterke multicollineariteit met de `vif()` functie uit het `car` package. Dit is gelijkaardig aan wat we deden voor lineaire regressie ( @sec-linear-no-excessive-multicollinearity). Dezelfde vuistregels zijn van toepassing. Voor logistische regressiemodellen wordt een 'generalized VIF' berekend.
 
 ```{r}
 vif(Vote_model4)
@@ -91,7 +91,7 @@ De resultaten duiden op geen problemen met multicollineariteit.
 
 ## Lineariteit van de logit
 
-Logistische regressie verondersteld dat veranderingen in de log odds (de logit) lineair geassocieerd zijn met Y=1. Om de assumptie te checken gebruiken we de `augment()` functie uit het `broom` package. Deze functie creëert een dataframe met de variabelen gebruikt in het model, alsook belangrijke statistieken om assumpties te testen:
+Logistische regressie veronderstelt dat veranderingen in de log odds (de logit) lineair geassocieerd zijn met Y=1. Om de assumptie te checken gebruiken we de `augment()` functie uit het `broom` package. Deze functie creëert een dataframe met de variabelen gebruikt in het model, alsook belangrijke statistieken om assumpties te testen:
 
 ```{r}
 augment(Vote_model4)
@@ -100,7 +100,7 @@ augment(Vote_model4)
 ::: callout-note
 #### Output uitleg
 
--   `vote` t.e.m. `lrscale`: Deze kolommen bevatten de geobserveerde waarden op de betreffende variabelen voor alle observaties gebruikt in het model.
+-   `vote_F` t.e.m. `lrscale`: Deze kolommen bevatten de geobserveerde waarden op de betreffende variabelen voor alle observaties gebruikt in het model.
 -   `.fitted`: De voorspelde ('fitted') waarden op basis van de schattingen in het model in 'logit' vorm en dus niet in *probabiliteiten*.
 -   `.resid`: De residuals (fouten/errors) voor elke observatie. Ook gekend als de "deviance residuals".
 -   `.hat`: Diagonaal van de hat matrix (te negeren).
@@ -117,9 +117,9 @@ model4_augmented <- augment(Vote_model4, data = ESS9NL_glm)
 
 `augment(Vote_model4, data=ESS9NL_glm)`
 
-:   We voegen deze syntax toe aan de functie: `data = ESS9NL_glm`. De reden is dat we zo een dataobject creëren met de augment-statistieken, de variabelen gebruikt in het model, *en* alle overige variabelen in de originele ESS9 dataset. Dit kan nuttig zijn voor bepaalde handelingen. We kunnen enkel de overige variabelen toevoegen als de datasets evenveel rijen hebben. Dit is niet het geval als er missing waarden zijn en het model minder observaties heeft dan de originele dataset. Vandaar dat we eerst een `complete.cases`data subset hebben gemaakt hierboven.
+:   We voegen deze syntax toe aan de functie: `data = ESS9NL_glm`. De reden is dat we zo een dataobject creëren met de augment-statistieken, de variabelen gebruikt in het model, *en* alle overige variabelen in de originele ESS9 dataset. Dit kan nuttig zijn voor bepaalde handelingen. We kunnen enkel de overige variabelen toevoegen als de datasets evenveel rijen hebben. Dit is niet het geval als er missing waarden zijn en het model minder observaties heeft dan de originele dataset. Vandaar dat we eerst een `complete.cases`-data subset hebben gemaakt hierboven.
 
-Om lineariteit te checken plotten we de logit die `augment` heeft berekend telkens tegenover de onafhankelijke variabelen in het model, specifiek de continue onafhankelijke variabelen. We maken een scatterplot met een loess-lijn en `.fitted`geplot op de y-)as.
+Om lineariteit te checken plotten we de logit die `augment` heeft berekend telkens tegenover de onafhankelijke variabelen in het model, specifiek de continue onafhankelijke variabelen. We maken een scatterplot met een loess-lijn en `.fitted` geplot op de y-as.
 
 ```{r}
 # Leeftijd
@@ -138,7 +138,7 @@ ggplot(model4_augmented, aes(x = lrscale, y = .fitted)) +
   geom_smooth(method = 'loess')
 ```
 
-We gaan na of de loess lijn sterke afwijkingen van een lineaire relatie vertoont. Dit lijkt hier niet het geval.
+We gaan na of de loess-lijn sterke afwijkingen van een lineaire relatie vertoont. Dit lijkt hier niet het geval.
 
 ## Beperkte impact outliers en influential cases
 
@@ -175,7 +175,7 @@ fre(model4_augmented$SRE1.96)
 5.7% van de observaties liggen buiten het +/- 1.96 interval. Om te onderzoeken of deze outliers de parameters van het model beïnvloeden, kunnen we het model opnieuw schatten zonder deze observaties. We doen dit door in onze dataset enkel observaties met een waarde van '0' op SRE1.96 op te nemen. We zouden dan de resultaten van het model met en het model zonder outliers vergelijken:
 
 ```{r}
-Vote_model41.96 <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+Vote_model41.96 <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 
                 data = subset(model4_augmented, SRE1.96 == 0), 
                 family = "binomial")
 ```
@@ -192,4 +192,4 @@ summary(model4_augmented$.cooksd)
 resid_panel(Vote_model4, plots = c('cookd'))
 ```
 
-Beide methoden wijzen op lage Cook's D waarden; de maximum waarde is slechts 0.017. Indien we hogere waarden zouden vinden, zouden we deze observaties uit de dataset kunnen filteren en het model opnieuw schatten om resultaten met en zonder invloedrijke casussen te vergelijken 
+Beide methoden wijzen op lage Cook's D waarden; de maximum waarde is slechts 0.017. Indien we hogere waarden zouden vinden, zouden we deze observaties uit de dataset kunnen filteren en het model opnieuw schatten om resultaten met en zonder invloedrijke casussen te vergelijken. 

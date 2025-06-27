@@ -8,7 +8,7 @@
 
 #Packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(performance)     #goodness-of-fit statistieken en tests
 
 #Data
@@ -25,7 +25,7 @@ We laden de packages en data:
 #Packages
 #Packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(performance)     #goodness-of-fit statistieken en tests
 
 #Data
@@ -41,16 +41,16 @@ Laten we teruggaan naar het logistisch model waar we ook in vorige hoofdstukken 
 #Data management
 ESS9NL <- ESS9NL |>
   #Factor maken van categorische variabelen
-  mutate(gndr = factorize(gndr), 
-         vote = factorize(vote))  |> 
+  mutate(gndr_F = factorize(gndr), 
+         vote_F = factorize(vote))  |> 
   #Not Eligible op missing zetten
-  mutate(vote = na_if(vote,"Not eligible to vote")) |> 
+  mutate(vote_F = na_if(vote_F,"Not eligible to vote")) |> 
   #Relevel van variabelen
-  mutate(vote = relevel(vote, "No"), 
-         gndr = relevel(gndr, "Female"))
+  mutate(vote_F = relevel(vote_F, "No"), 
+         gndr_F = relevel(gndr_F, "Female"))
 
 #Het model
-Vote_model_mp <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+Vote_model_mp <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 
                 data = ESS9NL, family = "binomial")
 
 #Resultaten printen
@@ -60,9 +60,9 @@ summary(Vote_model_mp)
 ::: callout-note
 #### Output uitleg
 
-Zoals bij een lineair model (`lm`), zal de `summary()` functie in het onderste gedeelte van de output informatie bevatten over model fit. We krijgen informatie over de "Null" en "Residual Deviance" statistieken. De Residual Deviance statistiek duidt het verschil ("deviance") aan tussen het geschatte model en een "perect' model dat precies bij de data past. De Null Deviance statistiek doet dezelfde vergelijking, maar ten opzichte van een nulmodel dat enkel het intercept bevat.
+Zoals bij een lineair model (`lm`), zal de `summary()` functie in het onderste gedeelte van de output informatie bevatten over model fit. We krijgen informatie over de "Null" en "Residual Deviance" statistieken. De Residual Deviance statistiek duidt het verschil ("deviance") aan tussen het geschatte model en een "perfect' model dat precies bij de data past. De Null Deviance statistiek doet dezelfde vergelijking, maar ten opzichte van een nulmodel dat enkel het intercept bevat.
 
-*Kleinere* Residual Deviance waarden duiden beter passende modellen aan. Echter is het niet gewenst om de deviance statistiek op zicht te interpreteren gezien de schaal onduidelijk is en er geen maximumwaarde is. Daarom maken we gebruik van andere statistieken en test gebaseerd op de deviance statistiek (zie onder).
+*Kleinere* Residual Deviance waarden duiden beter passende modellen aan. Echter is het niet gewenst om de deviance statistiek op zich te interpreteren gezien de schaal onduidelijk is en er geen maximumwaarde is. Daarom maken we gebruik van andere statistieken en een test gebaseerd op de deviance statistiek (zie onder).
 :::
 
 ## Modellen vergelijken: Likelihood Ratio Test
@@ -73,28 +73,28 @@ Als we modellen willen verglijken moeten we net zoals bij lineaire regressie (zi
 
 ```{r}
 ESS9NL_glm <- ESS9NL |>
-  filter(complete.cases(vote,  gndr,  agea,  trstplt,  lrscale))
+  filter(complete.cases(vote_F,  gndr_F,  agea,  trstplt,  lrscale))
 ```
 
 Dan schatten we een reeks modellen waaraan we telkens 1 van de onafhankelijke varaibelen toevoegen. We beginnen met een nulmodel dat enkel het intercept bevat. Het model met 1 onafhankelijke variabele kan daar dan mee vergeleken worden.
 
 ```{r}
 #Nulmodel
-Vote_model0 <- glm(vote ~ 1,
+Vote_model0 <- glm(vote_F ~ 1,
                       data = ESS9NL_glm, family = "binomial")
 # + gndr
-Vote_model1 <- glm(vote ~ gndr , 
+Vote_model1 <- glm(vote_F ~ gndr_F , 
                 data = ESS9NL_glm, family = "binomial")
 # + agea
-Vote_model2 <- glm(vote ~ gndr + agea , 
+Vote_model2 <- glm(vote_F ~ gndr_F + agea , 
                 data = ESS9NL_glm, family = "binomial")
 
 # + trst
-Vote_model3 <- glm(vote ~ gndr + agea + trstplt, 
+Vote_model3 <- glm(vote_F ~ gndr_F + agea + trstplt, 
                 data = ESS9NL_glm, family = "binomial")
 
 # + lrscale
-Vote_model4 <- glm(vote ~ gndr + agea + trstplt + lrscale, 
+Vote_model4 <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 
                 data = ESS9NL_glm, family = "binomial")
 
 ```
@@ -169,7 +169,7 @@ test_likelihoodratio(Vote_model4, Vote_model1)
 
 ## Pseudo R^2^
 
-Bij een lineair regressiemodel beoordelen we fit met de R^2^ waarde. Een logistisch model is anders geschat en dus hebben we deze waarde niet. Verschillende zogenaamde *pseudo* R^2^ statistieken werden ontwikkeld om meer intuïtief inzicht te verkrijgen in de verklarende kracht van een model. De *pseudo* R^2^ maatstaven zijn gebaseerd op de lieklihood ratio test en kunnen niet als 'proportie verklaarde variantie' geïnterpreteerd worden.
+Bij een lineair regressiemodel beoordelen we fit met de R^2^ waarde. Een logistisch model is anders geschat en dus hebben we deze waarde niet. Verschillende zogenaamde *pseudo* R^2^ statistieken werden ontwikkeld om meer intuïtief inzicht te verkrijgen in de verklarende kracht van een model. De *pseudo* R^2^ maatstaven zijn gebaseerd op de likelihood ratio test en kunnen *niet* als 'proportie verklaarde variantie' geïnterpreteerd worden.
 
 Hier gebruiken we de Nagelkerke R². De waarde van deze maatstaf ligt tussen 0 en 1. Lage waarden wijzen op een lage verklarende kracht, hoge waarden op een hoge verklarende kracht.
 

@@ -13,7 +13,7 @@ code-annotations: hover
 #Packages
 library(broom)        #Modelresultaten
 library(rio)          #laden van data
-library(tidyverse)    #data manipulatie en grafieken
+library(tidyverse)    #datamanipulatie en grafieken
 library(marginaleffects) #marginale effecten en voorspelde waarden berekenen
 
 #Data
@@ -31,7 +31,7 @@ righttrack_int <- glm(right_track ~ vote2016 * age + rural_urban,
 #Packages
 library(broom)        #Modelresultaten
 library(rio)          #laden van data
-library(tidyverse)    #data manipulatie en grafieken
+library(tidyverse)    #datamanipulatie en grafieken
 library(marginaleffects) #marginale effecten en voorspelde waarden berekenen
 
 #Data
@@ -80,7 +80,7 @@ biden_int_preds
 
 De voorspellingen kunnen we visueel presenteren in een plot. Het proces dat we volgen is vrijwel hetzelfde als wat we doen voor een model zonder interactie (zie @sec-presenting-linear-regression-predicted-values-plots). Er is echter een belangrijke toevoeging: het `linetype` gedeelte van de syntax, dat enkel gebruikt kan worden indien er een factor variabele is. 
 
-Voor we het plot produceren veranderen we de waarden voor right_track naar het Nederlands zodat ze correct worden weergegeven op het plot. Net zoals bij marginale effecten zouden we de code voor predictions ook kunnen combineren met de `ggplot` code via de pipe operator.
+Voor we het plot produceren veranderen we de waarden voor right_track naar het Nederlands zodat ze correct worden weergegeven op het plot. Net zoals bij marginale effecten zouden we de code voor predictions (hierboven) ook kunnen combineren met de `ggplot` code via de pipe operator.
 
 ```{r}
 biden_int_preds |>
@@ -99,7 +99,7 @@ ggplot(aes(x=pid, y=estimate, linetype = right_track)) +
 
 `ggplot(..., linetype = right_track)) + geom_line() + geom_ribbon(...) +`
 
-:   Dit gedeelte van de syntax is grotendeels ook al gebruikt in eerdere weken. Een belangrijke toevoeging is `linetype = right_track`. Zo vragen we `ggplot()` om de voorspelde waarden voor elke categorie van "right_track" weer te geven als verschillende lijnen. We zouden de voorspellingen ook kunnen onderscheiden op een andere manier, bv. met kleur (`color = right_track`). De `linetype` (en `color`) functies werken enkel met factor variabelen. De variabele `right_track`is hier reeds een factor dus we hebben geen verdere data managment stappen moeten ondernemen. Zie @sec-linetype-error voor meer informatie.
+:   Dit gedeelte van de syntax is grotendeels ook al gebruikt in eerdere weken. Een belangrijke toevoeging is `linetype = right_track`. Zo vragen we `ggplot()` om de voorspelde waarden voor elke categorie van "right_track" weer te geven als verschillende lijnen. We zouden de voorspellingen ook kunnen onderscheiden op een andere manier, bv. met kleur (`color = right_track`). De `linetype` (en `color`) functies werken enkel met factor variabelen. De variabele `right_track`is hier reeds een factor dus we hebben geen verdere data management stappen moeten ondernemen. Zie @sec-linetype-error voor meer informatie.
 
 ## Continue X Continue Interactie
 
@@ -120,7 +120,7 @@ Beide variabelen kunnen veel mogelijke waarden aannemen. We zouden voorspellinge
 
 Wat vaak gebeurt in de praktijk is dat we 1 van de 2 predictoren kiezen en voorspellingen maken voor 3 waarden: het gemiddelde, 1 standaarddeviatie (SD) onder het gemiddelde en 1 standaarddeviatie (SD) boven het gemiddelde. De continue variabele zal eigenlijk getransformeerd worden in een factor met 3 waarden. Zo kunnen we een plot maken met 3 lijnen. We transformeren doorgaans de moderator (Z).
 
-Voor het 'biden_int2' model, nemen we nu (bij wijze van voorbeeld) socialists als de moderator. Eerst berekenen we de drie relevante waarden (gemiddelde, 1 SD daaronder, 1 SD daarboven. Deze statistieken moeten we berekenen op basis van de observaties gebruikt in het model. Dit zijn niet altijd het aantal observaties in de dataset door missende waarden op andere variabelen. Als tussenstap gebruiken we hier de `predictions()` functie van het `marginaleffects` package gezien deze functie een nieuwe dataset creëert met alle complete observaties. [^interaction_03-2]
+Voor het 'biden_int2' model, nemen we nu (bij wijze van voorbeeld) socialists als de moderator. Eerst berekenen we de drie relevante waarden (gemiddelde, 1 SD daaronder, 1 SD daarboven). Deze statistieken moeten we berekenen op basis van de observaties gebruikt in het model. Dit zijn niet altijd het aantal observaties in de dataset door missende waarden op andere variabelen. Als tussenstap gebruiken we hier de `predictions()` functie van het `marginaleffects` package gezien deze functie een nieuwe dataset creëert met alle complete observaties. [^interaction_03-2]
 
 [^interaction_03-2]: We zouden ook de originele dataset (`anes`) kunnen nemen, missing waarden voor de variabelen gebruikt in het model wegfilteren en de juiste statistieken berekenen: `anes \|\> filter(complete.cases(biden, socialists, age, rural_urban)) \|\> summarize(...)`.`predictions()` combineert deze stappen voor ons.
 
@@ -227,7 +227,7 @@ predictions( #<1>
 ```
 
 1.  We doen hier alles in 1 syntax-stap. We zouden dit in meerdere stappen kunnen opspitsen: eerst voorspellingen maken en oplsaan in data-object, dan data doorvoeren naar `ggplot()`.
-2.  Indien voorspelde waarden gelijkaardig zijn dan kunnen de markers overlappen. Om dit te verhelpen kun je de markers wat verplaatsen door `, position = position_dodge(width = 0.2)` toe te voegen aan het `geom_pointrange()` gedeelte, na het `aes()` gedeelte. De waarde waarmmee markers verschoven worden (hier: 0.2) kun je veranderen.
+2.  Indien voorspelde waarden gelijkaardig zijn dan kunnen de markers overlappen. Om dit te verhelpen kun je de markers wat verplaatsen door `, position = position_dodge(width = 0.2)` toe te voegen aan het `geom_pointrange()` gedeelte, na het `aes()` gedeelte. De waarde waarmee markers verschoven worden (hier: 0.2) kun je veranderen.
 3.  We zetten de y-as op een schaal van 0 tot 100. Dit is niet strikt nodig, maar kan de figuur duidelijker maken.
 
 ## Logistische regressie: voorbeeld

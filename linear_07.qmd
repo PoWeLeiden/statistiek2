@@ -26,8 +26,9 @@ library(expss)           #frequentietabellen maken
 
 #algemene packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #data voor residuals en influential cases
+library(marginaleffects) #voorspellingen
 ```
 
 ::: callout-important
@@ -130,10 +131,10 @@ demdata <- import("demdata.rds") |>
 
 #Factor maken van binaire variabele
 demdata <- demdata |> 
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))
 
 #Meervoudig model schatten en resultaten bekijken
-model_multiple <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + GDP2006, data = demdata)
+model_multiple <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984_factor + GDP2006, data = demdata)
 
 summary(model_multiple)
 ```
@@ -146,15 +147,15 @@ demdata <- import("data/demdata.rds") |>
 
 #Factorize our binary variable
 demdata <- demdata |> 
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))
 
 #Run and store a model and then look at the output
-model_multiple <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + GDP2006, data = demdata)
+model_multiple <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984_factor + GDP2006, data = demdata)
 
 tidy(model_multiple, conf.int = TRUE)
 ```
 
-De coëfficienten voor `gini_2019` (p = 0.322) en `TYPEDEMO1984` (p = 0.246) zijn niet significant. Om te kijken of er sprake is van te hoge multicollineariteit gebruiken we opnieuw het `car` package, nu voor de `vif()` functie.
+De coëfficienten voor `gini_2019` (p = 0.322) en `TYPEDEMO1984_factor` (p = 0.246) zijn niet significant. Om te kijken of er sprake is van te hoge multicollineariteit gebruiken we opnieuw het `car` package, nu voor de `vif()` functie.
 
 ```{r}
 vif(model_multiple)
@@ -173,9 +174,9 @@ Indien je een factor variabele opneemt met 3 of meer oorspronkelijke categorieë
 
 ```{r}
 demdata <- demdata |> 
-  mutate(Typeregime2006 = factorize(Typeregime2006))
+  mutate(Typeregime2006_factor = factorize(Typeregime2006))
 
-vif_example <- lm(v2x_polyarchy ~ gini_2019 + GDP2006 + Typeregime2006, data = demdata) 
+vif_example <- lm(v2x_polyarchy ~ gini_2019 + GDP2006 + Typeregime2006_factor, data = demdata) 
 
 vif(vif_example)
 ```
@@ -227,32 +228,71 @@ avPlots(model_multiple)
 
 Deze partiële regressieplots ("added-variable plot") tonen de relatie tussen de predictor en de afhankelijke variabele gecontroleerd voor de andere predictoren in het model.
 
-Voor de onafhankelijke variabele gini_2019, vinden we een relatief vlakke lijn (de coëfficiënt was ook niet significant). De residuals zijn vrij gelijk verspreid onder en boven de lijn dus er lijkt geen afwijking van lineariteit te zijn.
+Voor de onafhankelijke variabele `gini_2019`, vinden we een relatief vlakke lijn (de coëfficiënt was ook niet significant). De residuals zijn vrij gelijk verspreid onder en boven de lijn dus er lijkt geen afwijking van lineariteit te zijn.
 
-Voor de TYPEDEMO1984 factor bekijken we het plot niet gezien we slechts twee waarden voor deze variabele hebben.
+Voor de `TYPEDEMO1984_factor` variabele bekijken we het plot niet gezien we slechts twee waarden voor deze variabele hebben.
 
-Als we de onafhankelijke variabele GDP2006 bekijken vinden we een positief hellende regressielijn (de coëfficiënt was ook significant), maar de punten zijn niet gelijk verspreid rond de lijn. Het lijkt hier eerder dat de relatie een degressieve curve volgt dan een rechte lijn.
+Als we de onafhankelijke variabele `GDP2006` bekijken vinden we een positief hellende regressielijn (de coëfficiënt was ook significant), maar de punten zijn niet gelijk verspreid rond de lijn. Het lijkt hier eerder dat de relatie een degressieve curve volgt dan een rechte lijn.
 
-Om hiervoor te compenseren voeren we een logaritmische transformatie uit op GDP2006.
+Om hiervoor te compenseren voeren we een logaritmische transformatie uit op `GDP2006`. We kunnen dit doen via `mutate`.
 
 ```{r}
+#nieuwe gelogde variabele die we kunnen toevoegen aan de regressie
 demdata <- demdata |>
   mutate(LNGDP2006 = log(GDP2006))
+#gevolgd door regressie
+multiple_ln <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984_factor + LNGDP2006, 
+               data=demdata)
 ```
 
-Deze nieuwe gelogde versie van de variabele wordt vervolgens gebruikt in de regressie in de plaats van de originele variabele. We zouden dan het residual plot en de partiële regressieplots opnieuw kunnen inspecteren.
+We kunnen nu het residual plot en de partiële regressieplots opnieuw inspecteren.
 
 ```{r}
-#Opnieuw schatten model 
-multiple_ln <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + LNGDP2006, 
-               data=demdata)
-
 #Residual Plot
 resid_panel(multiple_ln, plots = c("resid"))
 
 #Partiële regressieplots
 avPlots(multiple_ln)
 ```
+
+::: callout-important
+#### Waarschuwing!
+
+Met de logaritimische transformatie van een predictor verandert ook de interpretatie van de coëfficiënt. De volgende regels zijn van toepassing:
+
+-   **1**% toename in X (op originele schaal) leidt tot een verandering van coëfficiënt \* log(1.**01**) eenheden in Y
+
+-   **10**% toename in X (op originele schaal) leidt tot een verandering van coëfficiënt \* log(1.**10**) eenheden in Y
+
+Bij een gelogde predictor is het echter vaak aan te raden een figuur met voorspelde waarden te maken om het effect te duiden:
+
+```{r}
+# Eerst de waarden van GDP2006 nagaan voor de gebruikte observaties
+demdata_sub <- demdata |>
+  filter(complete.cases(v2x_polyarchy, gini_2019, TYPEDEMO1984_factor, LNGDP2006))
+
+summary(demdata_sub$LNGDP2006)
+
+# Dan voorspellingen maken op basis van de waarden (je hebt liever veel voorspellingen om een mooie gecurvde lijn te tekenen)
+bbp_preds <- predictions(multiple_ln, 
+                         newdata = datagrid(LNGDP2006= seq(from=5.5, to=11, by=0.5)))
+
+#exponentiëren van gelogde predictor
+bbp_preds <- bbp_preds |> 
+  mutate(GDP2006 = exp(LNGDP2006))
+
+#figuur maken van voorspelde waarden
+ggplot(bbp_preds, aes(x=GDP2006, y=estimate)) + 
+  geom_line() +
+  labs(title = "Voorspelde electorale democratiescore op basis van BBP 2006",
+       x = "BBP 2006",   
+       y = "Voorspelde waarde") +  
+  scale_y_continuous(limits=c(0,1))
+
+```
+
+Interpretaties veranderen ook als je de afhankelijke variabele log-transformeert. Voor verdere mogelijkheden met logaritmische transformaties, verwijzen we ja naar [deze](https://kenbenoit.net/assets/courses/ME104/logmodels2.pdf) en [deze](https://library.virginia.edu/data/articles/interpreting-log-transformations-in-a-linear-model) pagina.
+:::
 
 ### Kwadratische functies {#sec-quadratic-relationships}
 
@@ -296,7 +336,7 @@ De niet-lineaire relatie kun je soms zien uit het residuals plot, in de vorm van
 resid_panel(Violence_linmodel, plots = c("resid"))
 ```
 
-Om te onderzoeken of de relatie beter als kwadratisch wordt gevat voegen we een kwadratische term toe aan het model. We maken deze variabele eerst aan en voegen die dan toe aan het model, samen met de originele variabele.
+Om te onderzoeken of de relatie beter als kwadratisch wordt gevat voegen we een kwadratische term toe aan het model. We kunnen deze variabele eerst maken en dan toevoegen aan het model, samen met de originele variabele. We kunnen de transformatie ook in de regressielijn zelf toevoegen. Dit heeft voordelen voor interpretatie.
 
 ```{r}
 #gewadrateerde variabele maken
@@ -307,12 +347,49 @@ demdata <- demdata |>
 Violence_sqmodel <- lm(pve ~ v2x_polyarchy + v2x_polyarchy_sq, 
                data=demdata)
 
+#transformatie toepassen in regressie
+Violencesqmodel <- lm(pve ~ v2x_polyarchy + I(v2x_polyarchy^2), 
+                      data=demdata)
+
+summary(Violencesqmodel)
+
 tidy(Violence_sqmodel, conf.int = TRUE)
 ```
 
 We vinden hier dat de kwadratische variabele significant is (p \< 0.001) en dus dat de relatie tussen `v2x_polyarchy` en `pve` beter als curvilineair dan lineair te beschrijven is.
 
 We kunnen dan het residuals plot opnieuw inspecteren (zie onder).
+
+::: callout-important
+#### Waarschuwing!
+
+Bij een kwadratische predictor is de interpretatie van de coëfficiënten (want de originele en gekwadrateerde variabelen horen samen) best moeilijk. De volgende regels zijn van toepassing:
+
+-   Is de kwadratische predictor negatief, dan is de relatie tussen X en Y concaaf (omgekeerde U)
+
+-   Is de kwadratische predictor positief, dan is de relatie tussen X en Y convex (U-vorm)
+
+Wederom is het vaak beter om de relatie visueel te verduidelijken:
+
+```{r}
+#Eerst de waarden van X nagaan voor de gebruikte observaties
+demdata_sub2 <- demdata |>
+  filter(complete.cases(v2x_polyarchy , pve))
+summary(demdata_sub2$v2x_polyarchy)
+
+# Dan voorspellingen maken op basis van de waarden (je hebt liever veel voorspellingen om een mooie gecurvde lijn te tekenen)
+pve_preds <- predictions(Violencesqmodel, 
+                         newdata = datagrid(v2x_polyarchy= seq(from=0, to=0.9, by=0.05)))
+
+
+#figuur maken van voorspelde waarden
+ggplot(pve_preds, aes(x=v2x_polyarchy, y=estimate)) + 
+  geom_line() +
+  labs(title = "Voorspelde afwezigheid van geweld en instabiliteit",
+       x = "Electorale democratie",   
+       y = "Voorspelde waarde") 
+```
+:::
 
 ## Homoskedasticiteit
 
@@ -384,7 +461,7 @@ We gebruiken de gestandaardiseerde residuals (`.std.resid`) om eerst outliers te
 
 ### Outliers analyseren {#sec-linear-investigating-outliers}
 
-Om te beginnen bekijken we de descriptieve statistieken voor de gestandaardiseerde residuals (opgeslagen in het data object `demdata_multln`) . We kijken specifiek naar de minimum en maximum waarden als eerste check voor outliers. We bekijken in het bijzonder of gestandaardiseerde residuals hoger zijn dan de drempelwaarden van (\|1.96\|, \|2.54\|, en zeker \|3.29\|).
+Om te beginnen bekijken we de descriptieve statistieken voor de gestandaardiseerde residuals (opgeslagen in het data object `demdata_multln`) . We kijken specifiek naar de minimum- en maximum waarden als eerste check voor outliers. We bekijken in het bijzonder of gestandaardiseerde residuals hoger zijn dan de drempelwaarden van (\|1.96\|, \|2.58\|, en zeker \|3.29\|).
 
 ```{r}
 summary(demdata_multln$.std.resid)
@@ -441,7 +518,7 @@ We vinden hier dat meer dan 5% van de observaties een gestandaardiseerde residua
 Om te onderzoeken of de outliers ook een invloed hebben op de resultaten van het model vergelijken we de resultaten van ons model met die van een nieuw model zonder outliers. Hier doen we dit voor outliers met gestandaardiseerde residuals met absolute waarde hoger dan 1.96. De SRE1.96 variabele kan vervangen worden met de SRE2.58 en SRE3.29 variabelen om alternatieve manieren om outliers uit te sluiten te onderzoeken.
 
 ```{r}
-multiple_ln1.96 <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + LNGDP2006,
+multiple_ln1.96 <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984_factor + LNGDP2006,
                data = subset(demdata_multln, SRE1.96 == 0))
 ```
 
@@ -479,12 +556,12 @@ resid_panel(multiple_ln, plots = c("cookd"))
 
 :   We vragen hier om een plot met Cook's D waarden op de y-as. Het rijnummer van de observatie in de dataset komt op de x-as.
 
-De grafiek toont dat er slechts 1 case is om ons zorgen over te maken. Dit is de case met de maximum waarde van 0.66.
+De grafiek toont dat er slechts 1 case is om ons zorgen over te maken. Dit is de case met de maximumwaarde van 0.66.
 
 We kunnen deze case verwijderen uit het model om na te gaan of de resultaten beïnvloed worden:
 
 ```{r}
-multiple_lncook <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + LNGDP2006,
+multiple_lncook <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984_factor + LNGDP2006,
                data = subset(demdata_multln, .cooksd < 0.65))
 ```
 
@@ -495,7 +572,7 @@ multiple_lncook <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + LNGDP2006,
 We kunnen ook outliers en influential cases tegelijk uitsluiten als we in de syntax gebruik maken van het '&' teken:
 
 ```{r}
-multiple_ln_excl <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + LNGDP2006,
+multiple_ln_excl <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984_factor + LNGDP2006,
                data = subset(demdata_multln,
                              SRE1.96==0 & .cooksd < 0.65))
 ```
@@ -509,10 +586,10 @@ Indien er missende waarden zijn, zoals hier het geval is, kunnen we deze statist
 ```{r}
 # subset van de dataset zonder 'NA' waarden
 demdata_complete <- demdata |>
-  filter(complete.cases(v2x_polyarchy, gini_2019, TYPEDEMO1984, LNGDP2006))
+  filter(complete.cases(v2x_polyarchy, gini_2019, TYPEDEMO1984_factor, LNGDP2006))
 
 # model opnieuw geschat met nieuwe dataset
-multiple_ln <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + LNGDP2006, 
+multiple_ln <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984_factor + LNGDP2006, 
                data=demdata_complete)
 
 # augment gebruiken om statistieken toe te voegen
