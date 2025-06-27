@@ -8,7 +8,7 @@
 
 #Packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #samenvattingen regressiemodellen
 library(parameters)      #berekenen gestandaardiseerde coëfficiënten
 library(marginaleffects) #voorspelde waarden berekenen
@@ -19,8 +19,8 @@ demdata <- import("data/demdata.rds") |>
 
 #Some data cleaning
 demdata <- demdata |>  
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
-         Typeregime2006 = factorize(Typeregime2006))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984), 
+         Typeregime2006_factor = factorize(Typeregime2006))
 
 ```
 
@@ -31,7 +31,7 @@ Tot nu lag de focus op individuele coëfficiënten. Nu verschuiven we de focus n
 
 #Packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #samenvattingen regressiemodellen
 
 ##Importeer data en data management
@@ -39,18 +39,18 @@ demdata <- import("demdata.rds") |>
   as_tibble()
 
 demdata <- demdata |>  
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
-         Typeregime2006 = factorize(Typeregime2006))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984), 
+         Typeregime2006_factor = factorize(Typeregime2006))
 
 
 ```
 
 ## R^2^, Adjusted R^2^ en de F-Test
 
-Ons voorbeeld hier is een regressiemodel waarin we de electorale democratiescore van een land in 2020 (`v2x_polyarchy`) voorspellen aan de hand van gepercipieerde corruptie in dat land (`cpi)`, politiek geweld (`v2caviol`), en regimestatus in 1984 (`TYPEDEMO1984`).
+Ons voorbeeld hier is een regressiemodel waarin we de electorale democratiescore van een land in 2020 (`v2x_polyarchy`) voorspellen aan de hand van gepercipieerde corruptie in dat land (`cpi)`, politiek geweld (`v2caviol`), en regimestatus in 1984 (`TYPEDEMO1984_factor`).
 
 ```{r}
-model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984, data=demdata)
+model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984_factor, data=demdata)
 ```
 
 De meeste model fit statistieken verkrijgen we simpelweg via de `summary()` functie:
@@ -85,10 +85,10 @@ Om deze vergelijking te maken moeten we er wel voor zorgen dat onze modellen met
 
 ```{r}
 demdata_complete <- demdata |> 
-  filter(complete.cases(v2x_polyarchy, cpi, v2caviol, TYPEDEMO1984))
+  filter(complete.cases(v2x_polyarchy, cpi, v2caviol, TYPEDEMO1984_factor))
 ```
 
-Deze dataset gebruiken we om onze modellen te schatten. Om een volledige vergelijking mogelijk te maken, schatten we ook een nulmodel zonder onafhankelijke variabelen met enkel een intercept (\~ 1). Dit intercept bevat de gemiddelde waarde voor Y in de dataset (i.e. onze beste voorspelling zonder predictoren):
+Deze dataset gebruiken we om onze modellen te schatten. Om een volledige vergelijking mogelijk te maken, schatten we ook een nulmodel zonder onafhankelijke variabelen met enkel een intercept (~ 1). Dit intercept bevat de gemiddelde waarde voor Y in de dataset (i.e. onze beste voorspelling zonder predictoren):
 
 ```{r}
 #Null model
@@ -101,7 +101,7 @@ model2 <- lm(v2x_polyarchy ~ cpi, data = demdata_complete)
 model3 <- lm(v2x_polyarchy ~ cpi + v2caviol, data = demdata_complete)
 
 #Model with all predictors
-model4 <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984, data = demdata_complete)
+model4 <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984_factor, data = demdata_complete)
 ```
 
 We kunnen de R2/Adj. R-Squared van de modellen vergelijken om te bekijken welk model het beste past. Dit geeft ons echter geen significantietoets:

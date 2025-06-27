@@ -7,7 +7,7 @@
 #| warning: false
 
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #samenvattingen regressiemodellen
 library(parameters)      #berekenen gestandaardiseerde coëfficiënten
 
@@ -15,8 +15,8 @@ demdata <- import("data/demdata.rds") |>
   as_tibble()
 
 demdata <- demdata |>  
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
-         Typeregime2006 = factorize(Typeregime2006))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984), 
+         Typeregime2006_factor = factorize(Typeregime2006))
 ```
 
 In dit hoofdstuk ligt de focus op multiple (meervoudige) lineaire regressie, waarbij meerdere onafhankelijke variabelen gebruikt worden. We bespreken ook hoe *gestandaardiseerde* regressiecoëfficiënten te verkrijgen.
@@ -51,14 +51,14 @@ Voor we de regressie kunnen uitvoeren, moeten we eerst de binaire variabele tran
 ```{r}
 #omzetten naar factor variabele
 demdata <- demdata |> 
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))
 ```
 
 Voor meervoudige regressie gebruiken we ook de `lm()` functie. We kunnen meerdere onafhankelijke variabelen toevoegen met een '+' teken:
 
 ```{r}
 #Model schatten en opslaan in data-object 
-model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984, 
+model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984_factor, 
                      data=demdata)
 ```
 
@@ -68,7 +68,7 @@ model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984,
 
 `lm(v2x_polyarchy ~)`
 
-:   We voeren een lineaire regressie uit met de afhankelijke variabele "v2x_polyarchy". Deze plaatsen we links van de tilde (\~).
+:   We voeren een lineaire regressie uit met de afhankelijke variabele "v2x_polyarchy". Deze plaatsen we links van de tilde (~).
 
 `cpi + v2caviol + TYPEDEMO1984,`
 
@@ -94,7 +94,7 @@ De "(Intercept)" waarde geeft weer welke waarde we kunnen verwachten voor de afh
 De coëfficiënten van de onafhankelijke variabelen vertellen ons nog steeds welke verandering we verwachten in de afhankelijke variabele als de predictor met 1 eenheid stijgt. Nu wordt dit effect echter "gecontroleerd op" de andere predictoren in het model. Het effect geldt als de andere variabelen constant worden gehouden ('ceteris paribus'). Bijvoorbeeld:
 
 -   **v2caviol**: Op basis van het model verwachten we dat electorale democratiescores dalen met `r round(coef(model_multiple)[3],2)` eenheden als politiek geweld met 1 eenheid stijgt, met de effecten van regimestatus in 1984 en corruptie constant gehouden.
--   **TYPEDEMO1984**: Als we landen met dezelfde corruptie en politieke geweldscores vergelijken, verwachten we dat de electorale democratiescore in 2020 `r round(coef(model_multiple)[4],2)` eenheden hoger is voor landen die in 1984 democratieën waren dan landen die autocratieën waren.
+-   **TYPEDEMO1984_factor**: Als we landen met dezelfde corruptie en politieke geweldscores vergelijken, verwachten we dat de electorale democratiescore in 2020 `r round(coef(model_multiple)[4],2)` eenheden hoger is voor landen die in 1984 democratieën waren dan landen die autocratieën waren.
 :::
 
 ## Gestandaardiseerde coëfficiënten {#sec-standardized-coefficients}

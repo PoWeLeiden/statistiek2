@@ -55,7 +55,7 @@ demdata
 
 De 'tibble' transformatie maakt de output duidelijker. We zien nu een overzicht van de eerste variabelen in de dataset (de kolommen) en de eerste observaties (rijen).
 
-We zouden ook de voorkeur kunnen geven aan een overzicht van alle variabelen in de dataset en hun kenmerken ('attributes'). In Statistiek 1 (zie [here](https://poweleiden.github.io/statistiek1/data_01_basics.html#data-frames){target="_blank"}) werd hiervoor de `str()` functie gebruikt. Hier gebruiken we `glimpse()` als een vereenvoudigde manier om dit te doen. Het resultaat is een overzicht van alle 41 variabelen in de dataset. We doen dit hier voor een verkorte versie van de dataset om minder lange output te verkrijgen.
+We zouden ook de voorkeur kunnen geven aan een overzicht van alle variabelen in de dataset en hun kenmerken ('attributes'). In Statistiek 1 (zie [hier](https://poweleiden.github.io/statistiek1/data_01_basics.html#data-frames){target="_blank"}) werd hiervoor de `str()` functie gebruikt. Hier gebruiken we `glimpse()` als een vereenvoudigde manier om dit te doen. Het resultaat is een overzicht van alle 41 variabelen in de dataset. We doen dit hier voor een verkorte versie van de dataset om minder lange output te verkrijgen.
 
 ```{r}
 #Een kleinere dataset door selectie van beperkt aantal variabelen
@@ -111,7 +111,7 @@ ggplot(demdata, aes(x=gini_2019, y=v2x_polyarchy)) +
 ::: callout-note
 #### Output uitleg
 
-De output bevat een waarschuwing: "Warning: Removed 109 rows containing missing values (\`geom_point()\`).". Dit is geen reden tot zorg en komt voor omdat er observaties zijn die geen waarden hebben voor een van de variabelen of beide variabelen. Jammergenoeg geeft R wel meer waarschuwingen die weinig belang hebben.
+De output bevat een waarschuwing: "Warning: Removed 109 rows containing missing values (\`geom_point()\`).". Dit is geen reden tot zorg en komt voor omdat er observaties zijn die geen waarden hebben voor een van de variabelen of beide variabelen. Jammer genoeg geeft R wel meer waarschuwingen die weinig belang hebben.
 :::
 
 Zo lees je bovenstaande syntax:
@@ -350,7 +350,7 @@ De `Estimate` kolom bevat de waarden voor de coëfficiënten van het model:
 
 -   (Intercept): Wat is de verwachte waarde voor de afhankelijke variabele als de onafhankelijke variabele in het model de waarde 0 aanneemt? Hier vinden we dat bij 0 ongelijkheid, de verwachte democratiescore gelijk is aan 1.06. Het intercept (of de constante) is niet altijd realistisch, bijvoorbeeld wanneer een predictor 0 niet kan aannemen in de praktijk of wanneer de schatting van de afhankelijke het werkelijke bereik ervan overschrijdt (democratiescores gemeten hier hebben een minimum van 0 en een maximum van 1)
 
--   Coëfficientën voor continue onafhankelijke variabelen (bv. `gini_2019`): De coëfficiënt geeft de verwachte verandering in de afhankelijke variabele Y weer wanneer de onafhankelijke variabele X met 1 eenheid stijgt. Hier zien we dat electorale democratie verwacht wordt met`r round(coef(m1)[2],2)` punten te dalen als ongelijkheid met 1 punt stijgt. Zie @sec-reporting-linear-regression voor meer informatie over rapportage in taken en papers.
+-   Coëfficiënten voor continue onafhankelijke variabelen (bv. `gini_2019`): De coëfficiënt geeft de verwachte verandering in de afhankelijke variabele Y weer wanneer de onafhankelijke variabele X met 1 eenheid stijgt. Hier zien we dat electorale democratie verwacht wordt met`r round(coef(m1)[2],2)` punten te dalen als ongelijkheid met 1 punt stijgt. Zie @sec-reporting-linear-regression voor meer informatie over rapportage in taken en papers.
 
 De coëfficiënt voor `gini_2019` is `r round(coef(m1)[2],2)`. Wat wil dit zeggen over de sterkte van het effect? Regressiecoëfficiënten zijn niet gestandaardiseerd zoals de correlatiecoëfficiënt dus zijn er geen vuistregels te hanteren. In latere hoofdstukken bespreken we gestandaardiseerde regressiecoëfficiënten @sec-standardized-coefficients en voorspelde waarden @sec-predicted-residual-values). Deze kunnen helpen bij de interpretatie over de sterkte van het effect, maar (zoals bij de correlatie) zal een bespreking van de sterkte ook in moeten gaan op andere studies, de context etc.
 :::

@@ -11,7 +11,7 @@ code-annotations: hover
 #| warning: false
 
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #samenvattingen regressiemodellen
 library(marginaleffects) #voorspelde waarden
 
@@ -20,15 +20,15 @@ demdata <- import("data/demdata.rds") |>
   as_tibble()
 
 demdata <- demdata |>  
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
-         Typeregime2006 = factorize(Typeregime2006))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984), 
+         Typeregime2006_factor = factorize(Typeregime2006))
 
 # Models for examples
 model_continuous <- lm(v2x_polyarchy ~ gini_2019, data = demdata)
 
-model_binary <- lm(v2x_polyarchy ~ TYPEDEMO1984, data = demdata)
+model_binary <- lm(v2x_polyarchy ~ TYPEDEMO1984_factor, data = demdata)
 
-model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984, data  = demdata)
+model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984_factor, data  = demdata)
 ```
 
 Een regressiemodel geeft voorspellingen van de waarde op de afhankelijke variabele op basis van de waarden op de onafhankelijke variabele(n). We kunnen deze voorspelde waarden onderzoeken met R om onze resultaten beter te begrijpen.
@@ -48,26 +48,26 @@ demdata <- import("demdata.rds") |>
   as_tibble()
 
 demdata <- demdata |> 
-    mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
-         Typeregime2006 = factorize(Typeregime2006))
+    mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984), 
+         Typeregime2006_factor = factorize(Typeregime2006))
 
 # Modellen schatten
 model_continuous <- lm(v2x_polyarchy ~ gini_2019, data = demdata)
 
-model_binary <- lm(v2x_polyarchy ~ TYPEDEMO1984, data=demdata)
+model_binary <- lm(v2x_polyarchy ~ TYPEDEMO1984_factor, data=demdata)
 
-model_categorical <- lm(v2x_polyarchy ~ Typeregime2006, data=demdata)
+model_categorical <- lm(v2x_polyarchy ~ Typeregime2006_factor, data=demdata)
 
-model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984, data=demdata)
+model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984_factor, data=demdata)
 ```
 
 ## Voorspellingen en fouten voor de observaties in het model
 
 Op basis van het lineaire regressiemodel kunnen we voor elke observatie gebruikt in het model een voorspelling maken van de waarde voor de afhankelijke waarde. Het verschil tussen deze voorspelling en de echte waarde die we vinden in de dataset is de fout ('error') of 'residual'.
 
-De `predictions()` functie uit het `marginaleffects` package kan gebruikt worden om voorspellingen te maken voor elke observatie gebruikt in het model. [^linear_05-1]
+De `predictions()` functie uit het `marginaleffects` package kan gebruikt worden om voorspellingen te maken voor elke observatie gebruikt in het model. [^1]
 
-[^linear_05-1]: De `augment()` functie uit het `broom` package kunnen we ook gebruiken om de residuals te bestuderen. Dit gebruiken we in een ander hoofdstuk. Hier richten we ons op `predictions()` omdat deze functie gemakkelijker een dataframe produceert met de voorspellingen, fouten en de overige data in de originele dataset.
+[^1]: De `augment()` functie uit het `broom` package kunnen we ook gebruiken om de residuals te bestuderen. Dit gebruiken we in een ander hoofdstuk. Hier richten we ons op `predictions()` omdat deze functie gemakkelijker een dataframe produceert met de voorspellingen, fouten en de overige data in de originele dataset.
 
 ```{r}
 model_binary_predictions <- predictions(model_binary, newdata = demdata) |> 
@@ -99,15 +99,15 @@ model_binary_predictions
 #### Output uitleg
 
 -   estimate: Dit is de voorspelde waarde op de afhankelijke variabele voor elke observatie in het model. Observaties die niet in het model werden opgenomen (omwille van ontbrekende data) krijgen hier 'NA'.
--   std.error, statistic, p.value, conf.low, en conf.high: de standaardfout van de voorspelling, t-statistiek, p-waarde en het 95% betrouwbaarheidsinterval. De s-waarde is een andere manier om onzekerheid weer te geven maar behoort niet tot de leerstof. [^linear_05-2]
+-   std.error, statistic, p.value, conf.low, en conf.high: de standaardfout van de voorspelling, t-statistiek, p-waarde en het 95% betrouwbaarheidsinterval. De s-waarde is een andere manier om onzekerheid weer te geven maar behoort niet tot de leerstof. [^2]
 -   De overige kolommen bevatten de variabelen uit de originele dataset.
 :::
 
-[^linear_05-2]: De s-waarde is een poging om de p-waarde te vertalen naar een maat die volgens sommigen gemakkelijker te interpreteren is. In het bijzonder vertelt het ons: "Hoeveel opeenvolgende"kop"-worpen zouden dezelfde hoeveelheid bewijs (of "verrassingen") leveren tegen de nulhypothese dat de munt eerlijk is?" Een p-waarde van 0,05 zou bijvoorbeeld een overeenkomstige s-waarde van 4,3 of zo hebben. We zouden dan kunnen zeggen dat een p-waarde van 0,05 ongeveer net zo verrassend is als vier keer een eerlijke munt opgooien en de munt alle vier de keren op kop zien landen. Zou je je gerust voelen om een verklaring af te leggen dat de munt vals is in plaats van eerlijk op basis van die reeks muntworpen? In de context van de output van `predictions()` (en van de `slopes()`-functie die we in latere hoofdstukken zien), zouden hogere s-waarden aangeven dat we steeds verraster zouden moeten zijn om onze resultaten te zien als de waarde van het ding dat we schatten eigenlijk 0 is. Deze statistiek is niet zo nuttig voor onze voorspelde waarden, maar zou nuttiger kunnen zijn om te begrijpen hoe verrassend een schatting van een coëfficiënt of "marginaal effect" is. Als je wilt, kun meer lezen over wat p-waarden zijn, enkele van de complicaties die onderzoekers tegenkomen bij het interpreteren ervan, en een discussie over wat s-waarden zijn en hoe ze kunnen helpen in deze [blogpost](https://lesslikely.com/statistics/s-values/){target="_blank"}. De s-waarde is geen onderdeel van de leerstof.
+[^2]: De s-waarde is een poging om de p-waarde te vertalen naar een maat die volgens sommigen gemakkelijker te interpreteren is. In het bijzonder vertelt het ons: "Hoeveel opeenvolgende "kop"-worpen zouden dezelfde hoeveelheid bewijs (of "verrassingen") leveren tegen de nulhypothese dat de munt eerlijk is?" Een p-waarde van 0,05 zou bijvoorbeeld een overeenkomstige s-waarde van 4,3 of zo hebben. We zouden dan kunnen zeggen dat een p-waarde van 0,05 ongeveer net zo verrassend is als vier keer een eerlijke munt opgooien en de munt alle vier de keren op kop zien landen. Zou je je gerust voelen om een verklaring af te leggen dat de munt vals is in plaats van eerlijk op basis van die reeks muntworpen? In de context van de output van `predictions()` (en van de `slopes()`-functie die we in latere hoofdstukken zien), zouden hogere s-waarden aangeven dat we steeds verraster zouden moeten zijn om onze resultaten te zien als de waarde van het ding dat we schatten eigenlijk 0 is. Deze statistiek is niet zo nuttig voor onze voorspelde waarden, maar zou nuttiger kunnen zijn om te begrijpen hoe verrassend een schatting van een coëfficiënt of "marginaal effect" is. Als je wilt, kun meer lezen over wat p-waarden zijn, enkele van de complicaties die onderzoekers tegenkomen bij het interpreteren ervan, en een discussie over wat s-waarden zijn en hoe ze kunnen helpen in deze [blogpost](https://lesslikely.com/statistics/s-values/){target="_blank"}. De s-waarde is geen onderdeel van de leerstof.
 
-We kunnen het nieuwe dataobject gebruiken om ook de residuals te berekenen. Dit doen we door het verschil tussen echte en voorspelde waarde in een variabele op te nemen. [^linear_05-3]
+We kunnen het nieuwe dataobject gebruiken om ook de residuals te berekenen. Dit doen we door het verschil tussen echte en voorspelde waarde in een variabele op te nemen. [^3]
 
-[^linear_05-3]: Rusland heeft hier een 'NA' waarde voor `estimate` en `residual_value` omdat het omwille van ontbrekende waarden niet is opgenomen in het regressiemodel.
+[^3]: Rusland heeft hier een 'NA' waarde voor `estimate` en `residual_value` omdat het omwille van ontbrekende waarden niet is opgenomen in het regressiemodel.
 
 ```{r}
 model_binary_predictions <- model_binary_predictions |> 
@@ -129,7 +129,7 @@ Eerst voorspellen we de verwachte democratiescore in 2020 voor landen die in 198
 
 ```{r}
 predictions(model_binary, 
-            by = 'TYPEDEMO1984') |> 
+            by = 'TYPEDEMO1984_factor') |> 
   as_tibble()  
 ```
 
@@ -137,9 +137,9 @@ predictions(model_binary,
 
 :   We passen de functie toe op het model tussen haakjes.
 
-`by = "TYPEDEMO1984")`
+`by = "TYPEDEMO1984_factor")`
 
-:   Hier vragen we de voorspelling voor elk niveau (level) van de factor "TYPEDEMO1984". De "by=" syntax wordt enkel gebruikt met factor variabelen. We maken geen gebruik van "newdata=" omdat we hier geen voorspellingen vragen voor alle observaties.
+:   Hier vragen we de voorspelling voor elk niveau (level) van de factor "TYPEDEMO1984_factor". De "by=" syntax wordt enkel gebruikt met factor variabelen. We maken geen gebruik van "newdata=" omdat we hier geen voorspellingen vragen voor alle observaties.
 
 We kunnen ook voorspellingen maken op basis van een continue onafhankelijke variabele. We kunnen bijvoorbeeld de score voor electorale democratie voorspellen aan de hand van economische ongelijkheid (gini_2019). Hier gaan we na welke democratiescore we kunnen verwachten als ongelijkheid laag (25) versus hoog is (45).
 
@@ -167,10 +167,10 @@ predictions(model_continuous,
 We eindigden de `predictions()` functie met `as_tibble()`. Deze stap is niet strikt noodzakelijk. Dit is het resultaat zonder de toevoeging:
 
 ```{r}
-predictions(model_binary, by = 'TYPEDEMO1984')
+predictions(model_binary, by = 'TYPEDEMO1984_factor')
 ```
 
-Het verschil zit hem in de weergave van de output in R: standaard geeft `predictions()` andere namen aan de kolommen (bv., Estimate i.p.v. estimate, 2.5% i.p.v. conf.low) om de zaken netter te maken, maar dit bemoeilijkt de zaken eigenlijk vaak voor ons omdat dit niet de echte variabelenamen zijn zoals ze ogeslagen worden in het object. Later in het vak gebruiken we deze variabelen om verdere bewerkingen te doen. Daarvoor moeten we de juiste variabelenamen opgeven: estimate dus en niet Estimate.
+Het verschil zit hem in de weergave van de output in R: standaard geeft `predictions()` andere namen aan de kolommen (bv., Estimate i.p.v. estimate, 2.5% i.p.v. conf.low) om de zaken netter te maken, maar dit bemoeilijkt de zaken eigenlijk vaak voor ons omdat dit niet de echte variabelenamen zijn zoals ze opgeslagen worden in het object. Later in het vak gebruiken we deze variabelen om verdere bewerkingen te doen. Daarvoor moeten we de juiste variabelenamen opgeven: estimate dus en niet Estimate.
 :::
 
 ## Voorspelde waarden (Meervoudige Lineaire Regressie)
@@ -228,30 +228,30 @@ preds1
 
 -   estimate: De voorspelde waarde
 -   kolommen "std.error" tot "conf.high": informatie met betrekking tot onzekerheid van de schatting
--   "4 more variables": Dit zegt dat ons tidied dataframe nog 4 variabelen heeft (dit verschilt naargelang het model dat je gebruikt). De kolommen zijn genoemd naar de variabelen gebruikt in het model. Voor de onafhankelijke variabelen (hier: `v2caviol`, `TYPEDEMO1984`, en `cpi`) tonen ze de waarden die gebruikt worden voor deze variabelen om de voorspellingen te maken.
+-   "4 more variables": Dit zegt dat ons tidied dataframe nog 4 variabelen heeft (dit verschilt naargelang het model dat je gebruikt). De kolommen zijn genoemd naar de variabelen gebruikt in het model. Voor de onafhankelijke variabelen (hier: `v2caviol`, `TYPEDEMO1984_factor`, en `cpi`) tonen ze de waarden die gebruikt worden voor deze variabelen om de voorspellingen te maken.
 :::
 
-In bovenstaand voorbeeld houdt `predictions()` automatisch de 2 overige onafhankelijke variabelen (`v2caviol` en `TYPEDEMO1984`) constant op dezelfde waarde bij de berekening van elke voorspelde waarde. Continue predictoren worden constant gehouden op hun gemiddelde, voor factor variabelen wordt de modus (de meest voorkomende categorie) gebruikt. Dit kunnen we nagaan:
+In bovenstaand voorbeeld houdt `predictions()` automatisch de 2 overige onafhankelijke variabelen (`v2caviol` en `TYPEDEMO1984_factor`) constant op dezelfde waarde bij de berekening van elke voorspelde waarde. Continue predictoren worden constant gehouden op hun gemiddelde, voor factor variabelen wordt de modus (de meest voorkomende categorie) gebruikt. Dit kunnen we nagaan:
 
 ```{r}
 preds1 |> 
-  select(estimate, cpi, v2caviol, TYPEDEMO1984)
+  select(estimate, cpi, v2caviol, TYPEDEMO1984_factor)
 
 ```
 
 ### Voorspellingen voor een factor predictor
 
-We kunnen een gelijkaardige procedure gebruiken om voorspellingen te maken voor de verschillende niveaus van factor variabelen. Dit kunnen we doen met behulp van de `by=` optie i.p.v `newdata = datagrid()`.[^linear_05-4] Om ervoor te zorgen dat we voor de overige onafhankelijke variabelen het gemiddelde of de modus nemen, moeten we hier wel nog syntax toevoegen via `newdata`:
+We kunnen een gelijkaardige procedure gebruiken om voorspellingen te maken voor de verschillende niveaus van factor variabelen. Dit kunnen we doen met behulp van de `by=` optie i.p.v `newdata = datagrid()`.[^4] Om ervoor te zorgen dat we voor de overige onafhankelijke variabelen het gemiddelde of de modus nemen, moeten we hier wel nog syntax toevoegen via `newdata`:
 
-[^linear_05-4]: We zouden technisch gezien wel `newdata = datagrid()` kunnen gebruiken maar dan moeten we de niveaus van de factor variabele manueel typen (bv. `newdata = datagrid(TYPEDEMO1984 = c("Autocracies', "Democracies"))`. De `by =` functie is dus gemakkelijker.
+[^4]: We zouden technisch gezien wel `newdata = datagrid()` kunnen gebruiken maar dan moeten we de niveaus van de factor variabele manueel typen (bv. `newdata = datagrid(TYPEDEMO1984_factor = c("Autocracies', "Democracies"))`. De `by =` functie is dus gemakkelijker.
 
 ```{r}
-preds2 <- predictions(model_multiple, by= "TYPEDEMO1984", 
+preds2 <- predictions(model_multiple, by= "TYPEDEMO1984_factor", 
                       newdata = "mean") |> 
   as_tibble()
 ```
 
-`by="TYPEDEMO1984"`
+`by="TYPEDEMO1984_factor"`
 
 :   Hier verduidelijken we dat we voorspellingen willen voor elk niveau van de factor variabele.
 
@@ -269,12 +269,12 @@ Opnieuw kunnen we zien dat `predictions()` de andere onafhankelijke variabelen c
 
 ```{r}
 preds2 |> 
-  select(estimate, TYPEDEMO1984, cpi, v2caviol)
+  select(estimate, TYPEDEMO1984_factor, cpi, v2caviol)
 ```
 
 ### Voorspellingen voor specifieke waarden van de onafhankelijke variabelen
 
-We kunnen `predictions()` ook gebruiken om voorspellingen te maken voor specifieke, hypothetische casussen. Bijvoorbeeld, hier vragen we de voorspelde waarde voor de afhankelijke variabele electorale democratie voor een land dat: een democratie was in 1984, 88 scoort op de corruptieperceptie-index (de maximum waarde in de dataset) en -3.429 voor politiek geweld (de minimum waarde in de dataset).
+We kunnen `predictions()` ook gebruiken om voorspellingen te maken voor specifieke, hypothetische casussen. Bijvoorbeeld, hier vragen we de voorspelde waarde voor de afhankelijke variabele electorale democratie voor een land dat: een democratie was in 1984, 88 scoort op de corruptieperceptie-index (de maximumwaarde in de dataset) en -3.429 voor politiek geweld (de minimumwaarde in de dataset).
 
 We bepalen deze waarden in het `newdata = datagrid()` gedeelte van de syntax. Indien we een variabele niet zouden specificeren zou deze constant gehouden worden op het gemiddelde of de modus.
 
@@ -282,6 +282,6 @@ We bepalen deze waarden in het `newdata = datagrid()` gedeelte van de syntax. In
 predictions(model_multiple, 
             newdata = datagrid(cpi=c(88), 
                                v2caviol=c(-3.429), 
-                               TYPEDEMO1984=c("Democracies"))) |> 
+                               TYPEDEMO1984_factor=c("Democracies"))) |> 
   as_tibble()
 ```

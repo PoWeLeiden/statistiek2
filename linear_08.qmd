@@ -13,7 +13,7 @@ citation-location: margin
 
 #Packages
 library(rio)             #laden van data
-library(tidyverse)       #data manipulatie en grafieken
+library(tidyverse)       #datamanipulatie en grafieken
 library(broom)           #samenvattingen regressiemodellen
 library(marginaleffects) #voorspelde waarden berekenen
 library(modelsummary)    #regressietabellen opstellen
@@ -35,14 +35,130 @@ library(rio)             #laden van data
 library(tidyverse)       #data manipulatie en grafieken
 library(broom)           #samenvattingen regressiemodellen
 library(marginaleffects) #voorspelde waarden berekenen
-library(modelsummary)    #regressietabellen opstellen
+library(modelsummary)    #tabellen opstellen
 
 #Data
 demdata <- import("demdata.rds")
 
 ```
 
-## Puntenwolken of Scatterplots {#sec-report-scatterplots}
+## Beschrijvende Statistieken {#sec-report-scatterplots}
+
+Vooraleer we beginnen aan het onderzoeken van verbanden tussen variabelen, is het gebruikelijk om alle variabelen op zich te onderzoeken: wat zijn de minima en maxima, het gemiddelde, en de standaardafwijking? In een onderzoekspaper vind je dan ook vaak een tabel met deze descriptieve statistieken (ofwel in de tekst zelf, ofwel in Appendix). Deze tabel geeft de lezer meer inzicht in de gebruikte variabelen en wordt doorgaans gepresenteerd voor de analyseresultaten.
+
+### Continue variabelen
+
+We kunnen gemakkelijk een descriptieve tabel maken met het `modelsummary` package en de `datasummary` functie binnen dat package:
+
+```{r}
+datasummary(v2x_polyarchy + gini_2019
+            ~ Mean + SD + Min + Max + N, data = demdata)
+```
+
+Zo lees je de syntax:
+
+`datasummary(`
+
+:   We gebruiken de `datasummary`functie op de variabelen tussen haakjes
+
+`v2x_polyarchy + gini_2019`
+
+:   Dit zijn de variabelen die we willen opnemen in de tabel. Meerdere variabelen kunnen toegevoegd worden met behulp van een `+`teken. Voor een tabel met alle variabelen uit de dataset kun je `All(naam dataset)`gebruiken.
+
+`~ Mean + SD + Min + Max + N,`
+
+:   We geven hier na de tilde `~` weer welke statistieken we precies willen. De statistieken gevraagd hier zijn het meest gebruikelijk.
+
+`data = demdata`
+
+:   We geven hier aan uit welk dataobject de variabelen afkomstig zijn.
+
+De tabel geeft reeds alle nodige informatie aan de lezer. Zo kan je uit de N afleiden dat een bivariate analyse van deze twee variabelen gebruik zal maken van veel minder cases dan beschikbaar in `v2x_polyarchy`omdat er best was ontbrekende waarden zijn bij `gini_2019`.
+
+### Binaire en categorische variabelen
+
+We kunnen ook binaire en categorische variabelen toevoegen aan een tabel, maar hier geef je doorgaans andere statistieken: de N en het percentage observaties in de dataset. We nemen de voorbeelden `TYPEDEMO1984` en `Typeregime2006`.
+
+```{r}
+# transformeren naar factor
+demdata <- demdata |> 
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))
+demdata <- demdata |> 
+  mutate(Typeregime2006_factor = factorize(Typeregime2006))
+
+#tabel met percentage en N
+datasummary(TYPEDEMO1984_factor + Typeregime2006_factor 
+            ~ N + Percent(), data = demdata)
+
+
+```
+
+`~ N + Percent(),`
+
+:   We geven hier na de tilde `~` weer welke statistieken we precies willen. In het geval van factorvariabelen zijn deze gebruikelijk. Let erop dat het percentage dat wordt gegeven ook `NA` waarden gebruikt in de berekening.
+
+De verschillende syntax suggereert dat we voor continue en binaire/categorische variabelen best aparte tabellen maken. Toch is dit niet nodig. In een analyse transformeert R achter de schermen een factorvariabele in meerdere dummy-variabelen. Deze 0-1 variabelen kunnen we opnemen samen met continue variabelen in een tabel. Het gemiddelde geeft dan de proportie weer van observaties in deze categorie, terwijl de N het aantal valide cases voor de variabele als geheel weergeeft.
+
+We kunnen de dummy variabelen zelf aanmaken via `mutate` maar het kan sneller met het `fastdummies`package.
+
+```{r}
+library(fastDummies)
+
+demdata <- dummy_cols(demdata, 
+                      select_columns = 
+                        c("TYPEDEMO1984", "Typeregime2006"))
+
+# tabel maken voor dummies also het continue variabelen zijn
+datasummary(v2x_polyarchy + gini_2019+
+            TYPEDEMO1984_1 + TYPEDEMO1984_2 +
+            Typeregime2006_1 + 
+            Typeregime2006_2 +
+            Typeregime2006_3 
+            ~ Mean + SD + Min + Max + N, data = demdata)
+```
+
+`dummy_cols(`
+
+:   Creëer dummy-variabelen voor alle categorieën (inclusief NA) van de aangeduide categorische variabelen van de dataset. De nieuwe dummy-variabelen worden toegevoegd aan de dataste met de `demdata <-` syntax. De naam wordt automatisch gegenereerd/ de naam van de variabele met daaraan gelinkt de numerieke code (of tekst-code indien de variabele niet numeriek is).
+
+### Presentatie: Descriptieve tabellen
+
+Voorgaande tabellen gebruiken nog de naam van de variabelen in de dataset. Deze zijn vaak niet intuïtief voor een lezer. We zullen de namen dan ook veranderen vooraleer we een tabel presenteren. Dit doen we met behulp van de `rename` functie.
+
+```{r}
+# we maken een nieuwe, kleinere dataset met hernoemde variabelen
+table_data <- demdata |> 
+  select(v2x_polyarchy, gini_2019, 
+         TYPEDEMO1984_1, TYPEDEMO1984_2,
+         Typeregime2006_1, Typeregime2006_2, Typeregime2006_3) |> 
+  rename("Polyarchiescore (2020)" = v2x_polyarchy, 
+         "Economische ongelijkheid (2019)" = gini_2019,
+         "Autocratie (1984)"  = TYPEDEMO1984_1,
+         "Democratie (1984)" = TYPEDEMO1984_2,
+         "Liberale democratie (2006)" = Typeregime2006_1, 
+         "Electorale democratie (2006)" = Typeregime2006_2,
+         "Autocratie (2006)" = Typeregime2006_3)
+
+#we vragen een datatabel voor alle variabelen in de nieuwe dataset
+datasummary(All(table_data)
+            ~ Mean + SD + Min + Max + N, data = table_data)
+```
+
+### Opslaan als Word document
+
+Deze tabel kunnen we naar Word exporteren met onderstaande syntax. Voor een tabel in een Nederlandse paper, verander je het woord 'mean' naar 'gemiddelde' in Word.
+
+```{r}
+datasummary(All(table_data)
+            ~ Mean + SD + Min + Max + N, data = table_data,
+  output = "descr_tabel.docx")
+```
+
+`output = 'descr_tabel.docx'`
+
+:   Hier vragen we om een Word document (.docx) genaamd "descr_tabel" op te slaan. Dit bestand vind je terug in je R project folder. Je kan ook een subfolder aanduiden, bv. "Output folder/descr_tabel.docx". Let erop dat je het Word document niet geopend hebt als je de syntax opnieuw wil gebruiken met aanpassingen, anders kun je een foutmelding krijgen.
+
+## Puntenwolken of Scatterplots
 
 We kunnen een visuele weergave tonen van de bivariate relatie tussen twee continue variabelen in een puntenwolk of scatterplot. Hieronder is een voorbeeld voor de variabelen `gini_2019` en `v2x_polyarchy`:
 
@@ -120,12 +236,12 @@ Wanneer we slechts de correlatie tussen twee variabelen beschrijven, kunnen we d
 ```{r}
 demdata |> 
   select(v2x_polyarchy, gini_2019, cpi, gdp_ppp) |> 
-  rename("Elec. Democracy" = v2x_polyarchy, 
-         "Econ Inequality" = gini_2019, 
-         "Corruption" = cpi, 
-         "GDP" = gdp_ppp) |> 
+  rename("Electorale democratie" = v2x_polyarchy, 
+         "Economische ongelijkheid" = gini_2019, 
+         "Corruptie" = cpi, 
+         "BBP" = gdp_ppp) |> 
   datasummary_correlation(method = "pearson",
-                          title = "Relationship between Main Continuous Variables")
+                          title = "Relatie continue variabelen")
 ```
 
 ::: callout-note
@@ -155,17 +271,16 @@ We kunnen deze tabel naar een Microsoft Word bestand exporteren zodat we de tabe
 ```{r}
 demdata |> 
   select(v2x_polyarchy, gini_2019, cpi, gdp_ppp) |> 
-  rename("Elec. Democracy" = v2x_polyarchy, 
-         "Econ Inequality" = gini_2019, 
-         "Corruption" = cpi, 
-         "GDP" = gdp_ppp) |> 
+  rename("Electorale democratie" = v2x_polyarchy, 
+         "Economische ongelijkheid" = gini_2019, 
+         "Corruptie" = cpi, 
+         "BBP" = gdp_ppp) |> 
   datasummary_correlation(method = "pearson",
-                          title = "Relationship between Main Continuous Variables", 
-                          output = "correlation table example.docx")
-
+                          title = "Relatie continue variabelen",
+                          output = "correlatietabel.docx")
 ```
 
-`output = "correlation table example.docx"`
+`output = "correlatietabel.docx"`
 
 :   Hier vragen we de output te exporteren naar een Word (.docx) bestand. De naam van het bestand bepaal je zelf. Het bestand is terug te vinden in je projectfolder of de folder waar je syntax bestand (script of Markdown) zich in bevindt. In Word kunnnen nog verdere aanpassingen worden gedaan. [^2]
 
@@ -193,7 +308,7 @@ Hieronder vind je de syntax en output in R. Deze output neem je niet rechtstreek
 
 ```{r}
 #| echo: false
-#create region variable
+#regiovariabele creëeren
 demdata <- demdata |>
   mutate(region = case_when(
       e_regiongeo %in% c(1:4) ~ 1, 
@@ -204,12 +319,12 @@ demdata <- demdata |>
 ```
 
 ```{r}
-#Factorize categorical variables
+#Factor maken categorische variabelen
 demdata <- demdata |> 
   mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
          region = factor(region, 
-                    levels=c(2,3,1,4), #Ref group is listed first
-                    labels=c("Africa", "Asia", "Europe", "Americas")))
+                    levels=c(2,3,1,4), #Ref. groep eerst inde rij
+                    labels=c("Afrika", "Azië", "Europa", "Amerika's")))
 
 #model schatten en opslaan
 example_model <- lm(v2x_polyarchy ~ gini_2019 + TYPEDEMO1984 + region, 
@@ -342,7 +457,7 @@ modelsummary(model_list,
                "v2caviol" = "Politiek geweld",
                "regionAsia" = "Azië",
                "regionEurope" = "Europa", 
-               "regionAmericas" = "Amerikas"), 
+               "regionAmericas" = "Amerika's"), 
              gof_map = c("nobs", "r.squared", "adj.r.squared"), 
              title = "Electorale democratie voorspeld door corruptie, politiek geweld en regio", 
              notes = "Lineaire regressiecoëfficiënten met standaardfouten tussen haakjes. Referentiegroep regio = Afrika")
@@ -366,7 +481,7 @@ modelsummary(model_list_named,
                "v2caviol" = "Politiek geweld",
                "regionAsia" = "Azië",
                "regionEurope" = "Europa", 
-               "regionAmericas" = "Amerikas"), 
+               "regionAmericas" = "Amerika's"), 
              gof_map = c("nobs", "r.squared", "adj.r.squared"), 
              title = "Electorale democratie voorspeld door corruptie, politiek geweld en regio", 
              notes = "Lineaire regressiecoëfficiënten met standaardfouten tussen haakjes. Referentiegroep regio = Afrika")
@@ -386,7 +501,7 @@ modelsummary(model_list_named,
                "v2caviol" = "Politiek geweld",
                "regionAsia" = "Azië",
                "regionEurope" = "Europa", 
-               "regionAmericas" = "Amerikas"), 
+               "regionAmericas" = "Amerika's"), 
              gof_map = c("nobs", "r.squared", "adj.r.squared"), 
              title = "Electorale democratie voorspeld door corruptie, politiek geweld en regio", 
              notes = "Lineaire regressiecoëfficiënten met standaardfouten tussen haakjes. Referentiegroep regio = Afrika", 
@@ -397,7 +512,7 @@ modelsummary(model_list_named,
 
 `output = 'regressie_tabel.docx'`
 
-:   Hier vragen we om een Word document (.docx) genaamd "regressie_tabel" op te slaan. Dit bestand vind je terug in je R project folder. Je kan ook een subfolder aanduiden, bv. "Output folder/regressie_tabel.docx". Let erop dat je het Word document niet geopend hebt als je de syntax opnieuw wil gebruiken met aanpassingen, anders kun je een foutmelding krijgen.
+:   Hier vragen we om een Word document (.docx) genaamd "regressie_tabel" op te slaan. Dit bestand vind je terug in je R project folder. Je kan ook een subfolder aanduiden, bv. "Output folder/regressie_tabel.docx". Let erop dat je het Word document niet geopend hebt als je de syntax opnieuw wil gebruiken met aanpassingen, anders kun je een foutmelding krijgen. In Word zelf krijg je vaak een lange, uitgerekte tabel. Dit kun je verhelpen door in Word naar de tab 'Indeling van tabel' te gaan en op 'AutoAanpassen naar venster' te klikken.
 
 ### Instructies
 
@@ -509,7 +624,7 @@ tidy(cat_model, conf.int = TRUE) |>
                        "v2caviol" = "Politiek geweld",
                        "regionAsia" = "Azië",
                        "regionEurope" = "Europa", 
-                       "regionAmericas" = "Amerikas")) |> 
+                       "regionAmericas" = "Amerika's")) |> 
     ggplot(aes(x = estimate, y=term)) + 
     geom_pointrange(aes(xmin = conf.low, xmax = conf.high)) +
     labs(title = "OLS coëfficiënten voor electorale democratie", 
@@ -527,7 +642,7 @@ tidy(cat_model, conf.int = TRUE) |>
                                   "regionAmericas", "v2caviol",
                                   "cpi"),  # <2>
                        labels = c("Europa", "Azië", 
-                                  "Amerikas", "Pol. geweld",
+                                  "Amerika's", "Pol. geweld",
                                   "Corruptieperceptie"))) |> 
     ggplot(aes(x = estimate, y=term)) + 
     geom_pointrange(aes(xmin = conf.low, xmax = conf.high))+
