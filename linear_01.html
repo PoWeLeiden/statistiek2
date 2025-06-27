@@ -471,7 +471,7 @@ Waarschuwing
 </div>
 </div>
 <p>De ‘tibble’ transformatie maakt de output duidelijker. We zien nu een overzicht van de eerste variabelen in de dataset (de kolommen) en de eerste observaties (rijen).</p>
-<p>We zouden ook de voorkeur kunnen geven aan een overzicht van alle variabelen in de dataset en hun kenmerken (‘attributes’). In Statistiek 1 (zie <a href="https://poweleiden.github.io/statistiek1/data_01_basics.html#data-frames" target="_blank">here</a>) werd hiervoor de <code>str()</code> functie gebruikt. Hier gebruiken we <code>glimpse()</code> als een vereenvoudigde manier om dit te doen. Het resultaat is een overzicht van alle 41 variabelen in de dataset. We doen dit hier voor een verkorte versie van de dataset om minder lange output te verkrijgen.</p>
+<p>We zouden ook de voorkeur kunnen geven aan een overzicht van alle variabelen in de dataset en hun kenmerken (‘attributes’). In Statistiek 1 (zie <a href="https://poweleiden.github.io/statistiek1/data_01_basics.html#data-frames" target="_blank">hier</a>) werd hiervoor de <code>str()</code> functie gebruikt. Hier gebruiken we <code>glimpse()</code> als een vereenvoudigde manier om dit te doen. Het resultaat is een overzicht van alle 41 variabelen in de dataset. We doen dit hier voor een verkorte versie van de dataset om minder lange output te verkrijgen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Een kleinere dataset door selectie van beperkt aantal variabelen</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>demdata_sub <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
@@ -620,7 +620,7 @@ Output uitleg
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>De output bevat een waarschuwing: “Warning: Removed 109 rows containing missing values (`geom_point()`).”. Dit is geen reden tot zorg en komt voor omdat er observaties zijn die geen waarden hebben voor een van de variabelen of beide variabelen. Jammergenoeg geeft R wel meer waarschuwingen die weinig belang hebben.</p>
+<p>De output bevat een waarschuwing: “Warning: Removed 109 rows containing missing values (`geom_point()`).”. Dit is geen reden tot zorg en komt voor omdat er observaties zijn die geen waarden hebben voor een van de variabelen of beide variabelen. Jammer genoeg geeft R wel meer waarschuwingen die weinig belang hebben.</p>
 </div>
 </div>
 <p>Zo lees je bovenstaande syntax:</p>
@@ -910,7 +910,7 @@ Interpretatie
 <p>De <code>Estimate</code> kolom bevat de waarden voor de coëfficiënten van het model:</p>
 <ul>
 <li><p>(Intercept): Wat is de verwachte waarde voor de afhankelijke variabele als de onafhankelijke variabele in het model de waarde 0 aanneemt? Hier vinden we dat bij 0 ongelijkheid, de verwachte democratiescore gelijk is aan 1.06. Het intercept (of de constante) is niet altijd realistisch, bijvoorbeeld wanneer een predictor 0 niet kan aannemen in de praktijk of wanneer de schatting van de afhankelijke het werkelijke bereik ervan overschrijdt (democratiescores gemeten hier hebben een minimum van 0 en een maximum van 1)</p></li>
-<li><p>Coëfficientën voor continue onafhankelijke variabelen (bv. <code>gini_2019</code>): De coëfficiënt geeft de verwachte verandering in de afhankelijke variabele Y weer wanneer de onafhankelijke variabele X met 1 eenheid stijgt. Hier zien we dat electorale democratie verwacht wordt met-0.01 punten te dalen als ongelijkheid met 1 punt stijgt. Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.3</span></a> voor meer informatie over rapportage in taken en papers.</p></li>
+<li><p>Coëfficiënten voor continue onafhankelijke variabelen (bv. <code>gini_2019</code>): De coëfficiënt geeft de verwachte verandering in de afhankelijke variabele Y weer wanneer de onafhankelijke variabele X met 1 eenheid stijgt. Hier zien we dat electorale democratie verwacht wordt met-0.01 punten te dalen als ongelijkheid met 1 punt stijgt. Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.4</span></a> voor meer informatie over rapportage in taken en papers.</p></li>
 </ul>
 <p>De coëfficiënt voor <code>gini_2019</code> is -0.01. Wat wil dit zeggen over de sterkte van het effect? Regressiecoëfficiënten zijn niet gestandaardiseerd zoals de correlatiecoëfficiënt dus zijn er geen vuistregels te hanteren. In latere hoofdstukken bespreken we gestandaardiseerde regressiecoëfficiënten <a href="linear_04.html#sec-standardized-coefficients" class="quarto-xref"><span>Paragraaf 4.2</span></a> en voorspelde waarden <a href="linear_05.html" class="quarto-xref"><span>Hoofdstuk 5</span></a>). Deze kunnen helpen bij de interpretatie over de sterkte van het effect, maar (zoals bij de correlatie) zal een bespreking van de sterkte ook in moeten gaan op andere studies, de context etc.</p>
 </div>

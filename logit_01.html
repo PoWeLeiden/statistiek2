@@ -357,7 +357,7 @@ window.Quarto = {
   <li><a href="#logistische-regressieanalyse" id="toc-logistische-regressieanalyse" class="nav-link active" data-scroll-target="#logistische-regressieanalyse"><span class="header-section-number">9.1</span> Logistische regressieanalyse</a>
   <ul class="collapse">
   <li><a href="#data-management" id="toc-data-management" class="nav-link" data-scroll-target="#data-management"><span class="header-section-number">9.1.1</span> Data Management</a></li>
-  <li><a href="#logistic-regressie-uitvoeren" id="toc-logistic-regressie-uitvoeren" class="nav-link" data-scroll-target="#logistic-regressie-uitvoeren"><span class="header-section-number">9.1.2</span> Logistic regressie uitvoeren</a></li>
+  <li><a href="#logistische-regressie-uitvoeren" id="toc-logistische-regressie-uitvoeren" class="nav-link" data-scroll-target="#logistische-regressie-uitvoeren"><span class="header-section-number">9.1.2</span> Logistische regressie uitvoeren</a></li>
   </ul></li>
   <li><a href="#odds-ratios" id="toc-odds-ratios" class="nav-link" data-scroll-target="#odds-ratios"><span class="header-section-number">9.2</span> Odds Ratios</a></li>
   </ul>
@@ -385,12 +385,12 @@ window.Quarto = {
 </header>
 
 
-<p>Logistische regressiemodellen worden gebruikt voor binaire afhankelijke variabelen.We maken hier gebruik van de Nederlandse survey voor ronde 9 van de <a href="https://www.europeansocialsurvey.org">European Social Survey</a> (ESS). Deze dataset is op de ESS website beschikbaar in SPSS format (.sav). We kunnen de <code>view_df</code> functie in <code>sjplot</code> gebruiken om de variabelen en hun labels in de dataset te inspecteren. Zie <a href="linear_01.html#sec-recall-peeking-inside-data-objects" class="quarto-xref"><span>Paragraaf 1.1</span></a></p>
+<p>Logistische regressiemodellen worden gebruikt voor binaire afhankelijke variabelen. We maken hier gebruik van de Nederlandse survey voor ronde 9 van de <a href="https://www.europeansocialsurvey.org">European Social Survey</a> (ESS). Deze dataset is op de ESS website beschikbaar in SPSS format (.sav). We kunnen de <code>view_df</code> functie in <code>sjplot</code> gebruiken om de variabelen en hun labels in de dataset te inspecteren. Zie <a href="linear_01.html#sec-recall-peeking-inside-data-objects" class="quarto-xref"><span>Paragraaf 1.1</span></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)          <span class="co">#overzichten van data objecten</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#resultaten van regressiemodellen</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
@@ -477,7 +477,7 @@ No answer</td>
 </table>
 </div>
 </div>
-<p>De<code>view_df()</code> output toont dat er numerieke waarden zijn die geaasocieerd zijn met ontbrekende waarden (bv. respondenten die “Don’t Know” antwoorden krijgen een score van 8 op <code>polintr</code>). Deze waarden werden al naar ‘NA’ omgezet zoals je kunt zien in onderstaande tabel en dus is er geen verdere data managament nodig. Zie <a href="https://poweleiden.github.io/statistiek1/data_04_missing_data.html#recoding-missing-data" target="_blank">Section 4.2</a> van het Statistiek 1 boek om deze leerstof op te frissen.</p>
+<p>De<code>view_df()</code> output toont dat er numerieke waarden zijn die geassocieerd zijn met ontbrekende waarden (bv. respondenten die “Don’t Know” antwoorden krijgen een score van 8 op <code>polintr</code>). Deze waarden werden al naar ‘NA’ omgezet zoals je kunt zien in onderstaande tabel en dus is er geen verdere data managament nodig. Zie <a href="https://poweleiden.github.io/statistiek1/data_04_missing_data.html#recoding-missing-data" target="_blank">Section 4.2</a> van het Statistiek 1 boek om deze leerstof op te frissen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>polintr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -496,7 +496,7 @@ Waarschuwing!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Kijk altijd goed naar instructies van opdrachten alsook verdere informatie over de dataset (bv. het codeboek, of informatie over de dataset te verkrijgen met functies zoals <code>view_df()</code> of <code>attributes()</code>) om te weten welke data management stappen je moet zetten vooraleer je je analyse kan uitvoeren.</p>
+<p>Kijk altijd goed naar instructies van opdrachten alsook verdere informatie over de dataset (bv. het codeboek, of informatie over de dataset te verkrijgen met functies zoals <code>view_df()</code> of <code>attributes()</code>) om te weten welke datamanagement stappen je moet zetten vooraleer je je analyse kan uitvoeren.</p>
 </div>
 </div>
 <section id="logistische-regressieanalyse" class="level2" data-number="9.1">
@@ -577,12 +577,12 @@ No answer</td>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Factor maken</span></span>
 <span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">factorize</span>(gndr),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-4" class="code-annotation-target"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote =</span> <span class="fu">factorize</span>(vote))</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-4" class="code-annotation-target"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote_F =</span> <span class="fu">factorize</span>(vote))</span>
 <span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#not eligible op NA</span></span>
 <span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">na_if</span>(vote,<span class="st">"Not eligible to vote"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">na_if</span>(vote_F,<span class="st">"Not eligible to vote"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
@@ -598,12 +598,12 @@ No answer</td>
 </div>
 <p>We checken de niveaus van de variabelen, in het bijzonder van de vote variabele:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>vote)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>vote_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Yes"                  "No"                   "Not eligible to vote"
 [4] "Refusal"              "Don't know"           "No answer"           </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>vote)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>vote_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
                  Yes                   No Not eligible to vote 
@@ -616,13 +616,12 @@ No answer</td>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Relevel de variabele</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">relevel</span>(vote, <span class="st">"No"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">relevel</span>(vote_F, <span class="st">"No"</span>))</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#en controleer het resultaat</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>vote)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "No"                   "Yes"                  "Not eligible to vote"
-[4] "Refusal"              "Don't know"           "No answer"           </code></pre>
+<pre><code>NULL</code></pre>
 </div>
 </div>
 <dl>
@@ -631,15 +630,15 @@ No answer</td>
 <p>We gebruiken de relevel functie op de <code>vote</code> variabele. We creëren hier geen nieuwe variabele, maar overschrijven de oude. Je zou er ook voor kunnen kiezen een nieuwe variabele te maken. De categorie tussen dubbele aanhalingstekens zal de eerste categorie worden en dus de referentiecategorie in de regressie. We gebruiken het label “No” omdat de variabele reeds tot factor is getransformeerd (en dus niet de originele numerieke waarde ‘2’).</p>
 </dd>
 </dl>
-<p>Laten we nu kijken naar de <code>gndr</code> variabele:</p>
+<p>Laten we nu kijken naar de <code>gndr_F</code> variabele:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Male    Female No answer 
       833       840         0 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Male"      "Female"    "No answer"</code></pre>
 </div>
@@ -647,10 +646,10 @@ No answer</td>
 <p>Als we de niveaus bekijken zien we dat ‘Male’ als referentie zal worden genomen. Dit is prima, maar bij wijze van voorbeeld veranderen we dit hieronder naar ‘Female’. We zien ook een derde categorie ‘No answer’. Dit label werd gegeven aan de waarde in de variabele maar is leeg. R zal deze dus verwijderen in de analyses.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">relevel</span>(gndr, <span class="st">"Female"</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">relevel</span>(gndr_F, <span class="st">"Female"</span>))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#controleer je codering</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Female"    "Male"      "No answer"</code></pre>
 </div>
@@ -669,12 +668,12 @@ Waarschuwing!
 </div>
 </div>
 </section>
-<section id="logistic-regressie-uitvoeren" class="level3" data-number="9.1.2">
-<h3 data-number="9.1.2" class="anchored" data-anchor-id="logistic-regressie-uitvoeren"><span class="header-section-number">9.1.2</span> Logistic regressie uitvoeren</h3>
+<section id="logistische-regressie-uitvoeren" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="logistische-regressie-uitvoeren"><span class="header-section-number">9.1.2</span> Logistische regressie uitvoeren</h3>
 <p>Het uitvoeren van logistische regressie in R is gelijkaardig aan lineare regressie. In plaats van de ingebouwde functie <code>lm()</code>, gebruiken we de eveneens ingebouwde <code>glm()</code> functie. De afkorting staat voor ‘<strong>g</strong>eneralized <strong>l</strong>inear <strong>m</strong>odel’.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Schat het model</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Vote_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr, </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Vote_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F, </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
@@ -682,9 +681,9 @@ Waarschuwing!
 <dd>
 <p>We slaan de resultaten op in een data object met naam naar keuze.</p>
 </dd>
-<dt><code>glm(vote ~ gndr,</code></dt>
+<dt><code>glm(vote_F ~ gndr_F,</code></dt>
 <dd>
-<p>We voeren de glm functie uit met vote als afhankelijke variabele, voorspeld (~) door onze enige onafhankelijke variabele: gndr. We kunnen meerdere onafhankelijke variabelen toevoegen, gescheiden van elkaar met een ‘+’ teken.</p>
+<p>We voeren de glm functie uit met gefactoriseerde vote als afhankelijke variabele, voorspeld (~) door onze enige onafhankelijke variabele: gndr (gefactoriseerd). We kunnen meerdere onafhankelijke variabelen toevoegen, gescheiden van elkaar met een ‘+’ teken.</p>
 </dd>
 <dt><code>data = ESS9NL,</code></dt>
 <dd>
@@ -701,12 +700,12 @@ Waarschuwing!
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = vote ~ gndr, family = "binomial", data = ESS9NL)
+glm(formula = vote_F ~ gndr_F, family = "binomial", data = ESS9NL)
 
 Coefficients:
             Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept)  1.56485    0.09535  16.412   &lt;2e-16 ***
-gndrMale     0.18359    0.13925   1.318    0.187    
+gndr_FMale   0.18359    0.13925   1.318    0.187    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -741,10 +740,10 @@ Output uitleg
 </ul>
 </div>
 </div>
-<p>We kunnen meerdere predictoren toevoegen aan het model op een gelijkaardige manier als bij lineaire regressie: door ze te scheiden met een <code>+</code> teken. Hier voegen we leeftijd (<code>agea</code>), vertrouwen in politici (<code>trstplt</code>), en links-rechts positie (<code>lrscale</code>) toe. data management voor deze variabelen is niet nodig: ze zijn continue en missing waarden zijn reeds als NA aangeduid.</p>
+<p>We kunnen meerdere predictoren toevoegen aan het model op een gelijkaardige manier als bij lineaire regressie: door ze te scheiden met een <code>+</code> teken. Hier voegen we leeftijd (<code>agea</code>), vertrouwen in politici (<code>trstplt</code>), en links-rechts positie (<code>lrscale</code>) toe. Datamanagement voor deze variabelen is niet nodig: ze zijn continue en missing waarden zijn reeds als NA aangeduid.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Schat het model</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Bekijk de output</span></span>
@@ -752,13 +751,13 @@ Output uitleg
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = vote ~ gndr + agea + trstplt + lrscale, family = "binomial", 
+glm(formula = vote_F ~ gndr_F + agea + trstplt + lrscale, family = "binomial", 
     data = ESS9NL)
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -0.284194   0.380455  -0.747    0.455    
-gndrMale     0.043281   0.154201   0.281    0.779    
+gndr_FMale   0.043281   0.154201   0.281    0.779    
 agea         0.018349   0.004503   4.075 4.61e-05 ***
 trstplt      0.195020   0.038706   5.039 4.69e-07 ***
 lrscale      0.029257   0.039306   0.744    0.457    
@@ -785,13 +784,13 @@ Interpretatie
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Logistische regressiecoëfficiënten geven een schatting van de verandering in de log van de odds dat Y=1 als X met 1 eenheid stijgt. Ze zijn dus niet makkelijk direct te interpreteren. We kunnen ze wel gebruiken om iets over de richting van de relatie te zeggen. Een positive coëfficiënt toont dat de kans dat Y=1 stijgt als de onafhankelijke variabele stijgt. Een negatieve coëfficiënt toont dat de kans dat Y=1 daalt als de onafhankelijke variabele stijgt. Voor verdere interpretatie maak je best gebruik van de odds ratios (in minder mate), de gemiddelde marginale effecten (average marginal effects) (zie <a href="logit_02.html" class="quarto-xref"><span>Hoofdstuk 10</span></a>) of de voorspelde kansen (zie <a href="logit_03.html" class="quarto-xref"><span>Hoofdstuk 11</span></a>) .</p>
+<p>Logistische regressiecoëfficiënten geven een schatting van de verandering in de log van de odds dat Y=1 als X met 1 eenheid stijgt. Ze zijn dus niet makkelijk direct te interpreteren. We kunnen ze wel gebruiken om iets over de richting van de relatie te zeggen. Een positieve coëfficiënt toont dat de kans dat Y=1 stijgt als de onafhankelijke variabele stijgt. Een negatieve coëfficiënt toont dat de kans dat Y=1 daalt als de onafhankelijke variabele stijgt. Voor verdere interpretatie maak je best gebruik van de odds ratios (in minder mate), de gemiddelde marginale effecten (average marginal effects) (zie <a href="logit_02.html" class="quarto-xref"><span>Hoofdstuk 10</span></a>) of de voorspelde kansen (zie <a href="logit_03.html" class="quarto-xref"><span>Hoofdstuk 11</span></a>) .</p>
 <p>Voor dit voorbeeld:</p>
 <ul>
-<li>Mannen hebben een grotere kans om te stemmen dan vrouwen, maar het verschil is niet statistisch signficant (p = 0.28).</li>
-<li>Oudere respondenten hebben een grotere kans om te gaan stemmen en dit verband is statistisch signficant (p &lt; 0.001).</li>
-<li>Respondenten met meer vertouwen in politici hebben een grotere kans om te gaan stemmen. deze relatie is statistisch significant (p &lt; 0.001).</li>
-<li>Stemmen is meer waarschijnlijk naarmate respondten zich rechtser psitioneren op de ideologieschaal, maar dit effect is niet statistisch signficant (p = 0.74).</li>
+<li>Mannen hebben een grotere kans om te stemmen dan vrouwen, maar het verschil is niet statistisch significant (p = 0.28).</li>
+<li>Oudere respondenten hebben een grotere kans om te gaan stemmen en dit verband is statistisch significant (p &lt; 0.001).</li>
+<li>Respondenten met meer vertrouwen in politici hebben een grotere kans om te gaan stemmen. deze relatie is statistisch significant (p &lt; 0.001).</li>
+<li>Stemmen is meer waarschijnlijk naarmate respondenten zich rechtser positioneren op de ideologieschaal, maar dit effect is niet statistisch significant (p = 0.74).</li>
 </ul>
 </div>
 </div>
@@ -799,7 +798,7 @@ Interpretatie
 </section>
 <section id="odds-ratios" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="odds-ratios"><span class="header-section-number">9.2</span> Odds Ratios</h2>
-<p>Logistische regressiecoëfficiënten kunnen omgezet worden in odds ratios die (iets) intuïtiever zijn om te interpereteren..</p>
+<p>Logistische regressiecoëfficiënten kunnen omgezet worden in odds ratios die (iets) intuïtiever zijn om te interpereteren.</p>
 <p>We kunnen de odds ratios en 95% betrouwbaarheidsintervallen verkrijgen met de <code>tidy</code> functie uit het <code>broom</code> package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># logistische regressiecoëfficiënten en hun betrouwbaarheidsintervallen</span></span>
@@ -809,7 +808,7 @@ Interpretatie
   term        estimate std.error statistic     p.value conf.low conf.high
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)  -0.284    0.380      -0.747 0.455       -1.03       0.463 
-2 gndrMale      0.0433   0.154       0.281 0.779       -0.259      0.346 
+2 gndr_FMale    0.0433   0.154       0.281 0.779       -0.259      0.346 
 3 agea          0.0183   0.00450     4.07  0.0000461    0.00958    0.0272
 4 trstplt       0.195    0.0387      5.04  0.000000469  0.119      0.271 
 5 lrscale       0.0293   0.0393      0.744 0.457       -0.0480     0.106 </code></pre>
@@ -821,7 +820,7 @@ Interpretatie
   term        estimate std.error statistic     p.value conf.low conf.high
   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)    0.753   0.380      -0.747 0.455          0.357      1.59
-2 gndrMale       1.04    0.154       0.281 0.779          0.772      1.41
+2 gndr_FMale     1.04    0.154       0.281 0.779          0.772      1.41
 3 agea           1.02    0.00450     4.07  0.0000461      1.01       1.03
 4 trstplt        1.22    0.0387      5.04  0.000000469    1.13       1.31
 5 lrscale        1.03    0.0393      0.744 0.457          0.953      1.11</code></pre>
@@ -855,7 +854,7 @@ Interpretatie
 <p>Voor de interpretatie van odds ratios zijn er 3 zaken waar je op moet letten.</p>
 <p>Ten eerste, odds ratios vertellen ons iets over de relatieve <em>odds</em> dat Y = 1 (bv. iemand gaat stemmen). Dit is verschillend van de coëfficiënten. de coefficiënten zijn de <em>gelogde</em> versies van de relatieve odds..</p>
 <p>Ten tweede, odds ratios zijn multiplicatief en worden geïnterpreteerd in termen van 1 in plaats van 0. Een odds ratio groter dan 1 betekent een hogere kans dat Y=1. Een odds ratio lager dan 1 betekent een lagere kans dat Y=1. Een odds ratio van 1 betekent dat er geen effect is. Een betrouwbaarheidsinterval voor een odds ratio waar 1 niet in voorkomt duidt een statistisch significant effect aan. Een odds ratio kan niet negatief zijn.</p>
-<p>Ten derde interpreteren we ook de odds ratios met een multiplicatieve logica. In het voorbeeld vinden we dat de odds om te stemmen 1.04 <em>keer groter</em> zijn voor mannelijke respondenten dan vrouwelijke respondenten, ceteris paribus. het effect is wel niet significant. De odds om te stemmen vermenigvuldigen met 1.02 telkens leeftijd met 1 eenheid omhoog gaat (de andere onafhankelijke variabelen constant gehouden).</p>
+<p>Ten derde interpreteren we ook de odds ratios met een multiplicatieve logica. In het voorbeeld vinden we dat de odds om te stemmen 1.04 <em>keer groter</em> zijn voor mannelijke respondenten dan vrouwelijke respondenten, ceteris paribus. Het effect is wel niet significant. De odds om te stemmen vermenigvuldigen met 1.02 telkens leeftijd met 1 eenheid omhoog gaat (de andere onafhankelijke variabelen constant gehouden).</p>
 </div>
 </div>
 

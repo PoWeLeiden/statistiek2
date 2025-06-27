@@ -362,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)        <span class="co">#Modelresultaten</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)          <span class="co">#laden van data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#marginale effecten en voorspelde waarden berekenen</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
@@ -373,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>righttrack_int <span class="ot">&lt;-</span> <span class="fu">glm</span>(right_track <span class="sc">~</span> vote2016 <span class="sc">*</span> age <span class="sc">+</span> rural_urban, </span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> anes)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In het vorige hoofdstuk bespraken we hoe we een interactieterm toe te voegen aan een regressiemodel. Zo kunnen we nagaan of het effect van een onfahankelijke variabele verschilt naargelang een andere onafhankelijke variabale andere waarden aanneemt:</p>
+<p>In het vorige hoofdstuk bespraken we hoe een interactieterm toe te voegen aan een regressiemodel. Zo kunnen we nagaan of het effect van een onafhankelijke variabele verschilt naargelang een andere onafhankelijke variabele andere waarden aanneemt:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/Interaction.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
@@ -409,18 +409,18 @@ Interpretatie
 <p>De coëfficiënten van de variabelen die de interactie opmaken interpreteren we niet op dezelfde manier als coëfficiënten die geen deel uitmaken van een interactie.</p>
 <p>Stel bijvoorbeeld dat we het volgende model hebben: Y = Constante + Variabele 1 + Variabele 2 + (Variabele 1 * Variabele 2).</p>
 <ul>
-<li>Coëfficiënt voor Variabele 1 (bv., <code>pid</code>): het verband tussen de Variabele 1 en Y als Variabele 2 (bv., <code>right_track</code>) gelijk is aan 0.</li>
-<li>Coëfficiënt voor Variable 2 (bv., <code>right_track</code>): het verband tussen de Variabele 2 en Y als Variabele 1 (bv., <code>pid</code>) gelijk is aan 0.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li>Coëfficiënt voor Variabele 1 (bv., <code>pid</code>): het verband tussen de Variabele 1 en Y als Variabele 2 (bv., <code>right_track</code>) <strong>gelijk is aan 0</strong>.</li>
+<li>Coëfficiënt voor Variable 2 (bv., <code>right_track</code>): het verband tussen de Variabele 2 en Y als Variabele 1 (bv., <code>pid</code>) <strong>gelijk is aan 0</strong>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li>Coëfficiënt voor de interactievariabele (bv., <code>right_trackRight Direction</code>): Hoe verandert de regressiecoëfficiënt voor een van de variabelen in de interactie als de andere variabele met 1 eenheid stijgt?
 <ul>
 <li>1) Hoe verandert het verband tussen <code>pid</code> en <code>biden</code> als <code>right_track</code> met 1 eenheid stijgt? OF</li>
-<li>2) Hoe verandert het verband tussen <code>right_track</code> en <code>v2x_polyarchy</code> als <code>pid</code> met 1 eenheid stijgt?</li>
+<li>2) Hoe verandert het verband tussen <code>right_track</code> en <code>biden</code> als <code>pid</code> met 1 eenheid stijgt?</li>
 </ul></li>
 </ul>
 </div>
 </div>
-<p>Interactietermen kunnen moeilijk zijn om te interpreteren op basis van de standaard output van een regressieanalyse. Het berekenen en plotten van <em>marginale effecten</em> kan de interpretatie vergemakkelijken voor jezelf en je lezers: Wat is de verwachte verandering in Y als X met 1 eenheid stijgt. Deze verandering drukken we uit in eenheden voor een continue Y (OLS) en in percenpunten kans voor een binaire Y. Bij een interactie-effect berekenen (en plotten) we de verwachte verandering in Y als X met 1 eenheid stijgt voor verschillende waarden van een andere predictor Z. We gebruiken de <code>slopes()</code> functie uit het <code>marginaleffects</code> package.</p>
-<p>We geven hieronder voorbeelden voor verschillende types onafhankelijke variabelen (bv. binair <em>x</em> continu, continu * continue etc).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Interactietermen kunnen moeilijk zijn om te interpreteren op basis van de standaard output van een regressieanalyse. Het berekenen en plotten van <em>marginale effecten</em> kan de interpretatie vergemakkelijken voor jezelf en je lezers: Wat is de verwachte verandering in Y als X met 1 eenheid stijgt? Deze verandering drukken we uit in eenheden voor een continue Y (OLS) en in percenpunten kans voor een binaire Y. Bij een interactie-effect berekenen (en plotten) we de verwachte verandering in Y als X met 1 eenheid stijgt voor verschillende waarden van een andere predictor Z. We gebruiken de <code>slopes()</code> functie uit het <code>marginaleffects</code> package.</p>
+<p>We geven hieronder voorbeelden voor verschillende types onafhankelijke variabelen (bv. binair <em>*</em> continu, continu * continu etc).<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <section id="binaire-x-continue-interactie" class="level2" data-number="16.1">
 <h2 data-number="16.1" class="anchored" data-anchor-id="binaire-x-continue-interactie"><span class="header-section-number">16.1</span> Binaire X Continue Interactie</h2>
 <section id="berekening-en-interpretatie" class="level3" data-number="16.1.1">
@@ -457,7 +457,7 @@ Comparison: dY/dX</code></pre>
 </dd>
 </dl>
 <p>De helling van de regressielijn voor <code>pid</code> als <code>right_track</code> = ‘Right Direction’” is -7.11. De helling van pid wanneer <code>right_track</code> = ‘Wrong Track’ is -10.82. Het effect van partij-identificatie op de score voor Biden is sterker (negatiever) als respondenten vinden dat het de verkeerde richting uitgaat met het land. Dit effect is ook statistisch significant (p &lt; 0.001). Dit zien we aan de p-waarde voor de interactie-term (zie onder). We kunnen de nulhypothese verwerpen dat het effect van <code>pid</code> niet verschilt naargelang <code>right_track</code> andere waarden aanneemt.</p>
-<p>Je ziet ook dat het effect van <code>pid</code>als <code>right_track</code> = ‘Wrong Track’ gelijk is aan de coëfficiënt van <code>pid</code> in het model (dit effect geldt als moderator 0 is). Het verschil tussen de 2 marginale effecten is gelijk aan de waarde van de interactiecoëfficiënt.</p>
+<p>Je ziet ook dat het effect van <code>pid</code> als <code>right_track</code> = ‘Wrong Track’ gelijk is aan de coëfficiënt van <code>pid</code> in het model (dit effect geldt als moderator 0 is). Het verschil tussen de 2 marginale effecten is gelijk aan de waarde van de interactiecoëfficiënt.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#resultaten om coëfficiënten en significantie te tonen</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(biden_int) <span class="sc">|&gt;</span> <span class="fu">select</span>(term, estimate, p.value)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -533,11 +533,11 @@ Comparison: Right Direction - Wrong Track</code></pre>
 <pre><code>[1] 3.71</code></pre>
 </div>
 </div>
-<p>De statistisch significante interactieterm leidt ertoe dat we de nulhypothese verwerpen dat het effect van <code>right_track</code> gelijk blijft als <code>pid</code>verandert.</p>
+<p>De statistisch significante interactieterm leidt ertoe dat we de nulhypothese verwerpen dat het effect van <code>right_track</code> gelijk blijft als <code>pid</code> verandert.</p>
 </section>
 <section id="sec-ame-plotting" class="level3" data-number="16.1.2">
 <h3 data-number="16.1.2" class="anchored" data-anchor-id="sec-ame-plotting"><span class="header-section-number">16.1.2</span> Plotten</h3>
-<p>Marginale effecten worden vaak gevisualiseerd in een grafiek. De y-as in deze grafieken is het geschatte marginale effect en de x-as is de waarde die de moderator aanneemt. We bekijken eerst het voorbeeld waarbij de factor variabele de moderator is. De ggplot code hebben we gebruikt in eerdere weken. Belangrijk: we gebruiken <code>geom_pointrange</code> wanneer de moderator een factor is (hier: <code>right_track</code>).</p>
+<p>Marginale effecten worden vaak gevisualiseerd in een grafiek. De y-as in deze grafieken is het geschatte marginale effect van X op Y en de x-as is de waarde die de moderator aanneemt. We bekijken eerst het voorbeeld waarbij de factor variabele de moderator is. De ggplot code hebben we gebruikt in eerdere weken. Belangrijk: we gebruiken <code>geom_pointrange</code> wanneer de moderator een factor is (hier: <code>right_track</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-1" class="code-annotation-target"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">slopes</span>(biden_int,</span>
 <span id="annotated-cell-10-2"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">variables =</span> <span class="st">"pid"</span>,  </span>
@@ -635,7 +635,7 @@ Comparison: Right Direction - Wrong Track</code></pre>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="9" data-code-annotation="1">Leeftijd reikt van 18 tot 80 in de dataset (respondeten ouder dan 80 krijgen gewoon de score 80).</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="9" data-code-annotation="1">Leeftijd reikt van 18 tot 80 in de dataset (respondenten ouder dan 80 krijgen gewoon de score 80).</span>
 </dd>
 </dl>
 </div>
@@ -673,7 +673,7 @@ Type:  response
 Comparison: dY/dX</code></pre>
 </div>
 </div>
-<p>We kunnen in de output zien dat het effect van leeftijd negatief en statistisch signficant is als de <code>socialists</code>variabele de waarde 0 aanneemt (-0.0752 [95% CI: -0.143, -0.008]). Dit is gelijk aan de coëfficiënt voor <code>age</code>. Het effect van leeftijd wordt steeds positiever als <code>socialists</code> hogere waarden aanneemt. We wien ook dat het effect van <code>socialists</code>positief is voor jonge mensen (bv., het effect voor respondenten van 20 jaar is 0.39 [0.34, 0.44]). Dit effect wordt positiver naarmate mensen ouder zijn.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<p>We kunnen in de output zien dat het effect van leeftijd negatief en statistisch signficant is als de <code>socialists</code> variabele de waarde 0 aanneemt (-0.0752 [95% CI: -0.143, -0.008]). Dit is gelijk aan de coëfficiënt voor <code>age</code>. Het effect van leeftijd wordt steeds positiever als <code>socialists</code> hogere waarden aanneemt. We zien ook dat het effect van <code>socialists</code> positief is voor jonge mensen (bv., het effect voor respondenten van 20 jaar is 0.39 [0.34, 0.44]). Dit effect wordt positiever naarmate mensen ouder zijn.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <p>Om te plotten gebruiken we de code voor wanneer de moderator een continue variabele is (zie boven, <a href="#sec-ame-plotting" class="quarto-xref"><span>Paragraaf 16.1.2</span></a>).</p>
 </section>
 <section id="binaire-x-binaire-interactie" class="level2" data-number="16.3">
@@ -758,9 +758,8 @@ Comparison: Right Direction - Wrong Track</code></pre>
 <h2 data-number="16.4" class="anchored" data-anchor-id="logistische-regressie-voorbeeld"><span class="header-section-number">16.4</span> Logistische regressie: voorbeeld</h2>
 <p>Bij logistische regressie worden de marginale effecten met dezelfde code berekend. Hier geven deze effecten de gemiddelde verandering in voorspelde kans weer in percentpunten (zie <a href="logit_02.html" class="quarto-xref"><span>Hoofdstuk 10</span></a>).</p>
 <p>We hebben reeds een <code>righttrack_int</code> model berekend, waarin we een interactie tussen <code>age</code> en <code>vote2016</code> hebben toegevoegd. We bekijken de resultaten nogmaals:</p>
-<p>Here are the interaction model again:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Our model</span></span>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(righttrack_int)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
@@ -812,7 +811,7 @@ Comparison: dY/dX</code></pre>
 </div>
 </div>
 <p>We verwachten dat mensen die op Trump gestemd hebben in 2016 een grotere kans hebben om te zeggen dat het land de goede richting uitgaat dan mensen die Clinton stemden. Dit effect geldt al voor jonge mensen maar wordt sterker met leeftijd. Voor respondenten die 30 jaar oud zijn is de kans om te zeggen dat het land de goede richting uitgaat 45.5 percentpunten hoger voor Trump kiezers. Voor respondenten van 80 jaar is dit 51.2 percentpunten.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
-<p>Zie eerder secties voor instructies over plotten..</p>
+<p>Zie eerder secties voor instructies over plotten.</p>
 
 
 </section>

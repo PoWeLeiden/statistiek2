@@ -369,7 +369,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)          <span class="co">#overzichten van data objecten</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#voorspelde waarden berekenen</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
@@ -377,33 +377,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We maken gebruik van hetzelfde model als in het vorige hoofdstuk. We voorspelden daarin de kans dat iemand ging stemmen op basis van gender, leeftijd, vertrouwen in politici en links-rechtsideologie. We doen hier eerst de nodige data management, meer informatie over deze stappen vind je in vorige hoofdstukken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data management</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Factor maken van categorische variabelen</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">factorize</span>(gndr), </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Not Eligible op missing zetten</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">na_if</span>(vote,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel van variabelen</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">relevel</span>(vote, <span class="st">"No"</span>), </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr =</span> <span class="fu">relevel</span>(gndr, <span class="st">"Female"</span>))</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten printen</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Vote_model_mp)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Datamanagement</span></span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Factor maken van categorische variabelen</span></span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr),</span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote_F =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Not Eligible op missing zetten</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">na_if</span>(vote_F,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel van variabelen</span></span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">relevel</span>(vote_F, <span class="st">"No"</span>), </span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr_F =</span> <span class="fu">relevel</span>(gndr_F, <span class="st">"Female"</span>))</span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten printen</span></span>
+<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Vote_model_mp)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = vote ~ gndr + agea + trstplt + lrscale, family = "binomial", 
+glm(formula = vote_F ~ gndr_F + agea + trstplt + lrscale, family = "binomial", 
     data = ESS9NL)
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -0.284194   0.380455  -0.747    0.455    
-gndrMale     0.043281   0.154201   0.281    0.779    
+gndr_FMale   0.043281   0.154201   0.281    0.779    
 agea         0.018349   0.004503   4.075 4.61e-05 ***
 trstplt      0.195020   0.038706   5.039 4.69e-07 ***
 lrscale      0.029257   0.039306   0.744    0.457    
@@ -424,15 +424,15 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <h2 data-number="11.1" class="anchored" data-anchor-id="voorspelde-kans-voor-individuele-observaties"><span class="header-section-number">11.1</span> Voorspelde kans voor individuele observaties</h2>
 <p>Om op basis van het logistische regressiemodel de kans dat de afhankelijke variabele Y gelijk is aan 1 (hier: dat een respondent heeft gestemd) te voorspellen voor elke observatie in het model maken we gebruik van de <code>predictions</code> functie. De resultaten worden altijd opgeslaan in een nieuwe dataset, die je een naam geeft naar keuze (hier: Vote_pred).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten opslaan in nieuw object</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Vote_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">conf_level =</span> <span class="fl">0.95</span>, </span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> ESS9NL)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble() gebruiken voor overzicht</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Vote_pred)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten opslaan in nieuw object</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Vote_pred <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">conf_level =</span> <span class="fl">0.95</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> ESS9NL)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble() gebruiken voor overzicht</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Vote_pred)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,673 × 578
+<pre><code># A tibble: 1,673 × 580
    rowid estimate   p.value s.value conf.low conf.high name    essround edition
    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;  
  1     1    0.835  6.13e-35   114.     0.796     0.867 ESS9e03        9 3      
@@ -446,11 +446,11 @@ Number of Fisher Scoring iterations: 4</code></pre>
  9     9    0.877  1.88e-47   155.     0.845     0.903 ESS9e03        9 3      
 10    10    0.944  2.64e-39   128.     0.917     0.963 ESS9e03        9 3      
 # ℹ 1,663 more rows
-# ℹ 569 more variables: proddate &lt;chr&gt;, idno &lt;dbl&gt;, cntry &lt;chr&gt;, nwspol &lt;dbl&gt;,
+# ℹ 571 more variables: proddate &lt;chr&gt;, idno &lt;dbl&gt;, cntry &lt;chr&gt;, nwspol &lt;dbl&gt;,
 #   netusoft &lt;dbl&gt;, netustm &lt;dbl&gt;, ppltrst &lt;dbl&gt;, pplfair &lt;dbl&gt;, pplhlp &lt;dbl&gt;,
 #   polintr &lt;dbl&gt;, psppsgva &lt;dbl&gt;, actrolga &lt;dbl&gt;, psppipla &lt;dbl&gt;,
 #   cptppola &lt;dbl&gt;, trstprl &lt;dbl&gt;, trstlgl &lt;dbl&gt;, trstplc &lt;dbl&gt;, trstplt &lt;dbl&gt;,
-#   trstprt &lt;dbl&gt;, trstep &lt;dbl&gt;, trstun &lt;dbl&gt;, vote &lt;fct&gt;, prtvtcat &lt;dbl&gt;,
+#   trstprt &lt;dbl&gt;, trstep &lt;dbl&gt;, trstun &lt;dbl&gt;, vote &lt;dbl&gt;, prtvtcat &lt;dbl&gt;,
 #   prtvtdbe &lt;dbl&gt;, prtvtdbg &lt;dbl&gt;, prtvtgch &lt;dbl&gt;, prtvtbcy &lt;dbl&gt;, …</code></pre>
 </div>
 </div>
@@ -481,9 +481,9 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <h3 data-number="11.2.1" class="anchored" data-anchor-id="continue-onafhankelijke-variabele"><span class="header-section-number">11.2.1</span> Continue onafhankelijke variabele</h3>
 <p>De volgende code gebruiken we als de predictor die ons interesseert continu is. Hier berekenen we de gemiddelde voorspelde kans om te stemmen als vertrouwen in politici (<code>trstplt</code>) verandert.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="sc">|&gt;</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(trstplt) <span class="sc">|&gt;</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">view_df</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(trstplt) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">view_df</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Data frame: select(ESS9NL, trstplt)</caption>
@@ -538,7 +538,7 @@ No answer</td>
 </tbody>
 </table>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>trstplt)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>trstplt)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   0   1   2   3   4   5   6   7   8   9  10 
@@ -547,9 +547,9 @@ No answer</td>
 </div>
 <p>De variabele loopt van 0 tot 10 dus deze waarden gebruiken we als minimum en maximum. We berekenen verder de kans per interval van 2 eenheden (missing waarden zijn reeds op NA gezet). We zouden ook voor elke eenheid de kans kunnen berekenen maar dit geeft vrij veel output, wellicht meer dan we nodig hebben. We zouden in plaats van deze intervallen ook minimum, 1ste kwartiel, mediaan, 3rde kwartiel en maximum van de variabele kunnen gebruiken (zie <a href="linear_05.html#sec-predictions-for-a-continuous-predictor-variable" class="quarto-xref"><span>Paragraaf 5.3.1</span></a> voor het proces om deze waarden te verkrijgen).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Voorspellingen in nieuw object</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Pred_conts <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">trstplt =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>))) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Voorspellingen in nieuw object</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Pred_conts <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                          <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">trstplt =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="dv">2</span>))) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>newdata = datagrid(trstplt</code></dt>
@@ -574,15 +574,15 @@ No answer</td>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 11
-  rowid estimate  p.value s.value conf.low conf.high gndr   agea lrscale trstplt
-  &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1    0.699 9.37e- 5    13.4    0.603     0.779 Male   50.7    5.15       0
-2     2    0.774 1.09e-15    49.7    0.717     0.822 Male   50.7    5.15       2
-3     3    0.835 1.61e-46   152.     0.802     0.863 Male   50.7    5.15       4
-4     4    0.882 1.29e-64   212.     0.856     0.904 Male   50.7    5.15       6
-5     5    0.917 6.30e-48   157.     0.889     0.938 Male   50.7    5.15       8
-6     6    0.942 3.65e-34   111.     0.912     0.962 Male   50.7    5.15      10
-# ℹ 1 more variable: vote &lt;fct&gt;</code></pre>
+  rowid estimate  p.value s.value conf.low conf.high gndr_F  agea lrscale
+  &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1     1    0.699 9.37e- 5    13.4    0.603     0.779 Male    50.7    5.15
+2     2    0.774 1.09e-15    49.7    0.717     0.822 Male    50.7    5.15
+3     3    0.835 1.61e-46   152.     0.802     0.863 Male    50.7    5.15
+4     4    0.882 1.29e-64   212.     0.856     0.904 Male    50.7    5.15
+5     5    0.917 6.30e-48   157.     0.889     0.938 Male    50.7    5.15
+6     6    0.942 3.65e-34   111.     0.912     0.962 Male    50.7    5.15
+# ℹ 2 more variables: trstplt &lt;dbl&gt;, vote_F &lt;fct&gt;</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -597,28 +597,28 @@ Output uitleg
 <div class="callout-body-container callout-body">
 <p>De output is gelijkaardig aan die voor voorspellingen voor lineaire regressiemodellen (zie <a href="linear_05.html" class="quarto-xref"><span>Hoofdstuk 5</span></a>):</p>
 <ul>
-<li>De <code>estimate</code> kolom bevat de voorspelde kans.</li>
+<li>De <code>estimate</code> kolom bevat de voorspelde kans. We doen dit getal *100 om de kans in percent uit te drukken. bv. Voor iemand met een score van ‘0’ op de schaal <code>trstplt</code> verwachten we een kans om te stemmen van 69,86%.</li>
 <li>De <code>p.value</code> t.e.m. <code>conf.high</code> kolommen geven de onzekerheid van de schatting weer.</li>
-<li>We kunnen ook de kolommen zien voor de andere onafhankelijke variabelen in het model (<code>gndr</code>, <code>agea</code>, <code>lrscale)</code> . Deze kolommen tonen de waarde waarop deze variabelen constant worden gehouden. De <code>predictions()</code> functie houdt continue variabelen op hun gemiddelde en factor variabelen op hun modus als je <code>newdata = datagrid()</code> gebruikt zoals we hierboven gedaan hebben.</li>
-<li>De laatste 2 kolommen tonen <code>trstplt</code>, met de waarden gebruikt om de voorspelling te berekenen en een kolom (niet zichtbaar hier) met de Y (<code>vote</code>) die toont welke categorie voorspeld wordt.</li>
+<li>We kunnen ook de kolommen zien voor de andere onafhankelijke variabelen in het model (<code>gndr_F</code>, <code>agea</code>, <code>lrscale)</code> . Deze kolommen tonen de waarde waarop deze variabelen constant worden gehouden. De <code>predictions()</code> functie houdt continue variabelen op hun gemiddelde en factor variabelen op hun modus als je <code>newdata = datagrid()</code> gebruikt zoals we hierboven gedaan hebben.</li>
+<li>De laatste 2 kolommen tonen <code>trstplt</code>, met de waarden gebruikt om de voorspelling te berekenen en een kolom (niet zichtbaar hier) met de Y (<code>vote_F</code>) die toont welke categorie voorspeld wordt.</li>
 </ul>
 </div>
 </div>
 </section>
 <section id="factor-onafhankelijke-variabele" class="level3" data-number="11.2.2">
 <h3 data-number="11.2.2" class="anchored" data-anchor-id="factor-onafhankelijke-variabele"><span class="header-section-number">11.2.2</span> Factor onafhankelijke variabele</h3>
-<p>De code voor categorische variabelen is licht anders. We gebruiken hier de <code>by=</code> optie. In dit voorbeeld bereken we de gemiddelde voorspelde kans voor mannen en vrouwen (met andere predictoren constant gehouden op hun gemiddelde).</p>
+<p>De code voor categorische variabelen is licht anders. We gebruiken hier de <code>by=</code> optie. In dit voorbeeld berekenen we de gemiddelde voorspelde kans voor mannen en vrouwen (met andere predictoren constant gehouden op hun gemiddelde).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#voorspellingen in nieuw object</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Pred_cat <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp,</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">by=</span><span class="st">"gndr"</span>, </span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">newdata =</span> <span class="st">"mean"</span>) </span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble voor overzicht</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Pred_cat)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#voorspellingen in nieuw object</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Pred_cat <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">by=</span><span class="st">"gndr_F"</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">newdata =</span> <span class="st">"mean"</span>) </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble voor overzicht</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Pred_cat)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 13
-  rowid gndr   estimate std.error statistic p.value s.value conf.low conf.high
+  rowid gndr_F estimate std.error statistic p.value s.value conf.low conf.high
   &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1     1 Female    0.863    0.0133      65.1       0     Inf    0.837     0.889
 2     2 Male      0.868    0.0127      68.2       0     Inf    0.843     0.893
@@ -627,7 +627,7 @@ Output uitleg
 </div>
 </div>
 <dl>
-<dt><code>by="gndr"</code></dt>
+<dt><code>by="gndr_F"</code></dt>
 <dd>
 <p>Met deze optie duiden we aan dat we voor elk niveau van de factor variabele een voorspelde kans willen berekenen.</p>
 </dd>
@@ -645,7 +645,7 @@ Output uitleg
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Berekenen en opslaan in object</span></span>
 <span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>Pred_specific <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-3" class="code-annotation-target"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gndr=</span><span class="fu">c</span>(<span class="st">"Male"</span>),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-3" class="code-annotation-target"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gndr_F=</span><span class="fu">c</span>(<span class="st">"Male"</span>),</span>
 <span id="annotated-cell-9-4"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">agea=</span><span class="fu">c</span>(<span class="dv">33</span>),   </span>
 <span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">trstplt=</span><span class="fu">c</span>(<span class="dv">2</span>), </span>
 <span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a>                                                <span class="at">lrscale=</span><span class="fu">c</span>(<span class="dv">8</span>)))</span>
@@ -661,8 +661,8 @@ Output uitleg
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- gndr agea trstplt lrscale Estimate Pr(&gt;|z|)    S 2.5 % 97.5 %
- Male   33       2       8    0.729   &lt;0.001 20.2 0.645  0.799
+ gndr_F agea trstplt lrscale Estimate Pr(&gt;|z|)    S 2.5 % 97.5 %
+   Male   33       2       8    0.729   &lt;0.001 20.2 0.645  0.799
 
 Type:  invlink(link) </code></pre>
 </div>

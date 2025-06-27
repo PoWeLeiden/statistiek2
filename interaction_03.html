@@ -358,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)        <span class="co">#Modelresultaten</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)          <span class="co">#laden van data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#marginale effecten en voorspelde waarden berekenen</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
@@ -416,8 +416,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Type:  response </code></pre>
 </div>
 </div>
-<p>De voorspellingen kunnen we visueel presenteren in een plot. Het proces dat we volgen is vrijwel hetzelfde als wat we doen voor een model zonder interactie (zie <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a>). Er is echter een belangrijke toevoeging: het <code>linetype</code> gedeelte van de syntax, dat enkel gebruikt kan worden indien er een factor variabele is.</p>
-<p>Voor we het plot produceren veranderen we de waarden voor right_track naar het Nederlands zodat ze correct worden weergegeven op het plot. Net zoals bij marginale effecten zouden we de code voor predictions ook kunnen combineren met de <code>ggplot</code> code via de pipe operator.</p>
+<p>De voorspellingen kunnen we visueel presenteren in een plot. Het proces dat we volgen is vrijwel hetzelfde als wat we doen voor een model zonder interactie (zie <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.7</span></a>). Er is echter een belangrijke toevoeging: het <code>linetype</code> gedeelte van de syntax, dat enkel gebruikt kan worden indien er een factor variabele is.</p>
+<p>Voor we het plot produceren veranderen we de waarden voor right_track naar het Nederlands zodat ze correct worden weergegeven op het plot. Net zoals bij marginale effecten zouden we de code voor predictions (hierboven) ook kunnen combineren met de <code>ggplot</code> code via de pipe operator.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>biden_int_preds <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">right_track =</span> <span class="fu">recode</span>(right_track, </span>
@@ -442,7 +442,7 @@ Type:  response </code></pre>
 <dl>
 <dt><code>ggplot(..., linetype = right_track)) + geom_line() + geom_ribbon(...) +</code></dt>
 <dd>
-<p>Dit gedeelte van de syntax is grotendeels ook al gebruikt in eerdere weken. Een belangrijke toevoeging is <code>linetype = right_track</code>. Zo vragen we <code>ggplot()</code> om de voorspelde waarden voor elke categorie van “right_track” weer te geven als verschillende lijnen. We zouden de voorspellingen ook kunnen onderscheiden op een andere manier, bv. met kleur (<code>color = right_track</code>). De <code>linetype</code> (en <code>color</code>) functies werken enkel met factor variabelen. De variabele <code>right_track</code>is hier reeds een factor dus we hebben geen verdere data managment stappen moeten ondernemen. Zie <a href="common_errors.html#sec-linetype-error" class="quarto-xref"><span>Paragraaf A.5</span></a> voor meer informatie.</p>
+<p>Dit gedeelte van de syntax is grotendeels ook al gebruikt in eerdere weken. Een belangrijke toevoeging is <code>linetype = right_track</code>. Zo vragen we <code>ggplot()</code> om de voorspelde waarden voor elke categorie van “right_track” weer te geven als verschillende lijnen. We zouden de voorspellingen ook kunnen onderscheiden op een andere manier, bv. met kleur (<code>color = right_track</code>). De <code>linetype</code> (en <code>color</code>) functies werken enkel met factor variabelen. De variabele <code>right_track</code>is hier reeds een factor dus we hebben geen verdere data management stappen moeten ondernemen. Zie <a href="common_errors.html#sec-linetype-error" class="quarto-xref"><span>Paragraaf A.5</span></a> voor meer informatie.</p>
 </dd>
 </dl>
 </section>
@@ -471,7 +471,7 @@ Type:  response </code></pre>
 </div>
 <p>Beide variabelen kunnen veel mogelijke waarden aannemen. We zouden voorspellingen kunnen maken voor waarden van 0 tot 100 voor <code>socialists</code> met intervallen van 10, en van 20 tot 80 voor <code>age</code>met intervallen van 10. Dit zou ons echter veel waarden opleveren die we moeilijk zouden kunnen plotten (en begrijpen).</p>
 <p>Wat vaak gebeurt in de praktijk is dat we 1 van de 2 predictoren kiezen en voorspellingen maken voor 3 waarden: het gemiddelde, 1 standaarddeviatie (SD) onder het gemiddelde en 1 standaarddeviatie (SD) boven het gemiddelde. De continue variabele zal eigenlijk getransformeerd worden in een factor met 3 waarden. Zo kunnen we een plot maken met 3 lijnen. We transformeren doorgaans de moderator (Z).</p>
-<p>Voor het ‘biden_int2’ model, nemen we nu (bij wijze van voorbeeld) socialists als de moderator. Eerst berekenen we de drie relevante waarden (gemiddelde, 1 SD daaronder, 1 SD daarboven. Deze statistieken moeten we berekenen op basis van de observaties gebruikt in het model. Dit zijn niet altijd het aantal observaties in de dataset door missende waarden op andere variabelen. Als tussenstap gebruiken we hier de <code>predictions()</code> functie van het <code>marginaleffects</code> package gezien deze functie een nieuwe dataset creëert met alle complete observaties. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Voor het ‘biden_int2’ model, nemen we nu (bij wijze van voorbeeld) socialists als de moderator. Eerst berekenen we de drie relevante waarden (gemiddelde, 1 SD daaronder, 1 SD daarboven). Deze statistieken moeten we berekenen op basis van de observaties gebruikt in het model. Dit zijn niet altijd het aantal observaties in de dataset door missende waarden op andere variabelen. Als tussenstap gebruiken we hier de <code>predictions()</code> functie van het <code>marginaleffects</code> package gezien deze functie een nieuwe dataset creëert met alle complete observaties. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(biden_int2) <span class="sc">|&gt;</span>   <span class="co">#nieuw dataobject met complete observaties</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -608,7 +608,7 @@ Type:  response </code></pre>
 <p>Deze optie hebben we hier nodig (gezien we het ‘by’ statement gebruiken) om de overige onafhankelijke variabelen op hun gemiddelde of modus te houden.</p>
 </dd>
 </dl>
-<p>De resultaten kunnen we in een plot visualiseren. De syntax is vrijwel hetzelfde als die voor plots van voorspelde waarden voor 1 factor variable (<a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a>). We moeten gebruikmaken van <code>geom_pointrange()</code>. Nieuw is dat we voorspellingen onderscheiden van elkaar op basis van de waarden van de moderator via de <code>shape =</code> optie. Deze vertelt aan ggplot verschillende vormen te gebruiken voor de voorspelde waarden.[^interaction_03-3]</p>
+<p>De resultaten kunnen we in een plot visualiseren. De syntax is vrijwel hetzelfde als die voor plots van voorspelde waarden voor 1 factor variable (<a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.7</span></a>). We moeten gebruikmaken van <code>geom_pointrange()</code>. Nieuw is dat we voorspellingen onderscheiden van elkaar op basis van de waarden van de moderator via de <code>shape =</code> optie. Deze vertelt aan ggplot verschillende vormen te gebruiken voor de voorspelde waarden.[^interaction_03-3]</p>
 <p>Voor we plotten vertalen we de labels voor <code>vote2016</code> naar het Nederlands.</p>
 <p>[^interaction_03-3] Dit zou eventueel ook kunnen via kleuren (bv. <code>color = vote2016)</code>. Let er wel op dat niet iedereen kleuren kan zien (R heeft wel color-bind palettes beschikbaar). Bovendien kan een plot met kleuren onduidelijk worden afgedrukt in zwart/wit.</p>
 <div class="cell">
@@ -633,7 +633,7 @@ Type:  response </code></pre>
 </dd>
 <dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-13" data-code-lines="6" data-code-annotation="2">Indien voorspelde waarden gelijkaardig zijn dan kunnen de markers overlappen. Om dit te verhelpen kun je de markers wat verplaatsen door <code>, position = position_dodge(width = 0.2)</code> toe te voegen aan het <code>geom_pointrange()</code> gedeelte, na het <code>aes()</code> gedeelte. De waarde waarmmee markers verschoven worden (hier: 0.2) kun je veranderen.</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="6" data-code-annotation="2">Indien voorspelde waarden gelijkaardig zijn dan kunnen de markers overlappen. Om dit te verhelpen kun je de markers wat verplaatsen door <code>, position = position_dodge(width = 0.2)</code> toe te voegen aan het <code>geom_pointrange()</code> gedeelte, na het <code>aes()</code> gedeelte. De waarde waarmee markers verschoven worden (hier: 0.2) kun je veranderen.</span>
 </dd>
 <dt data-target-cell="annotated-cell-13" data-target-annotation="3">3</dt>
 <dd>

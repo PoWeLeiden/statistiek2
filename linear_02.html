@@ -329,7 +329,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#sec-relevelling" id="toc-sec-relevelling" class="nav-link" data-scroll-target="#sec-relevelling"><span class="header-section-number">2.1.1</span> Veranderen van de referentiecategorie</a></li>
   </ul></li>
-  <li><a href="#factor-variabelen-als-predictors" id="toc-factor-variabelen-als-predictors" class="nav-link" data-scroll-target="#factor-variabelen-als-predictors"><span class="header-section-number">2.2</span> Factor variabelen als predictors</a></li>
+  <li><a href="#factor-variabelen-als-predictoren" id="toc-factor-variabelen-als-predictoren" class="nav-link" data-scroll-target="#factor-variabelen-als-predictoren"><span class="header-section-number">2.2</span> Factor variabelen als predictoren</a></li>
   </ul>
 </nav>
     </div>
@@ -359,7 +359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We beginnen zoals gewoonlijk met het laden van relevante R packages (‘libraries’). Deze packages zijn reeds geïnstalleerd op de universitaire computers, maar moeten eerst geladen worden. We laden ook onze dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#samenvattingen regressiemodellen</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#voorspelde waarden berekenen</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -368,9 +368,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="data-management-converteren-naar-een-factor-variabele" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="data-management-converteren-naar-een-factor-variabele"><span class="header-section-number">2.1</span> Data Management: Converteren naar een factor variabele</h2>
-<p>Via lineaire regressieanalyse kunnen we een continue afhankelijke variable ook voorspellen aan de hand van binaire (2 waarden) en categorische (3 of meer waarden) variabelen.</p>
+<p>Via lineaire regressieanalyse kunnen we een continue afhankelijke variabele ook voorspellen aan de hand van binaire (2 waarden) en categorische (3 of meer waarden) variabelen.</p>
 <p>Om deze variabelen te gebruiken in een regressiemodel moeten ze toegevoegd worden als dichotome of “<a href="https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faqwhat-is-dummy-coding/" target="_blank">dummy</a>” variabelen. Als de variabele binair is, wordt 1 dummy gebruikt, als de variabelen meer categorieën kent, worden meerdere dummies gebruikt.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> R voegt automatisch dummies toe voor factor variabelen, dus transformeren we binaire en categorische variabelen naar factor variabelen voor we ze in een regressie analyse gebruiken.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p>In dit voorbeeld maken we gebruik van de variabele “TYPEDEMO1984”. Deze binaire variabele toont of een land een democratie of autocratie was in het jaar 1984. De variabele is numeriek opgeslaan (dit kunnen we controleren met behulp van de functie <code>class()</code>). De waarde 1 staat voor autocratie, de waarde 2 voor democratie.</p>
+<p>In dit voorbeeld maken we gebruik van de variabele “TYPEDEMO1984”. Deze binaire variabele toont of een land een democratie of autocratie was in het jaar 1984. De variabele is numeriek opgeslagen (dit kunnen we controleren met behulp van de functie <code>class()</code>). De waarde 1 staat voor autocratie, de waarde 2 voor democratie.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Informatie over type variabele: </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(demdata<span class="sc">$</span>TYPEDEMO1984)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -405,14 +405,14 @@ Autocracies Democracies
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformeren naar factor</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984 =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Niveaus (levels) bekijken en tabel om te checken</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>TYPEDEMO1984)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>TYPEDEMO1984_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Autocracies" "Democracies"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>TYPEDEMO1984)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>TYPEDEMO1984_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Autocracies Democracies 
@@ -423,25 +423,25 @@ Autocracies Democracies
 <dl>
 <dt><code>factorize(</code></dt>
 <dd>
-<p>Naam van functie die wordt toegepast op variabele tussen haakjes.</p>
+<p>Naam van de functie die wordt toegepast op de variabele tussen haakjes.</p>
 </dd>
 <dt><code>TYPEDEMO1984</code></dt>
 <dd>
 <p>Aangeduide variabele. Het laagste numerieke niveau van deze variabele zal als eerste niveau van de factor gebruikt worden en dus als referentiecategorie.</p>
 </dd>
 </dl>
-<p>Dezelfde procedure wordt gehanteerd voor een categorische variabele met 3 of meer categorieën. Bijvoorbeeld, de variabele <code>Typeregime2006</code> geeft weer of een land een liberale democratie was (=1), een electorale democratie (=2), of een autocratie (=3) in het jaar 2006. Deze variabele heeft ook waardenlabels dus kunnen we opnieuw <code>factorize()</code> gebruiken:</p>
+<p>Dezelfde procedure wordt gehanteerd voor een categorische variabele met 3 of meer categorieën. Bijvoorbeeld, de variabele <code>Typeregime2006</code> geeft weer of een land een liberale democratie was (=1), een electorale democratie (=2), of een autocratie (=3) in het jaar 2006. Deze variabele heeft ook waarden-labels dus kunnen we opnieuw <code>factorize()</code> gebruiken:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#transformeer naar factor variabele</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006 =</span> <span class="fu">factorize</span>(Typeregime2006))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006_factor =</span> <span class="fu">factorize</span>(Typeregime2006))</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Werk checken</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Liberal democracy"   "Electoral democracy" "Autocracy"          </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>Typeregime2006)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   Liberal democracy Electoral democracy           Autocracy 
@@ -458,24 +458,24 @@ Waarschuwing!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We raden aan om nieuwe variabelen aan te maken wanneer je een bestaande variabele omzet naar een factorvariabele (of wanneer je hercodeert) ook al deden we dit hierboven niet (bv., <code>mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))</code>). Als je een nieuwe variabele aanmaakt overschrijf je nooit de originele. Dit kan helpen om fouten makkelijker te corrigeren (zonder dat je dataset opnieuw moet inladen en eerdere syntax runnen).</p>
+<p>We raden aan om nieuwe variabelen aan te maken wanneer je een bestaande variabele omzet naar een factorvariabele (of wanneer je hercodeert) zoals hiervoven (bv., <code>mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))</code>). Als je een nieuwe variabele aanmaakt, overschrijf je nooit de originele. Dit kan helpen om fouten makkelijker te corrigeren (zonder dat je dataset opnieuw moet inladen en eerdere syntax runnen).</p>
 </div>
 </div>
 <section id="sec-relevelling" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-relevelling"><span class="header-section-number">2.1.1</span> Veranderen van de referentiecategorie</h3>
-<p>Bij de transformatie naar een factor variabele wordt de categorie met laagste numerieke waarde als referentiecategorie genomen. Het kan zijn dat we dit willen veranderen. Dit kunnen we doen met behulp van de <code>relevel()</code> functie. Hieronder veranderen we de referentiecategorie voor “Typeregime2006” naar “Electoral Democracy”.</p>
+<p>Bij de transformatie naar een factor variabele wordt de categorie met laagste numerieke waarde als referentiecategorie genomen. Het kan zijn dat we dit willen veranderen. Dit kunnen we doen met behulp van de <code>relevel()</code> functie. Hieronder veranderen we de referentiecategorie voor “Typeregime2006_factor” naar “Electoral Democracy”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006_relevel =</span> <span class="fu">relevel</span>(Typeregime2006, <span class="st">"Electoral democracy"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006_factor_relevel =</span> <span class="fu">relevel</span>(Typeregime2006_factor, <span class="st">"Electoral democracy"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>relevel(</code></dt>
 <dd>
 <p>Naam van de functie</p>
 </dd>
-<dt><code>Typeregime2006,</code></dt>
+<dt><code>Typeregime2006_factor,</code></dt>
 <dd>
-<p>We gebruiken “Typeregime2006” uit de “demdata” dataset.</p>
+<p>We gebruiken “Typeregime2006_factor” uit de “demdata” dataset.</p>
 </dd>
 <dt><code>"Electoral democracy")</code></dt>
 <dd>
@@ -485,37 +485,37 @@ Waarschuwing!
 <p>We checken altijd beter of alles goed is gegaan:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Checken:</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Liberal democracy"   "Electoral democracy" "Autocracy"          </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_relevel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_factor_relevel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Electoral democracy" "Liberal democracy"   "Autocracy"          </code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="factor-variabelen-als-predictors" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="factor-variabelen-als-predictors"><span class="header-section-number">2.2</span> Factor variabelen als predictors</h2>
+<section id="factor-variabelen-als-predictoren" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="factor-variabelen-als-predictoren"><span class="header-section-number">2.2</span> Factor variabelen als predictoren</h2>
 <p>We voegen binaire en categorische onafhankelijke variabelen toe aan de regressieanalyse op dezelfde manier als bij continue variabelen:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Met binaire predictor: </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984, <span class="at">data=</span>demdata)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_binary)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = v2x_polyarchy ~ TYPEDEMO1984, data = demdata)
+lm(formula = v2x_polyarchy ~ TYPEDEMO1984_factor, data = demdata)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
 -0.51025 -0.15007 -0.00857  0.17309  0.48543 
 
 Coefficients:
-                        Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)              0.41757    0.02333   17.90  &lt; 2e-16 ***
-TYPEDEMO1984Democracies  0.27268    0.03695    7.38 1.25e-11 ***
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                     0.41757    0.02333   17.90  &lt; 2e-16 ***
+TYPEDEMO1984_factorDemocracies  0.27268    0.03695    7.38 1.25e-11 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -525,22 +525,26 @@ Multiple R-squared:  0.2786,    Adjusted R-squared:  0.2735
 F-statistic: 54.47 on 1 and 141 DF,  p-value: 1.247e-11</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Met categorische predictor: </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model_categorical <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> Typeregime2006, <span class="at">data=</span>demdata)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model_categorical <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> Typeregime2006_factor, <span class="at">data=</span>demdata)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_categorical)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = v2x_polyarchy ~ Typeregime2006, data = demdata)
+lm(formula = v2x_polyarchy ~ Typeregime2006_factor, data = demdata)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
 -0.40104 -0.09898  0.00196  0.10773  0.47773 
 
 Coefficients:
-                                  Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)                        0.75404    0.01734   43.48   &lt;2e-16 ***
-Typeregime2006Electoral democracy -0.32106    0.02653  -12.10   &lt;2e-16 ***
-Typeregime2006Autocracy           -0.50577    0.02866  -17.64   &lt;2e-16 ***
+                                         Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                               0.75404    0.01734   43.48   &lt;2e-16
+Typeregime2006_factorElectoral democracy -0.32106    0.02653  -12.10   &lt;2e-16
+Typeregime2006_factorAutocracy           -0.50577    0.02866  -17.64   &lt;2e-16
+                                            
+(Intercept)                              ***
+Typeregime2006_factorElectoral democracy ***
+Typeregime2006_factorAutocracy           ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -560,7 +564,7 @@ Output uitleg
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>De output van een model met binaire/categorische predictor is dezelfde als die van een model met een continue predictor met 1 verschil. R zal de variabelenaam bij de coëfficiënten anders weergeven als er een factor variabele is. Dan krijg je de naam van de variabele, onmiddellijk gevolgd door de categorie die de waarde 1 aanneemt in de dummy. Bijvoorbeeld: “TypeDemo1984Democracies” or “Typeregime2006Autocracy.”</p>
+<p>De output van een model met binaire/categorische predictor is dezelfde als die van een model met een continue predictor met 1 verschil. R zal de variabelenaam bij de coëfficiënten anders weergeven als er een factor variabele is. Dan krijg je de naam van de variabele, onmiddellijk gevolgd door de categorie die de waarde 1 aanneemt in de dummy. Bijvoorbeeld: “TypeDemo1984_factorDemocracies” or “Typeregime2006_factorAutocracy.”</p>
 </div>
 </div>
 <p>Er zijn subtiele verschillen in de interpretatie als een factor variabele opgenomen wordt in het model:</p>
@@ -576,17 +580,17 @@ Interpretatie
 <div class="callout-body-container callout-body">
 <p>De <code>Estimate</code> kolom toont de coëfficiënten van het regressiemodel.</p>
 <p>Het”(Intercept)” toont nog steeds de verwachte waarde op de afhankelijke variabele als de onafhankelijke variabele gelijk is aan 0. Als de enige onafhankelijke variabele een factor is dan toont het intercept de gemiddelde waarde op Y voor de referentiegroep (factor dummy = 0).</p>
-<p>Hier vinden we dat de gemiddelde waarde voor <code>v2x_polyarchy</code> voor autocratieën (gemeten volgens de <code>TYPEDEMO1984</code> variabele) gelijk is aan het Intercept dat we hierboven vonden.</p>
+<p>Hier vinden we dat de gemiddelde waarde voor <code>v2x_polyarchy</code> voor autocratieën (gemeten volgens de <code>TYPEDEMO1984_factor</code> variabele) gelijk is aan het Intercept dat we hierboven vonden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-25"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-25-1"><a href="#annotated-cell-25-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1">1</button><span id="annotated-cell-25-2" class="code-annotation-target"><a href="#annotated-cell-25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TYPEDEMO1984 <span class="sc">==</span> <span class="st">"Autocracies"</span>) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1">1</button><span id="annotated-cell-25-2" class="code-annotation-target"><a href="#annotated-cell-25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TYPEDEMO1984_factor <span class="sc">==</span> <span class="st">"Autocracies"</span>) <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-25-3"><a href="#annotated-cell-25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span> </span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="2">2</button><span id="annotated-cell-25-4" class="code-annotation-target"><a href="#annotated-cell-25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-25" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="2" data-code-annotation="1">De filter verwijdert observaties die niet de waarde “Autocracies” hebben voor TYPEDEMO1984</span>
+<span data-code-cell="annotated-cell-25" data-code-lines="2" data-code-annotation="1">De filter verwijdert observaties die niet de waarde “Autocracies” hebben voor TYPEDEMO1984_factor</span>
 </dd>
 <dt data-target-cell="annotated-cell-25" data-target-annotation="2">2</dt>
 <dd>
@@ -599,19 +603,19 @@ Interpretatie
 1      0.4175698</code></pre>
 </div>
 </div>
-<p>De coëfficiënten voor binaire en categorische variabelen worden best gezien als het verschil in de gemiddelde score voor Y tussen de referentiecategorie en andere categorieën. De coëfficiënt voor “TYPEDEMO1984Democracies” is bijvoorbeeld 0.2726758.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Dit betekent dat de gemiddelde score op Y voor democratieën 0.2726758 schaalpunten groter is dan de gemiddelde waarde voor autocratieën (de referentiecategorie).</p>
+<p>De coëfficiënten voor binaire en categorische variabelen worden best gezien als het verschil in de gemiddelde score voor Y tussen de referentiecategorie en andere categorieën. De coëfficiënt voor “TYPEDEMO1984_factorDemocracies” is bijvoorbeeld 0.2726758.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Dit betekent dat de gemiddelde score op Y voor democratieën 0.2726758 schaalpunten groter is dan de gemiddelde waarde voor autocratieën (de referentiecategorie).</p>
 <p>We kunnen dit wiskundig nagaan:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gemiddelde voor democratieën</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TYPEDEMO1984) <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TYPEDEMO1984_factor) <span class="sc">|&gt;</span> </span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  TYPEDEMO1984 mean_democracy
-1  Autocracies      0.4175698
-2  Democracies      0.6902456
-3         &lt;NA&gt;      0.4638056</code></pre>
+<pre><code>  TYPEDEMO1984_factor mean_democracy
+1         Autocracies      0.4175698
+2         Democracies      0.6902456
+3                &lt;NA&gt;      0.4638056</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gemiddelde democratieën - gemiddelde autocratieën</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.6902456</span> <span class="sc">-</span> <span class="fl">0.4175698</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -622,15 +626,15 @@ Interpretatie
 <p>Hetzelfde geldt voor categorische factorvariabelen. De “(Intercept)” waarde in <code>model_categorical</code> is de gemiddelde waarde voor de observaties in de referentiecategorie (hier: “Liberal Democracy”). De coefficiënten tonen hoe de andere groepen verschillen van dit gemiddelde. De gemiddelde 2020 democratiescore voor landen die in 2006 een “Electoral Democracy” waren is -0.32 schaalpunten lager dan de gemiddelde 2020 democratiescore voor de “Liberal Democracy” referentiegroep.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Typeregime2006) <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Typeregime2006_factor) <span class="sc">|&gt;</span> </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span> </span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       Typeregime2006 mean_democracy
-1   Liberal democracy      0.7540423
-2 Electoral democracy      0.4329811
-3           Autocracy      0.2482683
-4                &lt;NA&gt;      0.3777143</code></pre>
+<pre><code>  Typeregime2006_factor mean_democracy
+1     Liberal democracy      0.7540423
+2   Electoral democracy      0.4329811
+3             Autocracy      0.2482683
+4                  &lt;NA&gt;      0.3777143</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gemiddelde Elec Democracy - gemiddelde in Lib Democracy</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4329811</span> <span class="sc">-</span> <span class="fl">0.7540423</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -643,7 +647,7 @@ Interpretatie
 <pre><code>[1] -0.505774</code></pre>
 </div>
 </div>
-<p>Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.3</span></a> voor verdere informatie over hoe de resultaten te presenteren in taken en papers.</p>
+<p>Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.4</span></a> voor verdere informatie over hoe de resultaten te presenteren in taken en papers.</p>
 </div>
 </div>
 

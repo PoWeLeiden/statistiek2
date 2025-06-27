@@ -373,12 +373,12 @@ div.csl-indent {
 </header>
 
 
-<p>In het vorige hoofdstuk leerden we een logistisch regressiemodel schatten en interpreteren met behulp van de coëeificiënten en odds ratios. Beide zijn echter niet erg intuïtief. Wat we vaak echt willen weten is hoeveel de kans op Y=1 verandert als de onafhankelijke variabele met 1 eenheid stijgt. We kunnen naar de marginale effecten van onze onafhankelijke variabelen kijken om iets te zeggen over de verandering in de <em>probabiliteit</em> dat Y=1. We gebruiken hiervoor functies uit het <code>marginaleffects</code> package.</p>
+<p>In het vorige hoofdstuk leerden we een logistisch regressiemodel schatten en interpreteren met behulp van de coëfficiënten en odds ratios. Beide zijn echter niet erg intuïtief. Wat we vaak echt willen weten is hoeveel de kans op Y=1 verandert als de onafhankelijke variabele met 1 eenheid stijgt. We kunnen naar de marginale effecten van onze onafhankelijke variabelen kijken om iets te zeggen over de verandering in de <em>probabiliteit</em> dat Y=1. We gebruiken hiervoor functies uit het <code>marginaleffects</code> package.</p>
 <p>We gebruiken volgende packages en data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#voorspelde waarden en marginale effecten berekenen</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
@@ -388,19 +388,19 @@ div.csl-indent {
 <h2 data-number="10.1" class="anchored" data-anchor-id="data-management-voorbeeldmodel-en-problemen-met-factorize"><span class="header-section-number">10.1</span> Data Management, voorbeeldmodel, en problemen met <code>factorize()</code></h2>
 <p>We maken gebruiken van eenzelfde model dat we gebruikt hebben in vorig hoofdstuk. Daarin voorspelden we stemmen op basis van gender, leeftijd, vertouwen in politici en linsk-rechtsideologie. We herhalen eerst een paar data management stappen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data Preparation</span></span>
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Datamanagement</span></span>
 <span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Factor maken van categorische variabelen</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">factorize</span>(gndr),</span>
-<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr),</span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote_F =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
 <span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Not Eligible op missing zetten</span></span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">na_if</span>(vote,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">na_if</span>(vote_F,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel van variabelen</span></span>
-<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">relevel</span>(vote, <span class="st">"No"</span>), </span>
-<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr =</span> <span class="fu">relevel</span>(gndr, <span class="st">"Female"</span>))</span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">relevel</span>(vote_F, <span class="st">"No"</span>), </span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr_F =</span> <span class="fu">relevel</span>(gndr_F, <span class="st">"Female"</span>))</span>
 <span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
-<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
 <span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten printen</span></span>
@@ -416,13 +416,13 @@ div.csl-indent {
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = vote ~ gndr + agea + trstplt + lrscale, family = "binomial", 
+glm(formula = vote_F ~ gndr_F + agea + trstplt + lrscale, family = "binomial", 
     data = ESS9NL)
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -0.284194   0.380455  -0.747    0.455    
-gndrMale     0.043281   0.154201   0.281    0.779    
+gndr_FMale   0.043281   0.154201   0.281    0.779    
 agea         0.018349   0.004503   4.075 4.61e-05 ***
 trstplt      0.195020   0.038706   5.039 4.69e-07 ***
 lrscale      0.029257   0.039306   0.744    0.457    
@@ -439,32 +439,32 @@ AIC: 1145.3
 Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 </div>
-<p>Het <code>marginaleffects</code>package is niet volledig compatibel met de <code>factorize</code> functie die we hierboven hebben gebruikt voor gender. Laten we even kijken naar de <code>gndr</code>variabele:</p>
+<p>Het <code>marginaleffects</code>package is niet volledig compatibel met de <code>factorize</code> functie die we hierboven hebben gebruikt voor gender. Laten we even kijken naar de <code>gndr_F</code>variabele:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Female"    "Male"      "No answer"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    Female      Male No answer 
       840       833         0 </code></pre>
 </div>
 </div>
-<p>Er zijn 3 niveaus of levels voor <code>gndr</code>: “Female”, “Male”, en “No Answer”. Er vallen echter 0 respondente onder “No Answer”. In dergelijke situaties zal onderstaande functie een error geven omdat de functie zoekt naar een derde niveau dat er niet is.</p>
-<p>Om dit te voorkomen kunnen we gebruik maken va de <code>droplevels()</code> functie om lege niveaus te verwijderen. Of we gebruiken <code>factor()</code> om <code>gndr</code> een factor variabele te maken. Zie. <a href="common_errors.html#sec-slopes-error" class="quarto-xref"><span>Paragraaf A.4</span></a> in de Veelvoorkomende Fouten Appendix voor meer informatie.</p>
+<p>Er zijn 3 niveaus of levels voor <code>gndr_F</code>: “Female”, “Male”, en “No Answer”. Er vallen echter 0 respondenten onder “No Answer”. In dergelijke situaties zal onderstaande functie een error geven omdat de functie zoekt naar een derde niveau dat er niet is.</p>
+<p>Om dit te voorkomen kunnen we gebruik maken van de <code>droplevels()</code> functie om lege niveaus te verwijderen. Of we gebruiken <code>factor()</code> ipv <code>factorize</code>om <code>gndr</code> een factor variabele te maken. Zie. <a href="common_errors.html#sec-slopes-error" class="quarto-xref"><span>Paragraaf A.4</span></a> in de Veelvoorkomende Fouten Appendix voor meer informatie.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop levels: verwijderen van categorieën zonder observaties</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">droplevels</span>(gndr))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">droplevels</span>(gndr_F))</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Checken van syntax</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Female" "Male"  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Female   Male 
@@ -474,7 +474,7 @@ Female   Male
 </section>
 <section id="gemiddelde-marginale-effecten-ame" class="level2 page-columns page-full" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="gemiddelde-marginale-effecten-ame"><span class="header-section-number">10.2</span> Gemiddelde Marginale Effecten (AME)</h2>
-<p>De eerste soort marginale effecten die we bekijken zijn de gemiddelde marginale effecten: de Average Marginal Effect (AME). We gebruiken hiervoor de <code>avg_slopes()</code> functie uit <code>marginaleffects</code>. De AME geeft de gemiddelde verandering in probabiliteit dat Y=1 weer (in termen van percentpunten) als de onafhankelijke met 1 eenheid omhoog gaat (dy/dx). We bereken het marginale effect voor elke observatie en elke variabele in het model en nemen dan het gemiddelde per variabele. Deze figuur beschrijft het proces (uit <span class="citation" data-cites="heiss2022">Heiss (<a href="#ref-heiss2022" role="doc-biblioref">2022</a>)</span>):</p>
+<p>De eerste soort marginale effecten die we bekijken zijn de gemiddelde marginale effecten: de Average Marginal Effects (AME). We gebruiken hiervoor de <code>avg_slopes()</code> functie uit <code>marginaleffects</code>. De AME geeft de gemiddelde verandering in probabiliteit dat Y=1 weer (in termen van percentpunten) als de onafhankelijke met 1 eenheid omhoog gaat (dy/dx). We bereken het marginale effect voor elke observatie en elke variabele in het model en nemen dan het gemiddelde per variabele. Deze figuur beschrijft het proces (uit <span class="citation" data-cites="heiss2022">Heiss (<a href="#ref-heiss2022" role="doc-biblioref">2022</a>)</span>):</p>
 <div class="no-row-height column-margin column-container"></div><div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/flow-ame.png" class="img-fluid figure-img"></p>
@@ -505,7 +505,7 @@ Female   Male
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-8" data-code-lines="1" data-code-annotation="1">We zouden <code>AME</code> kunne typen eerder dan <code>tibble(AME)</code> maar dit geeft andere kolomnamen. We gebruiken <code>tibble()</code> om de kolomnamen te zien zoals ze ook in de dataset zijn opgeslagen. Zie de waarschuwing hiervover in Hoofdstuk 5 <a href="linear_05.html" class="quarto-xref"><span>Hoofdstuk 5</span></a>.</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="1" data-code-annotation="1">We zouden <code>AME</code> kunnen typen eerder dan <code>tibble(AME)</code> maar dit geeft andere kolomnamen. We gebruiken <code>tibble()</code> om de kolomnamen te zien zoals ze ook in de dataset zijn opgeslagen. Zie de waarschuwing hiervover in Hoofdstuk 5 <a href="linear_05.html" class="quarto-xref"><span>Hoofdstuk 5</span></a>.</span>
 </dd>
 </dl>
 </div>
@@ -514,7 +514,7 @@ Female   Male
   term  contrast estimate std.error statistic p.value s.value conf.low conf.high
   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 agea  dY/dX     0.00220  0.000538     4.08  4.47e-5  14.4    0.00114   0.00325
-2 gndr  Male - …  0.00518  0.0185       0.281 7.79e-1   0.360 -0.0310    0.0414 
+2 gndr… Male - …  0.00518  0.0185       0.281 7.79e-1   0.360 -0.0310    0.0414 
 3 lrsc… dY/dX     0.00350  0.00470      0.744 4.57e-1   1.13  -0.00571   0.0127 
 4 trst… dY/dX     0.0233   0.00460      5.07  3.92e-7  21.3    0.0143    0.0323 </code></pre>
 </div>
@@ -530,7 +530,7 @@ Output uitleg
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><code>term</code>: bevat de namen van de variabelen (bv., <code>agea</code>, <code>gndr</code>, etc.).</li>
+<li><code>term</code>: bevat de namen van de variabelen (bv., <code>agea</code>, <code>gndr_F</code>, etc.).</li>
 <li><code>contrast</code>: Het ‘contrast’ duidt aan welke vergelijking gemaakt wordt: 1 eenheid toename voor continue variabelen, een verandering van categorie voor factor variabelen.</li>
 <li><code>estimate</code>: De AME</li>
 <li><code>std.error</code> t.e.m. <code>conf.high</code>: Informatie over de onzekerheid van de schatting.</li>
@@ -587,27 +587,27 @@ Heiss, Andrew. 2022. <span>‘Marginalia: <span>A</span> Guide to Figuring Out W
   rowid term    contrast   estimate std.error statistic p.value s.value conf.low
   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
 1     1 agea    dY/dX       0.00210  0.000519     4.05  5.07e-5  14.3    0.00109
-2     1 gndr    Male - Fe…  0.00504  0.0180       0.281 7.79e-1   0.360 -0.0302 
+2     1 gndr_F  Male - Fe…  0.00504  0.0180       0.281 7.79e-1   0.360 -0.0302 
 3     1 lrscale dY/dX       0.00336  0.00453      0.742 4.58e-1   1.13  -0.00551
 4     1 trstplt dY/dX       0.0224   0.00447      5.00  5.67e-7  20.8    0.0136 
 # ℹ 9 more variables: conf.high &lt;dbl&gt;, predicted_lo &lt;dbl&gt;, predicted_hi &lt;dbl&gt;,
-#   predicted &lt;dbl&gt;, gndr &lt;fct&gt;, agea &lt;dbl&gt;, trstplt &lt;dbl&gt;, lrscale &lt;dbl&gt;,
-#   vote &lt;fct&gt;</code></pre>
+#   predicted &lt;dbl&gt;, gndr_F &lt;fct&gt;, agea &lt;dbl&gt;, trstplt &lt;dbl&gt;, lrscale &lt;dbl&gt;,
+#   vote_F &lt;fct&gt;</code></pre>
 </div>
 </div>
 <p>Behalve estimate, standaardfout, test statistiek, p-waarde, en onder- en bovengrens van de betrouwbaarheidsintervallen, bevat de MEM dataset ook de gemiddelden en/of modus waarden voor de predictoren.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>MEM <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gndr, agea, trstplt, lrscale) <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(gndr_F, agea, trstplt, lrscale) <span class="sc">|&gt;</span> </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
-  gndr   agea trstplt lrscale
-  &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1 Male   50.7    5.34    5.15
-2 Male   50.7    5.34    5.15
-3 Male   50.7    5.34    5.15
-4 Male   50.7    5.34    5.15</code></pre>
+  gndr_F  agea trstplt lrscale
+  &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 Male    50.7    5.34    5.15
+2 Male    50.7    5.34    5.15
+3 Male    50.7    5.34    5.15
+4 Male    50.7    5.34    5.15</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">

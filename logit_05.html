@@ -372,31 +372,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#algemene packages</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#data voor residuals en influential cases</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"data/ESS9e03, Netherlands.sav"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We hebben natuurlijk een model nodig. We gebruiken <code>vote_model4</code> uit het vorige hoofdstuk waarin we de kans voorspellen dat iemand gaat stemmen op basis van informatie over gender, leeftijd, vertouwen in politici en links-rechtsideologie.</p>
+<p>We hebben natuurlijk een model nodig. We gebruiken <code>vote_model4</code> uit het vorige hoofdstuk waarin we de kans voorspellen dat iemand gaat stemmen op basis van informatie over gender, leeftijd, vertrouwen in politici en links-rechtsideologie.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data management</span></span>
 <span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Factor maken van categorische variabelen</span></span>
-<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">factorize</span>(gndr), </span>
-<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr), </span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote_F =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
 <span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Not Eligible op missing zetten</span></span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">na_if</span>(vote,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">na_if</span>(vote_F,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel van variabelen</span></span>
-<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">relevel</span>(vote, <span class="st">"No"</span>), </span>
-<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr =</span> <span class="fu">relevel</span>(gndr, <span class="st">"Female"</span>))</span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">relevel</span>(vote_F, <span class="st">"No"</span>), </span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr_F =</span> <span class="fu">relevel</span>(gndr_F, <span class="st">"Female"</span>))</span>
 <span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Subset van de data</span></span>
 <span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>ESS9NL_glm <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-14" class="code-annotation-target"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(vote,  gndr,  agea,  trstplt,  lrscale))</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-14" class="code-annotation-target"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(vote_F,  gndr_F,  agea,  trstplt,  lrscale))</span>
 <span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
-<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a>Vote_model4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a>Vote_model4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
 <span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL_glm, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="annotated-cell-2-19"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-2-20"><a href="#annotated-cell-2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten</span></span>
@@ -405,20 +405,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="14" data-code-annotation="1">We gebruiken een subset van de data met enkel complete observaties. Dit hebben we gedaan in het vorige hoofdstuk en is ook nuttig voor sommige asumptiechecks..</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="14" data-code-annotation="1">We gebruiken een subset van de data met enkel complete observaties. Dit hebben we gedaan in het vorige hoofdstuk en is ook nuttig voor sommige asumptiechecks.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = vote ~ gndr + agea + trstplt + lrscale, family = "binomial", 
+glm(formula = vote_F ~ gndr_F + agea + trstplt + lrscale, family = "binomial", 
     data = ESS9NL_glm)
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -0.284194   0.380455  -0.747    0.455    
-gndrMale     0.043281   0.154201   0.281    0.779    
+gndr_FMale   0.043281   0.154201   0.281    0.779    
 agea         0.018349   0.004503   4.075 4.61e-05 ***
 trstplt      0.195020   0.038706   5.039 4.69e-07 ***
 lrscale      0.029257   0.039306   0.744    0.457    
@@ -436,11 +436,11 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </div>
 <section id="beperkte-multicollineariteit" class="level2" data-number="13.1">
 <h2 data-number="13.1" class="anchored" data-anchor-id="beperkte-multicollineariteit"><span class="header-section-number">13.1</span> Beperkte multicollineariteit</h2>
-<p>We kunnen nagaan of ons model onderhevig is aan te sterke multicollineariteit met de <code>vif()</code> functie uit het <code>car</code> package. Dit is gelijkaardig aan wat we deden voor lineaire regressie ( <a href="linear_07.html#sec-linear-no-excessive-multicollinearity" class="quarto-xref"><span>Paragraaf 7.2</span></a>). dezelfde vuistregels zijn van toepassing. Voor logistische regressiemodellen wordt een ‘generalized VIF’ berekend.</p>
+<p>We kunnen nagaan of ons model onderhevig is aan te sterke multicollineariteit met de <code>vif()</code> functie uit het <code>car</code> package. Dit is gelijkaardig aan wat we deden voor lineaire regressie ( <a href="linear_07.html#sec-linear-no-excessive-multicollinearity" class="quarto-xref"><span>Paragraaf 7.2</span></a>). Dezelfde vuistregels zijn van toepassing. Voor logistische regressiemodellen wordt een ‘generalized VIF’ berekend.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(Vote_model4)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>    gndr     agea  trstplt  lrscale 
+<pre><code>  gndr_F     agea  trstplt  lrscale 
 1.013505 1.018080 1.019284 1.013647 </code></pre>
 </div>
 </div>
@@ -448,23 +448,23 @@ Number of Fisher Scoring iterations: 4</code></pre>
 </section>
 <section id="lineariteit-van-de-logit" class="level2" data-number="13.2">
 <h2 data-number="13.2" class="anchored" data-anchor-id="lineariteit-van-de-logit"><span class="header-section-number">13.2</span> Lineariteit van de logit</h2>
-<p>Logistische regressie verondersteld dat veranderingen in de log odds (de logit) lineair geassocieerd zijn met Y=1. Om de assumptie te checken gebruiken we de <code>augment()</code> functie uit het <code>broom</code> package. Deze functie creëert een dataframe met de variabelen gebruikt in het model, alsook belangrijke statistieken om assumpties te testen:</p>
+<p>Logistische regressie veronderstelt dat veranderingen in de log odds (de logit) lineair geassocieerd zijn met Y=1. Om de assumptie te checken gebruiken we de <code>augment()</code> functie uit het <code>broom</code> package. Deze functie creëert een dataframe met de variabelen gebruikt in het model, alsook belangrijke statistieken om assumpties te testen:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">augment</span>(Vote_model4)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,425 × 11
-   vote  gndr    agea trstplt lrscale .fitted .resid    .hat .sigma   .cooksd
-   &lt;fct&gt; &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
- 1 Yes   Female    32       6       5    1.62  0.601 0.00238  0.894 0.0000947
- 2 No    Male      57       7       5    2.32 -2.20  0.00175  0.893 0.00356  
- 3 Yes   Female    45       8       5    2.25  0.448 0.00220  0.894 0.0000467
- 4 Yes   Female    34       7       5    1.85  0.540 0.00237  0.894 0.0000749
- 5 Yes   Male      67       6       6    2.33  0.430 0.00188  0.894 0.0000365
- 6 No    Female    85       5       4    2.37 -2.22  0.00330  0.893 0.00710  
- 7 Yes   Female    40       7       5    1.96  0.513 0.00199  0.894 0.0000561
- 8 Yes   Male      71       8       7    2.83  0.339 0.00245  0.894 0.0000292
- 9 Yes   Female    84       5       5    2.38  0.421 0.00310  0.894 0.0000577
-10 Yes   Male      24       7       5    1.71  0.576 0.00360  0.894 0.000131 
+   vote_F gndr_F  agea trstplt lrscale .fitted .resid    .hat .sigma   .cooksd
+   &lt;fct&gt;  &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Yes    Female    32       6       5    1.62  0.601 0.00238  0.894 0.0000947
+ 2 No     Male      57       7       5    2.32 -2.20  0.00175  0.893 0.00356  
+ 3 Yes    Female    45       8       5    2.25  0.448 0.00220  0.894 0.0000467
+ 4 Yes    Female    34       7       5    1.85  0.540 0.00237  0.894 0.0000749
+ 5 Yes    Male      67       6       6    2.33  0.430 0.00188  0.894 0.0000365
+ 6 No     Female    85       5       4    2.37 -2.22  0.00330  0.893 0.00710  
+ 7 Yes    Female    40       7       5    1.96  0.513 0.00199  0.894 0.0000561
+ 8 Yes    Male      71       8       7    2.83  0.339 0.00245  0.894 0.0000292
+ 9 Yes    Female    84       5       5    2.38  0.421 0.00310  0.894 0.0000577
+10 Yes    Male      24       7       5    1.71  0.576 0.00360  0.894 0.000131 
 # ℹ 1,415 more rows
 # ℹ 1 more variable: .std.resid &lt;dbl&gt;</code></pre>
 </div>
@@ -480,7 +480,7 @@ Output uitleg
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><code>vote</code> t.e.m. <code>lrscale</code>: Deze kolommen bevatten de geobserveerde waarden op de betreffende variabelen voor alle observaties gebruikt in het model.</li>
+<li><code>vote_F</code> t.e.m. <code>lrscale</code>: Deze kolommen bevatten de geobserveerde waarden op de betreffende variabelen voor alle observaties gebruikt in het model.</li>
 <li><code>.fitted</code>: De voorspelde (‘fitted’) waarden op basis van de schattingen in het model in ‘logit’ vorm en dus niet in <em>probabiliteiten</em>.</li>
 <li><code>.resid</code>: De residuals (fouten/errors) voor elke observatie. Ook gekend als de “deviance residuals”.</li>
 <li><code>.hat</code>: Diagonaal van de hat matrix (te negeren).</li>
@@ -497,10 +497,10 @@ Output uitleg
 <dl>
 <dt><code>augment(Vote_model4, data=ESS9NL_glm)</code></dt>
 <dd>
-<p>We voegen deze syntax toe aan de functie: <code>data = ESS9NL_glm</code>. De reden is dat we zo een dataobject creëren met de augment-statistieken, de variabelen gebruikt in het model, <em>en</em> alle overige variabelen in de originele ESS9 dataset. Dit kan nuttig zijn voor bepaalde handelingen. We kunnen enkel de overige variabelen toevoegen als de datasets evenveel rijen hebben. Dit is niet het geval als er missing waarden zijn en het model minder observaties heeft dan de originele dataset. Vandaar dat we eerst een <code>complete.cases</code>data subset hebben gemaakt hierboven.</p>
+<p>We voegen deze syntax toe aan de functie: <code>data = ESS9NL_glm</code>. De reden is dat we zo een dataobject creëren met de augment-statistieken, de variabelen gebruikt in het model, <em>en</em> alle overige variabelen in de originele ESS9 dataset. Dit kan nuttig zijn voor bepaalde handelingen. We kunnen enkel de overige variabelen toevoegen als de datasets evenveel rijen hebben. Dit is niet het geval als er missing waarden zijn en het model minder observaties heeft dan de originele dataset. Vandaar dat we eerst een <code>complete.cases</code>-data subset hebben gemaakt hierboven.</p>
 </dd>
 </dl>
-<p>Om lineariteit te checken plotten we de logit die <code>augment</code> heeft berekend telkens tegenover de onafhankelijke variabelen in het model, specifiek de continue onafhankelijke variabelen. We maken een scatterplot met een loess-lijn en <code>.fitted</code>geplot op de y-)as.</p>
+<p>Om lineariteit te checken plotten we de logit die <code>augment</code> heeft berekend telkens tegenover de onafhankelijke variabelen in het model, specifiek de continue onafhankelijke variabelen. We maken een scatterplot met een loess-lijn en <code>.fitted</code> geplot op de y-as.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Leeftijd</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(model4_augmented, <span class="fu">aes</span>(<span class="at">x =</span> agea, <span class="at">y =</span> .fitted)) <span class="sc">+</span> </span>
@@ -545,7 +545,7 @@ Output uitleg
 </div>
 </div>
 </div>
-<p>We gaan na of de loess lijn sterke afwijkingen van een lineaire relatie vertoont. Dit lijkt hier niet het geval.</p>
+<p>We gaan na of de loess-lijn sterke afwijkingen van een lineaire relatie vertoont. Dit lijkt hier niet het geval.</p>
 </section>
 <section id="beperkte-impact-outliers-en-influential-cases" class="level2" data-number="13.3">
 <h2 data-number="13.3" class="anchored" data-anchor-id="beperkte-impact-outliers-en-influential-cases"><span class="header-section-number">13.3</span> Beperkte impact outliers en influential cases</h2>
@@ -623,7 +623,7 @@ Output uitleg
 </div>
 <p>5.7% van de observaties liggen buiten het +/- 1.96 interval. Om te onderzoeken of deze outliers de parameters van het model beïnvloeden, kunnen we het model opnieuw schatten zonder deze observaties. We doen dit door in onze dataset enkel observaties met een waarde van ‘0’ op SRE1.96 op te nemen. We zouden dan de resultaten van het model met en het model zonder outliers vergelijken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Vote_model41<span class="fl">.96</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>Vote_model41<span class="fl">.96</span> <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> <span class="fu">subset</span>(model4_augmented, SRE1<span class="fl">.96</span> <span class="sc">==</span> <span class="dv">0</span>), </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -652,7 +652,7 @@ Warning in helper_plotly_label(model): NAs introduced by coercion</code></pre>
 </div>
 </div>
 </div>
-<p>Beide methoden wijzen op lage Cook’s D waarden; de maximum waarde is slechts 0.017. Indien we hogere waarden zouden vinden, zouden we deze observaties uit de dataset kunnen filteren en het model opnieuw schatten om resultaten met en zonder invloedrijke casussen te vergelijken</p>
+<p>Beide methoden wijzen op lage Cook’s D waarden; de maximum waarde is slechts 0.017. Indien we hogere waarden zouden vinden, zouden we deze observaties uit de dataset kunnen filteren en het model opnieuw schatten om resultaten met en zonder invloedrijke casussen te vergelijken.</p>
 
 
 </section>

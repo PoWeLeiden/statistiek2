@@ -377,12 +377,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#omzetten naar factor variabele</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984 =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Voor meervoudige regressie gebruiken we ook de <code>lm()</code> functie. We kunnen meerdere onafhankelijke variabelen toevoegen met een ‘+’ teken:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model schatten en opslaan in data-object </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> cpi <span class="sc">+</span> v2caviol <span class="sc">+</span> TYPEDEMO1984, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> cpi <span class="sc">+</span> v2caviol <span class="sc">+</span> TYPEDEMO1984_factor, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data=</span>demdata)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
@@ -409,18 +409,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984, data = demdata)
+lm(formula = v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984_factor, 
+    data = demdata)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
 -0.56402 -0.09376  0.01442  0.12926  0.34206 
 
 Coefficients:
-                         Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)              0.187394   0.042634   4.395 2.19e-05 ***
-cpi                      0.006365   0.001059   6.012 1.55e-08 ***
-v2caviol                -0.008724   0.012258  -0.712    0.478    
-TYPEDEMO1984Democracies  0.152698   0.034915   4.373 2.39e-05 ***
+                                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                     0.187394   0.042634   4.395 2.19e-05 ***
+cpi                             0.006365   0.001059   6.012 1.55e-08 ***
+v2caviol                       -0.008724   0.012258  -0.712    0.478    
+TYPEDEMO1984_factorDemocracies  0.152698   0.034915   4.373 2.39e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -445,7 +446,7 @@ Interpretatie
 <p>De coëfficiënten van de onafhankelijke variabelen vertellen ons nog steeds welke verandering we verwachten in de afhankelijke variabele als de predictor met 1 eenheid stijgt. Nu wordt dit effect echter “gecontroleerd op” de andere predictoren in het model. Het effect geldt als de andere variabelen constant worden gehouden (‘ceteris paribus’). Bijvoorbeeld:</p>
 <ul>
 <li><strong>v2caviol</strong>: Op basis van het model verwachten we dat electorale democratiescores dalen met -0.01 eenheden als politiek geweld met 1 eenheid stijgt, met de effecten van regimestatus in 1984 en corruptie constant gehouden.</li>
-<li><strong>TYPEDEMO1984</strong>: Als we landen met dezelfde corruptie en politieke geweldscores vergelijken, verwachten we dat de electorale democratiescore in 2020 0.15 eenheden hoger is voor landen die in 1984 democratieën waren dan landen die autocratieën waren.</li>
+<li><strong>TYPEDEMO1984_factor</strong>: Als we landen met dezelfde corruptie en politieke geweldscores vergelijken, verwachten we dat de electorale democratiescore in 2020 0.15 eenheden hoger is voor landen die in 1984 democratieën waren dan landen die autocratieën waren.</li>
 </ul>
 </div>
 </div>
@@ -479,7 +480,7 @@ Interpretatie
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 4
 Columns: 5
-$ Parameter       &lt;chr&gt; "(Intercept)", "cpi", "v2caviol", "TYPEDEMO1984Democra…
+$ Parameter       &lt;chr&gt; "(Intercept)", "cpi", "v2caviol", "TYPEDEMO1984_factor…
 $ Std_Coefficient &lt;dbl&gt; -0.23661987, 0.49272847, -0.05393177, 0.60000039
 $ CI              &lt;dbl&gt; 0.95, 0.95, 0.95, 0.95
 $ CI_low          &lt;dbl&gt; -0.3957424, 0.3306681, -0.2037814, 0.3287296
@@ -510,24 +511,24 @@ Output uitleg
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_multiple)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
-  term                    estimate std.error statistic      p.value
-  &lt;chr&gt;                      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
-1 (Intercept)              0.187     0.0426      4.40  0.0000219   
-2 cpi                      0.00636   0.00106     6.01  0.0000000155
-3 v2caviol                -0.00872   0.0123     -0.712 0.478       
-4 TYPEDEMO1984Democracies  0.153     0.0349      4.37  0.0000239   </code></pre>
+  term                           estimate std.error statistic      p.value
+  &lt;chr&gt;                             &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;
+1 (Intercept)                     0.187     0.0426      4.40  0.0000219   
+2 cpi                             0.00636   0.00106     6.01  0.0000000155
+3 v2caviol                       -0.00872   0.0123     -0.712 0.478       
+4 TYPEDEMO1984_factorDemocracies  0.153     0.0349      4.37  0.0000239   </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gestandaardiseerd model</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>multiple_std</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Standardization method: refit
 
-Parameter                  | Std. Coef. |         95% CI
---------------------------------------------------------
-(Intercept)                |      -0.24 | [-0.40, -0.08]
-cpi                        |       0.49 | [ 0.33,  0.65]
-v2caviol                   |      -0.05 | [-0.20,  0.10]
-TYPEDEMO1984 [Democracies] |       0.60 | [ 0.33,  0.87]</code></pre>
+Parameter                         | Std. Coef. |         95% CI
+---------------------------------------------------------------
+(Intercept)                       |      -0.24 | [-0.40, -0.08]
+cpi                               |       0.49 | [ 0.33,  0.65]
+v2caviol                          |      -0.05 | [-0.20,  0.10]
+TYPEDEMO1984 factor [Democracies] |       0.60 | [ 0.33,  0.87]</code></pre>
 </div>
 </div>
 <p>Voor de continue variabelen geven de gestandaardiseerde coëfficiënten weer hoeveel <em>standaardafwijkingen</em> de afhankelijke variabele gaat veranderen als de onafhankelijke variabele met <em>1 standaardafwijking</em> stijgt.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>

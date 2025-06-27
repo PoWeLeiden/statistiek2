@@ -374,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#data voor residuals en influential cases</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)    <span class="co">#regressietabellen maken</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#voorspelde waarden berekenen</span></span>
@@ -384,43 +384,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We gebruiken onderstaand model in deze voorbeelden. Zie ook de vorige hoofdstukken voor verdere uitleg over dit model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data Preparation</span></span>
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data management</span></span>
 <span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Factorize our IVs</span></span>
-<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">factorize</span>(gndr), <span class="co">#</span></span>
-<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
-<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Remove Not Eligible to Vote Category from vote</span></span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">na_if</span>(vote,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel our variables like we did last time</span></span>
-<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">relevel</span>(vote, <span class="st">"No"</span>), </span>
-<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr =</span> <span class="fu">relevel</span>(gndr, <span class="st">"Female"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Drop the extra level in gndr</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-12" class="code-annotation-target"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">droplevels</span>(gndr))</span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Factor maken van categorische variabelen</span></span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr), </span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote_F =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Not Eligible op missing zetten</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">na_if</span>(vote_F,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel van variabelen</span></span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">relevel</span>(vote_F, <span class="st">"No"</span>), </span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr_F =</span> <span class="fu">relevel</span>(gndr_F, <span class="st">"Female"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Droppen van extra level in gndr</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-12" class="code-annotation-target"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">droplevels</span>(gndr_F))</span>
 <span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Our model</span></span>
-<span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#model schatten</span></span>
+<span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
 <span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Check the output</span></span>
+<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#output bekijken</span></span>
 <span id="annotated-cell-2-19"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Vote_model_mp)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="12" data-code-annotation="1">Deze data management stap zorgt ervoor dat we straks de gemiddelde marginale effecten kunnen berekene zonder error zie <a href="logit_02.html" class="quarto-xref"><span>Hoofdstuk 10</span></a> . Dit is niet nodig als je <code>factor()</code> gebruikt in plaats van <code>factorize()</code>.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="12" data-code-annotation="1">Deze data management stap zorgt ervoor dat we straks de gemiddelde marginale effecten (AME) kunnen berekenen zonder error zie <a href="logit_02.html" class="quarto-xref"><span>Hoofdstuk 10</span></a>. Dit is niet nodig als je <code>factor()</code> gebruikt in plaats van <code>factorize()</code>.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = vote ~ gndr + agea + trstplt + lrscale, family = "binomial", 
+glm(formula = vote_F ~ gndr_F + agea + trstplt + lrscale, family = "binomial", 
     data = ESS9NL)
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -0.284194   0.380455  -0.747    0.455    
-gndrMale     0.043281   0.154201   0.281    0.779    
+gndr_FMale   0.043281   0.154201   0.281    0.779    
 agea         0.018349   0.004503   4.075 4.61e-05 ***
 trstplt      0.195020   0.038706   5.039 4.69e-07 ***
 lrscale      0.029257   0.039306   0.744    0.457    
@@ -459,7 +459,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <li>Het is minder gebruikelijk de z-statistiek concreet te benoemen, maar het is ook geen probleem als je dit doet. Indien de z-waarde wordt opgenomen, zet je deze bij de p-waarde: “(z = 1.18, p &gt; 0.05)”.</li>
 </ul></li>
 </ul>
-<p>Hieronder vind je een voorbeeld voor <code>gndr</code> (binaire factor) en <code>trstplt</code> (continue predictor) op basis van het hierboven geschatte model. Zie vorige hoofdstukken voor de berekening van de AME en odds ratio waarden.</p>
+<p>Hieronder vind je een voorbeeld voor <code>gndr_F</code> (binaire factor) en <code>trstplt</code> (continue predictor) op basis van het hierboven geschatte model. Zie vorige hoofdstukken voor de berekening van de AME en odds ratio waarden voor deze variabelen.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -479,19 +479,19 @@ Rapportagevoorbeeld
 <ul>
 <li>In je rapportage kun je ook een bespreking van de voorspelde waarden opnemen (bv. wat is de voorspelde kans dat iemand gaat stemmen bij lage en hoge niveaus van vetrouwen in politici?) Een plot van voorspelde waarden kan de bespreking verder verduidelijken. Zie <a href="#sec-presentation-predicted-probability-plots" class="quarto-xref"><span>Paragraaf 14.5</span></a> voor meer informatie.</li>
 <li>Als je onderzoek vooral gericht is op de relatie tussen een specifieke onafhankelijke variabele en de afhankelijke variabele dan is een discussie over de controlevariabelen doorgaans niet nodig.</li>
-<li>Het intercept wordt zelden besproken bij logistische regressies.</li>
+<li>Het intercept wordt zelden besproken bij logistische regressies. Hte intercept is de odds op Y als alle predictoren gelijk zijn aan nul.</li>
 <li>Wees voorzichting in je bespreking van de relatie tussen de variabelen. Causaliteit is moeilijk te bepalen en is onderhevig aan sterke voorwaarden. Je schrijft bijgevolg dus meestal niet het “effect van X op Y” , maar “de verandering in X is geassocieerd met de verandering in Y”.</li>
 </ul>
 </section>
 <section id="sec-presentation-regression-tables-logit" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="sec-presentation-regression-tables-logit"><span class="header-section-number">14.2</span> Presentatie: Regressietabellen</h2>
-<p>We gebruiken de <code>modelsummary()</code> funcie uit het <code>modelsummary</code> package om regressietabellen te produceren. De procedure en syntax is gelijkaardig aan die voor lineaire regressietabellen (zie <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Paragraaf 8.4</span></a>). Het belangrijkste verschil zit in de model fit statistieken.</p>
+<p>We gebruiken de <code>modelsummary()</code> functie uit het <code>modelsummary</code> package om regressietabellen te produceren. De procedure en syntax is gelijkaardig aan die voor lineaire regressietabellen (zie <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Paragraaf 8.5</span></a>). Het belangrijkste verschil zit in de model fit statistieken.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(Vote_model_mp,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"agea"</span> <span class="ot">=</span> <span class="st">"Leeftijd"</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gndrMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gndr_FMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"trstplt"</span><span class="ot">=</span> <span class="st">"Vertrouwen in politici"</span>,</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"links-recht positie"</span>),</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"logLik"</span>),</span>
@@ -502,8 +502,8 @@ Rapportagevoorbeeld
 
     <script>
 
-      function styleCell_7xislbpu29ggj0dxn5ya(i, j, css_id) {
-          var table = document.getElementById("tinytable_7xislbpu29ggj0dxn5ya");
+      function styleCell_abb1h0lmijqxrslyvmxt(i, j, css_id) {
+          var table = document.getElementById("tinytable_abb1h0lmijqxrslyvmxt");
           var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -513,7 +513,7 @@ Rapportagevoorbeeld
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_7xislbpu29ggj0dxn5ya');
+        var table = document.getElementById('tinytable_abb1h0lmijqxrslyvmxt');
         var newRow = table.insertRow(i);
         var newCell = newRow.insertCell(0);
         newCell.setAttribute("colspan", colspan);
@@ -521,8 +521,8 @@ Rapportagevoorbeeld
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_7xislbpu29ggj0dxn5ya(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_7xislbpu29ggj0dxn5ya");
+      function spanCell_abb1h0lmijqxrslyvmxt(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_abb1h0lmijqxrslyvmxt");
         const targetRow = table.rows[i];
         const targetCell = targetRow.cells[j];
         for (let r = 0; r < rowspan; r++) {
@@ -552,20 +552,20 @@ Rapportagevoorbeeld
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: 12, j: 1 },  ], css_id: 'tinytable_css_r2xwjp6agwlg54qo07pe',}, 
-          { positions: [ { i: 10, j: 1 },  ], css_id: 'tinytable_css_ll9feknmnq2k808dg7tv',}, 
-          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 },  ], css_id: 'tinytable_css_l0gzvth4e1ja8ivjhot2',}, 
-          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_j9ctuz1wb0dk3dtloc94',}, 
-          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_elynft9qpcnmotgxhe5z',}, 
-          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 11, j: 1 },  ], css_id: 'tinytable_css_adpy28kdbz0bmp9w41i2',}, 
-          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_7pp2ddz8uyf151asa00t',}, 
-          { positions: [ { i: 12, j: 0 },  ], css_id: 'tinytable_css_3nm1xjc8dcok92acwmso',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_yyvwn6xluuoe5ts44jmp',}, 
+          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_xw5f4lkfcur00le6mtuk',}, 
+          { positions: [ { i: 12, j: 1 },  ], css_id: 'tinytable_css_r0iv2dqyzmgggwr69r1n',}, 
+          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 11, j: 1 },  ], css_id: 'tinytable_css_ox0utn5ggbbrkl51kphz',}, 
+          { positions: [ { i: 10, j: 1 },  ], css_id: 'tinytable_css_okhv1xh7e952ebutaojg',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 },  ], css_id: 'tinytable_css_ls5boe3jxoz6qvnsg42c',}, 
+          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_k4zj62aoemjc85elk6c2',}, 
+          { positions: [ { i: 12, j: 0 },  ], css_id: 'tinytable_css_8g7sibj8h6cf1gbbikqk',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_7xislbpu29ggj0dxn5ya(cell.i, cell.j, group.css_id);
+                  styleCell_abb1h0lmijqxrslyvmxt(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -573,17 +573,17 @@ Rapportagevoorbeeld
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_r2xwjp6agwlg54qo07pe, .table th.tinytable_css_r2xwjp6agwlg54qo07pe { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_ll9feknmnq2k808dg7tv, .table th.tinytable_css_ll9feknmnq2k808dg7tv { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_l0gzvth4e1ja8ivjhot2, .table th.tinytable_css_l0gzvth4e1ja8ivjhot2 { text-align: left; }
-      .table td.tinytable_css_j9ctuz1wb0dk3dtloc94, .table th.tinytable_css_j9ctuz1wb0dk3dtloc94 { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_elynft9qpcnmotgxhe5z, .table th.tinytable_css_elynft9qpcnmotgxhe5z { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_adpy28kdbz0bmp9w41i2, .table th.tinytable_css_adpy28kdbz0bmp9w41i2 { text-align: center; }
-      .table td.tinytable_css_7pp2ddz8uyf151asa00t, .table th.tinytable_css_7pp2ddz8uyf151asa00t { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_3nm1xjc8dcok92acwmso, .table th.tinytable_css_3nm1xjc8dcok92acwmso { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_yyvwn6xluuoe5ts44jmp, .table th.tinytable_css_yyvwn6xluuoe5ts44jmp { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_xw5f4lkfcur00le6mtuk, .table th.tinytable_css_xw5f4lkfcur00le6mtuk { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_r0iv2dqyzmgggwr69r1n, .table th.tinytable_css_r0iv2dqyzmgggwr69r1n { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_ox0utn5ggbbrkl51kphz, .table th.tinytable_css_ox0utn5ggbbrkl51kphz { text-align: center; }
+      .table td.tinytable_css_okhv1xh7e952ebutaojg, .table th.tinytable_css_okhv1xh7e952ebutaojg { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_ls5boe3jxoz6qvnsg42c, .table th.tinytable_css_ls5boe3jxoz6qvnsg42c { text-align: left; }
+      .table td.tinytable_css_k4zj62aoemjc85elk6c2, .table th.tinytable_css_k4zj62aoemjc85elk6c2 { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_8g7sibj8h6cf1gbbikqk, .table th.tinytable_css_8g7sibj8h6cf1gbbikqk { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_7xislbpu29ggj0dxn5ya" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_abb1h0lmijqxrslyvmxt" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         </thead><caption>Opkomst in Nederland (ESS9)</caption>
               <tbody><tr>
@@ -664,7 +664,7 @@ Rapportagevoorbeeld
 <span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> <span class="cn">TRUE</span>,</span>
 <span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>,</span>
 <span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"agea"</span> <span class="ot">=</span> <span class="st">"Leeftijd"</span>,</span>
-<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gndrMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
+<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"gndr_FMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
 <span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"trstplt"</span><span class="ot">=</span> <span class="st">"Vertrouwen in politici"</span>,</span>
 <span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"links-recht positie"</span>),</span>
 <span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"logLik"</span>),</span>
@@ -687,8 +687,8 @@ Rapportagevoorbeeld
 
     <script>
 
-      function styleCell_xaq6fo4h90qe12jh2vhw(i, j, css_id) {
-          var table = document.getElementById("tinytable_xaq6fo4h90qe12jh2vhw");
+      function styleCell_stmbf8e8jrvhma6y0l8c(i, j, css_id) {
+          var table = document.getElementById("tinytable_stmbf8e8jrvhma6y0l8c");
           var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -698,7 +698,7 @@ Rapportagevoorbeeld
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_xaq6fo4h90qe12jh2vhw');
+        var table = document.getElementById('tinytable_stmbf8e8jrvhma6y0l8c');
         var newRow = table.insertRow(i);
         var newCell = newRow.insertCell(0);
         newCell.setAttribute("colspan", colspan);
@@ -706,8 +706,8 @@ Rapportagevoorbeeld
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_xaq6fo4h90qe12jh2vhw(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_xaq6fo4h90qe12jh2vhw");
+      function spanCell_stmbf8e8jrvhma6y0l8c(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_stmbf8e8jrvhma6y0l8c");
         const targetRow = table.rows[i];
         const targetCell = targetRow.cells[j];
         for (let r = 0; r < rowspan; r++) {
@@ -737,20 +737,20 @@ Rapportagevoorbeeld
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 11, j: 1 },  ], css_id: 'tinytable_css_zfixlouzor9qgq9yioh7',}, 
-          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 },  ], css_id: 'tinytable_css_sxfxad6gjzualscvu3mx',}, 
-          { positions: [ { i: 12, j: 1 },  ], css_id: 'tinytable_css_sgv92ohq6bnq7mvd4tma',}, 
-          { positions: [ { i: 12, j: 0 },  ], css_id: 'tinytable_css_sbkdy4j8vuk31rjs9wou',}, 
-          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_k6zigu66dwp1zugwuy9q',}, 
-          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_d1l0v9joaenksbctn46o',}, 
-          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_16negqe319lcjah9dy1h',}, 
-          { positions: [ { i: 10, j: 1 },  ], css_id: 'tinytable_css_009lnc98qnzsqskrh0ed',}, 
+          { positions: [ { i: 12, j: 1 },  ], css_id: 'tinytable_css_z1qawn7tl3wqt9zxidjo',}, 
+          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_ua3t2m5tqbe67kk0ca6s',}, 
+          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 11, j: 1 },  ], css_id: 'tinytable_css_dottyi9k9hbslejbdioj',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 },  ], css_id: 'tinytable_css_avig55ky4c4wrdx3rgew',}, 
+          { positions: [ { i: 0, j: 1 },  ], css_id: 'tinytable_css_82kmn5bsnfa0duol09dn',}, 
+          { positions: [ { i: 12, j: 0 },  ], css_id: 'tinytable_css_67p6mx4umfdggd8t7g94',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_46b5yq4ogmt9nly3qi24',}, 
+          { positions: [ { i: 10, j: 1 },  ], css_id: 'tinytable_css_023abkhz9many0q78kob',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_xaq6fo4h90qe12jh2vhw(cell.i, cell.j, group.css_id);
+                  styleCell_stmbf8e8jrvhma6y0l8c(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -758,17 +758,17 @@ Rapportagevoorbeeld
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_zfixlouzor9qgq9yioh7, .table th.tinytable_css_zfixlouzor9qgq9yioh7 { text-align: center; }
-      .table td.tinytable_css_sxfxad6gjzualscvu3mx, .table th.tinytable_css_sxfxad6gjzualscvu3mx { text-align: left; }
-      .table td.tinytable_css_sgv92ohq6bnq7mvd4tma, .table th.tinytable_css_sgv92ohq6bnq7mvd4tma { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_sbkdy4j8vuk31rjs9wou, .table th.tinytable_css_sbkdy4j8vuk31rjs9wou { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_k6zigu66dwp1zugwuy9q, .table th.tinytable_css_k6zigu66dwp1zugwuy9q { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_d1l0v9joaenksbctn46o, .table th.tinytable_css_d1l0v9joaenksbctn46o { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_16negqe319lcjah9dy1h, .table th.tinytable_css_16negqe319lcjah9dy1h { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_009lnc98qnzsqskrh0ed, .table th.tinytable_css_009lnc98qnzsqskrh0ed { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_z1qawn7tl3wqt9zxidjo, .table th.tinytable_css_z1qawn7tl3wqt9zxidjo { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_ua3t2m5tqbe67kk0ca6s, .table th.tinytable_css_ua3t2m5tqbe67kk0ca6s { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_dottyi9k9hbslejbdioj, .table th.tinytable_css_dottyi9k9hbslejbdioj { text-align: center; }
+      .table td.tinytable_css_avig55ky4c4wrdx3rgew, .table th.tinytable_css_avig55ky4c4wrdx3rgew { text-align: left; }
+      .table td.tinytable_css_82kmn5bsnfa0duol09dn, .table th.tinytable_css_82kmn5bsnfa0duol09dn { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_67p6mx4umfdggd8t7g94, .table th.tinytable_css_67p6mx4umfdggd8t7g94 { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_46b5yq4ogmt9nly3qi24, .table th.tinytable_css_46b5yq4ogmt9nly3qi24 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_023abkhz9many0q78kob, .table th.tinytable_css_023abkhz9many0q78kob { text-align: center; border-bottom: solid black 0.05em; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_xaq6fo4h90qe12jh2vhw" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_stmbf8e8jrvhma6y0l8c" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         </thead><caption>Opkomst in Nederland (ESS9)</caption>
               <tbody><tr>
@@ -851,12 +851,12 @@ Rapportagevoorbeeld
 </section>
 <section id="presentatie-plots-van-coëfficiënten-en-odds-ratios" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="presentatie-plots-van-coëfficiënten-en-odds-ratios"><span class="header-section-number">14.3</span> Presentatie: Plots van coëfficiënten (en odds ratios)</h2>
-<p>We kunnen de output ook presenteren in de vorm van een coefficiëntenplot (eventueel met de volledige regressietabel in Appendix), net zoals bij lineaire regressiemodellen. De procedure wordt beschreven in <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a> . Hier is een voorbeeld op basis van bovenstaand model:</p>
+<p>We kunnen de output ook presenteren in de vorm van een coëfficiëntenplot (eventueel met de volledige regressietabel in Appendix), net zoals bij lineaire regressiemodellen. De procedure wordt beschreven in <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a> . Hier is een voorbeeld op basis van bovenstaand model:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Vote_model_mp, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-2" class="code-annotation-target"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-3" class="code-annotation-target"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">recode</span>(term,</span>
-<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndrMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
+<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndr_FMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
 <span id="annotated-cell-5-5"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"agea"</span> <span class="ot">=</span> <span class="st">"Leeftijd"</span>,</span>
 <span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"trstplt"</span> <span class="ot">=</span> <span class="st">"Vertrouwen in politici"</span>,</span>
 <span id="annotated-cell-5-7"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"Links-rechts positie"</span>)) <span class="sc">|&gt;</span></span>
@@ -880,7 +880,7 @@ Rapportagevoorbeeld
 </dd>
 <dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="3" data-code-annotation="3">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a>.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="3" data-code-annotation="3">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a>.</span>
 </dd>
 </dl>
 </div>
@@ -897,7 +897,7 @@ Rapportagevoorbeeld
 <div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Vote_model_mp, <span class="at">conf.int =</span> <span class="cn">TRUE</span>, <span class="at">exponentiate =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span> </span>
 <span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">recode</span>(term, </span>
-<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndrMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndr_FMale"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
 <span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"agea"</span> <span class="ot">=</span> <span class="st">"Leeftijd"</span>,</span>
 <span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"trstplt"</span> <span class="ot">=</span> <span class="st">"Vertrouwen in politici"</span>,</span>
 <span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"Links-rechts positie"</span>)) <span class="sc">|&gt;</span></span>
@@ -933,7 +933,7 @@ Rapportagevoorbeeld
 <h3 data-number="14.3.1" class="anchored" data-anchor-id="instructies"><span class="header-section-number">14.3.1</span> Instructies</h3>
 <ul>
 <li>Meestal plaats je de coëfficiënt op de x-as en de naam van de variabele op de y-as. Het is mogelijk dit te veranderen met de <code>ggplot</code> syntax, maar dan kunnen de variabelenamen makkelijker overlappen. Lange variabelennamen leiden wel vaker tot problemen met de visualisatie (in deze <a href="https://www.andrewheiss.com/blog/2022/06/23/long-labels-ggplot/">blog</a> vind je enkele tips).</li>
-<li>Standaard plot <code>ggplot</code> de coëfficiënten in alfabetische volgorde. Dit kan ervoor zorgen dat variabelen die bij elkaar horen (bv. meerdere dummies van 1 onderliggende categorische variabele) niet bij elkaar staan in het plot (zoals in het voorbeeld hierboven). We kunnen de volgorde aanpassen als we de <code>term</code> variabele omzetten in een factor variabele en de volgorde van de levels zelf bepalen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a></li>
+<li>Standaard plot <code>ggplot</code> de coëfficiënten in alfabetische volgorde. Dit kan ervoor zorgen dat variabelen die bij elkaar horen (bv. meerdere dummies van 1 onderliggende categorische variabele) niet bij elkaar staan in het plot (zoals in het voorbeeld hierboven). We kunnen de volgorde aanpassen als we de <code>term</code> variabele omzetten in een factor variabele en de volgorde van de levels zelf bepalen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a></li>
 <li>Het toevoegen van de (afgeronde) coëfficiënt-waarde kan lezers helpen de resultaten beter te vatten.</li>
 <li>Meestal plotten we de 95% betrouwbaarheidsintervallen, maar dit kan aangepast worden (we kunnen <code>tidy</code> om andere niveaus vragen).</li>
 <li>In een rapport voeg je best een notitie onderaan de figuur toe, bv. “Notitie: OLS coëfficiënten met 95% betrouwbaarheidsinterval”.</li>
@@ -947,7 +947,7 @@ Rapportagevoorbeeld
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-1" class="code-annotation-target"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(Vote_model_mp) <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">recode</span>(term,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3">3</button><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndr"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3">3</button><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndr_F"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
 <span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"agea"</span> <span class="ot">=</span> <span class="st">"Leeftijd"</span>,</span>
 <span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"trstplt"</span> <span class="ot">=</span> <span class="st">"Vertrouwen in politici"</span>,</span>
 <span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"Links-rechts positie"</span>)) <span class="sc">|&gt;</span></span>
@@ -966,7 +966,7 @@ Rapportagevoorbeeld
 </dd>
 <dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="2">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a>.</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="2">We zouden i.p.v. <code>recode()</code> ook eerst een factor kunnen maken van de <code>term</code>variabele met <code>factor()</code>. Daarmee zouden we labels kunnen toevoegen en de volgorde waarin de variabelen verschijnen kunnen aanpassen. Zie <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
 <dd>
@@ -982,11 +982,11 @@ Rapportagevoorbeeld
 </div>
 </div>
 </div>
-<p>Bovenstaand voorbeeld plot probabiliteiten lopende van 0 tot 1. We kunnen deze ook in percentagepunten uitdrukken wanneer we de AME (<code>estimate</code>) en de betrouwbaarheidsintervallen (<code>conf.low</code>, <code>conf.high</code>) met 100 vermenigvuldigen:</p>
+<p>Bovenstaand voorbeeld plot probabiliteiten lopende van 0 tot 1. Met de afronding op 2 decimalen vinden we gewoon een waarde van 0 voor links-rechtspositie en leeftijd. Dit is niet zo handig. We kunnen de resultaten ook in percentpunten uitdrukken wanneer we de AME (<code>estimate</code>) en de betrouwbaarheidsintervallen (<code>conf.low</code>, <code>conf.high</code>) met 100 vermenigvuldigen:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode r code-annotation-code code-with-copy"><code class="sourceCode r"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(Vote_model_mp) <span class="sc">|&gt;</span> </span>
 <span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">recode</span>(term,</span>
-<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndr"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
+<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"gndr_F"</span> <span class="ot">=</span> <span class="st">"Man"</span>,</span>
 <span id="annotated-cell-8-4"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"agea"</span> <span class="ot">=</span> <span class="st">"Leeftijd"</span>,</span>
 <span id="annotated-cell-8-5"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"trstplt"</span> <span class="ot">=</span> <span class="st">"Vertrouwen in politici"</span>,</span>
 <span id="annotated-cell-8-6"><a href="#annotated-cell-8-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"Links-rechts positie"</span>), </span>
@@ -1010,16 +1010,16 @@ Rapportagevoorbeeld
 </div>
 <section id="instructies-1" class="level3" data-number="14.4.1">
 <h3 data-number="14.4.1" class="anchored" data-anchor-id="instructies-1"><span class="header-section-number">14.4.1</span> Instructies</h3>
-<p>De richtlijnen voor coëfficiënteplots worden ook hier gehanteerd (zie boven en <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.5</span></a>).</p>
+<p>De richtlijnen voor coëfficiënteplots worden ook hier gehanteerd (zie boven en <a href="linear_08.html#sec-presenting-linear-regression-coefficient-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a>).</p>
 </section>
 </section>
 <section id="sec-presentation-predicted-probability-plots" class="level2" data-number="14.5">
 <h2 data-number="14.5" class="anchored" data-anchor-id="sec-presentation-predicted-probability-plots"><span class="header-section-number">14.5</span> Presentatie: Plots van Voorspelde Waarden</h2>
-<p>Ten slotte kunnen we de resultaten van een model ook grafisch presenteren met behulp van voorspelde waarden. We zagen eerder hoe we de voorspelde waarden plotten voor specifieke waarden van een continue of categorische onafhankelijke variabele in een lineair regressiemodel (see <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.6</span></a>). Nu doen we hetzelfde voor logistische modellen.</p>
+<p>Ten slotte kunnen we de resultaten van een model ook grafisch presenteren met behulp van voorspelde waarden. We zagen eerder hoe we de voorspelde waarden plotten voor specifieke waarden van een continue of categorische onafhankelijke variabele in een lineair regressiemodel (see <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.7</span></a>). Nu doen we hetzelfde voor logistische modellen.</p>
 <section id="continue-onafhankelijke-variabele" class="level3" data-number="14.5.1">
 <h3 data-number="14.5.1" class="anchored" data-anchor-id="continue-onafhankelijke-variabele"><span class="header-section-number">14.5.1</span> Continue onafhankelijke variabele</h3>
-<p>De output van het model toonde dat stemmen waarcshijnlijker wordt naarmate mensen meer vertouwen hebben in politici. De AME toonde dat de stijging gemiddeld 2.3 percentpunten was per eenheid vertrouwen. Maar hoeveel impact heeft dit dan echt op stemgedrag? Gaat men van heel onwaarschijnlijk tot zeer waarschijnlijk om te stemmen? Een plot kan helpen dit te veruidelijken.</p>
-<p>We beginnen met de <code>predictions()</code> functie om de voorspelde kansen te berekenen bij verschillende waarden van vetrouwen in politici (<code>trstplt</code>)..</p>
+<p>De output van het model toonde dat stemmen waarschijnlijker wordt naarmate mensen meer vertouwen hebben in politici. De AME toonde dat de stijging gemiddeld 2.3 percentpunten was per eenheid vertrouwen. Maar hoeveel impact heeft dit dan echt op stemgedrag? Gaat men van heel onwaarschijnlijk tot zeer waarschijnlijk om te stemmen? Een plot kan helpen dit te verduidelijken.</p>
+<p>We beginnen met de <code>predictions()</code> functie om de voorspelde kansen te berekenen bij verschillende waarden van vertrouwen in politici (<code>trstplt</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Voorspellingen opslaan</span></span>
 <span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>Pred_conts <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp, </span>
@@ -1036,15 +1036,15 @@ Rapportagevoorbeeld
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 11
-  rowid estimate  p.value s.value conf.low conf.high gndr   agea lrscale trstplt
-  &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1     1    0.699 9.37e- 5    13.4    0.603     0.779 Male   50.7    5.15       0
-2     2    0.774 1.09e-15    49.7    0.717     0.822 Male   50.7    5.15       2
-3     3    0.835 1.61e-46   152.     0.802     0.863 Male   50.7    5.15       4
-4     4    0.882 1.29e-64   212.     0.856     0.904 Male   50.7    5.15       6
-5     5    0.917 6.30e-48   157.     0.889     0.938 Male   50.7    5.15       8
-6     6    0.942 3.65e-34   111.     0.912     0.962 Male   50.7    5.15      10
-# ℹ 1 more variable: vote &lt;fct&gt;</code></pre>
+  rowid estimate  p.value s.value conf.low conf.high gndr_F  agea lrscale
+  &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1     1    0.699 9.37e- 5    13.4    0.603     0.779 Male    50.7    5.15
+2     2    0.774 1.09e-15    49.7    0.717     0.822 Male    50.7    5.15
+3     3    0.835 1.61e-46   152.     0.802     0.863 Male    50.7    5.15
+4     4    0.882 1.29e-64   212.     0.856     0.904 Male    50.7    5.15
+5     5    0.917 6.30e-48   157.     0.889     0.938 Male    50.7    5.15
+6     6    0.942 3.65e-34   111.     0.912     0.962 Male    50.7    5.15
+# ℹ 2 more variables: trstplt &lt;dbl&gt;, vote_F &lt;fct&gt;</code></pre>
 </div>
 </div>
 <p>We voeren deze data door naar <code>ggplot()</code> zoals we voorheen ook bij lineaire regressie deden:</p>
@@ -1106,13 +1106,13 @@ Rapportagevoorbeeld
 <p>We kunnen deze syntax gebruiken voor predictors die factors zijn:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Voorspellingen opslaan</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Pred_cat <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp, <span class="at">by =</span> <span class="st">"gndr"</span>, <span class="at">newdata =</span> <span class="st">"mean"</span>) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Pred_cat <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Vote_model_mp, <span class="at">by =</span> <span class="st">"gndr_F"</span>, <span class="at">newdata =</span> <span class="st">"mean"</span>) </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#en bekijken</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Pred_cat)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 13
-  rowid gndr   estimate std.error statistic p.value s.value conf.low conf.high
+  rowid gndr_F estimate std.error statistic p.value s.value conf.low conf.high
   &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1     1 Female    0.863    0.0133      65.1       0     Inf    0.837     0.889
 2     2 Male      0.868    0.0127      68.2       0     Inf    0.843     0.893
@@ -1122,14 +1122,13 @@ Rapportagevoorbeeld
 </div>
 <p>De data wordt dan naar een plot overgezet:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Pred_cat, <span class="fu">aes</span>(<span class="at">x=</span> gndr, <span class="at">y=</span> estimate)) <span class="sc">+</span>   </span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Pred_cat, <span class="fu">aes</span>(<span class="at">x=</span> gndr_F, <span class="at">y=</span> estimate)) <span class="sc">+</span>   </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointrange</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high)) <span class="sc">+</span>  </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gender en opkomst in Nederland"</span>, </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde kans om te stemmen"</span>) <span class="sc">+</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(estimate, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="fl">0.8</span>,<span class="fl">0.9</span>))<span class="sc">+</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"Man"</span>, <span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"Vrouw"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span> <span class="ot">=</span> <span class="st">"Man"</span>, <span class="st">"Female"</span> <span class="ot">=</span> <span class="st">"Vrouw"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1147,8 +1146,8 @@ Rapportagevoorbeeld
 <li>Als de variabele binair/categorisch is, gebruik je alle categorieën die relevant zijn voor de discussie.</li>
 <li>Als de variabele continue is gebruik je het minimum en maximum met redelijke tussenintervallen. Om het minimum en maximum te bepalen kijk je naar de data voor de observaties gebruikt in het model (dit is niet noodzakelijk de volledige dataset gezien observaties kunnen wegvallen door missing waarden). Met de <code>predictions()</code> kun je gemakkelijk een dataset aanmaken met alle observaties gebruikt in het model en vervolgens gebruik je <code>summary</code> om minimum en maximum te bepalen (zie <a href="linear_05.html#sec-predictions-for-a-continuous-predictor-variable" class="quarto-xref"><span>Paragraaf 5.3.1</span></a>).</li>
 </ul></li>
-<li>We gebruiken een lijn met betrouwbaarheidsintervallen voor contnue predictoren; voor categorische doen we beroep op <code>geom_pointrange()</code> of <code>geom_errorbar()</code>.</li>
-<li>De y-schaal verdient bijzonder aandacht bij dit soort plots. In het voorbeeld wordt <code>scale_y_continuous()</code> gebruikt om ervoor te zorgen dat het plot het volledige bereik van de afhankelijke variabele (democratiescore) omvat. Soms maakt <code>ggplot()</code> zelf de schaal kleiner (om ongebruikte ruimte weg te laten), maar dan kan een effect groter lijken dan het is. Deze aanpak heeft ook wel nadelen, bijvoorbeeld juist veel ongebruikte ruimte in een plot en minder duidelijke visualisatie. Socioloog Kieran Healy geeft een verdere <a href="https://socviz.co/lookatdata.html#problems-of-honesty-and-good-judgment">bespreking</a> over deze verschillende manieren om de schaal vorm te geven in zijn boek over datavisualisatie.</li>
+<li>We gebruiken een lijn met betrouwbaarheidsintervallen voor continue predictoren; voor categorische doen we beroep op <code>geom_pointrange()</code> of <code>geom_errorbar()</code>.</li>
+<li>De y-schaal verdient bijzonder aandacht bij dit soort plots. In het eerste voorbeeld (continue predictor) wordt <code>scale_y_continuous()</code> gebruikt om ervoor te zorgen dat het plot het volledige bereik van de afhankelijke variabele (kans om te stemmen) omvat. Het tweede voorbeeld (categorische predictor) laat de keuze aan <code>ggplot()</code>. Soms maakt <code>ggplot()</code> de schaal kleiner om ongebruikte ruimte weg te laten, maar dan kan een effect groter lijken dan het is. Deze aanpak heeft ook wel nadelen, bijvoorbeeld juist veel ongebruikte ruimte in een plot en minder duidelijke visualisatie. Socioloog Kieran Healy geeft een verdere <a href="https://socviz.co/lookatdata.html#problems-of-honesty-and-good-judgment">bespreking</a> over deze verschillende manieren om de schaal vorm te geven in zijn boek over datavisualisatie.</li>
 </ul>
 
 

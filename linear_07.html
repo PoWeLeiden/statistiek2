@@ -383,8 +383,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#algemene packages</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#data voor residuals en influential cases</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#data voor residuals en influential cases</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#voorspellingen</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -473,7 +474,7 @@ Waarschuwing!
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">durbinWatsonTest</span>(time_model) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
-   1       0.5124721     0.8369625       0
+   1       0.5124721     0.8369625   0.002
  Alternative hypothesis: rho != 0</code></pre>
 </div>
 </div>
@@ -512,10 +513,10 @@ Output uitleg
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Factor maken van binaire variabele</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984 =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Meervoudig model schatten en resultaten bekijken</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> GDP2006, <span class="at">data =</span> demdata)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984_factor <span class="sc">+</span> GDP2006, <span class="at">data =</span> demdata)</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_multiple)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -529,16 +530,16 @@ Output uitleg
   &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)             6.78e-1   2.02e-1      3.36 0.00153  2.72e-1 1.08     
 2 gini_2019              -4.99e-3   4.98e-3     -1.00 0.322   -1.50e-2 0.00502  
-3 TYPEDEMO1984Democraci…  7.00e-2   5.95e-2      1.18 0.246   -4.97e-2 0.190    
+3 TYPEDEMO1984_factorDe…  7.00e-2   5.95e-2      1.18 0.246   -4.97e-2 0.190    
 4 GDP2006                 8.58e-6   2.70e-6      3.17 0.00261  3.14e-6 0.0000140</code></pre>
 </div>
 </div>
-<p>De coëfficienten voor <code>gini_2019</code> (p = 0.322) en <code>TYPEDEMO1984</code> (p = 0.246) zijn niet significant. Om te kijken of er sprake is van te hoge multicollineariteit gebruiken we opnieuw het <code>car</code> package, nu voor de <code>vif()</code> functie.</p>
+<p>De coëfficienten voor <code>gini_2019</code> (p = 0.322) en <code>TYPEDEMO1984_factor</code> (p = 0.246) zijn niet significant. Om te kijken of er sprake is van te hoge multicollineariteit gebruiken we opnieuw het <code>car</code> package, nu voor de <code>vif()</code> functie.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model_multiple)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   gini_2019 TYPEDEMO1984      GDP2006 
-    1.811074     1.171946     2.039059 </code></pre>
+<pre><code>          gini_2019 TYPEDEMO1984_factor             GDP2006 
+           1.811074            1.171946            2.039059 </code></pre>
 </div>
 </div>
 <dl>
@@ -561,16 +562,16 @@ Waarschuwing!
 <p>Indien je een factor variabele opneemt met 3 of meer oorspronkelijke categorieën (bv. meerdere regio’s, onderwijsniveaus) dan krijg je licht andere output:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006 =</span> <span class="fu">factorize</span>(Typeregime2006))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006_factor =</span> <span class="fu">factorize</span>(Typeregime2006))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>vif_example <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> GDP2006 <span class="sc">+</span> Typeregime2006, <span class="at">data =</span> demdata) </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>vif_example <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> GDP2006 <span class="sc">+</span> Typeregime2006_factor, <span class="at">data =</span> demdata) </span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(vif_example)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                   GVIF Df GVIF^(1/(2*Df))
-gini_2019      1.385354  1        1.177011
-GDP2006        1.448928  1        1.203714
-Typeregime2006 1.346530  2        1.077219</code></pre>
+<pre><code>                          GVIF Df GVIF^(1/(2*Df))
+gini_2019             1.385354  1        1.177011
+GDP2006               1.448928  1        1.203714
+Typeregime2006_factor 1.346530  2        1.077219</code></pre>
 </div>
 </div>
 <p><code>vif()</code> geeft nu een <code>GVIF</code> en <code>GVIF^(1/(2*DF))</code>. Dit zijn aanpassingen gezien categorische variabelen meerdere coëfficiënten hebben en dus vrijheidsgraden. We evalueren multicollineariteit door <code>GVIF^(1/(2*DF))</code> te kwadrateren en we gebruiken dezelfde vuistregels als bij de gewone VIF. In principe kunnen we ook kijken of <code>GVIF^(1/(2*DF))</code> op zich hoger is dan 2.23 (gezien 2.23²= 5).</p>
@@ -636,22 +637,22 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 </dd>
 </dl>
 <p>Deze partiële regressieplots (“added-variable plot”) tonen de relatie tussen de predictor en de afhankelijke variabele gecontroleerd voor de andere predictoren in het model.</p>
-<p>Voor de onafhankelijke variabele gini_2019, vinden we een relatief vlakke lijn (de coëfficiënt was ook niet significant). De residuals zijn vrij gelijk verspreid onder en boven de lijn dus er lijkt geen afwijking van lineariteit te zijn.</p>
-<p>Voor de TYPEDEMO1984 factor bekijken we het plot niet gezien we slechts twee waarden voor deze variabele hebben.</p>
-<p>Als we de onafhankelijke variabele GDP2006 bekijken vinden we een positief hellende regressielijn (de coëfficiënt was ook significant), maar de punten zijn niet gelijk verspreid rond de lijn. Het lijkt hier eerder dat de relatie een degressieve curve volgt dan een rechte lijn.</p>
-<p>Om hiervoor te compenseren voeren we een logaritmische transformatie uit op GDP2006.</p>
+<p>Voor de onafhankelijke variabele <code>gini_2019</code>, vinden we een relatief vlakke lijn (de coëfficiënt was ook niet significant). De residuals zijn vrij gelijk verspreid onder en boven de lijn dus er lijkt geen afwijking van lineariteit te zijn.</p>
+<p>Voor de <code>TYPEDEMO1984_factor</code> variabele bekijken we het plot niet gezien we slechts twee waarden voor deze variabele hebben.</p>
+<p>Als we de onafhankelijke variabele <code>GDP2006</code> bekijken vinden we een positief hellende regressielijn (de coëfficiënt was ook significant), maar de punten zijn niet gelijk verspreid rond de lijn. Het lijkt hier eerder dat de relatie een degressieve curve volgt dan een rechte lijn.</p>
+<p>Om hiervoor te compenseren voeren we een logaritmische transformatie uit op <code>GDP2006</code>. We kunnen dit doen via <code>mutate</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">LNGDP2006 =</span> <span class="fu">log</span>(GDP2006))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#nieuwe gelogde variabele die we kunnen toevoegen aan de regressie</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">LNGDP2006 =</span> <span class="fu">log</span>(GDP2006))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#gevolgd door regressie</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>multiple_ln <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984_factor <span class="sc">+</span> LNGDP2006, </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Deze nieuwe gelogde versie van de variabele wordt vervolgens gebruikt in de regressie in de plaats van de originele variabele. We zouden dan het residual plot en de partiële regressieplots opnieuw kunnen inspecteren.</p>
+<p>We kunnen nu het residual plot en de partiële regressieplots opnieuw inspecteren.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Opnieuw schatten model </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>multiple_ln <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006, </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Residual Plot</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Residual Plot</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -669,6 +670,58 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 </div>
 </div>
 </div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Waarschuwing!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Met de logaritimische transformatie van een predictor verandert ook de interpretatie van de coëfficiënt. De volgende regels zijn van toepassing:</p>
+<ul>
+<li><p><strong>1</strong>% toename in X (op originele schaal) leidt tot een verandering van coëfficiënt * log(1.<strong>01</strong>) eenheden in Y</p></li>
+<li><p><strong>10</strong>% toename in X (op originele schaal) leidt tot een verandering van coëfficiënt * log(1.<strong>10</strong>) eenheden in Y</p></li>
+</ul>
+<p>Bij een gelogde predictor is het echter vaak aan te raden een figuur met voorspelde waarden te maken om het effect te duiden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Eerst de waarden van GDP2006 nagaan voor de gebruikte observaties</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>demdata_sub <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(v2x_polyarchy, gini_2019, TYPEDEMO1984_factor, LNGDP2006))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_sub<span class="sc">$</span>LNGDP2006)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  5.521   7.721   8.720   8.765  10.140  10.911 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dan voorspellingen maken op basis van de waarden (je hebt liever veel voorspellingen om een mooie gecurvde lijn te tekenen)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>bbp_preds <span class="ot">&lt;-</span> <span class="fu">predictions</span>(multiple_ln, </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">LNGDP2006=</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="fl">5.5</span>, <span class="at">to=</span><span class="dv">11</span>, <span class="at">by=</span><span class="fl">0.5</span>)))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#exponentiëren van gelogde predictor</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>bbp_preds <span class="ot">&lt;-</span> bbp_preds <span class="sc">|&gt;</span> </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GDP2006 =</span> <span class="fu">exp</span>(LNGDP2006))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co">#figuur maken van voorspelde waarden</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bbp_preds, <span class="fu">aes</span>(<span class="at">x=</span>GDP2006, <span class="at">y=</span>estimate)) <span class="sc">+</span> </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Voorspelde electorale democratiescore op basis van BBP 2006"</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"BBP 2006"</span>,   </span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde waarde"</span>) <span class="sc">+</span>  </span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Interpretaties veranderen ook als je de afhankelijke variabele log-transformeert. Voor verdere mogelijkheden met logaritmische transformaties, verwijzen we ja naar <a href="https://kenbenoit.net/assets/courses/ME104/logmodels2.pdf">deze</a> en <a href="https://library.virginia.edu/data/articles/interpreting-log-transformations-in-a-linear-model">deze</a> pagina.</p>
+</div>
+</div>
 </section>
 <section id="sec-quadratic-relationships" class="level3" data-number="7.3.2">
 <h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-quadratic-relationships"><span class="header-section-number">7.3.2</span> Kwadratische functies</h3>
@@ -676,16 +729,16 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 <p>De variabele voor politiek geweld en instabiliteit is hier <code>pve</code> en is gebaseerd of de 2021 World Governance Indicators. Hogere waarden staan voor minder geweld en instabiliteit. Hier gebruiken we electorale democratie (<code>v2x_polyarchy</code>) als onafhankelijke variabele.</p>
 <p>We inspecteren hier eerst de empirische, bivariate relatie met behulp van een scatterplot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(demdata, <span class="fu">aes</span>(<span class="at">x =</span> v2x_polyarchy, <span class="at">y =</span> pve)) <span class="sc">+</span> </span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Politiek geweld en democratie"</span>, </span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Electorale democratie (2020)"</span>, </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Afwezigheid van politiek geweld en instabiliteit (2021)"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(demdata, <span class="fu">aes</span>(<span class="at">x =</span> v2x_polyarchy, <span class="at">y =</span> pve)) <span class="sc">+</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Politiek geweld en democratie"</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Electorale democratie (2020)"</span>, </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Afwezigheid van politiek geweld en instabiliteit (2021)"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_07_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_07_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -699,11 +752,11 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 </dl>
 <p>Zoals we kunnen zien als we naar het scatterplot kijken is er enige steun voor een curvilineaire relatie. We schatten nu eerst een lineair regressiemodel:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#schat het model</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Violence_linmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pve <span class="sc">~</span> v2x_polyarchy, <span class="at">data =</span> demdata)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#bekijk resultaten</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Violence_linmodel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#schat het model</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>Violence_linmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pve <span class="sc">~</span> v2x_polyarchy, <span class="at">data =</span> demdata)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">#bekijk resultaten</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Violence_linmodel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term          estimate std.error statistic  p.value conf.low conf.high
@@ -714,26 +767,53 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 </div>
 <p>De niet-lineaire relatie kun je soms zien uit het residuals plot, in de vorm van een gebogen patroon, maar dit is visueel minder zichtbaar hier:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(Violence_linmodel, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(Violence_linmodel, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_07_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_07_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>Om te onderzoeken of de relatie beter als kwadratisch wordt gevat voegen we een kwadratische term toe aan het model. We maken deze variabele eerst aan en voegen die dan toe aan het model, samen met de originele variabele.</p>
+<p>Om te onderzoeken of de relatie beter als kwadratisch wordt gevat voegen we een kwadratische term toe aan het model. We kunnen deze variabele eerst maken en dan toevoegen aan het model, samen met de originele variabele. We kunnen de transformatie ook in de regressielijn zelf toevoegen. Dit heeft voordelen voor interpretatie.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gewadrateerde variabele maken</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">v2x_polyarchy_sq =</span> v2x_polyarchy<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">#nieuw model schatten</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>Violence_sqmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pve <span class="sc">~</span> v2x_polyarchy <span class="sc">+</span> v2x_polyarchy_sq, </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Violence_sqmodel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#gewadrateerde variabele maken</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">v2x_polyarchy_sq =</span> v2x_polyarchy<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">#nieuw model schatten</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>Violence_sqmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pve <span class="sc">~</span> v2x_polyarchy <span class="sc">+</span> v2x_polyarchy_sq, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co">#transformatie toepassen in regressie</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>Violencesqmodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(pve <span class="sc">~</span> v2x_polyarchy <span class="sc">+</span> <span class="fu">I</span>(v2x_polyarchy<span class="sc">^</span><span class="dv">2</span>), </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data=</span>demdata)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Violencesqmodel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = pve ~ v2x_polyarchy + I(v2x_polyarchy^2), data = demdata)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.98053 -0.34138  0.08204  0.43420  2.14095 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         -0.5888     0.2430  -2.423 0.016507 *  
+v2x_polyarchy       -1.7306     1.0980  -1.576 0.116943    
+I(v2x_polyarchy^2)   3.8288     1.0505   3.645 0.000361 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.741 on 161 degrees of freedom
+  (15 observations deleted due to missingness)
+Multiple R-squared:  0.4013,    Adjusted R-squared:  0.3939 
+F-statistic: 53.96 on 2 and 161 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(Violence_sqmodel, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 7
   term             estimate std.error statistic  p.value conf.low conf.high
@@ -745,17 +825,63 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 </div>
 <p>We vinden hier dat de kwadratische variabele significant is (p &lt; 0.001) en dus dat de relatie tussen <code>v2x_polyarchy</code> en <code>pve</code> beter als curvilineair dan lineair te beschrijven is.</p>
 <p>We kunnen dan het residuals plot opnieuw inspecteren (zie onder).</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Waarschuwing!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Bij een kwadratische predictor is de interpretatie van de coëfficiënten (want de originele en gekwadrateerde variabelen horen samen) best moeilijk. De volgende regels zijn van toepassing:</p>
+<ul>
+<li><p>Is de kwadratische predictor negatief, dan is de relatie tussen X en Y concaaf (omgekeerde U)</p></li>
+<li><p>Is de kwadratische predictor positief, dan is de relatie tussen X en Y convex (U-vorm)</p></li>
+</ul>
+<p>Wederom is het vaak beter om de relatie visueel te verduidelijken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Eerst de waarden van X nagaan voor de gebruikte observaties</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>demdata_sub2 <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(v2x_polyarchy , pve))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_sub2<span class="sc">$</span>v2x_polyarchy)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0150  0.2865  0.5425  0.5191  0.7625  0.9080 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dan voorspellingen maken op basis van de waarden (je hebt liever veel voorspellingen om een mooie gecurvde lijn te tekenen)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>pve_preds <span class="ot">&lt;-</span> <span class="fu">predictions</span>(Violencesqmodel, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">v2x_polyarchy=</span> <span class="fu">seq</span>(<span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="fl">0.9</span>, <span class="at">by=</span><span class="fl">0.05</span>)))</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co">#figuur maken van voorspelde waarden</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pve_preds, <span class="fu">aes</span>(<span class="at">x=</span>v2x_polyarchy, <span class="at">y=</span>estimate)) <span class="sc">+</span> </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Voorspelde afwezigheid van geweld en instabiliteit"</span>,</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Electorale democratie"</span>,   </span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde waarde"</span>) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="linear_07_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="homoskedasticiteit" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="homoskedasticiteit"><span class="header-section-number">7.4</span> Homoskedasticiteit</h2>
 <p>Om te onderzoeken of de assumptie van homoskedasticiteit geschonden is maken we opnieuw gebruik van het residuals plot (scatterplot van voorspelde waarden en residuals). Hier vinden we bijvoorbeeld heteroskedasticiteit voor het kwadratische model (<code>Violence_sqmodel</code>):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(Violence_sqmodel, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(Violence_sqmodel, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_07_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_07_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -767,11 +893,11 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 <p>We onderzoeken of de assumptie van normaal verdeelde errors is geschonden met behulp van 2 mogelijke plots uit het <code>ggResidpanel</code> package: een histogram van de fouten en een kwartielplot (qq-plot) van de fouten.</p>
 <p>Hier gaan we na of de assumptie geschonden is voor ons meervoudig regressiemodel met gelogde GDP predictor (multiple_ln):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"hist"</span>, <span class="st">"qq"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"hist"</span>, <span class="st">"qq"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_07_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_07_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -784,11 +910,11 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 </dl>
 <p>We zouden ook het residuals plot (“resid”) kunnen toevoegen indien we meerdere assumpties vlug samen willen testen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>, <span class="st">"hist"</span>, <span class="st">"qq"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>, <span class="st">"hist"</span>, <span class="st">"qq"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_07_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_07_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -798,8 +924,8 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 <h2 data-number="7.6" class="anchored" data-anchor-id="beperkte-impact-outliers-en-influential-cases"><span class="header-section-number">7.6</span> Beperkte impact outliers en influential cases</h2>
 <p>We gebruiken de <code>augment()</code> functie uit het <code>broom</code> package op de meervoudig regressie met gelogde GDP predictor (<code>multiple_ln</code>). De statistieken worden in een nieuwe dataset opgeslagen in onderstaande code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#augment gebruiken en resultaten opslaan in nieuw object</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>demdata_multln <span class="ot">&lt;-</span> <span class="fu">augment</span>(multiple_ln)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#augment gebruiken en resultaten opslaan in nieuw object</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>demdata_multln <span class="ot">&lt;-</span> <span class="fu">augment</span>(multiple_ln)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>demdata_multln &lt;-augment(multiple_ln)</code></dt>
@@ -809,23 +935,24 @@ Typeregime2006 1.346530  2        1.077219</code></pre>
 </dl>
 <p>De gegevens in het dataobject zien er als volgt uit:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>demdata_multln</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>demdata_multln</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 53 × 11
-   .rownames v2x_polyarchy gini_2019 TYPEDEMO1984 LNGDP2006 .fitted   .resid
-   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;            &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
- 1 3                 0.908      26.5 Democracies      10.3    0.857  0.0514 
- 2 4                 0.894      30.1 Democracies      10.5    0.881  0.0129 
- 3 10                0.485      37.5 Autocracies       7.38   0.480  0.00510
- 4 13                0.652      48   Democracies       7.75   0.559  0.0925 
- 5 14                0.632      29.3 Autocracies       8.62   0.625  0.00694
- 6 15                0.678      47.6 Democracies       8.31   0.632  0.0464 
- 7 16                0.807      38.7 Democracies      10.5    0.906 -0.0995 
- 8 17                0.882      32.1 Democracies       9.32   0.733  0.149  
- 9 18                0.577      37.3 Democracies       7.68   0.530  0.0466 
-10 20                0.327      40.7 Democracies       6.99   0.447 -0.120  
+   .rownames v2x_polyarchy gini_2019 TYPEDEMO1984_factor LNGDP2006 .fitted
+   &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;                   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 3                 0.908      26.5 Democracies             10.3    0.857
+ 2 4                 0.894      30.1 Democracies             10.5    0.881
+ 3 10                0.485      37.5 Autocracies              7.38   0.480
+ 4 13                0.652      48   Democracies              7.75   0.559
+ 5 14                0.632      29.3 Autocracies              8.62   0.625
+ 6 15                0.678      47.6 Democracies              8.31   0.632
+ 7 16                0.807      38.7 Democracies             10.5    0.906
+ 8 17                0.882      32.1 Democracies              9.32   0.733
+ 9 18                0.577      37.3 Democracies              7.68   0.530
+10 20                0.327      40.7 Democracies              6.99   0.447
 # ℹ 43 more rows
-# ℹ 4 more variables: .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</code></pre>
+# ℹ 5 more variables: .resid &lt;dbl&gt;, .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;,
+#   .std.resid &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -854,9 +981,9 @@ Output uitleg
 <p>We gebruiken de gestandaardiseerde residuals (<code>.std.resid</code>) om eerst outliers te onderzoeken. Vervolgens gebruiken we de Cook’s D waarden (<code>.cooksd</code>) om influential cases te onderzoeken.</p>
 <section id="sec-linear-investigating-outliers" class="level3" data-number="7.6.1">
 <h3 data-number="7.6.1" class="anchored" data-anchor-id="sec-linear-investigating-outliers"><span class="header-section-number">7.6.1</span> Outliers analyseren</h3>
-<p>Om te beginnen bekijken we de descriptieve statistieken voor de gestandaardiseerde residuals (opgeslagen in het data object <code>demdata_multln</code>) . We kijken specifiek naar de minimum en maximum waarden als eerste check voor outliers. We bekijken in het bijzonder of gestandaardiseerde residuals hoger zijn dan de drempelwaarden van (|1.96|, |2.54|, en zeker |3.29|).</p>
+<p>Om te beginnen bekijken we de descriptieve statistieken voor de gestandaardiseerde residuals (opgeslagen in het data object <code>demdata_multln</code>) . We kijken specifiek naar de minimum- en maximum waarden als eerste check voor outliers. We bekijken in het bijzonder of gestandaardiseerde residuals hoger zijn dan de drempelwaarden van (|1.96|, |2.58|, en zeker |3.29|).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_multln<span class="sc">$</span>.std.resid)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_multln<span class="sc">$</span>.std.resid)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Min.    1st Qu.     Median       Mean    3rd Qu.       Max. 
 -3.1281471 -0.2252984  0.2109869 -0.0007828  0.5831831  1.7394397 </code></pre>
@@ -866,17 +993,17 @@ Output uitleg
 <p>We doen dit door 3 dummy variabelen aan te maken in onze dataset: SRE1.96, SRE2.58, SRE3.29. Deze dummy variabelen nemen de waarde ‘1’ aan als de gestandaardiseerde residual van een observatie hoger is dan de drempelwaarde in de naam van de variabele. Als de waarde van de gestandaardiseerde residual lager is, neemt de dummy de waarde ‘0’ aan. We gebruiken hier de <code>case when</code> functie (uit <code>dplyr</code>) voor de hercodering. Zie <a href="https://poweleiden.github.io/statistiek1/data_05_advanced_recoding.html#recoding-variables-using-case_when" target="_blank">Statistiek I, 5.1</a></p>
 <p>Onderstaande code kun je grotendeels onaangepast laten in je eigen voorbeelden, enkel de naam van de dataset (hier: <code>demdata_multln</code>) moet aangepast worden voor eigen toepassingen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>demdata_multln <span class="ot">&lt;-</span> demdata_multln <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SRE1.96 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">1.96</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">1.96</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">1.96</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">SRE2.58 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">2.58</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">2.58</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">2.58</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">2.58</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">SRE3.29 =</span> <span class="fu">case_when</span>(</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">3.29</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">3.29</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">3.29</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">3.29</span> <span class="sc">~</span> <span class="dv">0</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>demdata_multln <span class="ot">&lt;-</span> demdata_multln <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SRE1.96 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">1.96</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">1.96</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">1.96</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">SRE2.58 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">2.58</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">2.58</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">2.58</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">2.58</span> <span class="sc">~</span> <span class="dv">0</span>),</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">SRE3.29 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="fl">3.29</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">3.29</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>    .std.resid <span class="sc">&gt;</span> <span class="sc">-</span><span class="fl">3.29</span> <span class="sc">&amp;</span> .std.resid <span class="sc">&lt;</span> <span class="fl">3.29</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>demdata_multln &lt;- demdata_multln |&gt;</code></dt>
@@ -899,7 +1026,7 @@ Output uitleg
 <p>Nu we de dummies aangemaakt hebben kunnen we frequentietabellen voor elk van hen bekijken. We maken gebruik van de <code>fre()</code> functie uit het <code>expss</code> package.</p>
 <p>De code hieronder kun je wederom grotendeels gebruiken voor eigen voorbeelden; enkel de naam van de dataset (hier: <code>demdata_multln</code>) dient veranderd te worden voor eigen toepassingen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE1<span class="fl">.96</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE1<span class="fl">.96</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="gmisc_table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -948,7 +1075,7 @@ Output uitleg
 </tbody>
 </table>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE2<span class="fl">.58</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE2<span class="fl">.58</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="gmisc_table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -997,7 +1124,7 @@ Output uitleg
 </tbody>
 </table>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE3<span class="fl">.29</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fre</span>(demdata_multln<span class="sc">$</span>SRE3<span class="fl">.29</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="gmisc_table caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
@@ -1042,8 +1169,8 @@ Output uitleg
 <p>We vinden hier dat meer dan 5% van de observaties een gestandaardiseerde residual heeft met een absolute waarde hoger dan 1.96, meer dan 1% heeft een gestandaardiseerde residual met een absolute waarde hoger dan 2.58. Er is geen enkele observatie met een absolute waarde hoger dan 3.29 (dit konden we reeds aflezen uit de descriptieve statistieken).</p>
 <p>Om te onderzoeken of de outliers ook een invloed hebben op de resultaten van het model vergelijken we de resultaten van ons model met die van een nieuw model zonder outliers. Hier doen we dit voor outliers met gestandaardiseerde residuals met absolute waarde hoger dan 1.96. De SRE1.96 variabele kan vervangen worden met de SRE2.58 en SRE3.29 variabelen om alternatieve manieren om outliers uit te sluiten te onderzoeken.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>multiple_ln1<span class="fl">.96</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006,</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln, SRE1<span class="fl">.96</span> <span class="sc">==</span> <span class="dv">0</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>multiple_ln1<span class="fl">.96</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984_factor <span class="sc">+</span> LNGDP2006,</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln, SRE1<span class="fl">.96</span> <span class="sc">==</span> <span class="dv">0</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>data = subset(demdata_multln, SRE1.96 == 0))</code></dt>
@@ -1063,7 +1190,7 @@ Output uitleg
 </ul>
 <p>We bekijken eerst de overzichtsstatistieken voor de Cook’s D waarden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_multln<span class="sc">$</span>.cooksd)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(demdata_multln<span class="sc">$</span>.cooksd)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 0.0000036 0.0007700 0.0035030 0.0292621 0.0162039 0.6608136 </code></pre>
@@ -1072,11 +1199,11 @@ Output uitleg
 <p>Het overzicht toont dat er minstens 1 observatie is met een hoge Cook’s D waarde. De maximum waarde is 0.66 en deze waarde is substantieel hoger dan de andere waarden. De waarde voor het 3de kwartiel is slechts 0.016, wat betekent dat 75% van de observaties een waarde lager hebben dan 0.016.</p>
 <p>We kunnen ook een visualisatie maken van de Cook’s D waarden met het <code>ggResidpanel</code> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"cookd"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(multiple_ln, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"cookd"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_07_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_07_files/figure-html/unnamed-chunk-33-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1087,11 +1214,11 @@ Output uitleg
 <p>We vragen hier om een plot met Cook’s D waarden op de y-as. Het rijnummer van de observatie in de dataset komt op de x-as.</p>
 </dd>
 </dl>
-<p>De grafiek toont dat er slechts 1 case is om ons zorgen over te maken. Dit is de case met de maximum waarde van 0.66.</p>
+<p>De grafiek toont dat er slechts 1 case is om ons zorgen over te maken. Dit is de case met de maximumwaarde van 0.66.</p>
 <p>We kunnen deze case verwijderen uit het model om na te gaan of de resultaten beïnvloed worden:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>multiple_lncook <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006,</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln, .cooksd <span class="sc">&lt;</span> <span class="fl">0.65</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>multiple_lncook <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984_factor <span class="sc">+</span> LNGDP2006,</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln, .cooksd <span class="sc">&lt;</span> <span class="fl">0.65</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>data = subset(demdata_multln, .cooksd &lt; 0.65))</code></dt>
@@ -1101,9 +1228,9 @@ Output uitleg
 </dl>
 <p>We kunnen ook outliers en influential cases tegelijk uitsluiten als we in de syntax gebruik maken van het ‘&amp;’ teken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>multiple_ln_excl <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006,</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln,</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                             SRE1<span class="fl">.96</span><span class="sc">==</span><span class="dv">0</span> <span class="sc">&amp;</span> .cooksd <span class="sc">&lt;</span> <span class="fl">0.65</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>multiple_ln_excl <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984_factor <span class="sc">+</span> LNGDP2006,</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> <span class="fu">subset</span>(demdata_multln,</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>                             SRE1<span class="fl">.96</span><span class="sc">==</span><span class="dv">0</span> <span class="sc">&amp;</span> .cooksd <span class="sc">&lt;</span> <span class="fl">0.65</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="specifieke-probleemgevallen-analyseren" class="level3" data-number="7.6.3">
@@ -1111,22 +1238,22 @@ Output uitleg
 <p>Wat we in vorige analyses niet bekeken hebben is welke specifieke observaties outliers of influential cases waren. Om dit te kunnen doen moeten we de gestandaardiseerde residuals en Cook’s D waarden toevoegen aan onze originele dataset, waar we de country name variabele hebben.</p>
 <p>Indien er missende waarden zijn, zoals hier het geval is, kunnen we deze statistieken niet zomaar met augment toevoegen aan de originele dataset. Een oplossing is om eerst een dataset te creëren met niet-missende waarden voor de variabelen gebruikt in het model en dan met augment de statistieken aan deze ‘complete cases’ dataset toe te voegen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset van de dataset zonder 'NA' waarden</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(v2x_polyarchy, gini_2019, TYPEDEMO1984, LNGDP2006))</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co"># model opnieuw geschat met nieuwe dataset</span></span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>multiple_ln <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984 <span class="sc">+</span> LNGDP2006, </span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata_complete)</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co"># augment gebruiken om statistieken toe te voegen</span></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="ot">&lt;-</span><span class="fu">augment</span>(multiple_ln, <span class="at">data=</span>demdata_complete)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset van de dataset zonder 'NA' waarden</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(v2x_polyarchy, gini_2019, TYPEDEMO1984_factor, LNGDP2006))</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co"># model opnieuw geschat met nieuwe dataset</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>multiple_ln <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019 <span class="sc">+</span> TYPEDEMO1984_factor <span class="sc">+</span> LNGDP2006, </span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">data=</span>demdata_complete)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co"># augment gebruiken om statistieken toe te voegen</span></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="ot">&lt;-</span><span class="fu">augment</span>(multiple_ln, <span class="at">data=</span>demdata_complete)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nu kunnen we specifieke outliers onderzoeken met de volgende code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="sc">|&gt;</span> </span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.std.resid <span class="sc">&gt;</span> <span class="fl">1.96</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span>) <span class="sc">|&gt;</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, .std.resid)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="sc">|&gt;</span> </span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.std.resid <span class="sc">&gt;</span> <span class="fl">1.96</span> <span class="sc">|</span> .std.resid <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">1.96</span>) <span class="sc">|&gt;</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, .std.resid)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   country_name .std.resid
@@ -1149,9 +1276,9 @@ Output uitleg
 </dl>
 <p>De influential case vinden we op een gelijkaardige manier:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="sc">|&gt;</span> </span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.cooksd <span class="sc">&gt;</span> <span class="fl">0.65</span>) <span class="sc">|&gt;</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, .cooksd)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>demdata_complete <span class="sc">|&gt;</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.cooksd <span class="sc">&gt;</span> <span class="fl">0.65</span>) <span class="sc">|&gt;</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, .cooksd)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
   country_name .cooksd

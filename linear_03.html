@@ -395,31 +395,31 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Data management (zie vorig hoofdstuk)</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span>  </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984 =</span> <span class="fu">factorize</span>(TYPEDEMO1984), </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">Typeregime2006 =</span> <span class="fu">factorize</span>(Typeregime2006))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factorize</span>(TYPEDEMO1984), </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">Typeregime2006_factor =</span> <span class="fu">factorize</span>(Typeregime2006))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="t--en-p-waarden-via-summary" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="t--en-p-waarden-via-summary"><span class="header-section-number">3.1</span> t- en p-waarden via <code>summary()</code></h2>
 <p>De meeste relevant informatie over statistische significantie en onzekerheid vinden we met de <code>summary()</code> functie.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Schat model en sla op in object</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984, <span class="at">data=</span>demdata)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Gebruik summary om de resultaten te bekijken</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_binary)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = v2x_polyarchy ~ TYPEDEMO1984, data = demdata)
+lm(formula = v2x_polyarchy ~ TYPEDEMO1984_factor, data = demdata)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
 -0.51025 -0.15007 -0.00857  0.17309  0.48543 
 
 Coefficients:
-                        Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)              0.41757    0.02333   17.90  &lt; 2e-16 ***
-TYPEDEMO1984Democracies  0.27268    0.03695    7.38 1.25e-11 ***
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                     0.41757    0.02333   17.90  &lt; 2e-16 ***
+TYPEDEMO1984_factorDemocracies  0.27268    0.03695    7.38 1.25e-11 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -448,7 +448,7 @@ Output uitleg
 </ul>
 </div>
 </div>
-<p>Doorgaans gaan we statistische significantie na door te kijken naar de symbolen naast de waarden in de Pr(&gt;|t|) kolom. Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.3</span></a> voor verdere informatie over hoe hierover te rapporteren.</p>
+<p>Doorgaans gaan we statistische significantie na door te kijken naar de symbolen naast de waarden in de Pr(&gt;|t|) kolom. Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.4</span></a> voor verdere informatie over hoe hierover te rapporteren.</p>
 </section>
 <section id="betrouwbaarheidsintervallen-via-tidy" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="betrouwbaarheidsintervallen-via-tidy"><span class="header-section-number">3.2</span> Betrouwbaarheidsintervallen via <code>tidy()</code></h2>
@@ -460,7 +460,7 @@ Output uitleg
   term                  estimate std.error statistic  p.value conf.low conf.high
   &lt;chr&gt;                    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)              0.418    0.0233     17.9  4.02e-38    0.371     0.464
-2 TYPEDEMO1984Democrac…    0.273    0.0369      7.38 1.25e-11    0.200     0.346</code></pre>
+2 TYPEDEMO1984_factorD…    0.273    0.0369      7.38 1.25e-11    0.200     0.346</code></pre>
 </div>
 </div>
 <dl>
@@ -506,7 +506,7 @@ Output uitleg
   term                  estimate std.error statistic  p.value conf.low conf.high
   &lt;chr&gt;                    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
 1 (Intercept)              0.418    0.0233     17.9  4.02e-38    0.357     0.478
-2 TYPEDEMO1984Democrac…    0.273    0.0369      7.38 1.25e-11    0.176     0.369</code></pre>
+2 TYPEDEMO1984_factorD…    0.273    0.0369      7.38 1.25e-11    0.176     0.369</code></pre>
 </div>
 </div>
 <p>Zowel <code>summary()</code> als <code>tidy()</code> geven ons de coëfficiënten van het model. Een voordeel van <code>tidy()</code> is dat de output in een <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" target="_blank">tidy</a> dataframe wordt weergegeven. Dit dataframe kunnen we manipuleren (bv. hernoemen kolommen, variabelen enz.). Hier maken we in latere lessen gebruik van.</p>

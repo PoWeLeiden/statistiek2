@@ -326,6 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#een-interactie-in-het-regressiemodel" id="toc-een-interactie-in-het-regressiemodel" class="nav-link active" data-scroll-target="#een-interactie-in-het-regressiemodel"><span class="header-section-number">15.1</span> Een interactie in het regressiemodel</a></li>
+  <li><a href="#regressietabellen" id="toc-regressietabellen" class="nav-link" data-scroll-target="#regressietabellen"><span class="header-section-number">15.2</span> Regressietabellen</a></li>
   </ul>
 </nav>
     </div>
@@ -356,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)         <span class="co">#Dataset overzicht</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)            <span class="co">#laden van data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)      <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)      <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)   <span class="co">#regressietabellen maken</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
@@ -544,7 +545,7 @@ Output uitleg
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>De structuur van de output is dezelfde als bij lineaire regressimodellen zonder interactie, behalve dat een nieuwe term werd toegevoegd: <code>pid:right_trackRight Direction</code>.</p>
+<p>De structuur van de output is dezelfde als bij lineaire regressiemodellen zonder interactie, behalve dat een nieuwe term werd toegevoegd: <code>pid:right_trackRight Direction</code>.</p>
 <p>Wanneer we 2 predictoren verbinden met het ‘*’ teken, voegt R de beide variabelen toe en daarnaast ook de interactieterm, oftewel de vermenigvuldiging van de variabelen. De naam die we terugvinden voor de interactieterm voegt de 2 predictoren samen met een dubbelpunt (<code>pid:right_trackRight Direction</code>).</p>
 </div>
 </div>
@@ -583,17 +584,8 @@ AIC: 4047.5
 Number of Fisher Scoring iterations: 6</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Interpretatie
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Wanneer we een interactie testen, vragen we ons eigenlijk af of het effect van een bepaalde predictor (X) op de afhankelijke variable (Y) anders is wanneer een tweede predictor (Z) andere waarden aanneemt..</p>
+<p>::: callout-warning #### Interpretatie</p>
+<p>Wanneer we een interactie testen, vragen we ons eigenlijk af of het effect van een bepaalde predictor (X) op de afhankelijke variable (Y) anders is wanneer een tweede predictor (Z) andere waarden aanneemt.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="figures/Interaction.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
@@ -605,55 +597,56 @@ Interpretatie
 <li>Het marginale effect van 1 onafhankelijke variabele (X) op Y te berekenen bij verschillende waarden van de andere onafhankelijke (Z) (<a href="interaction_02.html" class="quarto-xref"><span>Hoofdstuk 16</span></a>).</li>
 <li>De voorspelde waarden voor Y te berekenen voor verschillende combinaties van waarden van de 2 onafhankelijke variabelen (<a href="interaction_03.html" class="quarto-xref"><span>Hoofdstuk 17</span></a>).</li>
 </ul>
+</section>
 <section id="regressietabellen" class="level2" data-number="15.2">
 <h2 data-number="15.2" class="anchored" data-anchor-id="regressietabellen"><span class="header-section-number">15.2</span> Regressietabellen</h2>
-<p>In de volgende 2 hoofdstukken gaan we dieper in op hoe je interactie-effecten best kan begrijpen en communiceren met plot. Hier lichten we kort toe hoe ze te presenteren in regressietabellen. We maken hiervoor weer gebruik van de <code>modelsummary()</code> functie uit het <code>modelsummary</code> package. De basisprincipes zijn dezelfde als degene die we bespraken in eerdere hoofdstukken (lineaire regressietabellen: <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Paragraaf 8.4</span></a> ; logistische regressietabellen: <a href="logit_06.html#sec-presentation-regression-tables-logit" class="quarto-xref"><span>Paragraaf 14.2</span></a> ).</p>
+<p>In de volgende 2 hoofdstukken gaan we dieper in op hoe je interactie-effecten best kan begrijpen en communiceren met plot. Hier lichten we kort toe hoe ze te presenteren in regressietabellen. We maken hiervoor weer gebruik van de <code>modelsummary()</code> functie uit het <code>modelsummary</code> package. De basisprincipes zijn dezelfde als degene die we bespraken in eerdere hoofdstukken (lineaire regressietabellen: <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Paragraaf 8.5</span></a>; logistische regressietabellen: <a href="logit_06.html#sec-presentation-regression-tables-logit" class="quarto-xref"><span>Paragraaf 14.2</span></a>).</p>
 <p>We zullen de resultaten van het model zonder en het model met interactie naast elkaar presenteren. Zo ziet de lezer onmiddellijk het verschil tussen beide modellen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lijst van modellen</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-2" class="code-annotation-target"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>interaction_lm_models <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>  biden_model, biden_int</span>
-<span id="annotated-cell-9-4"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Tabel maken</span></span>
-<span id="annotated-cell-9-7"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2">2</button><span id="annotated-cell-9-8" class="code-annotation-target"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="3">3</button><span id="annotated-cell-9-9" class="code-annotation-target"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
-<span id="annotated-cell-9-10"><a href="#annotated-cell-9-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
-<span id="annotated-cell-9-11"><a href="#annotated-cell-9-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
-<span id="annotated-cell-9-12"><a href="#annotated-cell-9-12" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
-<span id="annotated-cell-9-13"><a href="#annotated-cell-9-13" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-9-14"><a href="#annotated-cell-9-14" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-9-15"><a href="#annotated-cell-9-15" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>, </span>
-<span id="annotated-cell-9-16"><a href="#annotated-cell-9-16" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>), </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="4">4</button><span id="annotated-cell-9-17" class="code-annotation-target"><a href="#annotated-cell-9-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="5">5</button><span id="annotated-cell-9-18" class="code-annotation-target"><a href="#annotated-cell-9-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="6">6</button><span id="annotated-cell-9-19" class="code-annotation-target"><a href="#annotated-cell-9-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lijst van modellen</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>interaction_lm_models <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>  biden_model, biden_int</span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Tabel maken</span></span>
+<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-8" class="code-annotation-target"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3">3</button><span id="annotated-cell-6-9" class="code-annotation-target"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
+<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
+<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
+<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
+<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-6-15"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>, </span>
+<span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>), </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4">4</button><span id="annotated-cell-6-17" class="code-annotation-target"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5">5</button><span id="annotated-cell-6-18" class="code-annotation-target"><a href="#annotated-cell-6-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6">6</button><span id="annotated-cell-6-19" class="code-annotation-target"><a href="#annotated-cell-6-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="2" data-code-annotation="1">Lijst van modellen om te gebruiken in de tabel</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="2" data-code-annotation="1">Lijst van modellen om te gebruiken in de tabel</span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="8" data-code-annotation="2">Toevoegen van stersymbolen voor statistische significantie</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="8" data-code-annotation="2">Toevoegen van stersymbolen voor statistische significantie</span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="9" data-code-annotation="3">Duidelijke namen geven aan variabelen <code>coef_rename()</code></span>
+<span data-code-cell="annotated-cell-6" data-code-lines="9" data-code-annotation="3">Duidelijke namen geven aan variabelen <code>coef_rename()</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="17" data-code-annotation="4">Model fit statistieken selecteren <code>gof_map()</code></span>
+<span data-code-cell="annotated-cell-6" data-code-lines="17" data-code-annotation="4">Model fit statistieken selecteren <code>gof_map()</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="18" data-code-annotation="5">Informatieve titel met <code>title =</code></span>
+<span data-code-cell="annotated-cell-6" data-code-lines="18" data-code-annotation="5">Informatieve titel met <code>title =</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="19" data-code-annotation="6">Duidelijke notitie over wat we precies weergeven in de tabel <code>notes =</code></span>
+<span data-code-cell="annotated-cell-6" data-code-lines="19" data-code-annotation="6">Duidelijke notitie over wat we precies weergeven in de tabel <code>notes =</code></span>
 </dd>
 </dl>
 </div>
@@ -662,8 +655,8 @@ Interpretatie
 
     <script>
 
-      function styleCell_awh7psm560hzt3a7wvl5(i, j, css_id) {
-          var table = document.getElementById("tinytable_awh7psm560hzt3a7wvl5");
+      function styleCell_dfqwopqxldnuf8bilr1u(i, j, css_id) {
+          var table = document.getElementById("tinytable_dfqwopqxldnuf8bilr1u");
           var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -673,7 +666,7 @@ Interpretatie
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_awh7psm560hzt3a7wvl5');
+        var table = document.getElementById('tinytable_dfqwopqxldnuf8bilr1u');
         var newRow = table.insertRow(i);
         var newCell = newRow.insertCell(0);
         newCell.setAttribute("colspan", colspan);
@@ -681,8 +674,8 @@ Interpretatie
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_awh7psm560hzt3a7wvl5(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_awh7psm560hzt3a7wvl5");
+      function spanCell_dfqwopqxldnuf8bilr1u(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_dfqwopqxldnuf8bilr1u");
         const targetRow = table.rows[i];
         const targetCell = targetRow.cells[j];
         for (let r = 0; r < rowspan; r++) {
@@ -712,20 +705,20 @@ Interpretatie
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 }, { i: 15, j: 0 }, { i: 16, j: 0 },  ], css_id: 'tinytable_css_y2t06oe3u25ncagvegl1',}, 
-          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_u5ievnvlsdcr0qrhl5pb',}, 
-          { positions: [ { i: 14, j: 1 }, { i: 14, j: 2 },  ], css_id: 'tinytable_css_t6oayb4h1y24w2816b6s',}, 
-          { positions: [ { i: 14, j: 0 },  ], css_id: 'tinytable_css_rebjswsl69tw0ofgpt55',}, 
-          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_av6ewgmrkgmfm0w8xj9f',}, 
-          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_8l9oys1wes4j8dkvbo98',}, 
-          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 13, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 16, j: 2 }, { i: 15, j: 2 },  ], css_id: 'tinytable_css_374b67sy3xx2mbkb8vca',}, 
-          { positions: [ { i: 17, j: 1 }, { i: 17, j: 2 },  ], css_id: 'tinytable_css_02sadtcy96k2lm2djn11',}, 
+          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_w3ppdj6pfy2fc9bimbqg',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_njyr45nj5uqwh8dakwsz',}, 
+          { positions: [ { i: 14, j: 0 },  ], css_id: 'tinytable_css_j5slvp4umwed22ir2yky',}, 
+          { positions: [ { i: 17, j: 1 }, { i: 17, j: 2 },  ], css_id: 'tinytable_css_g2vxcivjpkrcb5yksniw',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_d0qsxx070ivl2keq2h8f',}, 
+          { positions: [ { i: 14, j: 1 }, { i: 14, j: 2 },  ], css_id: 'tinytable_css_956e1psdnz2578r6aqwg',}, 
+          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 13, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 16, j: 2 }, { i: 15, j: 2 },  ], css_id: 'tinytable_css_7vawyuyvwsvlx6h48lub',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 }, { i: 15, j: 0 }, { i: 16, j: 0 },  ], css_id: 'tinytable_css_2xi2t4c6aq8vn8w9at7i',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_awh7psm560hzt3a7wvl5(cell.i, cell.j, group.css_id);
+                  styleCell_dfqwopqxldnuf8bilr1u(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -733,17 +726,17 @@ Interpretatie
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_y2t06oe3u25ncagvegl1, .table th.tinytable_css_y2t06oe3u25ncagvegl1 { text-align: left; }
-      .table td.tinytable_css_u5ievnvlsdcr0qrhl5pb, .table th.tinytable_css_u5ievnvlsdcr0qrhl5pb { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_t6oayb4h1y24w2816b6s, .table th.tinytable_css_t6oayb4h1y24w2816b6s { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_rebjswsl69tw0ofgpt55, .table th.tinytable_css_rebjswsl69tw0ofgpt55 { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_av6ewgmrkgmfm0w8xj9f, .table th.tinytable_css_av6ewgmrkgmfm0w8xj9f { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_8l9oys1wes4j8dkvbo98, .table th.tinytable_css_8l9oys1wes4j8dkvbo98 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_374b67sy3xx2mbkb8vca, .table th.tinytable_css_374b67sy3xx2mbkb8vca { text-align: center; }
-      .table td.tinytable_css_02sadtcy96k2lm2djn11, .table th.tinytable_css_02sadtcy96k2lm2djn11 { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_w3ppdj6pfy2fc9bimbqg, .table th.tinytable_css_w3ppdj6pfy2fc9bimbqg { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_njyr45nj5uqwh8dakwsz, .table th.tinytable_css_njyr45nj5uqwh8dakwsz { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_j5slvp4umwed22ir2yky, .table th.tinytable_css_j5slvp4umwed22ir2yky { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_g2vxcivjpkrcb5yksniw, .table th.tinytable_css_g2vxcivjpkrcb5yksniw { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_d0qsxx070ivl2keq2h8f, .table th.tinytable_css_d0qsxx070ivl2keq2h8f { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_956e1psdnz2578r6aqwg, .table th.tinytable_css_956e1psdnz2578r6aqwg { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_7vawyuyvwsvlx6h48lub, .table th.tinytable_css_7vawyuyvwsvlx6h48lub { text-align: center; }
+      .table td.tinytable_css_2xi2t4c6aq8vn8w9at7i, .table th.tinytable_css_2xi2t4c6aq8vn8w9at7i { text-align: left; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_awh7psm560hzt3a7wvl5" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_dfqwopqxldnuf8bilr1u" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         </thead><caption>Evaluatie van kandidaat Biden</caption>
               <tbody><tr>
@@ -848,28 +841,28 @@ Interpretatie
 </div>
 <p>Wat we hier nog zouden willen veranderen is de interactieterm dichter bij de hoofdvariabelen van de interactie zetten in plaats van standaard onderaan de tabel. Dit kunnen we door i.p.v. <code>coef_rename</code> gebruik te maken van <code>coef_map</code>. Zo kunnen we ook de volgorde van de variabelen bepalen.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
-<span id="annotated-cell-10-2"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_map =</span> <span class="fu">c</span>(</span>
-<span id="annotated-cell-10-4"><a href="#annotated-cell-10-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
-<span id="annotated-cell-10-5"><a href="#annotated-cell-10-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
-<span id="annotated-cell-10-6"><a href="#annotated-cell-10-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2">2</button><span id="annotated-cell-10-7" class="code-annotation-target"><a href="#annotated-cell-10-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>,</span>
-<span id="annotated-cell-10-8"><a href="#annotated-cell-10-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-10-9"><a href="#annotated-cell-10-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
-<span id="annotated-cell-10-10"><a href="#annotated-cell-10-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>),</span>
-<span id="annotated-cell-10-11"><a href="#annotated-cell-10-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
-<span id="annotated-cell-10-12"><a href="#annotated-cell-10-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
-<span id="annotated-cell-10-13"><a href="#annotated-cell-10-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>) </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_map =</span> <span class="fu">c</span>(</span>
+<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>              <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
+<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid"</span> <span class="ot">=</span> <span class="st">"Partij-Identificatie (PID)"</span>, </span>
+<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"Land gaat in de goede richting"</span>, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>,</span>
+<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanCity"</span> <span class="ot">=</span> <span class="st">"Stad (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-7-9"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanRural"</span> <span class="ot">=</span> <span class="st">"Landelijk gebied (Ref. Stedelijke buitenwijk)"</span>,</span>
+<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>),</span>
+<span id="annotated-cell-7-11"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
+<span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
+<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>) </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="3" data-code-annotation="1">Verander <code>coef_rename</code> naar <code>coef_map</code></span>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="1">Verander <code>coef_rename</code> naar <code>coef_map</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-10" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="7" data-code-annotation="2">Interactieterm dichter bij hoofdvariabelen.</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="7" data-code-annotation="2">Interactieterm dichter bij hoofdvariabelen.</span>
 </dd>
 </dl>
 </div>
@@ -878,8 +871,8 @@ Interpretatie
 
     <script>
 
-      function styleCell_cic49bq35lmrrhkscnxd(i, j, css_id) {
-          var table = document.getElementById("tinytable_cic49bq35lmrrhkscnxd");
+      function styleCell_xvyery0m01kwfrtv0ygm(i, j, css_id) {
+          var table = document.getElementById("tinytable_xvyery0m01kwfrtv0ygm");
           var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -889,7 +882,7 @@ Interpretatie
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_cic49bq35lmrrhkscnxd');
+        var table = document.getElementById('tinytable_xvyery0m01kwfrtv0ygm');
         var newRow = table.insertRow(i);
         var newCell = newRow.insertCell(0);
         newCell.setAttribute("colspan", colspan);
@@ -897,8 +890,8 @@ Interpretatie
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_cic49bq35lmrrhkscnxd(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_cic49bq35lmrrhkscnxd");
+      function spanCell_xvyery0m01kwfrtv0ygm(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_xvyery0m01kwfrtv0ygm");
         const targetRow = table.rows[i];
         const targetCell = targetRow.cells[j];
         for (let r = 0; r < rowspan; r++) {
@@ -928,20 +921,20 @@ Interpretatie
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_lm6y0edhi3oxvin54hd9',}, 
-          { positions: [ { i: 14, j: 0 },  ], css_id: 'tinytable_css_iy6m9g7uu3tjkuucvrkb',}, 
-          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 }, { i: 15, j: 0 }, { i: 16, j: 0 },  ], css_id: 'tinytable_css_h3g6ftrhkry9fbnfxxki',}, 
-          { positions: [ { i: 17, j: 1 }, { i: 17, j: 2 },  ], css_id: 'tinytable_css_bp5ku2uxftbgjrmvbili',}, 
-          { positions: [ { i: 14, j: 1 }, { i: 14, j: 2 },  ], css_id: 'tinytable_css_avfrfc2gcz8hd24tv9fz',}, 
-          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 13, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 16, j: 2 }, { i: 15, j: 2 },  ], css_id: 'tinytable_css_928s5orgood7ft34jn1u',}, 
-          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_8ugoijjxe08j19w21gg1',}, 
-          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_466vmyfaubss1d9amw1v',}, 
+          { positions: [ { i: 17, j: 0 },  ], css_id: 'tinytable_css_walhb3b9z3xo62ts4afl',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 10, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 }, { i: 13, j: 0 }, { i: 15, j: 0 }, { i: 16, j: 0 },  ], css_id: 'tinytable_css_uzrongdqo7myi9utpaul',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_n6f9de2in6e8jdy3x55u',}, 
+          { positions: [ { i: 14, j: 1 }, { i: 14, j: 2 },  ], css_id: 'tinytable_css_khvzxcbplq543wgwrdvh',}, 
+          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 1, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 10, j: 1 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 13, j: 1 }, { i: 9, j: 2 }, { i: 15, j: 1 }, { i: 16, j: 1 }, { i: 12, j: 2 }, { i: 5, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 13, j: 2 }, { i: 10, j: 2 }, { i: 11, j: 2 }, { i: 16, j: 2 }, { i: 15, j: 2 },  ], css_id: 'tinytable_css_jy7b5c0p4ggecvrohlns',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_bwqdo52v720jdlaz2imp',}, 
+          { positions: [ { i: 17, j: 1 }, { i: 17, j: 2 },  ], css_id: 'tinytable_css_a6s8dmsc8mf1wajlnoth',}, 
+          { positions: [ { i: 14, j: 0 },  ], css_id: 'tinytable_css_0sugp6hja9uym5z59g3f',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_cic49bq35lmrrhkscnxd(cell.i, cell.j, group.css_id);
+                  styleCell_xvyery0m01kwfrtv0ygm(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -949,17 +942,17 @@ Interpretatie
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_lm6y0edhi3oxvin54hd9, .table th.tinytable_css_lm6y0edhi3oxvin54hd9 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_iy6m9g7uu3tjkuucvrkb, .table th.tinytable_css_iy6m9g7uu3tjkuucvrkb { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_h3g6ftrhkry9fbnfxxki, .table th.tinytable_css_h3g6ftrhkry9fbnfxxki { text-align: left; }
-      .table td.tinytable_css_bp5ku2uxftbgjrmvbili, .table th.tinytable_css_bp5ku2uxftbgjrmvbili { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_avfrfc2gcz8hd24tv9fz, .table th.tinytable_css_avfrfc2gcz8hd24tv9fz { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_928s5orgood7ft34jn1u, .table th.tinytable_css_928s5orgood7ft34jn1u { text-align: center; }
-      .table td.tinytable_css_8ugoijjxe08j19w21gg1, .table th.tinytable_css_8ugoijjxe08j19w21gg1 { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_466vmyfaubss1d9amw1v, .table th.tinytable_css_466vmyfaubss1d9amw1v { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_walhb3b9z3xo62ts4afl, .table th.tinytable_css_walhb3b9z3xo62ts4afl { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_uzrongdqo7myi9utpaul, .table th.tinytable_css_uzrongdqo7myi9utpaul { text-align: left; }
+      .table td.tinytable_css_n6f9de2in6e8jdy3x55u, .table th.tinytable_css_n6f9de2in6e8jdy3x55u { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_khvzxcbplq543wgwrdvh, .table th.tinytable_css_khvzxcbplq543wgwrdvh { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_jy7b5c0p4ggecvrohlns, .table th.tinytable_css_jy7b5c0p4ggecvrohlns { text-align: center; }
+      .table td.tinytable_css_bwqdo52v720jdlaz2imp, .table th.tinytable_css_bwqdo52v720jdlaz2imp { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_a6s8dmsc8mf1wajlnoth, .table th.tinytable_css_a6s8dmsc8mf1wajlnoth { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_0sugp6hja9uym5z59g3f, .table th.tinytable_css_0sugp6hja9uym5z59g3f { text-align: left; border-bottom: solid black 0.05em; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_cic49bq35lmrrhkscnxd" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_xvyery0m01kwfrtv0ygm" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         </thead><caption>Evaluatie van kandidaat Biden</caption>
               <tbody><tr>
@@ -1073,7 +1066,7 @@ Waarschuwing!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><code>coef_map</code> is handig maar is gevoelig aan het juist typen van de variabelenamen. Waar <code>coef_rename</code> bij een typfout gewoon de oude naam geeft, doet <code>coef_map</code> de variabele in z’n geheel verdwijnen. Laten we bij wijze van voorbeeld 2 typfouten maken. We schrijven “right_trackRight direction” i.p.v. “right_trackRight Direction” en “rural_urbancity” i.p.v. “rural_urbanCity”:</p>
+<p><code>coef_map</code> is handig maar is gevoelig aan het juist typen van de variabelenamen. Waar <code>coef_rename</code> bij een typfout gewoon de oude naam geeft, doet <code>coef_map</code> de variabele in z’n geheel verdwijnen. Laten we bij wijze van voorbeeld 2 typfouten maken. We schrijven “right_trackRight <strong>d</strong>irection” i.p.v. “right_trackRight <strong>D</strong>irection” en “rural_urban<strong>c</strong>ity” i.p.v. “rural_urban<strong>C</strong>ity”:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(interaction_lm_models, </span>
 <span id="annotated-cell-11-2"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
@@ -1105,8 +1098,8 @@ Waarschuwing!
 
     <script>
 
-      function styleCell_1iqkxqle5ele8nleyw5f(i, j, css_id) {
-          var table = document.getElementById("tinytable_1iqkxqle5ele8nleyw5f");
+      function styleCell_3cqq03qoixffzik5xsew(i, j, css_id) {
+          var table = document.getElementById("tinytable_3cqq03qoixffzik5xsew");
           var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -1116,7 +1109,7 @@ Waarschuwing!
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_1iqkxqle5ele8nleyw5f');
+        var table = document.getElementById('tinytable_3cqq03qoixffzik5xsew');
         var newRow = table.insertRow(i);
         var newCell = newRow.insertCell(0);
         newCell.setAttribute("colspan", colspan);
@@ -1124,8 +1117,8 @@ Waarschuwing!
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_1iqkxqle5ele8nleyw5f(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_1iqkxqle5ele8nleyw5f");
+      function spanCell_3cqq03qoixffzik5xsew(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_3cqq03qoixffzik5xsew");
         const targetRow = table.rows[i];
         const targetCell = targetRow.cells[j];
         for (let r = 0; r < rowspan; r++) {
@@ -1155,20 +1148,20 @@ Waarschuwing!
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: 13, j: 1 }, { i: 13, j: 2 },  ], css_id: 'tinytable_css_to9mgtrvhwe15gun8srw',}, 
-          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_pfgkp580eo0dcaw6z4yd',}, 
-          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_o4x3lbk6h65q6xtnjy9d',}, 
-          { positions: [ { i: 13, j: 0 },  ], css_id: 'tinytable_css_lfdpo65rzburf3pk89bi',}, 
-          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 9, j: 2 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 12, j: 2 }, { i: 1, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 11, j: 2 },  ], css_id: 'tinytable_css_ea6x1fazpq63ztm03fg9',}, 
-          { positions: [ { i: 10, j: 1 }, { i: 10, j: 2 },  ], css_id: 'tinytable_css_9owwwegixtua3xjss0f9',}, 
-          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 },  ], css_id: 'tinytable_css_96qz2ozwy50q5cxwh6rj',}, 
-          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_19eei3e21sx8zzped3e6',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_r1g7djzp3ubn27qelb64',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 }, { i: 9, j: 0 }, { i: 11, j: 0 }, { i: 12, j: 0 },  ], css_id: 'tinytable_css_oxndeyh3j49dydwuyybj',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 },  ], css_id: 'tinytable_css_nkdynqb0ppdl8q5ehfpb',}, 
+          { positions: [ { i: 13, j: 0 },  ], css_id: 'tinytable_css_mzyf99s7d1q9bul7qy2l',}, 
+          { positions: [ { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 6, j: 1 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 9, j: 1 }, { i: 9, j: 2 }, { i: 11, j: 1 }, { i: 12, j: 1 }, { i: 12, j: 2 }, { i: 1, j: 1 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 6, j: 2 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 11, j: 2 },  ], css_id: 'tinytable_css_k0yg7jy7oj0yxiqb65nx',}, 
+          { positions: [ { i: 10, j: 0 },  ], css_id: 'tinytable_css_ga48dpkibeo5q240h36j',}, 
+          { positions: [ { i: 13, j: 1 }, { i: 13, j: 2 },  ], css_id: 'tinytable_css_em2anax69m3fsyxr5m97',}, 
+          { positions: [ { i: 10, j: 1 }, { i: 10, j: 2 },  ], css_id: 'tinytable_css_d6vrz9wtlw0dcuzch6k0',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_1iqkxqle5ele8nleyw5f(cell.i, cell.j, group.css_id);
+                  styleCell_3cqq03qoixffzik5xsew(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -1176,17 +1169,17 @@ Waarschuwing!
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_to9mgtrvhwe15gun8srw, .table th.tinytable_css_to9mgtrvhwe15gun8srw { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_pfgkp580eo0dcaw6z4yd, .table th.tinytable_css_pfgkp580eo0dcaw6z4yd { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_o4x3lbk6h65q6xtnjy9d, .table th.tinytable_css_o4x3lbk6h65q6xtnjy9d { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_lfdpo65rzburf3pk89bi, .table th.tinytable_css_lfdpo65rzburf3pk89bi { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_ea6x1fazpq63ztm03fg9, .table th.tinytable_css_ea6x1fazpq63ztm03fg9 { text-align: center; }
-      .table td.tinytable_css_9owwwegixtua3xjss0f9, .table th.tinytable_css_9owwwegixtua3xjss0f9 { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_96qz2ozwy50q5cxwh6rj, .table th.tinytable_css_96qz2ozwy50q5cxwh6rj { text-align: left; }
-      .table td.tinytable_css_19eei3e21sx8zzped3e6, .table th.tinytable_css_19eei3e21sx8zzped3e6 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_r1g7djzp3ubn27qelb64, .table th.tinytable_css_r1g7djzp3ubn27qelb64 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_oxndeyh3j49dydwuyybj, .table th.tinytable_css_oxndeyh3j49dydwuyybj { text-align: left; }
+      .table td.tinytable_css_nkdynqb0ppdl8q5ehfpb, .table th.tinytable_css_nkdynqb0ppdl8q5ehfpb { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_mzyf99s7d1q9bul7qy2l, .table th.tinytable_css_mzyf99s7d1q9bul7qy2l { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_k0yg7jy7oj0yxiqb65nx, .table th.tinytable_css_k0yg7jy7oj0yxiqb65nx { text-align: center; }
+      .table td.tinytable_css_ga48dpkibeo5q240h36j, .table th.tinytable_css_ga48dpkibeo5q240h36j { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_em2anax69m3fsyxr5m97, .table th.tinytable_css_em2anax69m3fsyxr5m97 { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_d6vrz9wtlw0dcuzch6k0, .table th.tinytable_css_d6vrz9wtlw0dcuzch6k0 { text-align: center; border-bottom: solid black 0.05em; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_1iqkxqle5ele8nleyw5f" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_3cqq03qoixffzik5xsew" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         </thead><caption>Evaluatie van kandidaat Biden</caption>
               <tbody><tr>
@@ -1269,14 +1262,11 @@ Waarschuwing!
 <!-- hack to avoid NA insertion in last line -->
 </div>
 </div>
-<p>De coëfficiënten voor deze variabelen zijn nu verdwenen uit de tabel. Je krijgt geen waarschuwing dus moet je extra opletten. Meer info over <code>coef_map</code> vind je op de <code>modelsummary</code> website (<a href="https://modelsummary.com/vignettes/modelsummary.html#coef_map" target="_blank">link</a>)</p>
+<p>De coëfficiënten voor deze variabelen zijn nu verdwenen uit de tabel. Je krijgt geen waarschuwing dus moet je extra opletten. Meer info over <code>coef_map</code> vind je op de <code>modelsummary</code> <a href="https://modelsummary.com/vignettes/modelsummary.html#coef_map">website</a>.</p>
 </div>
 </div>
 
 
-</section>
-</div>
-</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

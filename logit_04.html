@@ -388,7 +388,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#data manipulatie en grafieken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)     <span class="co">#goodness-of-fit statistieken en tests</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
@@ -401,16 +401,16 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Data management</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Factor maken van categorische variabelen</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr =</span> <span class="fu">factorize</span>(gndr), </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr), </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote_F =</span> <span class="fu">factorize</span>(vote))  <span class="sc">|&gt;</span> </span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Not Eligible op missing zetten</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">na_if</span>(vote,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">na_if</span>(vote_F,<span class="st">"Not eligible to vote"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel van variabelen</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">relevel</span>(vote, <span class="st">"No"</span>), </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr =</span> <span class="fu">relevel</span>(gndr, <span class="st">"Female"</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">relevel</span>(vote_F, <span class="st">"No"</span>), </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr_F =</span> <span class="fu">relevel</span>(gndr_F, <span class="st">"Female"</span>))</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten printen</span></span>
@@ -418,13 +418,13 @@ window.Quarto = {
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-glm(formula = vote ~ gndr + agea + trstplt + lrscale, family = "binomial", 
+glm(formula = vote_F ~ gndr_F + agea + trstplt + lrscale, family = "binomial", 
     data = ESS9NL)
 
 Coefficients:
              Estimate Std. Error z value Pr(&gt;|z|)    
 (Intercept) -0.284194   0.380455  -0.747    0.455    
-gndrMale     0.043281   0.154201   0.281    0.779    
+gndr_FMale   0.043281   0.154201   0.281    0.779    
 agea         0.018349   0.004503   4.075 4.61e-05 ***
 trstplt      0.195020   0.038706   5.039 4.69e-07 ***
 lrscale      0.029257   0.039306   0.744    0.457    
@@ -451,8 +451,8 @@ Output uitleg
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Zoals bij een lineair model (<code>lm</code>), zal de <code>summary()</code> functie in het onderste gedeelte van de output informatie bevatten over model fit. We krijgen informatie over de “Null” en “Residual Deviance” statistieken. De Residual Deviance statistiek duidt het verschil (“deviance”) aan tussen het geschatte model en een “perect’ model dat precies bij de data past. De Null Deviance statistiek doet dezelfde vergelijking, maar ten opzichte van een nulmodel dat enkel het intercept bevat.</p>
-<p><em>Kleinere</em> Residual Deviance waarden duiden beter passende modellen aan. Echter is het niet gewenst om de deviance statistiek op zicht te interpreteren gezien de schaal onduidelijk is en er geen maximumwaarde is. Daarom maken we gebruik van andere statistieken en test gebaseerd op de deviance statistiek (zie onder).</p>
+<p>Zoals bij een lineair model (<code>lm</code>), zal de <code>summary()</code> functie in het onderste gedeelte van de output informatie bevatten over model fit. We krijgen informatie over de “Null” en “Residual Deviance” statistieken. De Residual Deviance statistiek duidt het verschil (“deviance”) aan tussen het geschatte model en een “perfect’ model dat precies bij de data past. De Null Deviance statistiek doet dezelfde vergelijking, maar ten opzichte van een nulmodel dat enkel het intercept bevat.</p>
+<p><em>Kleinere</em> Residual Deviance waarden duiden beter passende modellen aan. Echter is het niet gewenst om de deviance statistiek op zich te interpreteren gezien de schaal onduidelijk is en er geen maximumwaarde is. Daarom maken we gebruik van andere statistieken en een test gebaseerd op de deviance statistiek (zie onder).</p>
 </div>
 </div>
 </section>
@@ -462,26 +462,26 @@ Output uitleg
 <p>Als we modellen willen verglijken moeten we net zoals bij lineaire regressie (zie <a href="linear_06.html#sec-linear-comparing-models" class="quarto-xref"><span>Paragraaf 6.2</span></a>) zorgen dat de modellen een gelijke N hebben en dat complexere modellen alle predictors bevatten van simpelere modellen (nested). We zorgen dat we eerst een dataset maken met complete observaties voor het meest complexe model (alle predictors).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ESS9NL_glm <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(vote,  gndr,  agea,  trstplt,  lrscale))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(vote_F,  gndr_F,  agea,  trstplt,  lrscale))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Dan schatten we een reeks modellen waaraan we telkens 1 van de onafhankelijke varaibelen toevoegen. We beginnen met een nulmodel dat enkel het intercept bevat. Het model met 1 onafhankelijke variabele kan daar dan mee vergeleken worden.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Nulmodel</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Vote_model0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Vote_model0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> <span class="dv">1</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> ESS9NL_glm, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># + gndr</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Vote_model1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr , </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>Vote_model1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F , </span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL_glm, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># + agea</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Vote_model2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea , </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>Vote_model2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea , </span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL_glm, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># + trst</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Vote_model3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt, </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>Vote_model3 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt, </span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL_glm, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># + lrscale</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>Vote_model4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote <span class="sc">~</span> gndr <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>Vote_model4 <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL_glm, <span class="at">family =</span> <span class="st">"binomial"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Nu kunnen we de likelihood ratios van deze modellen met elkaar vergelijken en significantietoetsen uitvoeren. We gebruiken het <code>performance</code> package met de <code>test_likelihoodratio</code> functie. De test vergelijkt de deviance statistiek (-2LL) van elk model, de verandering in vrijheidsgraden (df= degrees of freedom) per model, en gebruikt een Chi<sup>2</sup> (<span class="math inline">\(\chi^2\)</span>) toets.</p>
@@ -601,7 +601,7 @@ Vote_model1 |   glm |  2 |      -3 | 38.53 | &lt; .001</code></pre>
 </section>
 <section id="pseudo-r2" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="pseudo-r2"><span class="header-section-number">12.3</span> Pseudo R<sup>2</sup></h2>
-<p>Bij een lineair regressiemodel beoordelen we fit met de R<sup>2</sup> waarde. Een logistisch model is anders geschat en dus hebben we deze waarde niet. Verschillende zogenaamde <em>pseudo</em> R<sup>2</sup> statistieken werden ontwikkeld om meer intuïtief inzicht te verkrijgen in de verklarende kracht van een model. De <em>pseudo</em> R<sup>2</sup> maatstaven zijn gebaseerd op de lieklihood ratio test en kunnen niet als ‘proportie verklaarde variantie’ geïnterpreteerd worden.</p>
+<p>Bij een lineair regressiemodel beoordelen we fit met de R<sup>2</sup> waarde. Een logistisch model is anders geschat en dus hebben we deze waarde niet. Verschillende zogenaamde <em>pseudo</em> R<sup>2</sup> statistieken werden ontwikkeld om meer intuïtief inzicht te verkrijgen in de verklarende kracht van een model. De <em>pseudo</em> R<sup>2</sup> maatstaven zijn gebaseerd op de likelihood ratio test en kunnen <em>niet</em> als ‘proportie verklaarde variantie’ geïnterpreteerd worden.</p>
 <p>Hier gebruiken we de Nagelkerke R². De waarde van deze maatstaf ligt tussen 0 en 1. Lage waarden wijzen op een lage verklarende kracht, hoge waarden op een hoge verklarende kracht.</p>
 <p>We kunnen de Nagelkerke R² statistiek opvragen met de <code>r2_nagelkerke()</code> functie uit het <code>performance</code> package.</p>
 <div class="cell">
