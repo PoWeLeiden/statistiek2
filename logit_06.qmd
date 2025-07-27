@@ -88,7 +88,7 @@ Hieronder vind je een voorbeeld voor `gndr_F` (binaire factor) en `trstplt` (con
 ::: callout-tip
 #### Rapportagevoorbeeld
 
-**trstplt (AME)**: De kans dat iemand gaat stemmen is hoger als vertrouwen in politici hoger is. De kans neemt gemiddeld genomen met 2.3 percentpunten toe als vertouwen met 1 eenheid stijgt. De relatie is statistisch significant (p < 0.001).
+**trstplt (AME)**: De kans dat iemand gaat stemmen is hoger als vertrouwen in politici hoger is. De kans neemt gemiddeld genomen met 2.3 percentpunten toe als vertouwen met 1 eenheid stijgt. De relatie is statistisch significant (p \< 0.001).
 
 **gndr (AME)**: De kans om te stemmen is gemiddeld 0.5 percentpunten hoger voor mannen dan voor vrouwen. Deze relatie is echter niet statistisch significant (p = 0.78).
 

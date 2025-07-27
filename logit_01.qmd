@@ -71,7 +71,7 @@ ESS9NL |>
   select(gndr, vote) |> 
   view_df()
 
-#Tabulation
+#Tabellen
 table(ESS9NL$gndr)
 table(ESS9NL$vote)
 ```
@@ -101,9 +101,9 @@ table(ESS9NL$vote_F)
 
 ```
 
-De `vote` variabele is nu een factor variabele met "Yes" als de referentiecategorie. Dit is niet wat we willen gezien we stemmen willen voorspellen. Als we de variabele zo laten voorspelt het model of een persoon *niet* heeft gestemd. We veranderen dit met de relevel functie (zie @sec-relevelling).[^1]
+De `vote` variabele is nu een factor variabele met "Yes" als de referentiecategorie. Dit is niet wat we willen gezien we stemmen willen voorspellen. Als we de variabele zo laten voorspelt het model of een persoon *niet* heeft gestemd. We veranderen dit met de relevel functie (zie @sec-relevelling).[^logit_01-1]
 
-[^1]: Met `factor()` zouden we direct in de syntax de volgorde van de niveaus aan kunnen duiden: `mutate(vote_binary = factor(vote, levels = c(2, 1), labels = c("Did not vote", "Voted"))`. Het gebruik van factor vermijdt een veelvoorkomnde fout besproken in volgend hoofdstuk.
+[^logit_01-1]: Met `factor()` zouden we direct in de syntax de volgorde van de niveaus aan kunnen duiden: `mutate(vote_binary = factor(vote, levels = c(2, 1), labels = c("Did not vote", "Voted"))`. Het gebruik van factor vermijdt een veelvoorkomnde fout besproken in volgend hoofdstuk.
 
 ```{r}
 #Relevel de variabele
@@ -111,11 +111,11 @@ ESS9NL <- ESS9NL |>
   mutate(vote_F = relevel(vote_F, "No"))
 
 #en controleer het resultaat
-levels(ESS9NL$vote)
+levels(ESS9NL$vote_F)
 
 ```
 
-`mutate(vote = relevel(vote, "No"))`
+`mutate(vote_F = relevel(vote_F, "No"))`
 
 :   We gebruiken de relevel functie op de `vote` variabele. We creëren hier geen nieuwe variabele, maar overschrijven de oude. Je zou er ook voor kunnen kiezen een nieuwe variabele te maken. De categorie tussen dubbele aanhalingstekens zal de eerste categorie worden en dus de referentiecategorie in de regressie. We gebruiken het label "No" omdat de variabele reeds tot factor is getransformeerd (en dus niet de originele numerieke waarde '2').
 

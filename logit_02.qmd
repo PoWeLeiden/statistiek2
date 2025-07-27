@@ -165,7 +165,7 @@ Behalve estimate, standaardfout, test statistiek, p-waarde, en onder- en bovengr
 
 ```{r}
 MEM |> 
-  select(gndr_F, agea, trstplt, lrscale) |> 
+  select(gndr, agea, trstplt, lrscale) |> 
   as_tibble()
 ```
 

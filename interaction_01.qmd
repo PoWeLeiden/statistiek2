@@ -63,9 +63,9 @@ biden_model <- lm(biden ~ pid + right_track + rural_urban, data = anes)
 summary(biden_model)
 ```
 
-Biden wordt minder positief ingeschat als partij-identificatie meer richting Republikeinen gaat en als respondenten vinden dat het de goede richting uitgaat met het land (onder Trump). Er zijn ook verschillen voor locatie. [^1]
+Biden wordt minder positief ingeschat als partij-identificatie meer richting Republikeinen gaat en als respondenten vinden dat het de goede richting uitgaat met het land (onder Trump). Er zijn ook verschillen voor locatie. [^interaction_01-1]
 
-[^1]: De dataset bevat ook een variabele voor hoe respondenten Donald Trump evalueren (also has a measure of evaluations of Donald Trump (the variable named (`trump`). Mensen die vinden dat het land de slechte richting op gaat zijn negatiever voor Trump dan mensen die vinden dat het land de goede richting uitgaat.
+[^interaction_01-1]: De dataset bevat ook een variabele voor hoe respondenten Donald Trump evalueren (also has a measure of evaluations of Donald Trump (the variable named (`trump`). Mensen die vinden dat het land de slechte richting op gaat zijn negatiever voor Trump dan mensen die vinden dat het land de goede richting uitgaat.
 
 Stel dat we op basis van theorie denken dat er een interactie is tussen partij-identificatie en de evaluatie dat het land in de goede/slechte richting gaat. We kunnen denken dat het effect van `pid` op de evaluatie van Biden anders is als men vindt dat het land in de slechte richting in plaats van de goede richting beweegt. Of we denken dat het effect van `right_track` anders is voor (overtuigde) Democraten en Republikeinen. Beide hypotheses onderzoeken we door dezelfde interactieterm toe te voegen aan het model. We verbinden hiervoor 2 onafhankelijke variabelen met een ('\*') in plaats van een ('+') teken.
 
@@ -101,16 +101,16 @@ Wanneer we een interactie testen, vragen we ons eigenlijk af of het effect van e
 
 ![](figures/Interaction.png){fig-align="center"}
 
-De coëfficiënt van de interactie vertelt ons of dit het geval is. In het lineaire "biden_int" model, bijvoorbeeld, vinden we dat de coëfficiënt statistisch significant is: de relatie tussen partij-identificatie en hoe een respondent Biden evalueert, hangt af van de opinie van de respondent over de richting dat het land uitgaat.[^2] De interactievariabele in het logistische "righttrack_int" model is echter niet statistisch significant (we gebruiken hier een standaard 95% betrouwbaarheidsniveau). Dit betekent dat bijvoorbeeld de relatie tussen leeftijd en opinie over het land hetzelfde is ongeacht of respondenten in 2016 op Clinton of Trump hebben gestemd.
+De coëfficiënt van de interactie vertelt ons of dit het geval is. In het lineaire "biden_int" model, bijvoorbeeld, vinden we dat de coëfficiënt statistisch significant is: de relatie tussen partij-identificatie en hoe een respondent Biden evalueert, hangt af van de opinie van de respondent over de richting dat het land uitgaat.[^interaction_01-2] De interactievariabele in het logistische "righttrack_int" model is echter niet statistisch significant (we gebruiken hier een standaard 95% betrouwbaarheidsniveau). Dit betekent dat bijvoorbeeld de relatie tussen leeftijd en opinie over het land hetzelfde is ongeacht of respondenten in 2016 op Clinton of Trump hebben gestemd.
 
-[^2]: Interacties zijn symmetrisch, dus we kunnen ook stellen dat het effect van 'right_track' op Biden score verschilt naarmate respondenten een andere patij-identificatie hebben. Welke variabele als hoofdvariabele (X) en welke als moderator (Z) wordt beschouwd is aan de onderzoeker.
+[^interaction_01-2]: Interacties zijn symmetrisch, dus we kunnen ook stellen dat het effect van 'right_track' op Biden score verschilt naarmate respondenten een andere patij-identificatie hebben. Welke variabele als hoofdvariabele (X) en welke als moderator (Z) wordt beschouwd is aan de onderzoeker.
 
 Om interactietermen beter te begrijpen, kunnen we R gebruiken om:
 
 -   Het marginale effect van 1 onafhankelijke variabele (X) op Y te berekenen bij verschillende waarden van de andere onafhankelijke (Z) (@sec-inter-marginal).
 -   De voorspelde waarden voor Y te berekenen voor verschillende combinaties van waarden van de 2 onafhankelijke variabelen (@sec-predicted-values-from-interaction-models).
 
-## Regressietabellen
+## Regressietabellen {#sec-interaction-term-in-a-regression-table}
 
 In de volgende 2 hoofdstukken gaan we dieper in op hoe je interactie-effecten best kan begrijpen en communiceren met plot. Hier lichten we kort toe hoe ze te presenteren in regressietabellen. We maken hiervoor weer gebruik van de `modelsummary()` functie uit het `modelsummary` package. De basisprincipes zijn dezelfde als degene die we bespraken in eerdere hoofdstukken (lineaire regressietabellen: @sec-presenting-linear-regression-regression-tables; logistische regressietabellen: @sec-presentation-regression-tables-logit).
 

@@ -36,7 +36,7 @@ package_list <- c("tidyverse", "rio", "summarytools", "DescTools", "skimr",
                   "ggstance", "ggrepel", "ggsignif", "naniar", "openxlsx",
                   "sjmisc", "crosstable", "sjlabelled", "psych", "dice",
                   "pwr", "visualize", "infer" , "sandwich", "sjPlot",
-                  "scales")
+                  "scales", "fastDummies")
 
 install.packages(package_list)
 

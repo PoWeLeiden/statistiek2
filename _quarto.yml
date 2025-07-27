@@ -35,6 +35,8 @@ book:
     - common_errors.qmd
     - package_overview.qmd
     - Formulas.qmd
+    - errors.qmd
+    - scales.qmd
     
 bibliography: references.bib
 

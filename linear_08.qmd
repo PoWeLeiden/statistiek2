@@ -42,9 +42,9 @@ demdata <- import("demdata.rds")
 
 ```
 
-## Beschrijvende Statistieken {#sec-report-scatterplots}
+## Beschrijvende Statistieken {#sec-report-descriptives}
 
-Vooraleer we beginnen aan het onderzoeken van verbanden tussen variabelen, is het gebruikelijk om alle variabelen op zich te onderzoeken: wat zijn de minima en maxima, het gemiddelde, en de standaardafwijking? In een onderzoekspaper vind je dan ook vaak een tabel met deze descriptieve statistieken (ofwel in de tekst zelf, ofwel in Appendix). Deze tabel geeft de lezer meer inzicht in de gebruikte variabelen en wordt doorgaans gepresenteerd voor de analyseresultaten.
+Vooraleer we beginnen aan het onderzoeken van verbanden tussen variabelen, is het gebruikelijk om alle variabelen op zich te onderzoeken: wat zijn de minima en maxima, het gemiddelde, en de standaardafwijking (voor continue variabelen) of de frequenties (voor binaire/categorische variabelen)? In een onderzoekspaper vind je dan ook vaak een tabel met deze descriptieve statistieken (ofwel in de tekst zelf, ofwel in Appendix). Deze tabel geeft de lezer (en de onderzoeker!) meer inzicht in de gebruikte variabelen.
 
 ### Continue variabelen
 
@@ -63,7 +63,7 @@ Zo lees je de syntax:
 
 `v2x_polyarchy + gini_2019`
 
-:   Dit zijn de variabelen die we willen opnemen in de tabel. Meerdere variabelen kunnen toegevoegd worden met behulp van een `+`teken. Voor een tabel met alle variabelen uit de dataset kun je `All(naam dataset)`gebruiken.
+:   Dit zijn de variabelen die we willen opnemen in de tabel. Meerdere variabelen kunnen toegevoegd worden met behulp van een `+` teken. Voor een tabel met alle variabelen uit de dataset kun je `All(naam dataset)`gebruiken. Dit doe je doorgaans enkel als de dataset niet veel variabelen bevat.
 
 `~ Mean + SD + Min + Max + N,`
 
@@ -95,20 +95,45 @@ datasummary(TYPEDEMO1984_factor + Typeregime2006_factor
 
 `~ N + Percent(),`
 
-:   We geven hier na de tilde `~` weer welke statistieken we precies willen. In het geval van factorvariabelen zijn deze gebruikelijk. Let erop dat het percentage dat wordt gegeven ook `NA` waarden gebruikt in de berekening.
+:   We geven hier na de tilde `~` weer welke statistieken we precies willen. In het geval van factorvariabelen zijn deze gebruikelijk. Let erop dat het percentage dat wordt gegeven ook `NA` waarden gebruikt in de berekening. Hieronder tonen we hoe je dit kan aanpassen.
 
 De verschillende syntax suggereert dat we voor continue en binaire/categorische variabelen best aparte tabellen maken. Toch is dit niet nodig. In een analyse transformeert R achter de schermen een factorvariabele in meerdere dummy-variabelen. Deze 0-1 variabelen kunnen we opnemen samen met continue variabelen in een tabel. Het gemiddelde geeft dan de proportie weer van observaties in deze categorie, terwijl de N het aantal valide cases voor de variabele als geheel weergeeft.
 
-We kunnen de dummy variabelen zelf aanmaken via `mutate` maar het kan sneller met het `fastdummies`package.
+We kunnen de dummy variabelen zelf aanmaken via `mutate` maar het kan sneller met het `fastdummies` package.
 
 ```{r}
+#| warning: false
+#laad het package (meestal aan het begin van je script)
 library(fastDummies)
 
+#dummy variabelen aanmaken voor alle categorieën van de variabelen
 demdata <- dummy_cols(demdata, 
                       select_columns = 
                         c("TYPEDEMO1984", "Typeregime2006"))
+```
 
-# tabel maken voor dummies also het continue variabelen zijn
+`dummy_cols(demdata`
+
+:   we passen de functie `dummy_cols`toe en duiden eerst de dataset aan die van toepassing is.
+
+`select_columns = c("TYPEDEMO1984", "Typeregime2006"))`
+
+:   Nu creëeren we dummy-variabelen voor alle categorieën (inclusief NA) van de aangeduide categorische variabelen van de dataset.[^linear_08-1] De nieuwe dummy-variabelen worden toegevoegd aan de dataset met de `demdata <-` syntax. De naam wordt automatisch gegenereerd: de naam van de variabele met daaraan gelinkt de numerieke code (of tekst-code indien de variabele niet numeriek is). De niet-gefactorde versie van `TYPEDEMO1984` in dit voorbeeld neemt 2 mogelijke waarden aan: 1 = democratie and 2 = autocratie.[^linear_08-2] De functie creëert de volgende dummies: `TYPEDEMO1984_1` (observaties met de waarde '1' scoorden '1' op de originele variabele; observaties met score '0' scoorden '2' op de originele variabele) en `TYPEDEMO1984_2` (observaties met de waarde '1' scoorden '2' op de originele variabele; observaties met score '0' scoorden '1' op de originele variabele). We kunnen dit beter zien in de kruistabel hieronder.
+
+[^linear_08-1]: De functie creëert ook een dummy-variabele voor ontbrekende waarden als die er zijn. We vinden bijvoorbeeld ook een `TYPEDEMO1984_NA` variabele waarbij '1' observaties aanduidt met een NA waarde voor de originele variabele en '0' observaties met een valide waarde ('1' of '2' hier). Deze dummy-variabele wordt genegeerd bij de creatie van tabellen.
+
+[^linear_08-2]: We gebruiken hier de originele, niet-gefactorde versies van de variabelen in dit voorbeeld. De functie werkt in principe ook met de gefactorde versie. Dan zou je bijvoorbeeld de volgende dummies krijgen voor `TYPEDEMO1984`: `TYPEDEMO1984_factor_Autocracies` en `TYPEDEMO1984__factor_Democracies`. Deze aanpak kan echter complicaties met zich meebrengen als labels meerder woorden bevatten zoals 'Electoral Democracy' met een spatie tussen de woorden. R kan hier niet altijd goed mee omgaan en dergelijke variablen zullen ingesloten zijn door backticks (\`). Bijvoorbeeld: \`Typeregime2006_factor_Electoral Democracy\`. Indien je deze variabele wil gebruiken in verdere toepassingen moet je de backticks gebruiken en dat is niet altijd handig.
+
+```{r}
+# Crosstab of original variable and dummies via dummy_cols()
+table(demdata$TYPEDEMO1984, demdata$TYPEDEMO1984_1)
+table(demdata$TYPEDEMO1984, demdata$TYPEDEMO1984_2)
+```
+
+We kunnen de dummyvariabelen toevoegen aan de `datasummary` functie samen met de continue variabelen.
+
+```{r}
+# tabel maken voor dummies alsof het continue variabelen zijn
 datasummary(v2x_polyarchy + gini_2019+
             TYPEDEMO1984_1 + TYPEDEMO1984_2 +
             Typeregime2006_1 + 
@@ -117,9 +142,7 @@ datasummary(v2x_polyarchy + gini_2019+
             ~ Mean + SD + Min + Max + N, data = demdata)
 ```
 
-`dummy_cols(`
-
-:   Creëer dummy-variabelen voor alle categorieën (inclusief NA) van de aangeduide categorische variabelen van de dataset. De nieuwe dummy-variabelen worden toegevoegd aan de dataste met de `demdata <-` syntax. De naam wordt automatisch gegenereerd/ de naam van de variabele met daaraan gelinkt de numerieke code (of tekst-code indien de variabele niet numeriek is).
+De gemiddelden voor de dummy-variabelen geven de proportie van observaties met de score '1' weer. De berekening negeert ontbrekende 'NA' waarden in tegenstelling tot de methode hierboven zonder dummies. De waarden zijn dus correcter. In deze tabel hebben we all dummies opgenomen. In de praktijk laten we bij binaire variabelen vaak de referentiecategorie weg (bv., enkel`TYPEDEMO1984_2` in de tabel).
 
 ### Presentatie: Descriptieve tabellen
 
@@ -143,6 +166,8 @@ table_data <- demdata |>
 datasummary(All(table_data)
             ~ Mean + SD + Min + Max + N, data = table_data)
 ```
+
+De `modelsummary` website geeft nog andere manieren weer om variabelen te hernamen binnen de functie zelf; zie deze [link](https://modelsummary.com/vignettes/datasummary.html#renaming-with){target="_blank"}.
 
 ### Opslaan als Word document
 
@@ -213,7 +238,7 @@ De volgende zaken neem je best op in je rapportage:
 -   De specifieke correlatie je gebruikt hebt (bv. Pearson).
 -   Een bespreking van de richting van de relatie (positief, negatief, geen relatie), waarbij ook aandacht is voor de codering van gebruikte variabelen.
 -   Een bespreking van de statistische significantie:
-    -   Significantie hebben we meestal op de niveaus van 95% (p \< 0.05), 99% (p \< 0.01), en 99.9% (p \< 0.001) [^1]
+    -   Significantie hebben we meestal op de niveaus van 95% (p \< 0.05), 99% (p \< 0.01), en 99.9% (p \< 0.001) [^linear_08-3]
     -   Raporteer op basis van het hoogste signficantieniveau dat de p-waarde aangeeft:
         -   Als p = 0.04, dan p \< 0.05 (significant op 95% niveau)
         -   Als p = 0.02, dan p \< 0.01 (significant op 99% niveau)
@@ -221,7 +246,7 @@ De volgende zaken neem je best op in je rapportage:
     -   We rapporteren meestal niet hoger dan 99.9% of p \< 0.001 (bv., we zeggen niet p \< 0.000001, maar p \< 0.001). We schrijven ook nooit p \< 0.000.
 -   Een bespreking van de sterkte van de relatie. (zie @sec-correlation-coefficients)
 
-[^1]: Een 90% betrouwbaarheidsniveau kan passend zijn indien het model een lage N heeft.
+[^linear_08-3]: Een 90% betrouwbaarheidsniveau kan passend zijn indien het model een lage N heeft.
 
 ::: callout-tip
 #### Voorbeeld rapportage
@@ -282,9 +307,9 @@ demdata |>
 
 `output = "correlatietabel.docx"`
 
-:   Hier vragen we de output te exporteren naar een Word (.docx) bestand. De naam van het bestand bepaal je zelf. Het bestand is terug te vinden in je projectfolder of de folder waar je syntax bestand (script of Markdown) zich in bevindt. In Word kunnnen nog verdere aanpassingen worden gedaan. [^2]
+:   Hier vragen we de output te exporteren naar een Word (.docx) bestand. De naam van het bestand bepaal je zelf. Het bestand is terug te vinden in je projectfolder of de folder waar je syntax bestand (script of Markdown) zich in bevindt. In Word kunnnen nog verdere aanpassingen worden gedaan. [^linear_08-4]
 
-[^2]: We willen bijvoorbeeld misschien asteriks toevoegen voor statistische significantie. Dit lukt niet gemakkelijk vanzelf met `datasummary_correlation` (De website van het package beschrijft wel [deze methode](https://modelsummary.com/vignettes/datasummary.html#datasummary_correlation){target="_blank"}).Je kunt ook altijd `cor.test`gebruiken om significantie na te gaan.
+[^linear_08-4]: We willen bijvoorbeeld misschien asteriks toevoegen voor statistische significantie. Dit lukt niet gemakkelijk vanzelf met `datasummary_correlation` (De website van het package beschrijft wel [deze methode](https://modelsummary.com/vignettes/datasummary.html#datasummary_correlation){target="_blank"}).Je kunt ook altijd `cor.test`gebruiken om significantie na te gaan.
 
 ::: callout-important
 #### Waarschuwing!
@@ -343,7 +368,7 @@ Je rapport bevat best de volgende zaken:
 -   Een bespreking van de richting van de relatie (positief/negatief) en een inhoudelijke interpretatie van wat dit concreet betekent op basis van hoe de variabelen gemeten zijn en welke schaal zij hebben.
     -   Bij een multiple regressie is het belangrijk te verduidelijken dat het effect dat je vindt voor een onafhankelijke variabele gecontroleerd is op de andere onafhankelijke variabelen in het model. Deze worden 'constant gehouden' (oftewel 'ceteris paribus').
 -   Een bespreking van de statistische significantie (verwerpen of niet nulhypothese?) met vermelding van p-waarde en/of het betrouwbaarheidsinterval.
-    -   Coëfficiënten met p-waarden groter dan 0.05 worden meestal niet als statistisch significant of als statistisch significant bij conventionele niveaus beschouwd.[^3] Rapporteer op basis van het hoogste signficantieniveau dat de p-waarde aangeeft:
+    -   Coëfficiënten met p-waarden groter dan 0.05 worden meestal niet als statistisch significant of als statistisch significant bij conventionele niveaus beschouwd.[^linear_08-5] Rapporteer op basis van het hoogste signficantieniveau dat de p-waarde aangeeft:
         -   Als p = 0.04, dan p \< 0.05 (significant op 95% niveau)
         -   Als p = 0.02, dan p \< 0.01 (significant op 99% niveau)
         -   Als p = 0.0000005, dan p \< 0.001 (significant op 99.9% niveau)
@@ -351,7 +376,7 @@ Je rapport bevat best de volgende zaken:
     -   Het betrouwbaarheidsinterval kan ook gebruikt worden om statistische significantie te bespreken en de onzekerheid rond de geschatte coëfficiënten aan te duiden. Als je het betrouwbaarheidsinterval bespreekt, kun je dit tussen haakjes toevoegen na de coëfficiënt, bv. "De coëfficiënt voor economische ongelijkheid is 0.8 (95% CI: 0.5, 1.1)".
     -   Het is minder gebruikelijk de t-statistiek concreet te benoemen, maar het is ook geen probleem als je dit doet. Indien de t-waarde wordt opgenomen, zet je deze bij de p-waarde: "(t = 1.98, p \< 0.05)".
 
-[^3]: Een 90% betrouwbaarheidsniveau kan passend zijn indien het model een lage N heeft.
+[^linear_08-5]: Een 90% betrouwbaarheidsniveau kan passend zijn indien het model een lage N heeft.
 
 Hier vind je uitgewerkte voorbeelden voor `gini_2019` (een continue variabele) en `TYPEDEMO1984` (een binaire variabele).
 
@@ -425,7 +450,7 @@ modelsummary(model1,
 
 `gof_map = c(...)`
 
-:   Hier geven we aan welke "goodness of fit" (gof) statistieken we willen. We voegen hier de statistieken die we willen toe: het aantal observaties ("nobs"), de R² ("r.squared"), en de adjusted R² ("adj.r.squared"). De andere statistieken worden dan weggelaten.[^4]
+:   Hier geven we aan welke "goodness of fit" (gof) statistieken we willen. We voegen hier de statistieken die we willen toe: het aantal observaties ("nobs"), de R² ("r.squared"), en de adjusted R² ("adj.r.squared"). De andere statistieken worden dan weggelaten.[^linear_08-6]
 
 `title = ...`
 
@@ -435,7 +460,7 @@ modelsummary(model1,
 
 :   Onderschrift voor de tabel. Hier verduidelijk je aan de lezer wat er precies af te lezen valt: de lineaire regressiecoëfficiënten met standaardfouten tussen haakjes.
 
-[^4]: Het alternatief is om `gof_omit()` te gebruiken en die statistieken die we niet willen te specificeren.
+[^linear_08-6]: Het alternatief is om `gof_omit()` te gebruiken en die statistieken die we niet willen te specificeren.
 
 ### Regressietabel met meerdere modellen
 
@@ -541,9 +566,9 @@ plot_model_tidied <- tidy(plot_model, conf.int = TRUE)
 plot_model_tidied
 ```
 
-We kunnen met deze data een figuur maken met `ggplot()` maar eerst doen we nog wat data management. We geven bijvoorbeeld andere namen aan de variabelen (opgeslaan in `term`) om duidelijker de resultaten te presenteren. [^5]
+We kunnen met deze data een figuur maken met `ggplot()` maar eerst doen we nog wat data management. We geven bijvoorbeeld andere namen aan de variabelen (opgeslaan in `term`) om duidelijker de resultaten te presenteren. [^linear_08-7]
 
-[^5]: We kunnen ook de volgorde waarin de variabelen verschijnen in het plot aanpassen. We doen dit door van `term`een factor te maken en dan de volgorde van de niveaus aan te passen met `relevel`.
+[^linear_08-7]: We kunnen ook de volgorde waarin de variabelen verschijnen in het plot aanpassen. We doen dit door van `term`een factor te maken en dan de volgorde van de niveaus aan te passen met `relevel`.
 
 ```{r}
 #duidelijkere namen:
@@ -585,7 +610,7 @@ plot_model_tidied |>
 
 `geom_pointrange(aes(xmin=conf.low, xmax=conf.high))`
 
-:   Hier vragen we om de coefficiënten aan te duiden met een punt ("point"). Vervolgens vragen we om een lijn door het punt te tekenen om de reikwijdte ("range") van de betrouwbaarheidsintervallen voor te stellen. De `xmin` and `xmax` delen van de syntax bepalen de reikwijdte.[^6] Hier gebruiken we `conf.low` and `conf.high`, de variabelen waarin de ondergrens en bovengrens van de intervallen is opgeslaan.
+:   Hier vragen we om de coefficiënten aan te duiden met een punt ("point"). Vervolgens vragen we om een lijn door het punt te tekenen om de reikwijdte ("range") van de betrouwbaarheidsintervallen voor te stellen. De `xmin` and `xmax` delen van de syntax bepalen de reikwijdte.[^linear_08-8] Hier gebruiken we `conf.low` and `conf.high`, de variabelen waarin de ondergrens en bovengrens van de intervallen is opgeslaan.
 
 `labs(...)`
 
@@ -599,7 +624,7 @@ plot_model_tidied |>
 
 :   Hier vragen we om ook de waarde van de coëfficiënt weer te geven op de plot met `geom_text()`. De tekst die op het plot komt wordt bepaald met "label =". Hier vragen we om de 'estimate' (de coëfficiënt), maar afgerond ("round") tot 2 decimalen voor de duidelijkheid.
 
-[^6]: Als we de coëfficiënten op de y-as plaatsen moeten we hier `ymin` en `ymax` aanduiden.
+[^linear_08-8]: Als we de coëfficiënten op de y-as plaatsen moeten we hier `ymin` en `ymax` aanduiden.
 
 Met `vjust = -0.5` bepalen we waar de tekst komt ("*vertical* justification"). Dit kunnen we gebruiken om overlap tussen tekst en geplotte waarden te voorkomen. Negatieve waarden plaatsen de tekst hoger, positieve waarden plaatsen de tekst lager.
 
@@ -729,9 +754,9 @@ ggplot(cpi_preds, aes(x = cpi, y = estimate)) + # <1>
 
 :   We bepalen met deze syntax de limieten van de y-as, hier tussen 0 en 1.
 
-De limieten van de as zelf bepalen kan handig zijn om data duidelijker te visualiseren. We kunnen ervoor kiezen om de as het volledige theoretische bereik van de afhankelijke variabele te laten aannemen, zoals we hier doen met een y-as van 0 tot 1. Door het volledige bereik van de afhankelijke variabele te gebruiken lijken de effecten ook niet groter dan ze zijn. Echter kan deze benadering er soms wel voor zorgen dat een grafiek veel wit bevat en minder visueel aantrekkelijk is. Zie [this webpage](https://handsondataviz.org/how-to-lie-with-charts.html){target="_blank" rel="noreferrer noopener"} voor voorbeelden van wat er mis kan gaan. In de praktijk maken we een afweging. Wat we wel willen vermijden is dat de schaal groter is dan het theoretische bereik van de afhankelijke variabele.[^7]
+De limieten van de as zelf bepalen kan handig zijn om data duidelijker te visualiseren. We kunnen ervoor kiezen om de as het volledige theoretische bereik van de afhankelijke variabele te laten aannemen, zoals we hier doen met een y-as van 0 tot 1. Door het volledige bereik van de afhankelijke variabele te gebruiken lijken de effecten ook niet groter dan ze zijn. Echter kan deze benadering er soms wel voor zorgen dat een grafiek veel wit bevat en minder visueel aantrekkelijk is. Zie [this webpage](https://handsondataviz.org/how-to-lie-with-charts.html){target="_blank" rel="noreferrer noopener"} voor voorbeelden van wat er mis kan gaan. In de praktijk maken we een afweging. Wat we wel willen vermijden is dat de schaal groter is dan het theoretische bereik van de afhankelijke variabele.[^linear_08-9]
 
-[^7]: Socioloog Kieran Healy bespreekt meer in de diepte hoe data te inspecteren in zijn boek "Data Visualization", gratis beschikbaar [hier](https://socviz.co/){target="_blank" rel="noreferrer noopener"}. Zie in het bijzonder sectie 6 in Hoofdstuk 1, "Problems of honesty and good judgment".
+[^linear_08-9]: Socioloog Kieran Healy bespreekt meer in de diepte hoe data te inspecteren in zijn boek "Data Visualization", gratis beschikbaar [hier](https://socviz.co/){target="_blank" rel="noreferrer noopener"}. Zie in het bijzonder sectie 6 in Hoofdstuk 1, "Problems of honesty and good judgment".
 
 ### Binaire/categorische onafhankelijke variabele
 

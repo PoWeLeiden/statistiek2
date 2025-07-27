@@ -264,7 +264,9 @@ Met de logaritimische transformatie van een predictor verandert ook de interpret
 
 -   **10**% toename in X (op originele schaal) leidt tot een verandering van coëfficiënt \* log(1.**10**) eenheden in Y
 
-Bij een gelogde predictor is het echter vaak aan te raden een figuur met voorspelde waarden te maken om het effect te duiden:
+Bij een gelogde predictor is het echter vaak aan te raden een figuur met voorspelde waarden te maken om het effect te duiden.
+
+Eerst kijken we naar de verdeling van de waarden van de gelogde predictor over alle observaties gebruikt in het model. We bekijken dus enkel data zonder ontbrekende waarden ('NA') voor een of meerdere van de variabelen gebruikt in het model.
 
 ```{r}
 # Eerst de waarden van GDP2006 nagaan voor de gebruikte observaties
@@ -272,23 +274,43 @@ demdata_sub <- demdata |>
   filter(complete.cases(v2x_polyarchy, gini_2019, TYPEDEMO1984_factor, LNGDP2006))
 
 summary(demdata_sub$LNGDP2006)
+```
 
-# Dan voorspellingen maken op basis van de waarden (je hebt liever veel voorspellingen om een mooie gecurvde lijn te tekenen)
+Dan berekenen we voorspelde waarden over het bereik van de gelogde predictor. Hier willen we best veel voorspelde waarden berekenen want dan krijgen we een mooiere gecurvde lijn in onze figuur.
+
+```{r}
+# voorspellingen
 bbp_preds <- predictions(multiple_ln, 
-                         newdata = datagrid(LNGDP2006= seq(from=5.5, to=11, by=0.5)))
+                         newdata = datagrid(LNGDP2006= seq(from=5.5,
+                                                           to=11,
+                                                           by=0.5)))  # <1>
 
+```
+
+1.  `seq()` staat voor 'sequence'. We vragen hier om voorspelde waarden te berekenen vanaf 5.5 tot 11 met tussenstappen van 0.5 eenheden.
+
+Dan maken we een nieuwe variabele aan in de dataset om op de x-as van onze figuur te gaan plaatsen. Eigenlijk gaan we gewoon de gelogde predictor in de dataset terug transformeren naar de originele schaal door de waarden te exponentiëren via de `exp()` functie.
+
+```{r}
 #exponentiëren van gelogde predictor
 bbp_preds <- bbp_preds |> 
-  mutate(GDP2006 = exp(LNGDP2006))
+  mutate(GDP2006 = exp(LNGDP2006)) # <1>
+```
 
+1.  `exp()` is het omgekeerde van log, zoals - het omgekeerde is van + etc.
+
+Ten slotte maken we onze figuur:
+
+```{r}
 #figuur maken van voorspelde waarden
 ggplot(bbp_preds, aes(x=GDP2006, y=estimate)) + 
   geom_line() +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), 
+              alpha = 0.1) +
   labs(title = "Voorspelde electorale democratiescore op basis van BBP 2006",
        x = "BBP 2006",   
        y = "Voorspelde waarde") +  
   scale_y_continuous(limits=c(0,1))
-
 ```
 
 Interpretaties veranderen ook als je de afhankelijke variabele log-transformeert. Voor verdere mogelijkheden met logaritmische transformaties, verwijzen we ja naar [deze](https://kenbenoit.net/assets/courses/ME104/logmodels2.pdf) en [deze](https://library.virginia.edu/data/articles/interpreting-log-transformations-in-a-linear-model) pagina.
@@ -336,7 +358,7 @@ De niet-lineaire relatie kun je soms zien uit het residuals plot, in de vorm van
 resid_panel(Violence_linmodel, plots = c("resid"))
 ```
 
-Om te onderzoeken of de relatie beter als kwadratisch wordt gevat voegen we een kwadratische term toe aan het model. We kunnen deze variabele eerst maken en dan toevoegen aan het model, samen met de originele variabele. We kunnen de transformatie ook in de regressielijn zelf toevoegen. Dit heeft voordelen voor interpretatie.
+Om te onderzoeken of de relatie beter als kwadratisch wordt gevat voegen we een kwadratische term toe aan het model. We kunnen deze variabele eerst maken en dan toevoegen aan het model, samen met de originele variabele. We kunnen de transformatie ook in de regressielijn zelf toevoegen via de `I()` functie. Dit is iets eenvoudiger gezien we de variabele niet moeten maken. Bovendien werkt deze methode beter met functies van het `marginaleffects` package die we gebruiken om modellen te interpreteren (bv. de `predictions()` functie).
 
 ```{r}
 #gewadrateerde variabele maken
@@ -365,26 +387,35 @@ We kunnen dan het residuals plot opnieuw inspecteren (zie onder).
 
 Bij een kwadratische predictor is de interpretatie van de coëfficiënten (want de originele en gekwadrateerde variabelen horen samen) best moeilijk. De volgende regels zijn van toepassing:
 
--   Is de kwadratische predictor negatief, dan is de relatie tussen X en Y concaaf (omgekeerde U)
+-   Als de coëfficiënt voor X positief is en die voor X^2^ negatief, dan is de relatie tussen X en Y **concaaf** (omgekeerde U)
+-   Als de coëfficiënt voor X negatief is en die voor X^2^ positief, dan is de relatie tussen X en Y **convex** (U-vorm)
+-   Als beide coëfficiënten dezelfde richting hebben (beiden positief of beiden negatief), dan wordt het effect van X op Y sterker als X hogere waarden aanneemt.
 
--   Is de kwadratische predictor positief, dan is de relatie tussen X en Y convex (U-vorm)
-
-Wederom is het vaak beter om de relatie visueel te verduidelijken:
+Wederom is het vaak beter om de relatie visueel te verduidelijken. Om dit te doen kijken we eerste naar de waarden die de predictor aanneemt voor de observaties gebruikt bij de schatting van het model:
 
 ```{r}
-#Eerst de waarden van X nagaan voor de gebruikte observaties
+#waarden van X nagaan voor de gebruikte observaties
 demdata_sub2 <- demdata |>
   filter(complete.cases(v2x_polyarchy , pve))
 summary(demdata_sub2$v2x_polyarchy)
+```
 
-# Dan voorspellingen maken op basis van de waarden (je hebt liever veel voorspellingen om een mooie gecurvde lijn te tekenen)
+We berekenen vervolgens voorspelde waarden via `predictions()`. Hier willen we best veel voorspelde waarden berekenen want dan krijgen we een mooiere gecurvde lijn in onze figuur.
+
+```{r}
+# voorspellingen maken op basis van de waarden
 pve_preds <- predictions(Violencesqmodel, 
                          newdata = datagrid(v2x_polyarchy= seq(from=0, to=0.9, by=0.05)))
+```
 
+Ten slotte maken we onze figuur:
 
+```{r}
 #figuur maken van voorspelde waarden
 ggplot(pve_preds, aes(x=v2x_polyarchy, y=estimate)) + 
   geom_line() +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), 
+              alpha = 0.1) + 
   labs(title = "Voorspelde afwezigheid van geweld en instabiliteit",
        x = "Electorale democratie",   
        y = "Voorspelde waarde") 

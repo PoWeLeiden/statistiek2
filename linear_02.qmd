@@ -105,7 +105,9 @@ We raden aan om nieuwe variabelen aan te maken wanneer je een bestaande variabel
 
 ### Veranderen van de referentiecategorie {#sec-relevelling}
 
-Bij de transformatie naar een factor variabele wordt de categorie met laagste numerieke waarde als referentiecategorie genomen. Het kan zijn dat we dit willen veranderen. Dit kunnen we doen met behulp van de `relevel()` functie. Hieronder veranderen we de referentiecategorie voor "Typeregime2006_factor" naar "Electoral Democracy".
+`factorize()` gebruikt de eerste numerieke waarde als referentiegroep bij het maken van een factorvariabele. `factor()` doet dit ook, tenzij we expliciet de volgorde van de factorniveaus (levels) aanduiden in de syntax (zie het voorbeeld in @sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models). 
+
+In elk geval kunnen we de referentiecategorie veranderen als we dat willen. Dit kunnen we doen met behulp van de `relevel()` functie. Hieronder veranderen we de referentiecategorie voor "Typeregime2006_factor" naar "Electoral Democracy".
 
 ```{r}
 demdata <- demdata |> 
