@@ -313,6 +313,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assumptieschendingen oplossen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scales.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Indexen en schalen</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -463,7 +475,8 @@ Waarschuwing!
 </div>
 <section id="sec-relevelling" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-relevelling"><span class="header-section-number">2.1.1</span> Veranderen van de referentiecategorie</h3>
-<p>Bij de transformatie naar een factor variabele wordt de categorie met laagste numerieke waarde als referentiecategorie genomen. Het kan zijn dat we dit willen veranderen. Dit kunnen we doen met behulp van de <code>relevel()</code> functie. Hieronder veranderen we de referentiecategorie voor “Typeregime2006_factor” naar “Electoral Democracy”.</p>
+<p><code>factorize()</code> gebruikt de eerste numerieke waarde als referentiegroep bij het maken van een factorvariabele. <code>factor()</code> doet dit ook, tenzij we expliciet de volgorde van de factorniveaus (levels) aanduiden in de syntax (zie het voorbeeld in <a href="common_errors.html#sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" class="quarto-xref"><span>Paragraaf A.2</span></a>).</p>
+<p>In elk geval kunnen we de referentiecategorie veranderen als we dat willen. Dit kunnen we doen met behulp van de <code>relevel()</code> functie. Hieronder veranderen we de referentiecategorie voor “Typeregime2006_factor” naar “Electoral Democracy”.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006_factor_relevel =</span> <span class="fu">relevel</span>(Typeregime2006_factor, <span class="st">"Electoral democracy"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>

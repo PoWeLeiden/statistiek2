@@ -1,0 +1,2214 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Bijlage E — Indexen en schalen – Statistische analyse en presentatie met R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./errors.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Geen resultaten",
+    "search-matching-documents-text": "Gevonden documenten",
+    "search-copy-link-title": "Kopieer link om te zoeken",
+    "search-hide-matches-text": "Extra overeenkomsten verbergen",
+    "search-more-match-text": "meer overeenkomst in dit document",
+    "search-more-matches-text": "meer overeenkomsten in dit document",
+    "search-clear-button-title": "Wissen",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Annuleren",
+    "search-submit-button-title": "Verzenden",
+    "search-label": "Zoeken"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./common_errors.html">Appendices</a></li><li class="breadcrumb-item"><a href="./scales.html"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Indexen en schalen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistische analyse en presentatie met R</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Zoeken"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Voorwoord</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Logistische Regressiemodellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./errors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assumptieschendingen oplossen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scales.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Indexen en schalen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhoudsopgave</h2>
+   
+  <ul>
+  <li><a href="#algemene-principes" id="toc-algemene-principes" class="nav-link active" data-scroll-target="#algemene-principes"><span class="header-section-number">E.1</span> Algemene principes</a></li>
+  <li><a href="#voorbeeld-1-emoties-en-campagne-voeren" id="toc-voorbeeld-1-emoties-en-campagne-voeren" class="nav-link" data-scroll-target="#voorbeeld-1-emoties-en-campagne-voeren"><span class="header-section-number">E.2</span> Voorbeeld 1: Emoties en campagne voeren</a>
+  <ul class="collapse">
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data"><span class="header-section-number">E.2.1</span> Data</a></li>
+  <li><a href="#betrouwbaarheid-van-schalen" id="toc-betrouwbaarheid-van-schalen" class="nav-link" data-scroll-target="#betrouwbaarheid-van-schalen"><span class="header-section-number">E.2.2</span> Betrouwbaarheid van schalen</a></li>
+  <li><a href="#som-of-gemiddelde" id="toc-som-of-gemiddelde" class="nav-link" data-scroll-target="#som-of-gemiddelde"><span class="header-section-number">E.2.3</span> Som of gemiddelde?</a></li>
+  <li><a href="#schalen-maken" id="toc-schalen-maken" class="nav-link" data-scroll-target="#schalen-maken"><span class="header-section-number">E.2.4</span> Schalen maken</a></li>
+  <li><a href="#model-schatten" id="toc-model-schatten" class="nav-link" data-scroll-target="#model-schatten"><span class="header-section-number">E.2.5</span> Model schatten!</a></li>
+  </ul></li>
+  <li><a href="#voorbeeld-2-verschillende-meeteenheden" id="toc-voorbeeld-2-verschillende-meeteenheden" class="nav-link" data-scroll-target="#voorbeeld-2-verschillende-meeteenheden"><span class="header-section-number">E.3</span> Voorbeeld 2: verschillende meeteenheden</a>
+  <ul class="collapse">
+  <li><a href="#twee-benaderingen-normaliseren-en-standaardiseren" id="toc-twee-benaderingen-normaliseren-en-standaardiseren" class="nav-link" data-scroll-target="#twee-benaderingen-normaliseren-en-standaardiseren"><span class="header-section-number">E.3.1</span> Twee benaderingen: normaliseren en standaardiseren</a></li>
+  <li><a href="#schalen-maken-1" id="toc-schalen-maken-1" class="nav-link" data-scroll-target="#schalen-maken-1"><span class="header-section-number">E.3.2</span> Schalen maken</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">E.4</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./common_errors.html">Appendices</a></li><li class="breadcrumb-item"><a href="./scales.html"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Indexen en schalen</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-scales" class="quarto-section-identifier">Bijlage E — Indexen en schalen</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)    <span class="co"># Grafieken combineren</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)   <span class="co"># html tabel maken</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)          <span class="co"># data import</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co"># Datamanagement enplotten    </span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)        <span class="co"># coëfficiënten</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(performance)  <span class="co"># Model en schaal statistieken</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary) <span class="co"># Descriptieve statistiektabellen</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Gebruikte datasets</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>scale_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"scale_data.rda"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"hdi_data.csv"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Voor wie is deze appendix?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Voor wie is deze appendix?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Je hoeft niet te weten hoe je deze analyses moet uitvoeren voor de opdrachten in Statistiek II. Deze gids is bedoeld voor studenten die hun eindpaper schrijven voor Academische Vaardigheden: Kwantitatieve Data-Analyse of een BAP-scriptieproject.</p>
+</div>
+</div>
+<p>Soms kan het nuttig zijn om variabelen te combineren tot een enkele variabele of schaal, zowel voor afhankelijke als onafhankelijke variabelen. Stel dat we ‘populistische attitudes’ willen meten, dan kunnen we denken aan een combinatie van anti-elitaire attitudes, het geloof dat de publieke wil het beleid moet sturen en het hebben van een manicheïsch wereldbeeld (i.e.&nbsp;de wereld in termen van goed en kwaad zien).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Een onderzoeksvraag vergt soms dat we meerdere elementen (variabelen) combineren tot 1 variabele of schaal. Het is vaak ook betrouwbaarder om met meerdere vragen eenzelfde concept te meten dan slechts met 1 vraag. Op het statistiektentamen stellen we ook niet 1 maar meerdere vragen om een betrouwbare test te hebben van hoe goed studenten de leerstof kennen. Ten slotte kunnen we door het combineren van meerdere variabelen tot slechts 1 variabele statistische modellen vereenvoudigen (bv. door niet 10 maar 5 onafhankelijke variabelen toe te voegen: 4 + een index van de andere predictors). Dit samenvoegen is ook handig als predictors sterk gecorreleerd zijn en een model onderhevig zou zijn aan sterke multicollineariteit indien onafhankelijke variabelen samen worden toegevoegd.</p>
+<p>Deze appendix bekijkt hoe we op basis van meerdere variabelen slechts 1 variabele of index/schaal kunnen creëeren. Eerst bespreken we algemene principes die een leidraad vormen bij beslissingen over het maken van een schaal. Dan tonen we hoe de <em>betrouwbaarheid</em> van een schaal nagegaan kan worden en hoe we een nieuwe schaal kunnen maken op basis van de som of het gemiddelde van bestaande variabelen. In een tweede uitgewerkt voorbeeld bespreken we wat te doen als de variabelen waarmee je een schaal wil maken gemeten zijn op verschillende manieren.</p>
+<section id="algemene-principes" class="level2" data-number="E.1">
+<h2 data-number="E.1" class="anchored" data-anchor-id="algemene-principes"><span class="header-section-number">E.1</span> Algemene principes</h2>
+<p>De R code die we in de volgende secties tonen kan gebruikt worden om verschillende soorten indexen/schalen te maken op basis van bestaande variabelen. Het spreekt echter voor zich dat het niet de bedoeling is lukraak wat variabelen bij elkaar te gooien. De beslissing welke variabelen samen te voegen en met welk doel moet gemotiveerd zijn. welke principes daarbij in gedachten moeten worden gehouden bespreken we hier. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Conceptualisatie vormt een natuurlijk beginpunt voor het nadenken over schalen. We willen vaak concepten zoals ‘democratie’, ‘populisme’, of ‘ideologie’ empirisch bestuderen, maar deze concepten kennen verschillende facetten of sub-componenten die je niet altijd met 1 vraag kunt meten. Soms gebeurt dit wel, denk bijvoorbeeld aan de gekende vraag over links-rechtspositie, maar ook hier kunnen we ons kritisch de vraag stellen of we hiermee echt een complex concept als ‘ideologie’ meten. Moeten we niet zowel economisch als sociaal-cultureel links-rechts meten bijvoorbeeld?</p>
+<p>De vraag die we ons dan stellen is hoe we deze concepten best kunnen meten en of we dat met 1 of meerdere variabelen moeten doen. Bestaande studies helpen hierbij. Het V-Dem project meet bijvoorbeeld democratie (<code>v2x_polyarchy</code>) niet met 1 vraag gesteld aan experten (‘hoe democratisch is…?’) maar met verschillende vragen over bijvoorbeeld hoe vrij en eerlijk verkiezingen zijn, hoe transparant de overheid is enz. Antwoorden op verschillende vragen worden gecombineerd tot 1 getal voor democratie. In een survey vragen we doorgaans niet aan mensen hoe ‘populistisch’ ze zijn. Dit woord wordt meer gebruikt door wetenschappers dan gewone burgers. We kunnen wel vragen of ze akkoord of niet akkoord gaan met stellingen zoals ‘politici zijn geschikter om beleid te vormen dan gewone burgers’ en ‘politici zijn uit op eigenbelang’ en dan een schaal maken op basis van de antwoorden op deze stellingen.</p>
+<p>Een <em>valide</em> meting is een meting waarbij de vraag, of de combinatie van vragen in dit geval, gebruikt om het concept te meten alle belangrijke aspecten van het concept bevat. Een meting van democratie zonder een element over vrije en eerlijke verkiezingen zou best vreemd zijn bijvoorbeeld. We willen geen belangrijke dingen vergeten. Aan de andere kant willen we niet te veel elementen opnemen en ons concept niet uitrekken. Een meting van democratie bevat dan meestal ook geen indicatoren over welvaart in de samenleving. Voor validiteit moeten we goed nadenken over wat er nu bij ons concept hoort en wat eigenlijk iets anders is.</p>
+<p>Een meting moet ook <em>betrouwbaar</em> zijn: als we de meting opnieuw zouden doen, willen we gelijke of sterk gelijke resultaten. Je wil ook geen weegschaal die je telkens een ander cijfer geeft als je er 3 keer na elkaar gaat opstaan. Voor betrouwbare schalen kunnen we ons vaak beroepen op eerder onderzoek: wat hebben andere onderzoekers gebruikt en met welke resultaten? We kunnen ook echter kijken naar de correlatie tussen verschillende variabelen waarvan we denken dat ze een schaal kunnen vormen om 1 concept te meten. Als de sub-variabelen sterk gecorreleerd zijn, hebben we reden om aan te nemen dat ze verschillende aspecten van eenzelfde concept meten.</p>
+</section>
+<section id="voorbeeld-1-emoties-en-campagne-voeren" class="level2" data-number="E.2">
+<h2 data-number="E.2" class="anchored" data-anchor-id="voorbeeld-1-emoties-en-campagne-voeren"><span class="header-section-number">E.2</span> Voorbeeld 1: Emoties en campagne voeren</h2>
+<section id="data" class="level3" data-number="E.2.1">
+<h3 data-number="E.2.1" class="anchored" data-anchor-id="data"><span class="header-section-number">E.2.1</span> Data</h3>
+<p>Waarom doen burgers mee aan verkiezingscampagnes (bv. door de straat op te gaan om mensen aan te spreken of door geld te doneren)? Sommige onderzoekers leggen dit vooral uit door te verwijzen naar mensen hun vaardigheden en welvaart: hebben ze tijd voor vrijwilligerswerk, geld om te doneren, de politieke kennis om mensen te mobiliseren enz.? Maar mensen moeten ook overtuigd zijn dat campagne voeren nuttig en juist is om te doen. Ze moeten met andere woorden gemotiveerd zijn. recent onderzoek wijst uit dat <em>emoties</em> een belangrijke rol kunnen spelen om mensen tot actie aan te zetten. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> We onderzoeken dit idee op basis van een subset van de 2024 American National Election Studies (ANES) en tonen aan hoe we schalen maken in R.</p>
+<p>ANES is gebaseerd op een toevalssteekproef van volwassen Amerikaanse burgers, die ondervraagd worden zowel voor (pre-election) als na (post-election) de nationale verkiezingen. In 2024 werd respondenten gevraagd of zij verschillende soorten campagneactiviteiten hadden ondernomen:</p>
+<ul>
+<li>“Heb je mensen gesproken om hen te overtuigen te stemmen voor of tegen bepaalde kandidaten of partijen?” (<code>persuade</code>)</li>
+<li>“Heb je online deelgenomen aan politieke bijeenkomsten, speeches, geldinzamelingsacties of gelijkaardige zaken om een bepaalde kandidaat te steunen?” (<code>online_meetings</code>)</li>
+<li>“Heb je fysiek deelgenomen aan politieke bijeenkomsten, speeches, geldinzamelingsacties of gelijkaardige zaken om een bepaalde kandidaat te steunen?” (<code>rallies</code>)</li>
+<li>“Toonde je een politiek symbool tijdens de campagne zoals een button, kledingstuk, sticker op de wagen, affiche aan huis?” (<code>campaign_button</code>)</li>
+<li>“Deed je ander werk voor een kandidaat of partij?” (<code>other_work</code>)</li>
+<li>“Heb je geld gedoneerd aan een partij dit verkiezingsjaar?” (<code>contribute_money_party</code>)</li>
+<li>“Heb je geld gedoneerd aan een groep voor of tegen bepaalde kandidaten?” (<code>contribute_money_group</code>)</li>
+</ul>
+<p>Respondenten konden met ‘ja (code = 1)’ of ‘nee (code =0)’ antwoorden.</p>
+<p>We bekijken eerst de descriptieve statistieken voor we meer ingewikkelde dingen proberen. We maken gebruik van de <code>psych::describe()</code> functie. De “mean” kolom geeft de proportie weer van respondenten die een bepaalde activiteit hebben ondernomen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(persuade<span class="sc">:</span>contribute_money_group) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">describe</span>()  <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vars<span class="sc">:</span>mean, min, max)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">We selecteren de variabelen waarvoor we statistieken willen. De campagnevariabelen bevinden zich naast elkaar in de data. We schrijven de eerste en de laatste met een dubbelpunt ertussen om ze allemaal te selecteren.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="2">Door <code>psych::</code> als prefix te gebruiken hoeven we het package hier niet eerst te laden. Sommige functies van dit package conflicteren namelijk met die van <code>tidyverse</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="3">We gebruiken de <code>select()</code> functie om slechts relevante kolommen weer te geven. Voor binaire variabelen zijn zaken zoals skew en kurtosis niet veelzeggend.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                       vars    n mean min max
+persuade                  1 4957 0.40   0   1
+online_meetings           2 4761 0.10   0   1
+rallies                   3 4959 0.05   0   1
+campaign_button           4 4962 0.14   0   1
+other_work                5 4962 0.03   0   1
+contribute_money_party    6 4760 0.10   0   1
+contribute_money_group    7 4760 0.03   0   1</code></pre>
+</div>
+</div>
+<p>Ongeveer 40% van de respondenten heeft anderen proberen overtuigen. Andere activiteiten zijn minder frequent gebruikt. De verschillende vragen of ‘items’ (sub-componenten van een schaal) zullen we gebruiken voor de afhankelijke variabele.</p>
+<p>ANES vroeg respondenten ook naar hun emoties voorgaand aan de verkiezingen met de vraag: Hoe [specifieke emotie] voel je je over hoe de zaken momenteel gaan in het land? De volgende emoties werden bevraagd:</p>
+<ul>
+<li>hoopvol (<code>hopeful</code>)</li>
+<li>angstig (<code>afraid</code>)</li>
+<li>woedend (<code>outraged</code>)</li>
+<li>boos (<code>angry</code>)</li>
+<li>gelukkig (<code>happy</code>)</li>
+<li>bezorgd (<code>worried</code>)</li>
+<li>trots (<code>proud</code>)</li>
+<li>geïrriteerd (<code>irritated</code>)</li>
+<li>nerveus (<code>nervous</code>)</li>
+</ul>
+<p>Respondenten konden antwoorden op een 5-punten schaal: not at all (=1), a little (=2), somewhat (=3), very (=4), en extremely (=5). Ook hier bekijken we de beschrijvende statistieken eerst:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hopeful<span class="sc">:</span>nervous) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">describe</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(vars, n, mean, sd, median, min, max, skew, kurtosis)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          vars    n mean   sd median min max  skew kurtosis
+hopeful      1 4756 2.49 1.11      3   1   5  0.24    -0.69
+afraid       2 4757 3.35 1.21      3   1   5 -0.25    -0.84
+outraged     3 4752 3.21 1.31      3   1   5 -0.20    -1.03
+angry        4 4754 3.23 1.24      3   1   5 -0.17    -0.91
+happy        5 4756 2.01 1.01      2   1   5  0.62    -0.46
+worried      6 4755 3.58 1.15      4   1   5 -0.41    -0.70
+proud        7 4750 2.04 1.06      2   1   5  0.67    -0.44
+irritated    8 4753 3.57 1.16      4   1   5 -0.44    -0.68
+nervous      9 4758 3.47 1.18      4   1   5 -0.36    -0.73</code></pre>
+</div>
+</div>
+<p>We zien dat respondenten over het algemeen niet zo positief zijn: gemiddelden voor negatieve gevoelens liggen hoger dan die voor positieve gevoelens. Maar er is sterke variatie in de variabelen.</p>
+<p>We willen nu de relatie nagaan tussen emoties en campagne voeren. Voor zowel de ‘onafhankelijke’ (emoties) als de ‘afhankelijke’ (campagne) variabelen hebben we meerdere aparte variabelen in de dataset. Hoe gaan we te werk?</p>
+<p>We zouden verschillende (logistische) modellen kunnen schatten per campagne-item en telkens alle emotievariabelen toevoegen als predictors. Dit kan een goede aanpak zijn als we willen weten of welbepaalde emoties een andere invloed hebben op welbepaalde activiteiten ten opzichte van andere. Als we geïnteresseerd zijn in de algemene relatie tussen emoties en campagne voeren, maken we indexen of schalen.</p>
+<p>Onze emoties verschillen, maar toch kunnen we ook hier een schaal maken als we ervanuit gaan dat positieve en negatieve emoties samen voorkomen (i.e.&nbsp;correleren). We gaan dit eerst na:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hopeful<span class="sc">:</span>nervous) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2">2</button><span id="annotated-cell-4-3" class="code-annotation-target"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(str_to_title) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3">3</button><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datasummary_correlation</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1">We selecteren de variabelen waarvoor we correlaties willen berekenen.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="2">De <code>str_to_title()</code> functie komt uit het <code>stringr</code> package (deel van <code>tidyverse</code>). we gebruiken het om de kolomnamen te laten beginnen met een hoofdletter in plaats van een kleine letter, dan moeten we niet individueel de variabelen hernoemen (Zie <a href="https://stackoverflow.com/questions/13258020/change-letter-case-of-column-names" target="_blank">deze</a> StackOverflow thread.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="3">Deze functie uit het <code>modelsummary</code> package maakt een correlatietabel. Zie <a href="linear_08.html" class="quarto-xref"><span>Hoofdstuk 8</span></a> voor verdere informatie.</span>
+</dd>
+</dl>
+</div>
+<div id="tbl-emotion-corr" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-emotion-corr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabel&nbsp;E.1: Correlaties tussen emoties
+</figcaption>
+<div aria-describedby="tbl-emotion-corr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script>
+
+      function styleCell_6migd8j5jrg3r4c3lpyw(i, j, css_id) {
+          var table = document.getElementById("tinytable_6migd8j5jrg3r4c3lpyw");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_6migd8j5jrg3r4c3lpyw');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_6migd8j5jrg3r4c3lpyw(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_6migd8j5jrg3r4c3lpyw");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 }, { i: 4, j: 0 }, { i: 5, j: 0 }, { i: 6, j: 0 }, { i: 7, j: 0 }, { i: 8, j: 0 },  ], css_id: 'tinytable_css_xohqnunuo2mqadire2m6',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_ncn24b9kadkfr80o6c7n',}, 
+          { positions: [ { i: 9, j: 3 }, { i: 9, j: 4 }, { i: 9, j: 8 }, { i: 9, j: 2 }, { i: 9, j: 6 }, { i: 9, j: 7 }, { i: 9, j: 1 }, { i: 9, j: 5 }, { i: 9, j: 9 },  ], css_id: 'tinytable_css_d0sdgbc9hvbmqkfj85xs',}, 
+          { positions: [ { i: 2, j: 3 }, { i: 6, j: 1 }, { i: 3, j: 1 }, { i: 2, j: 2 }, { i: 3, j: 2 }, { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 6, j: 2 }, { i: 4, j: 1 }, { i: 5, j: 1 }, { i: 2, j: 4 }, { i: 7, j: 1 }, { i: 8, j: 1 }, { i: 5, j: 4 }, { i: 3, j: 3 }, { i: 1, j: 2 }, { i: 5, j: 3 }, { i: 6, j: 3 }, { i: 4, j: 2 }, { i: 5, j: 2 }, { i: 2, j: 5 }, { i: 7, j: 2 }, { i: 8, j: 2 }, { i: 5, j: 5 }, { i: 3, j: 4 }, { i: 1, j: 3 }, { i: 8, j: 5 }, { i: 6, j: 4 }, { i: 4, j: 3 }, { i: 8, j: 4 }, { i: 2, j: 6 }, { i: 7, j: 3 }, { i: 8, j: 3 }, { i: 5, j: 6 }, { i: 3, j: 5 }, { i: 1, j: 4 }, { i: 8, j: 6 }, { i: 6, j: 5 }, { i: 4, j: 4 }, { i: 1, j: 7 }, { i: 2, j: 7 }, { i: 7, j: 4 }, { i: 1, j: 6 }, { i: 5, j: 7 }, { i: 3, j: 6 }, { i: 1, j: 5 }, { i: 8, j: 7 }, { i: 6, j: 6 }, { i: 4, j: 5 }, { i: 1, j: 8 }, { i: 2, j: 8 }, { i: 7, j: 5 }, { i: 4, j: 8 }, { i: 5, j: 8 }, { i: 3, j: 7 }, { i: 4, j: 7 }, { i: 8, j: 8 }, { i: 6, j: 7 }, { i: 4, j: 6 }, { i: 1, j: 9 }, { i: 2, j: 9 }, { i: 7, j: 6 }, { i: 4, j: 9 }, { i: 5, j: 9 }, { i: 3, j: 8 }, { i: 7, j: 9 }, { i: 8, j: 9 }, { i: 6, j: 8 }, { i: 7, j: 8 }, { i: 6, j: 9 }, { i: 3, j: 9 }, { i: 7, j: 7 },  ], css_id: 'tinytable_css_9xtm40z3ip5y4r4r47jd',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 5 }, { i: 0, j: 9 }, { i: 0, j: 3 }, { i: 0, j: 4 }, { i: 0, j: 8 }, { i: 0, j: 2 }, { i: 0, j: 6 }, { i: 0, j: 7 },  ], css_id: 'tinytable_css_5j6gapi0p0a7m9fx9em0',}, 
+          { positions: [ { i: 9, j: 0 },  ], css_id: 'tinytable_css_2zvdnpg574ngyxispb8n',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_6migd8j5jrg3r4c3lpyw(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_xohqnunuo2mqadire2m6, .table th.tinytable_css_xohqnunuo2mqadire2m6 { text-align: left; }
+      .table td.tinytable_css_ncn24b9kadkfr80o6c7n, .table th.tinytable_css_ncn24b9kadkfr80o6c7n { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_d0sdgbc9hvbmqkfj85xs, .table th.tinytable_css_d0sdgbc9hvbmqkfj85xs { text-align: right; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_9xtm40z3ip5y4r4r47jd, .table th.tinytable_css_9xtm40z3ip5y4r4r47jd { text-align: right; }
+      .table td.tinytable_css_5j6gapi0p0a7m9fx9em0, .table th.tinytable_css_5j6gapi0p0a7m9fx9em0 { text-align: right; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_2zvdnpg574ngyxispb8n, .table th.tinytable_css_2zvdnpg574ngyxispb8n { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_6migd8j5jrg3r4c3lpyw" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">Hopeful</th>
+                <th scope="col">Afraid</th>
+                <th scope="col">Outraged</th>
+                <th scope="col">Angry</th>
+                <th scope="col">Happy</th>
+                <th scope="col">Worried</th>
+                <th scope="col">Proud</th>
+                <th scope="col">Irritated</th>
+                <th scope="col">Nervous</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>Hopeful</td>
+                  <td>1</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Afraid</td>
+                  <td>-.33</td>
+                  <td>1</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Outraged</td>
+                  <td>-.33</td>
+                  <td>.64</td>
+                  <td>1</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Angry</td>
+                  <td>-.34</td>
+                  <td>.66</td>
+                  <td>.77</td>
+                  <td>1</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Happy</td>
+                  <td>.61</td>
+                  <td>-.39</td>
+                  <td>-.41</td>
+                  <td>-.40</td>
+                  <td>1</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Worried</td>
+                  <td>-.35</td>
+                  <td>.75</td>
+                  <td>.66</td>
+                  <td>.66</td>
+                  <td>-.42</td>
+                  <td>1</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Proud</td>
+                  <td>.60</td>
+                  <td>-.36</td>
+                  <td>-.39</td>
+                  <td>-.39</td>
+                  <td>.72</td>
+                  <td>-.41</td>
+                  <td>1</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Irritated</td>
+                  <td>-.36</td>
+                  <td>.64</td>
+                  <td>.72</td>
+                  <td>.73</td>
+                  <td>-.44</td>
+                  <td>.68</td>
+                  <td>-.42</td>
+                  <td>1</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>Nervous</td>
+                  <td>-.31</td>
+                  <td>.75</td>
+                  <td>.62</td>
+                  <td>.64</td>
+                  <td>-.36</td>
+                  <td>.75</td>
+                  <td>-.35</td>
+                  <td>.64</td>
+                  <td>1</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><a href="#tbl-emotion-corr" class="quarto-xref">Tabel&nbsp;<span>E.1</span></a> toont dat positieve emoties positief correleren, dat negatieve emoties positief correleren en dat positieve en negative emoties negatief correleren. Dit lijkt erop te wijzen dat we indexen voor ‘positieve’ en ‘negatieve’ emoties zouden kunnen maken, ook om multicollineariteit tegen te gaan.</p>
+</section>
+<section id="betrouwbaarheid-van-schalen" class="level3" data-number="E.2.2">
+<h3 data-number="E.2.2" class="anchored" data-anchor-id="betrouwbaarheid-van-schalen"><span class="header-section-number">E.2.2</span> Betrouwbaarheid van schalen</h3>
+<p>De concepten van ‘emoties’ en ‘campagne voeren’ lijken valide en de belangrijkste componenten te bevatten van deze zaken in het echte leven (we kunnen hier natuurlijk verder over reflecteren in de conclusie van onze paper). De positieve en negatieve indexen van emoties hierboven gesuggereerd worden ook ondersteund in de literatuur. Eerder onderzoek over “affective intelligence theory” stelt immers dat menselijk gedrag aangestuurd wordt door twee emotionele systemen. De items staan eigenlijk ook in ANES om dit te testen <a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<p>Maar we moeten ook naar betrouwbaarheid kijken: zou een index van positieve emoties intern betrouwbaar zijn? Meten onze verschillende emoties voldoende hetzelfde ‘positieve’ aspect. De correlaties hierboven (zie <a href="#tbl-emotion-corr" class="quarto-xref">Tabel&nbsp;<span>E.1</span></a>) lijken te zeggen van ja, maar er bestaan ook betere statistische methoden die helpen de vraag te beantwoorden of de correlatie sterk genoeg is.</p>
+<p>We gebruiken de Cronbach’s alpha (<span class="math inline">\(\alpha\)</span>), gebaseerd op de gemiddelde covariantie van de onderliggende variabelen in de schaal.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> De <span class="math inline">\(\alpha\)</span> maatstaf heeft een bereik van 0 tot 1. Hogere waarden duiden op hogere betrouwbaarheid. De volgende vuistregels gelden:</p>
+<ul>
+<li><span class="math inline">\(\geq\)</span> 0.90: Excellente betrouwbaarheid</li>
+<li>0.80-0.89: Goede betrouwbaarheid</li>
+<li>0.70-0.79: Aanvaardbare betrouwbaarheid</li>
+<li>0.60-0.69: Twijfelachtige betrouwbaarheid</li>
+<li>&lt; 0.60: Slechte betrouwbaarheid</li>
+</ul>
+<p>Doorgaans gebruiken we geen index met een <span class="math inline">\(\alpha\)</span> onder 0.6. Bij binaire variabelen kan de betrouwbaarheid echter onderschat worden omdat de <span class="math inline">\(\alpha\)</span> test eigenlijk continue variabelen verwacht. Er bestaan andere methoden voor binaire data maar deze vallen buiten het materiaal van dit handboek.</p>
+<p>We kunnen de <span class="math inline">\(\alpha\)</span> berekenen met de <code>cronbachs_alpha()</code> functie uit het <code>performance</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Campagne index</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(persuade<span class="sc">:</span>contribute_money_group) <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cronbachs_alpha</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6306181</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Positieve emoties</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hopeful, happy, proud) <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cronbachs_alpha</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8418678</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Negatieve Emoties</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(afraid, outraged, angry, worried, irritated, nervous) <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cronbachs_alpha</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9287744</code></pre>
+</div>
+</div>
+<p>De <span class="math inline">\(\alpha\)</span> scores voor de emotieschalen zijn 0.84 en 0.93 respectievelijk en dus sterk betrouwbaar. De betrouwbaarheid voor negatieve emoties is vooral hoger omdat er meerdere items gebruikt zijn. De <span class="math inline">\(\alpha\)</span> score voor campagne voeren is lager: 0.63. Gezien de scores doorgaans lager zijn bij binaire variabelen maken we de beslissing om toch met de index door te gaan.</p>
+</section>
+<section id="som-of-gemiddelde" class="level3" data-number="E.2.3">
+<h3 data-number="E.2.3" class="anchored" data-anchor-id="som-of-gemiddelde"><span class="header-section-number">E.2.3</span> Som of gemiddelde?</h3>
+<p>We zullen 3 indexen maken: 1 voor campagne en 2 voor emoties. We moeten een keuze maken tussen variabelen optellen of het gemiddelde nemen. De keuze ligt aan de onderzoeker, maar er zijn wel wat richtlijnen. Bij campagne kijken we naar verschillende activiteiten. Hier houdt het steek om te meten hoeveel verschillende activiteiten iemand heeft gedaan eerder dan of die persoon gemiddeld een activiteit heeft gedaan. Optellen dus. Bij emoties lijkt de originele schaal van 1 tot 5 nuttig: voelt iemand zich helemaal niet of juist sterk zo? Een nieuwe somschaal op 30 (bv. voor negatieve emoties hier) heeft weinig intuïtieve betekenis. Hier nemen we dus het gemiddelde.</p>
+<p>We moeten ook rekening houden met ontbrekende waarden. Als we R vragen om een som of gemiddelde te berekenen moeten we zeggen hoe met missing data om te gaan via <code>na.rm = TRUE</code> of <code>na.rm = FALSE</code>. Bij <code>na.rm =TRUE</code> worden missing waarden (NA) weggelaten bij de berekening. Dit is de correcte manier, anders krijgen we ‘NA’ voor de som/het gemiddelde. Zie het verschil hieronder.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># voorbeelddata</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">5</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># gemiddelde berekenen</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3.25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">FALSE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+</div>
+<p>Als we een index van gemiddelden maken voor 5 items, en 1 (of meerdere) zijn missing, dan wordt het gemiddelde berekend voor de overige 4 (of minder) waarden. Dit is doorgaans prima.</p>
+<p>Wat als we een som nemen? We moeten opnieuw <code>na.rm = TRUE</code> gebruiken. Nu geeft de functie een score van 0 voor alle NA waarden bij de optelling. Dit kan soms vreemde gevolgen hebben. Een observatie met enkel missing waarden voor de items zal opeens een 0 krijgen als eindscore en geen NA. Zie onderstaand voorbeeld:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># voorbeelddata</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>), </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="cn">NA</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Inspectie</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  x         y
+  &lt;lgl&gt; &lt;dbl&gt;
+1 NA        0
+2 NA        1
+3 NA        0
+4 NA        0
+5 NA       NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Som maken</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sum_x =</span> <span class="fu">sum</span>(x, <span class="at">na.rm =</span> T), </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">sum_y =</span> <span class="fu">sum</span>(y, <span class="at">na.rm =</span> T))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+  x         y sum_x sum_y
+  &lt;lgl&gt; &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt;
+1 NA        0     0     1
+2 NA        1     0     1
+3 NA        0     0     1
+4 NA        0     0     1
+5 NA       NA     0     1</code></pre>
+</div>
+</div>
+<p>In zekere zin gaan we voor X hier data ‘verzinnen’, wat problematisch kan zijn. We weten immers niet wat echt waar is voor deze observatie. In de ANES survey nam niet iedereen mee aan het gedeelte van de survey dat na de verkiezingen werd afgenomen en waarin de campagnevragen stonden. Voor al deze mensen zouden we dus 0 ingeven, hoewel ze geen respons hebben gegeven. we kunnen deze mensen wel uit de data filteren maar dan blijven er nog respondenten voor wie we geen waarden hebben en eigenlijk niet kunnen zeggen wat ze gedaan hebben.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a> Hieronder tonen we hoe dit aan te pakken.</p>
+<p>We will show how to find these types of observations and how to deal with them below.</p>
+</section>
+<section id="schalen-maken" class="level3" data-number="E.2.4">
+<h3 data-number="E.2.4" class="anchored" data-anchor-id="schalen-maken"><span class="header-section-number">E.2.4</span> Schalen maken</h3>
+<p>Eigenlijk hebben we vooral nood aan 2 basisfuncties binnen R: <code>mean()</code> en <code>sum()</code>.<a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a> Voorgaand hebben we deze functies op 1 variabele tegelijk toegepast. Nu combineren we meerder variabelen (kolommen in de dataset) tot een gecombineerde variabele (kolom). Dit doen we met behulp van functies uit <code>tidyverse</code>: <code>rowwise()</code> en <code>c_across()</code>. Je kunt meer over deze functies leren via deze <a href="https://dplyr.tidyverse.org/articles/rowwise.html" target="_blank">vignette</a>.</p>
+<section id="een-index-gebaseerd-op-een-gemiddelde" class="level4" data-number="E.2.4.1">
+<h4 data-number="E.2.4.1" class="anchored" data-anchor-id="een-index-gebaseerd-op-een-gemiddelde"><span class="header-section-number">E.2.4.1</span> Een index gebaseerd op een gemiddelde</h4>
+<p>We maken 2 indexen op basis van gemiddelden: eentje voor de positieve emoties en eentje voor de negatieve emoties.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="ot">&lt;-</span> scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">positive_emotions =</span> <span class="fu">mean</span>(<span class="fu">c</span>(hopeful, happy, proud), <span class="at">na.rm =</span> T), </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">negative_emotions =</span> <span class="fu">mean</span>(<span class="fu">c</span>(afraid, outraged, angry, worried, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                               irritated, nervous), <span class="at">na.rm =</span>T)) <span class="sc">|&gt;</span> </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zo lees je de syntax:</p>
+<dl>
+<dt><code>scale_data |&gt; rowwise() |&gt;</code></dt>
+<dd>
+<p>de nieuwe functie hier is <code>rowwise()</code>. Zonder deze functie zou <code>mutate()</code> gewoon gemiddelden berekenen op basis van alle rijen in de dataset en deze gemiddelden toevoegen aan de dataset (iedereen zou dus dezelfde algemene waarden krijgen voor de variabelen). Met <code>rowwise()</code> vragen we R om gemiddelden per rij te berekenen zodat elke observatie zijn eigen gemiddelde score toegevoegd krijgt.</p>
+</dd>
+<dt><code>mutate(positive_emotions = mean(c(hopeful, happy, proud), na.rm = T), ...))</code></dt>
+<dd>
+<p>We vragen R om met <code>mutate()</code> nieuwe variabelen (kolommen) te maken. De eerste variabele noemen we <code>positive_emotions</code>, de tweede <code>negative_emotions</code>. Dit is de gemiddelde score voor de waarden van de variabelen aangegeven met <code>c(...)</code>. Het gedeelte <code>na.rm = T</code> vraagt R missing waarden te negeren bij de berekening.</p>
+</dd>
+<dt><code>ungroup()</code></dt>
+<dd>
+<p>We vragen R om de groepen (gemaakt met <code>rowwise()</code>) te vergeten zodat dit groeperen per rij niet gebruikt wordt in verdere syntax die gebruikmaakt van <code>mutate()</code>.</p>
+</dd>
+</dl>
+<p>We kunnen de data bekijken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-13-2"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(hopeful<span class="sc">:</span>negative_emotions) <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1">1</button><span id="annotated-cell-13-3" class="code-annotation-target"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="2">2</button><span id="annotated-cell-13-4" class="code-annotation-target"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-13" data-code-lines="3" data-code-annotation="1">Automatisch selecteren van de eerste rijen van de data voor presentatie.</span>
+</dd>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-13" data-code-lines="4" data-code-annotation="2"><code>kable()</code> wordt gebruikt voor het maken van tabellen in html files. Hier gebruiken we het om ervoor te zorgen dat alle kolommen zichtbaar zijn voor de lezer.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 7%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">hopeful</th>
+<th style="text-align: right;">afraid</th>
+<th style="text-align: right;">outraged</th>
+<th style="text-align: right;">angry</th>
+<th style="text-align: right;">happy</th>
+<th style="text-align: right;">worried</th>
+<th style="text-align: right;">proud</th>
+<th style="text-align: right;">irritated</th>
+<th style="text-align: right;">nervous</th>
+<th style="text-align: right;">positive_emotions</th>
+<th style="text-align: right;">negative_emotions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">5.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">3.17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2.67</td>
+<td style="text-align: right;">4.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">3.33</td>
+<td style="text-align: right;">3.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1.67</td>
+<td style="text-align: right;">4.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">4.67</td>
+<td style="text-align: right;">1.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>De eerste respondent was duidelijk ongelukkig met de toestand in de VS. Voor alle positieve emoties wordt de laagste score van 1 gegeven (het gemiddelde voor positieve emoties is dan ook 1). Voor de negatieve emoties werd telkens de maximale score van 5 gegeven (en 5 is dus ook het gemiddelde). Respondent 6 is zowat de tegenpool van respondent 1 terwijl andere respondenten zich meer in het midden bevinden.</p>
+<p>Met een Pearson correlatie kunnen we nagaan hoe de twee schalen zich tot elkaar verhouden:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(scale_data<span class="sc">$</span>positive_emotions, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>         scale_data<span class="sc">$</span>negative_emotions, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  scale_data$positive_emotions and scale_data$negative_emotions
+t = -39.523, df = 4758, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.5182429 -0.4754587
+sample estimates:
+      cor 
+-0.497153 </code></pre>
+</div>
+</div>
+<p>De schalen zijn negatief gecorreleerd met een gemiddeld sterke samenhang. Dit betekent dat respondenten ook ambivalent kunnen zijn en zowel positieve als negatieve gevoelens ervaren.</p>
+</section>
+<section id="een-index-gebaseerd-op-een-som" class="level4" data-number="E.2.4.2">
+<h4 data-number="E.2.4.2" class="anchored" data-anchor-id="een-index-gebaseerd-op-een-som"><span class="header-section-number">E.2.4.2</span> Een index gebaseerd op een som</h4>
+<p>Het proces voor een index gebaseerd op een som is gelijkaardig, behalve dat we moeten opletten met observaties die ontbrekende waarden hebben voor de variabelen die de schaal/index gaan vormen, zoals hierboven uitgelegd. Deze observaties mogen we niet meenemen in de berekening. We bekijken eerst of er missing waarden zijn over de cases heen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="ot">&lt;-</span> scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">engage_missing =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(<span class="fu">c</span>(persuade, online_meetings, rallies, </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                      campaign_button, other_work, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                                      contribute_money_party, contribute_money_group)))) <span class="sc">|&gt;</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt><code>sum(is.na(c(persuade, ..., contribute_money_group))))</code></dt>
+<dd>
+<p>We gebruiken hier <code>rowwise()</code> gevolgd door <code>mutate()</code> zoals we hierboven al deden. Nu gebruiken we echter <code>sum()</code> om totalen te berekenen. We willen hier berekenen hoeveel van de observaties ontbrekende waarden hebben en voor hoeveel van de onderliggende variabelen. We maken dus ook gebruik van de <code>is.na()</code> functie. Deze functie transformeert achter de schermen de kolommen (variabelen) aangeduid met <code>c()</code> tot binaire variabelen waarbij 0 staat voor valide waarden en 1 voor ontbrekende waarden. Zo berekenen we hoeveel ontbrekende waarden een observatie heeft.</p>
+</dd>
+</dl>
+<p>Laten we eens kijken of er observaties zijn met ontbrekende waarden via de <code>table()</code> functie:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(scale_data<span class="sc">$</span>engage_missing)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1    3    4    6    7 
+4752    9  199    2    1    1 </code></pre>
+</div>
+</div>
+<p>De meeste observaties (4752) hebben geen enkele (0) ontbrekende waarde. Sommige respondenten (9) hebben er 1. Er is ook een respondent die voor alle 7 de variabelen een ontbrekende waarde geeft. Deze zouden we eruit kunnen filteren op de volgende manier:<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="ot">&lt;-</span> scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(engage_missing <span class="sc">&lt;</span> <span class="dv">7</span>)  </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nu kunnen we dan onze index maken. We gebruiken hiervoor de functie <code>c_across()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>scale_data <span class="ot">&lt;-</span> scale_data <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">campaign_engagement =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(persuade<span class="sc">:</span>contribute_money_group))) <span class="sc">|&gt;</span> </span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<dl>
+<dt><code>campaign_engagement = sum(c_across(persuade:contribute_money_group)))</code></dt>
+<dd>
+<p>Toen we het gemiddelde over een aantal variabelen heen wilden berekenen gebruikten we gewoon de functie <code>c()</code>. Dat werkt prima, maar kan omslachtig zijn als er veel variabelen zijn om uit te schrijven. Met <code>c_across</code> kunnen we de eerste variabele en de laatste schrijven met daartussen een dubbelpunt (<code>persuade:contribute_money_group</code>). Zo selecteert R ook alle tussenliggende variabelen. Deze functie is natuurlijk enkel nuttig als de relevante variabelen netjes bij elkaar staan in de dataset.</p>
+</dd>
+</dl>
+<p>Laten we een kijkje nemen naar de uiteindelijke index:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(scale_data<span class="sc">$</span>campaign_engagement)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1    2    3    4    5    6    7 
+2436 1345  504  257  120   60   19   11 </code></pre>
+</div>
+</div>
+<p>Het merendeel van de respondenten is niet betrokken bij campagneactiviteiten. Zij scoren 0 op de index. Een groot aantal respondenten doet 1 activiteit (1345). Hoe meer activiteiten, hoe minder respondenten. Slechts 11 respondenten hebben deelgenomen aan alle 7 de activiteiten.</p>
+</section>
+</section>
+<section id="model-schatten" class="level3" data-number="E.2.5">
+<h3 data-number="E.2.5" class="anchored" data-anchor-id="model-schatten"><span class="header-section-number">E.2.5</span> Model schatten!</h3>
+<p>Nu we al onze schalen gecreëerd hebben kunnen we een regressiemodel schatten. Hier gebruiken we een lineair model met positieve en negatieve emoties als onafhankelijke variabelen en campagne engagement als afhankelijke variabele:<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>engagement_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(campaign_engagement <span class="sc">~</span> positive_emotions <span class="sc">+</span> negative_emotions, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> scale_data)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(engagement_model)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  term              estimate std.error statistic  p.value
+  &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1 (Intercept)         -0.648    0.0971     -6.68 2.68e-11
+2 positive_emotions    0.320    0.0211     15.2  1.00e-50
+3 negative_emotions    0.239    0.0188     12.7  1.73e-36</code></pre>
+</div>
+</div>
+<p>Er bestaat voor beide predictoren een positieve, significante relatie met de afhankelijke variabele. Zowel positieve als negatieve emoties zijn geassocieerd met politieke participatie.</p>
+</section>
+</section>
+<section id="voorbeeld-2-verschillende-meeteenheden" class="level2" data-number="E.3">
+<h2 data-number="E.3" class="anchored" data-anchor-id="voorbeeld-2-verschillende-meeteenheden"><span class="header-section-number">E.3</span> Voorbeeld 2: verschillende meeteenheden</h2>
+<p>De schalen die we hierboven hebben gemaakt waren gebaseerd op variabelen die zelf op dezelfde schaal waren gemeten (binaire 0/1 variabelen voor campagneactiviteiten en emotiebelevenis op een schaal van 1 tot 5 voor de emotievariabelen). Het kan echter voorkomen dat we een index willen maken van variabelen die op verschillende schalen gemeten zijn. Dat vergt een enigszins andere aanpak.</p>
+<section id="twee-benaderingen-normaliseren-en-standaardiseren" class="level3" data-number="E.3.1">
+<h3 data-number="E.3.1" class="anchored" data-anchor-id="twee-benaderingen-normaliseren-en-standaardiseren"><span class="header-section-number">E.3.1</span> Twee benaderingen: normaliseren en standaardiseren</h3>
+<p>Het tweede voorbeeld richt zich op de Human Development Index (HDI). De <a href="https://hdr.undp.org/data-center/human-development-index#/indicies/HDI" target="_blank">HDI</a> is “a summary measure of average achievement in key dimensions of human development: a long and healthy life, being knowledgeable and having a decent standard of living”.</p>
+<p>De HDI van landen wordt gemeten op basis van de volgende variabelen: levensverwachting in jaren, scholingsgraad (verwacht en gemiddeld aantal jaren onderwijs genoten), en de welvaart van een land gemeten met het natuurlijk logaritme van het BNI per capita. Deze figuur legt het berekeningsproces uit:</p>
+<p><img src="figures/hdi_measurement.png" class="img-fluid" alt="An image showing the main components of HDI: life expectancy, educational attainment, and gross national income."></p>
+<p>In dit voorbeeld gaan we zelf de HDI scores van landen berekenen op basis van onderliggende data afkomstig van de <a href="https://hdr.undp.org/data-center/documentation-and-downloads" target="_blank">Verenigde Naties</a>. We richten ons op het jaar 2023.</p>
+<p>De volgende variabelen worden gebruikt: levensverwachting bij geboorte in jaren (<code>life_expectancy</code>), het verwachte aantal jaren onderwijs genoten (<code>expected_schooling</code>), het gemiddelde aantal jaren onderwijs genoten (<code>mean_schooling</code>), en het gelogde BNI per capita (<code>gni_percap_logged</code>):<a href="#fn10" class="footnote-ref" id="fnref10" role="doc-noteref"><sup>10</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary</span>(life_expectancy <span class="sc">+</span> expected_schooling <span class="sc">+</span> mean_schooling <span class="sc">+</span> gni_percap_logged <span class="sc">~</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>              Mean <span class="sc">+</span> SD <span class="sc">+</span> Min <span class="sc">+</span> Max <span class="sc">+</span> N, <span class="at">data =</span> hdi_data)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<!-- preamble start -->
+
+    <script>
+
+      function styleCell_naatl0tjzgd424o2io3p(i, j, css_id) {
+          var table = document.getElementById("tinytable_naatl0tjzgd424o2io3p");
+          var cell = table.rows[i]?.cells[j];  // Safe navigation to avoid errors
+          if (cell) {
+              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
+              cell.classList.add(css_id);
+          } else {
+              console.warn(`Cell at (${i}, ${j}) not found.`);
+          }
+      }
+      function insertSpanRow(i, colspan, content) {
+        var table = document.getElementById('tinytable_naatl0tjzgd424o2io3p');
+        var newRow = table.insertRow(i);
+        var newCell = newRow.insertCell(0);
+        newCell.setAttribute("colspan", colspan);
+        // newCell.innerText = content;
+        // this may be unsafe, but innerText does not interpret <br>
+        newCell.innerHTML = content;
+      }
+      function spanCell_naatl0tjzgd424o2io3p(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_naatl0tjzgd424o2io3p");
+        const targetRow = table.rows[i];
+        const targetCell = targetRow.cells[j];
+        for (let r = 0; r < rowspan; r++) {
+          // Only start deleting cells to the right for the first row (r == 0)
+          if (r === 0) {
+            // Delete cells to the right of the target cell in the first row
+            for (let c = colspan - 1; c > 0; c--) {
+              if (table.rows[i + r].cells[j + c]) {
+                table.rows[i + r].deleteCell(j + c);
+              }
+            }
+          }
+          // For rows below the first, delete starting from the target column
+          if (r > 0) {
+            for (let c = colspan - 1; c >= 0; c--) {
+              if (table.rows[i + r] && table.rows[i + r].cells[j]) {
+                table.rows[i + r].deleteCell(j);
+              }
+            }
+          }
+        }
+        // Set rowspan and colspan of the target cell
+        targetCell.rowSpan = rowspan;
+        targetCell.colSpan = colspan;
+      }
+      // tinytable span after
+      window.addEventListener('load', function () {
+          var cellsToStyle = [
+            // tinytable style arrays after
+          { positions: [ { i: 4, j: 1 }, { i: 4, j: 2 }, { i: 4, j: 3 }, { i: 4, j: 4 }, { i: 4, j: 5 },  ], css_id: 'tinytable_css_w5t7drbx10qe93r97mi3',}, 
+          { positions: [ { i: 4, j: 0 },  ], css_id: 'tinytable_css_u5o1vg93kw8q4yyljjq3',}, 
+          { positions: [ { i: 0, j: 1 }, { i: 0, j: 2 }, { i: 0, j: 3 }, { i: 0, j: 4 }, { i: 0, j: 5 },  ], css_id: 'tinytable_css_j199i9fjijnrib5d7bte',}, 
+          { positions: [ { i: 1, j: 0 }, { i: 2, j: 0 }, { i: 3, j: 0 },  ], css_id: 'tinytable_css_fj90lx2a6u1j06lxuxm8',}, 
+          { positions: [ { i: 0, j: 0 },  ], css_id: 'tinytable_css_9q6iokib29v00stcravb',}, 
+          { positions: [ { i: 1, j: 1 }, { i: 2, j: 1 }, { i: 3, j: 1 }, { i: 3, j: 2 }, { i: 3, j: 3 }, { i: 1, j: 2 }, { i: 2, j: 2 }, { i: 2, j: 3 }, { i: 2, j: 4 }, { i: 3, j: 4 }, { i: 1, j: 3 }, { i: 1, j: 4 }, { i: 1, j: 5 }, { i: 2, j: 5 }, { i: 3, j: 5 },  ], css_id: 'tinytable_css_1v8yqlixo3cypwafim0y',}, 
+          ];
+
+          // Loop over the arrays to style the cells
+          cellsToStyle.forEach(function (group) {
+              group.positions.forEach(function (cell) {
+                  styleCell_naatl0tjzgd424o2io3p(cell.i, cell.j, group.css_id);
+              });
+          });
+      });
+    </script>
+
+    <style>
+      /* tinytable css entries after */
+      .table td.tinytable_css_w5t7drbx10qe93r97mi3, .table th.tinytable_css_w5t7drbx10qe93r97mi3 { text-align: right; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_u5o1vg93kw8q4yyljjq3, .table th.tinytable_css_u5o1vg93kw8q4yyljjq3 { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_j199i9fjijnrib5d7bte, .table th.tinytable_css_j199i9fjijnrib5d7bte { text-align: right; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_fj90lx2a6u1j06lxuxm8, .table th.tinytable_css_fj90lx2a6u1j06lxuxm8 { text-align: left; }
+      .table td.tinytable_css_9q6iokib29v00stcravb, .table th.tinytable_css_9q6iokib29v00stcravb { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_1v8yqlixo3cypwafim0y, .table th.tinytable_css_1v8yqlixo3cypwafim0y { text-align: right; }
+    </style>
+    <div class="container">
+      <table class="table table-borderless" id="tinytable_naatl0tjzgd424o2io3p" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <thead>
+        
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">Mean</th>
+                <th scope="col">SD</th>
+                <th scope="col">Min</th>
+                <th scope="col">Max</th>
+                <th scope="col">N</th>
+              </tr>
+        </thead>
+        
+        <tbody>
+                <tr>
+                  <td>life_expectancy</td>
+                  <td>73.11</td>
+                  <td>7.16</td>
+                  <td>54.46</td>
+                  <td>85.00</td>
+                  <td>193</td>
+                </tr>
+                <tr>
+                  <td>expected_schooling</td>
+                  <td>13.49</td>
+                  <td>2.91</td>
+                  <td>5.63</td>
+                  <td>18.00</td>
+                  <td>193</td>
+                </tr>
+                <tr>
+                  <td>mean_schooling</td>
+                  <td>9.17</td>
+                  <td>3.19</td>
+                  <td>1.41</td>
+                  <td>14.30</td>
+                  <td>193</td>
+                </tr>
+                <tr>
+                  <td>gni_percap_logged</td>
+                  <td>9.51</td>
+                  <td>1.17</td>
+                  <td>6.53</td>
+                  <td>11.23</td>
+                  <td>193</td>
+                </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- hack to avoid NA insertion in last line -->
+</div>
+</div>
+<p>De variabelen zijn duidelijk op verschillende schalen gemeten. Het bereik van levensverwachting loopt van 54 tot 85, terwijl dat van gemiddelde scholing loopt van 1.41 tot 14.30.</p>
+<p>Een index met een gemiddelde score over alle variabelen heen zou ons weinig leren. Eerst moeten de variabelen op eenzelfde schaal worden gezet. Hier bestaan twee manieren voor: normaliseren of standaardiseren.</p>
+<p>Bij normaliseren herschalen we de variabelen zodat ze allemaal dezelfde minimum- en maximum waarden hebben. De onderstaande formule herschaalt de variabelen zodat ze een bereik van 0 tot 1 hebben. De score van 0 wordt geven aan observaties die de minimumwaarde hadden op de originele variabele. De score van 1 wordt gegeven voor de maximumwaarde op de originele variabele. Moesten we de variabele op een schaal van 0 tot 10 willen brengen, zouden we een vermenigvuldiging met 10 aan de formule kunnen toevoegen.</p>
+<p><span class="math display">\[\text{(0-1) Normalized Variable} = \frac{X_{i} - min(X)}{max(X) - min(X)}\]</span></p>
+<p>De HDI maakt grotendeels gebruik van dergelijk normaliseringsproces. Echter worden voor de variabelen niet de minimum- en maximumwaarden in de data gebruikt om het bereik te bepalen, maar zelfgekozen waarden. Voor levensverwachting worden 20 en 85 als minimum en maximum aangeduid. Dit doen ze omdat het aansluit bij de realiteit: “no country in the 20th century had a life expectancy at birth of less than 20 years” and “85 [is] a realistic aspirational target for many countries over the last 30 years.” Voor BNI per capita wordt het minimum gezet op log($100) en het maximum op log($75000). Voor de onderwijsvariabelen is het iets makkelijker. De maxima worden vastgezet op 18 (expected schooling) en 15 (mean schooling) en dan worden de variabelen gedeeld door 18 en 15 respectievelijk om ze te normaliseren.</p>
+<p>We blijven in dit voorbeeld trouw aan de VN aanpak en gebruiken manueel deze vastgezette waarden om te normaliseren. We tonen echter ook hoe je met de <code>rescale()</code> functie uit het <code>scales</code> package automatisch kunt normaliseren op basis van de minimum en maximumwaarden die je vindt in de data.</p>
+<p>Normalisatie zorgt ervoor dat alle variabelen hetzelfde bereik hebben en kan gebruikt worden voor interval/ratio, ordinale, en binaire variabelen. Normaliseren heeft echter geen impact op de variantie van variabelen. Gezien sommige variabelen een grotere variantie hebben dan anderen kan het zijn dat sommigen meer bijdragen tot de eindscore dan anderen. Een alternatief is om eerst de variabelen te standaardiseren:</p>
+<p><span class="math display">\[\text{Standardized Variable} = \frac{X_{i} - \bar{X}}{\text{Std. Dev}(X)}\]</span></p>
+<p>Voor elke observatie trekken we de gemiddelde score over de data heen af van de waarde voor de observatie. Dan delen we de uitkomst door de standaarddeviatie van de variabele. De nieuwe variabele heeft altijd een gemiddelde van 0, waarbij 0 staat voor de gemiddelde score op de oorspronkelijke variabele. Afwijkingen van 0 worden uitgedrukt in standaarddeviaties. De variatie van variabelen wordt hierbij gelijkgezet en zo dragen ze gelijk bij aan de uiteindelijke index. De interpretatie van de gestandaardiseerde variabele is wel anders. Een eenheid hoger op deze variabele betekent 1 standaarddeviatie hoger op de oorspronkelijke schaal. Een gestandaardiseerde variabele met een waarde hoger dan 0 betekent dat de waarde hoger ligt dan het gemiddelde op de oorspronkelijke schaal. Dit betekent echter niet noodzakelijk een ‘hoge’ waarde op de oorspronkelijke schaal gezien het gemiddelde zich niet noodzakelijk in het midden bevindt (cfr. verschil gemiddelde en mediaan). Standaardiseren is vooral nuttig bij interval/ratio variabelen.</p>
+</section>
+<section id="schalen-maken-1" class="level3" data-number="E.3.2">
+<h3 data-number="E.3.2" class="anchored" data-anchor-id="schalen-maken-1"><span class="header-section-number">E.3.2</span> Schalen maken</h3>
+<p>We maken in onderstaande secties de HDI door gebruik te maken van zowel normalisering als standaardisering. We bestuderen ook de verschillen.</p>
+<section id="normalisering" class="level4" data-number="E.3.2.1">
+<h4 data-number="E.3.2.1" class="anchored" data-anchor-id="normalisering"><span class="header-section-number">E.3.2.1</span> Normalisering</h4>
+<p>Voor de HDI wordt gebruik gemaakt van 3 genormaliseerde variabelen: levensverwachting, het gemiddelde van verwachte en gemiddelde scholing in een land, en het natuurlijk logaritme van het BNI per capita (zie bovenstaande uitleg). We zullen eerste manueel normaliseren en dan gebruik maken van de <code>rescale()</code> functie uit het <code>scales</code> package.</p>
+<p>Onze eerste stap is het berekenen van het gemiddelde van de onderwijsvariabelen. Eerst normaliseren we beide variabelen. De VN deelt verwachte scholing door 18 en gemiddelde scholing door 15 om een 0-1 schaal te maken (zie uitleg boven). Dan nemen ze het gemiddelde van de twee variabelen. Dit doen we met de volgende syntax, waarbij we de <code>rowwise()</code> functie gebruiken.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Onderwijsvariabele voor gebruik in HDI</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> hdi_data <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">expected_yrs_rescale1 =</span> expected_schooling <span class="sc">/</span> <span class="dv">18</span>, </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_yrs_rescale1 =</span> mean_schooling <span class="sc">/</span> <span class="dv">15</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">education_index_1 =</span> <span class="fu">mean</span>(<span class="fu">c</span>(expected_yrs_rescale1, mean_yrs_rescale1), <span class="at">na.rm =</span> T)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Statistieken bekijken</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hdi_data<span class="sc">$</span>education_index_1)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2491  0.5567  0.7130  0.6806  0.8280  0.9636 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Blik op de dataset</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(expected_schooling, mean_schooling, expected_yrs_rescale1, mean_yrs_rescale1, education_index_1) <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  expected_schooling mean_schooling expected_yrs_rescale1 mean_yrs_rescale1
+               &lt;dbl&gt;          &lt;dbl&gt;                 &lt;dbl&gt;             &lt;dbl&gt;
+1               18             13.9                 1                 0.927
+2               18             13.1                 1                 0.875
+3               16.7           13.9                 0.926             0.930
+4               18             13.0                 1                 0.868
+5               17.3           14.3                 0.962             0.953
+6               18             12.7                 1                 0.849
+# ℹ 1 more variable: education_index_1 &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>De uiteindelijke indexvariabele heeft een bereik tussen 0 en 1 met een minimum van 0.25 en een maximum van 0.96. Door te kijken naar de relevante variabelen in de dataset kunnen we de berekening volgen. Voor de eerste observatie vinden we het maximum van 18 jaar verwachte scholing. Als we dit delen door 18 vinden we voor <code>expected_yrs_rescale1</code> het maximum van 1. Voor gemiddelde scholing heeft deze observatie echter niet het maximum maar 13.91.Als we dit getal delen door 15 vinden we voor <code>mean_yrs_rescale1</code> een getal dichtbij het maximum: 0.93. Het gemiddelde van 1 en 0.93 vinden we bij <code>education_index_1</code>.</p>
+<p>We normaliseren nu ook levensverwachting met het VN minimum van 20 en maximum van 85. Voor (log) BNI per capita gebruiken we het VN minimum van log(100) en maximum van log(75000). Hier kunnen we meer de standaardformule voor normaliseren toepassen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Normaliseren van variabelen</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> hdi_data <span class="sc">|&gt;</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">life_rescale1 =</span> (life_expectancy <span class="sc">-</span> <span class="dv">20</span>) <span class="sc">/</span> (<span class="dv">85</span> <span class="sc">-</span> <span class="dv">20</span>), </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">gni_rescale1 =</span> (gni_percap_logged <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">100</span>)) <span class="sc">/</span> (<span class="fu">log</span>(<span class="dv">75000</span>) <span class="sc">-</span> <span class="fu">log</span>(<span class="dv">100</span>)))</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Statsitieken bekijken</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hdi_data<span class="sc">$</span>life_rescale1)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5302  0.7290  0.8229  0.8170  0.8976  1.0000 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hdi_data<span class="sc">$</span>gni_rescale1)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.2914  0.6120  0.7654  0.7407  0.8924  1.0000 </code></pre>
+</div>
+</div>
+<p>We kunnen zien dat het nieuwe maximum van de variabelen 1 is, de minima zijn hierbij wel niet precies 0 (dat zijn ze wel met de <code>scales</code> methode hieronder besproken).</p>
+<p>Ten slotte kunnen we onze index samenstellen door het gemiddelde te nemen van onze 3 variabelen met de <code>rowwise()</code> en <code>mean(c(), na.rm =T)</code>) syntax.<a href="#fn11" class="footnote-ref" id="fnref11" role="doc-noteref"><sup>11</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Uiteindelijke schaal</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> hdi_data <span class="sc">|&gt;</span> </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hdi_normalize_un =</span> <span class="fu">mean</span>(<span class="fu">c</span>(life_rescale1, gni_rescale1, </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>                                   education_index_1), <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Statistieken bekijken</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hdi_data<span class="sc">$</span>hdi_normalize_un)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4059  0.6298  0.7646  0.7461  0.8620  0.9719 </code></pre>
+</div>
+</div>
+<p>De schaal loopt van 0.41 tot 0.97. Hogere waarden staan voor hogere scholingsgraad, levensverwachting en welvaart.</p>
+<p>In bovenstaande syntax maakten we gebruik van de minimum- en maximumwaarden bepaald door de VN. Maar we kunnen deze ook uit de data halen. Dit is vaak eenvoudiger, zeker als je geen theoretische basis hebt voor je keuzes zoals de VN. We kunnen de <code>scales::rescale()</code> functie gebruiken om dit automatisch te doen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-27"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-27-1"><a href="#annotated-cell-27-1" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> hdi_data <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-27-2"><a href="#annotated-cell-27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-27" data-target-annotation="1">1</button><span id="annotated-cell-27-3" class="code-annotation-target"><a href="#annotated-cell-27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">expected_yrs_rescale2 =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(expected_schooling, <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)),</span>
+<span id="annotated-cell-27-4"><a href="#annotated-cell-27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_yrs_rescale2 =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(mean_schooling, <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), </span>
+<span id="annotated-cell-27-5"><a href="#annotated-cell-27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">life_rescale2 =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(life_expectancy, <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)), </span>
+<span id="annotated-cell-27-6"><a href="#annotated-cell-27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">gni_rescale2 =</span> scales<span class="sc">::</span><span class="fu">rescale</span>(gni_percap_logged, <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-27" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-27" data-code-lines="3" data-code-annotation="1">We noemen het package hier in de syntax (<code>scales::</code>) zodat we het niet hoeven te laden. Het <code>scales</code> package heeft namelijk ook een aantal functies die conflicteren met andere packages die we gebruiken.</span>
+</dd>
+</dl>
+</div>
+</div>
+<p>Zo lees je de syntax:</p>
+<dl>
+<dt><code>scales::rescale(</code></dt>
+<dd>
+<p>We gebruiken de functie <code>rescale()</code> uit het <code>scales</code> package. We noemen het package in de syntax (<code>scales::</code>) om het niet te hoeven laden.</p>
+</dd>
+<dt><code>expected_schooling, to = c(0,1))</code></dt>
+<dd>
+<p>We noemen de variabele die we willen normaliseren. Met de <code>to = c(0,1)</code>vertellen we R dat we de variabele willen herschalen zodat ze een bereik van 0 tot 1 heeft. We zouden deze waarden kunnen veranderen, bv. naar <code>c(0,10)</code> voor een bereik van 0 tot 10.</p>
+</dd>
+</dl>
+<p>Laten we kijken naar het verschil tussen de VN-methode en <code>rescale</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Originele variabele en VN normalisering</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hdi_data, <span class="fu">aes</span>(<span class="at">x =</span> life_expectancy, <span class="at">y =</span> life_rescale1)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) <span class="sc">+</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Normalisering met VN min(x) en max(x)"</span>) </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Originele variabele en scales::rescale() normalisering</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(hdi_data, <span class="fu">aes</span>(<span class="at">x =</span> life_expectancy, <span class="at">y =</span> life_rescale2)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Normalisering met scales::rescale()"</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plots combineren met patchwork library</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2 </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="scales_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Beide genormaliseerde variabelen hebben een theoretisch bereik van 0 tot 1. Maar met <code>rescale</code> wordt er altijd een echt minimum en maximum gevonden in de data en zul je altijd de waarden 0 en 1 terugvinden. De VN heeft echter door het zelf bepalen van minima en maxima in plaats van ze door de data te laten bepalen, het minimum voor de data in de praktijk hoger gelegd (bij 0.53). In 2023 had geen enkel land een levensverwachting van 20, het theoretische minimum van de VN, dus vinden we 0 niet terug. Het theoretische maximum van 85 werd dan wel weer bereikt.</p>
+<p>We berekenen nu de index met de <code>scales::rescale()</code> genormaliseerde variabelen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Index berekenen</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> hdi_data <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">education_index_2 =</span> <span class="fu">mean</span>(<span class="fu">c</span>(expected_yrs_rescale2, mean_yrs_rescale2), <span class="at">na.rm =</span> T),</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">hdi_normalize_scales =</span> <span class="fu">mean</span>(<span class="fu">c</span>(education_index_2, life_rescale2, gni_rescale2), <span class="at">na.rm =</span> T)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Laten we de twee versies vergelijken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Statistieken vergelijken</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hdi_data<span class="sc">$</span>hdi_normalize_scales) <span class="co"># scales::rescale() </span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+0.09029 0.44718 0.65276 0.62116 0.80117 0.96629 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hdi_data<span class="sc">$</span>hdi_normalize_un) <span class="co"># VN waarden</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.4059  0.6298  0.7646  0.7461  0.8620  0.9719 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlatie</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> hdi_data<span class="sc">$</span>hdi_normalize_un, </span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> hdi_data<span class="sc">$</span>hdi_normalize_scales, </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">'pearson'</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  hdi_data$hdi_normalize_un and hdi_data$hdi_normalize_scales
+t = 240.73, df = 191, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.9978160 0.9987628
+sample estimates:
+      cor 
+0.9983561 </code></pre>
+</div>
+</div>
+<p>De schalen lopen van 0 tot 1 maar zijn niet volledig identiek. In lijn met wat we hierboven al zagen ligt het minimum hoger bij de VN versie. Toch correleren de twee versies zeer sterk en positief met een pearson correlatie van 0.998. Verschillen zullen dan ook weinig uitmaken in regressieanalyses.</p>
+</section>
+<section id="standaardisering" class="level4" data-number="E.3.2.2">
+<h4 data-number="E.3.2.2" class="anchored" data-anchor-id="standaardisering"><span class="header-section-number">E.3.2.2</span> Standaardisering</h4>
+<p>Om te standaardiseren trekken we van een variabele de gemiddelde waarde af en delen we door de standaardafwijking. Hier kunnen we de ingebouwde R-functie <code>scale()</code> voor gebruiken. je hoeft geen package te laden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Standaardiseren</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> hdi_data <span class="sc">|&gt;</span> </span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">life_std =</span> <span class="fu">scale</span>(life_expectancy, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">expected_yrs_std =</span> <span class="fu">scale</span>(expected_schooling, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_yrs_std =</span> <span class="fu">scale</span>(mean_schooling, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">gni_std =</span> <span class="fu">scale</span>(gni_percap_logged, <span class="at">center =</span> <span class="cn">TRUE</span>, <span class="at">scale =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Zo lees je de syntax:</p>
+<dl>
+<dt><code>scale(</code></dt>
+<dd>
+<p>We gebruiken de functie <code>scale()</code> op de variabele tussen haakjes.</p>
+</dd>
+<dt><code>life_expectancy, center = TRUE, scale = TRUE)</code></dt>
+<dd>
+<p>We benoemen de variabele en vragen R eerst het gemiddelde van de variabele van elke waarde af te trekken met <code>center = TRUE</code> en dan te standaardiseren door te delen door de standaardafwijking met <code>scale = TRUE</code>.</p>
+</dd>
+</dl>
+<p>Laten we de statistieken van de variabelen bekijken:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Descriptieve statistieken opvragen</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(life_std, expected_yrs_std, mean_yrs_std, gni_std) <span class="sc">|&gt;</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  psych<span class="sc">::</span><span class="fu">describe</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 vars   n mean sd median trimmed  mad   min  max range  skew
+life_std            1 193    0  1   0.05    0.04 1.17 -2.61 1.66  4.27 -0.29
+expected_yrs_std    2 193    0  1  -0.05    0.05 1.10 -2.70 1.55  4.25 -0.34
+mean_yrs_std        3 193    0  1   0.24    0.07 1.13 -2.44 1.61  4.04 -0.52
+gni_std             4 193    0  1   0.14    0.05 1.20 -2.54 1.47  4.01 -0.37
+                 kurtosis   se
+life_std            -0.71 0.07
+expected_yrs_std    -0.51 0.07
+mean_yrs_std        -0.72 0.07
+gni_std             -0.80 0.07</code></pre>
+</div>
+</div>
+<p>Alle variabelen hebben een gemiddelde van 0 en een standaardafwijking van 1. De minima en maxima zijn niet dezelfde maar de waarden hebben dezelfde betekenis: hoeveel verschilt de observatie van de gemiddelde waarde van de originele variabele.</p>
+<p>We maken nu de index door het gemiddelde van de variabelen te nemen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schaal maken</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>hdi_data <span class="ot">&lt;-</span> hdi_data <span class="sc">|&gt;</span> </span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">hdi_standardized =</span> <span class="fu">mean</span>(<span class="fu">c</span>(life_std, expected_yrs_std, </span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>                              mean_yrs_std, gni_std), </span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">na.rm =</span> T))</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Statistieken bekijken</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(hdi_data<span class="sc">$</span>hdi_standardized)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-2.12111 -0.73406  0.09892  0.00000  0.75342  1.44253 </code></pre>
+</div>
+</div>
+<p>de schaal loopt van -2.12 tot 1.44 met een gemiddelde waarde van 0. Observaties dichter bij het maximum hebben scores hoger dan het gemiddelde voor (bijna) alle onderliggende variabelen.</p>
+</section>
+</section>
+</section>
+<section id="references" class="level2" data-number="E.4">
+<h2 data-number="E.4" class="anchored" data-anchor-id="references"><span class="header-section-number">E.4</span> References</h2>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-adcock2001" class="csl-entry" role="listitem">
+Adcock, Robert, en David Collier. 2001. <span>‘Measurement Validity: <span>A</span> Shared Standard for Qualitative and Quantitative Research’</span>. <em>American political science review</em> 95 (3): 529–46.
+</div>
+<div id="ref-Brady1995" class="csl-entry" role="listitem">
+Brady, Henry E, Sidney Verba, en Kay Lehman Schlozman. 1995. <span>‘Beyond <span>SES</span>: <span>A</span> Resource Model of Political Participation’</span>. <em>American Political Science Review</em> 89 (2): 271–94. <a href="https://doi.org/10.2307/2082425">https://doi.org/10.2307/2082425</a>.
+</div>
+<div id="ref-castanhosilva2020" class="csl-entry" role="listitem">
+Castanho Silva, Bruno, Sebastian Jungkunz, Marc Helbling, en Levente Littvay. 2020. <span>‘An <span>Empirical Comparison</span> of <span>Seven Populist Attitudes Scales</span>’</span>. <em>Political Research Quarterly</em> 73 (2): 409–24. <a href="https://doi.org/10.1177/1065912919833176">https://doi.org/10.1177/1065912919833176</a>.
+</div>
+<div id="ref-Marcus1993" class="csl-entry" role="listitem">
+Marcus, George E, en Michael B Mackuen. 1993. <span>‘Anxiety, <span>Enthusiasm</span>, and the <span>Vote</span>: <span>The Emotional Underpinnings</span> of <span>Learning</span> and <span>Involvement During Presidential Campaigns</span>’</span>. <em>The American Political Science Review</em> 87 (3): 672–85. <a href="https://www.jstor.org/stable/2938743">https://www.jstor.org/stable/2938743</a>.
+</div>
+<div id="ref-Valentino2011" class="csl-entry" role="listitem">
+Valentino, Nicholas A, Ted Brader, Eric W Groenendyk, Kysha Gregorowicz, en Vincent L Hutchings. 2011. <span>‘Election <span>Night</span>’s <span>Alright</span> for <span>Fighting</span>: <span>The</span> Role of <span>Emotions</span> in <span>Political Participation</span>’</span>. <em>The Journal of Politics</em> 73 (1): 156–70.
+</div>
+<div id="ref-Vasiopoulos2019" class="csl-entry" role="listitem">
+Vasiopoulos, Pavlos, George E. Marcus, Nicholas A. Valentino, en Martial Foucault. 2019. <span>‘Fear, <span>Anger</span>, and <span>Voting</span> for the <span>Far Right</span>: <span>Evidence</span> from the <span>November</span> 13, 2015 <span>Paris Terror Attacks</span>’</span>. <em>Political Psychology</em> 40 (4): 679–704.
+</div>
+<div id="ref-Young2019" class="csl-entry" role="listitem">
+Young, Lauren E. 2019. <span>‘The <span>Psychology</span> of <span>State Repression</span>: <span>Fear</span> and <span>Dissent Decisions</span> in <span>Zimbabwe</span>’</span>. <em>American Political Science Review</em> 113 (1): 140–55.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Zie <span class="citation" data-cites="castanhosilva2020">Castanho Silva e.a. (<a href="#ref-castanhosilva2020" role="doc-biblioref">2020</a>)</span> voor een bespreking van verschillende populismeschalen.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Zie bijvoorbeeld <span class="citation" data-cites="adcock2001">Adcock en Collier (<a href="#ref-adcock2001" role="doc-biblioref">2001</a>)</span> voor een meer uitgebreide discussie van de principes uitgelegd hier.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Zie <span class="citation" data-cites="Brady1995">Brady, Verba, en Schlozman (<a href="#ref-Brady1995" role="doc-biblioref">1995</a>)</span> over de rol van vaardigheden en welvaart in politieke participatie en <span class="citation" data-cites="Valentino2011">Valentino e.a. (<a href="#ref-Valentino2011" role="doc-biblioref">2011</a>)</span> over de rol van emoties. Hier richten we ons op de positieve rol van emoties op participatie, maar deze kunnen ook negatieve effecten hebben, zie bijvoorbeeld de studie van <span class="citation" data-cites="Young2019">Young (<a href="#ref-Young2019" role="doc-biblioref">2019</a>)</span> in Zimbabwe.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Zie <span class="citation" data-cites="Marcus1993">Marcus en Mackuen (<a href="#ref-Marcus1993" role="doc-biblioref">1993</a>)</span> voor een baanbrekende studie hierover en meer recent werk van <span class="citation" data-cites="Valentino2011">Valentino e.a. (<a href="#ref-Valentino2011" role="doc-biblioref">2011</a>)</span> en <span class="citation" data-cites="Vasiopoulos2019">Vasiopoulos e.a. (<a href="#ref-Vasiopoulos2019" role="doc-biblioref">2019</a>)</span>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>De formule is: <span class="math inline">\(\alpha = \frac{k\bar{c}}{\bar{v} + (k - 1)\bar{c}}\)</span>. <span class="math inline">\(k\)</span> = aantal items. <span class="math inline">\(\bar{v}\)</span> = gemiddelde variantie van de items. <span class="math inline">\(\bar{c}\)</span> = gemiddelde covariantie van de items.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Respondenten kunnen weigeren of ‘Don’t know’ antwoorden geven bijvoorbeeld. Deze antwoorden worden doorgaans op missing gezet.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>Probeer een index niet manueel te maken (bv., <code>newvar = var1 + var2 + var3</code>). Dit werkt als er geen missing data is, maar dit is in de praktijk vaak niet het geval.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>We zouden hier ook de <code>complete.cases()</code> functie kunnen gebruiken zoals we dat doen om model fit statistieken over modellen heen te kunnen analyseren (zie <a href="linear_06.html#sec-linear-comparing-models" class="quarto-xref"><span>Paragraaf 6.2</span></a>). Daarmee zouden we ook observaties wegdoen die maar voor een of enkele variabelen een ontbrekende waarde hebben. Wat we nu doen is ervan uitgaan dat een ontbrekende waarde een probleem vormt als alles ontbreekt, maar dat we in een situatie met zowel valide als ontbrekende waarden mogen uitgaan van een ‘0’ score voor de variabele waar een ontbrekende waarde wordt genoteerd. Dit kunnen we natuurlijk ter discussie stellen. Vaak moeten we een afweging maken over hoe we zoveel data als mogelijk kunnen gebruiken en hoe we zo accuraat mogelijk met de data kunnen omgaan. we zouden ook kunnen beslissen om observaties weg te doen die ontbrekende waarden hebben voor meer dan de helft van de variabelen enz.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>OLS modellen zijn niet altijd geschikt voor variabelen waarbij een telling wordt gemaakt (‘count data’). Meer toepasselijke modellen (poisson regressie en negative binomial modellen) vallen echter buiten dit handboek.<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn10"><p>De VN nemen enkele datamanagement stappen vooraleer de HDI te berekenen. Deze hebben wij hier ook genomen. Voor landen met een levensverwachting groter dan 85 wordt de waarde vastgezet op een maximum van 85. Voor landen met een BNI onder 100 wordt de waarde vastgezet op 100 (vooraleer het natuurlijk logaritme wordt genomen). De redenen hiervoor staan uitgelegd <a href="https://hdr.undp.org/data-center/documentation-and-downloads" target="_blank">hier</a>.<a href="#fnref10" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn11"><p>We berekenen hier gewoon het gemiddelde, maar de VN gebruikt het geometrisch gemiddelde. Hierdoor wijkt onze berekening wat af. Het <code>psych</code> package bevat een functie om het geometrisch gemiddelde te berekenen.<a href="#fnref11" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Gekopieerd!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Gekopieerd!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./errors.html" class="pagination-link" aria-label="Assumptieschendingen oplossen">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Assumptieschendingen oplossen</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
