@@ -14,8 +14,8 @@ demdata <- import("data/demdata.rds") |>
   as_tibble() 
 
 demdata <- demdata |>  
-  mutate(TYPEDEMO1984 = factorize(TYPEDEMO1984), 
-         Typeregime2006 = factorize(Typeregime2006))
+  mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984), 
+         Typeregime2006_factor = factorize(Typeregime2006))
 ```
 
 Regressiecoëfficiënten vertellen ons iets over de gemiddelde verwachte waarde voor onze afhankelijke variabele: welke waarde verwachten we als de score van de onafhankelijke variabele 0 is (Intercept of constante) en hoe verwachten we dat de afhankelijke variabele verandert als de onafhankelijke variabele met 1 stijgt (de coëfficiënt van de predictor). Echter moeten we ook iets zeggen over de onzekerheid rond deze schattingen. Kunnen onze coëfficiënten ook andere waarden aannemen? Dit wordt behandeld in dit hoofdstuk.

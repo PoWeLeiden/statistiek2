@@ -44,14 +44,14 @@ hdi_data <- import("hdi_data.csv")
 ```
 
 ::: {.callout-note title="Voor wie is deze appendix?"}
-Je hoeft niet te weten hoe je deze analyses moet uitvoeren voor de opdrachten in Statistiek II. Deze gids is bedoeld voor studenten die hun eindpaper schrijven voor Academische Vaardigheden: Kwantitatieve Data-Analyse of een BAP-scriptieproject. 
+Je hoeft niet te weten hoe je deze analyses moet uitvoeren voor de opdrachten in Statistiek II. Deze gids is bedoeld voor studenten die hun eindpaper schrijven voor Academische Vaardigheden: Kwantitatieve Data-Analyse of een BAP-scriptieproject.
 :::
 
-Soms kan het nuttig zijn om variabelen te combineren tot een enkele variabele of schaal, zowel voor afhankelijke als onafhankelijke variabelen. Stel dat we 'populistische attitudes' willen meten, dan kunnen we denken aan een combinatie van anti-elitaire attitudes, het geloof dat de publieke wil het beleid moet sturen en het hebben van een manicheïsch wereldbeeld (i.e. de wereld in termen van goed en kwaad zien).[^scales-1] 
-
-Een onderzoeksvraag vergt soms dat we meerdere elementen (variabelen) combineren tot 1 variabele of schaal. Het is vaak ook betrouwbaarder om met meerdere vragen eenzelfde concept te meten dan slechts met 1 vraag. Op het statistiektentamen stellen we ook niet 1 maar meerdere vragen om een betrouwbare test te hebben van hoe goed studenten de leerstof kennen. Ten slotte kunnen we door het combineren van meerdere variabelen tot slechts 1 variabele statistische modellen vereenvoudigen (bv. door niet 10 maar 5 onafhankelijke variabelen toe te voegen: 4 + een index van de andere predictors). Dit samenvoegen is ook handig als predictors sterk gecorreleerd zijn en een model onderhevig zou zijn aan sterke multicollineariteit indien onafhankelijke variabelen samen worden toegevoegd.
+Soms kan het nuttig zijn om variabelen te combineren tot een enkele variabele of schaal, zowel voor afhankelijke als onafhankelijke variabelen. Stel dat we 'populistische attitudes' willen meten, dan kunnen we denken aan een combinatie van anti-elitaire attitudes, het geloof dat de publieke wil het beleid moet sturen en het hebben van een manicheïsch wereldbeeld (i.e. de wereld in termen van goed en kwaad zien).[^scales-1]
 
 [^scales-1]: Zie @castanhosilva2020 voor een bespreking van verschillende populismeschalen.
+
+Een onderzoeksvraag vergt soms dat we meerdere elementen (variabelen) combineren tot 1 variabele of schaal. Het is vaak ook betrouwbaarder om met meerdere vragen eenzelfde concept te meten dan slechts met 1 vraag. Op het statistiektentamen stellen we ook niet 1 maar meerdere vragen om een betrouwbare test te hebben van hoe goed studenten de leerstof kennen. Ten slotte kunnen we door het combineren van meerdere variabelen tot slechts 1 variabele statistische modellen vereenvoudigen (bv. door niet 10 maar 5 onafhankelijke variabelen toe te voegen: 4 + een index van de andere predictors). Dit samenvoegen is ook handig als predictors sterk gecorreleerd zijn en een model onderhevig zou zijn aan sterke multicollineariteit indien onafhankelijke variabelen samen worden toegevoegd.
 
 Deze appendix bekijkt hoe we op basis van meerdere variabelen slechts 1 variabele of index/schaal kunnen creëeren. Eerst bespreken we algemene principes die een leidraad vormen bij beslissingen over het maken van een schaal. Dan tonen we hoe de *betrouwbaarheid* van een schaal nagegaan kan worden en hoe we een nieuwe schaal kunnen maken op basis van de som of het gemiddelde van bestaande variabelen. In een tweede uitgewerkt voorbeeld bespreken we wat te doen als de variabelen waarmee je een schaal wil maken gemeten zijn op verschillende manieren.
 
@@ -98,13 +98,13 @@ scale_data |>
   select(vars:mean, min, max) # <3>
 ```
 
-1. We selecteren de variabelen waarvoor we statistieken willen. De campagnevariabelen bevinden zich naast elkaar in de data. We schrijven de eerste en de laatste met een dubbelpunt ertussen om ze allemaal te selecteren.
+1.  We selecteren de variabelen waarvoor we statistieken willen. De campagnevariabelen bevinden zich naast elkaar in de data. We schrijven de eerste en de laatste met een dubbelpunt ertussen om ze allemaal te selecteren.
 2.  Door `psych::` als prefix te gebruiken hoeven we het package hier niet eerst te laden. Sommige functies van dit package conflicteren namelijk met die van `tidyverse`.
 3.  We gebruiken de `select()` functie om slechts relevante kolommen weer te geven. Voor binaire variabelen zijn zaken zoals skew en kurtosis niet veelzeggend.
 
 Ongeveer 40% van de respondenten heeft anderen proberen overtuigen. Andere activiteiten zijn minder frequent gebruikt. De verschillende vragen of 'items' (sub-componenten van een schaal) zullen we gebruiken voor de afhankelijke variabele.
 
-ANES vroeg respondenten ook naar hun emoties voorgaand aan de verkiezingen met de vraag: Hoe [specifieke emotie] voel je je over hoe de zaken momenteel gaan in het land? De volgende emoties werden bevraagd:
+ANES vroeg respondenten ook naar hun emoties voorgaand aan de verkiezingen met de vraag: Hoe \[specifieke emotie\] voel je je over hoe de zaken momenteel gaan in het land? De volgende emoties werden bevraagd:
 
 -   hoopvol (`hopeful`)
 -   angstig (`afraid`)
@@ -152,8 +152,7 @@ scale_data |>
 
 ### Betrouwbaarheid van schalen
 
-De concepten van 'emoties' en 'campagne voeren' lijken valide en de belangrijkste componenten te bevatten van deze zaken in het echte leven (we kunnen hier natuurlijk verder over reflecteren in de conclusie van onze paper). De positieve en negatieve indexen van emoties hierboven gesuggereerd worden ook ondersteund in de literatuur.
-Eerder onderzoek over "affective intelligence theory" stelt immers dat menselijk gedrag aangestuurd wordt door twee emotionele systemen. De items staan eigenlijk ook in ANES om dit te testen [^scales-4] 
+De concepten van 'emoties' en 'campagne voeren' lijken valide en de belangrijkste componenten te bevatten van deze zaken in het echte leven (we kunnen hier natuurlijk verder over reflecteren in de conclusie van onze paper). De positieve en negatieve indexen van emoties hierboven gesuggereerd worden ook ondersteund in de literatuur. Eerder onderzoek over "affective intelligence theory" stelt immers dat menselijk gedrag aangestuurd wordt door twee emotionele systemen. De items staan eigenlijk ook in ANES om dit te testen [^scales-4]
 
 [^scales-4]: Zie @Marcus1993 voor een baanbrekende studie hierover en meer recent werk van @Valentino2011 en @Vasiopoulos2019.
 
@@ -230,9 +229,9 @@ data |>
 
 In zekere zin gaan we voor X hier data 'verzinnen', wat problematisch kan zijn. We weten immers niet wat echt waar is voor deze observatie. In de ANES survey nam niet iedereen mee aan het gedeelte van de survey dat na de verkiezingen werd afgenomen en waarin de campagnevragen stonden. Voor al deze mensen zouden we dus 0 ingeven, hoewel ze geen respons hebben gegeven. we kunnen deze mensen wel uit de data filteren maar dan blijven er nog respondenten voor wie we geen waarden hebben en eigenlijk niet kunnen zeggen wat ze gedaan hebben.[^scales-6] Hieronder tonen we hoe dit aan te pakken.
 
-We will show how to find these types of observations and how to deal with them below.
-
 [^scales-6]: Respondenten kunnen weigeren of 'Don't know' antwoorden geven bijvoorbeeld. Deze antwoorden worden doorgaans op missing gezet.
+
+We will show how to find these types of observations and how to deal with them below.
 
 ### Schalen maken
 
@@ -298,7 +297,6 @@ De schalen zijn negatief gecorreleerd met een gemiddeld sterke samenhang. Dit be
 
 Het proces voor een index gebaseerd op een som is gelijkaardig, behalve dat we moeten opletten met observaties die ontbrekende waarden hebben voor de variabelen die de schaal/index gaan vormen, zoals hierboven uitgelegd. Deze observaties mogen we niet meenemen in de berekening. We bekijken eerst of er missing waarden zijn over de cases heen:
 
-
 ```{r}
 scale_data <- scale_data |> 
   rowwise() |> 
@@ -321,7 +319,6 @@ table(scale_data$engage_missing)
 De meeste observaties (4752) hebben geen enkele (0) ontbrekende waarde. Sommige respondenten (9) hebben er 1. Er is ook een respondent die voor alle 7 de variabelen een ontbrekende waarde geeft. Deze zouden we eruit kunnen filteren op de volgende manier:[^scales-8]
 
 [^scales-8]: We zouden hier ook de `complete.cases()` functie kunnen gebruiken zoals we dat doen om model fit statistieken over modellen heen te kunnen analyseren (zie @sec-linear-comparing-models). Daarmee zouden we ook observaties wegdoen die maar voor een of enkele variabelen een ontbrekende waarde hebben. Wat we nu doen is ervan uitgaan dat een ontbrekende waarde een probleem vormt als alles ontbreekt, maar dat we in een situatie met zowel valide als ontbrekende waarden mogen uitgaan van een '0' score voor de variabele waar een ontbrekende waarde wordt genoteerd. Dit kunnen we natuurlijk ter discussie stellen. Vaak moeten we een afweging maken over hoe we zoveel data als mogelijk kunnen gebruiken en hoe we zo accuraat mogelijk met de data kunnen omgaan. we zouden ook kunnen beslissen om observaties weg te doen die ontbrekende waarden hebben voor meer dan de helft van de variabelen enz.
-
 
 ```{r}
 scale_data <- scale_data |> 
@@ -349,7 +346,7 @@ table(scale_data$campaign_engagement)
 
 Het merendeel van de respondenten is niet betrokken bij campagneactiviteiten. Zij scoren 0 op de index. Een groot aantal respondenten doet 1 activiteit (1345). Hoe meer activiteiten, hoe minder respondenten. Slechts 11 respondenten hebben deelgenomen aan alle 7 de activiteiten.
 
-### Model schatten!
+### Model schatten
 
 Nu we al onze schalen gecreëerd hebben kunnen we een regressiemodel schatten. Hier gebruiken we een lineair model met positieve en negatieve emoties als onafhankelijke variabelen en campagne engagement als afhankelijke variabele:[^scales-9]
 
@@ -372,13 +369,13 @@ De schalen die we hierboven hebben gemaakt waren gebaseerd op variabelen die zel
 
 ### Twee benaderingen: normaliseren en standaardiseren
 
-Het tweede voorbeeld richt zich op de Human Development Index (HDI). De [HDI](https://hdr.undp.org/data-center/human-development-index#/indicies/HDI){target="_blank"} is "a summary measure of average achievement in key dimensions of human development: a long and healthy life, being knowledgeable and having a decent standard of living". 
+Het tweede voorbeeld richt zich op de Human Development Index (HDI). De [HDI](https://hdr.undp.org/data-center/human-development-index#/indicies/HDI){target="_blank"} is "a summary measure of average achievement in key dimensions of human development: a long and healthy life, being knowledgeable and having a decent standard of living".
 
 De HDI van landen wordt gemeten op basis van de volgende variabelen: levensverwachting in jaren, scholingsgraad (verwacht en gemiddeld aantal jaren onderwijs genoten), en de welvaart van een land gemeten met het natuurlijk logaritme van het BNI per capita. Deze figuur legt het berekeningsproces uit:
 
 ![](figures/hdi_measurement.png){fig-alt="An image showing the main components of HDI: life expectancy, educational attainment, and gross national income."}
 
-In dit voorbeeld gaan we zelf de HDI scores van landen berekenen op basis van onderliggende data afkomstig van de [Verenigde Naties](https://hdr.undp.org/data-center/documentation-and-downloads){target="_blank"}. We richten ons op het jaar 2023. 
+In dit voorbeeld gaan we zelf de HDI scores van landen berekenen op basis van onderliggende data afkomstig van de [Verenigde Naties](https://hdr.undp.org/data-center/documentation-and-downloads){target="_blank"}. We richten ons op het jaar 2023.
 
 De volgende variabelen worden gebruikt: levensverwachting bij geboorte in jaren (`life_expectancy`), het verwachte aantal jaren onderwijs genoten (`expected_schooling`), het gemiddelde aantal jaren onderwijs genoten (`mean_schooling`), en het gelogde BNI per capita (`gni_percap_logged`):[^scales-10]
 
@@ -390,13 +387,13 @@ datasummary(life_expectancy + expected_schooling + mean_schooling + gni_percap_l
 
 ```
 
-De variabelen zijn duidelijk op verschillende schalen gemeten. Het bereik van levensverwachting loopt van 54 tot 85, terwijl dat van gemiddelde scholing loopt van 1.41 tot 14.30. 
+De variabelen zijn duidelijk op verschillende schalen gemeten. Het bereik van levensverwachting loopt van 54 tot 85, terwijl dat van gemiddelde scholing loopt van 1.41 tot 14.30.
 
-Een index met een gemiddelde score over alle variabelen heen zou ons weinig leren. Eerst moeten de variabelen op eenzelfde schaal worden gezet. Hier bestaan twee manieren voor: normaliseren of standaardiseren. 
+Een index met een gemiddelde score over alle variabelen heen zou ons weinig leren. Eerst moeten de variabelen op eenzelfde schaal worden gezet. Hier bestaan twee manieren voor: normaliseren of standaardiseren.
 
 Bij normaliseren herschalen we de variabelen zodat ze allemaal dezelfde minimum- en maximum waarden hebben. De onderstaande formule herschaalt de variabelen zodat ze een bereik van 0 tot 1 hebben. De score van 0 wordt geven aan observaties die de minimumwaarde hadden op de originele variabele. De score van 1 wordt gegeven voor de maximumwaarde op de originele variabele. Moesten we de variabele op een schaal van 0 tot 10 willen brengen, zouden we een vermenigvuldiging met 10 aan de formule kunnen toevoegen.
 
-$$\text{(0-1) Normalized Variable} = \frac{X_{i} - min(X)}{max(X) - min(X)}$$ 
+$$\text{(0-1) Normalized Variable} = \frac{X_{i} - min(X)}{max(X) - min(X)}$$
 
 De HDI maakt grotendeels gebruik van dergelijk normaliseringsproces. Echter worden voor de variabelen niet de minimum- en maximumwaarden in de data gebruikt om het bereik te bepalen, maar zelfgekozen waarden. Voor levensverwachting worden 20 en 85 als minimum en maximum aangeduid. Dit doen ze omdat het aansluit bij de realiteit: "no country in the 20th century had a life expectancy at birth of less than 20 years" and "85 \[is\] a realistic aspirational target for many countries over the last 30 years." Voor BNI per capita wordt het minimum gezet op log(\$100) en het maximum op log(\$75000). Voor de onderwijsvariabelen is het iets makkelijker. De maxima worden vastgezet op 18 (expected schooling) en 15 (mean schooling) en dan worden de variabelen gedeeld door 18 en 15 respectievelijk om ze te normaliseren.
 
@@ -408,13 +405,13 @@ $$\text{Standardized Variable} = \frac{X_{i} - \bar{X}}{\text{Std. Dev}(X)}$$
 
 Voor elke observatie trekken we de gemiddelde score over de data heen af van de waarde voor de observatie. Dan delen we de uitkomst door de standaarddeviatie van de variabele. De nieuwe variabele heeft altijd een gemiddelde van 0, waarbij 0 staat voor de gemiddelde score op de oorspronkelijke variabele. Afwijkingen van 0 worden uitgedrukt in standaarddeviaties. De variatie van variabelen wordt hierbij gelijkgezet en zo dragen ze gelijk bij aan de uiteindelijke index. De interpretatie van de gestandaardiseerde variabele is wel anders. Een eenheid hoger op deze variabele betekent 1 standaarddeviatie hoger op de oorspronkelijke schaal. Een gestandaardiseerde variabele met een waarde hoger dan 0 betekent dat de waarde hoger ligt dan het gemiddelde op de oorspronkelijke schaal. Dit betekent echter niet noodzakelijk een 'hoge' waarde op de oorspronkelijke schaal gezien het gemiddelde zich niet noodzakelijk in het midden bevindt (cfr. verschil gemiddelde en mediaan). Standaardiseren is vooral nuttig bij interval/ratio variabelen.
 
-### Schalen maken 
+### Schalen maken
 
 We maken in onderstaande secties de HDI door gebruik te maken van zowel normalisering als standaardisering. We bestuderen ook de verschillen.
 
 #### Normalisering
 
-Voor de HDI wordt gebruik gemaakt van 3 genormaliseerde variabelen: levensverwachting, het gemiddelde van verwachte en gemiddelde scholing in een land, en het natuurlijk logaritme van het BNI per capita (zie bovenstaande uitleg). We zullen eerste manueel normaliseren en dan gebruik maken van de `rescale()` functie uit het `scales` package. 
+Voor de HDI wordt gebruik gemaakt van 3 genormaliseerde variabelen: levensverwachting, het gemiddelde van verwachte en gemiddelde scholing in een land, en het natuurlijk logaritme van het BNI per capita (zie bovenstaande uitleg). We zullen eerste manueel normaliseren en dan gebruik maken van de `rescale()` functie uit het `scales` package.
 
 Onze eerste stap is het berekenen van het gemiddelde van de onderwijsvariabelen. Eerst normaliseren we beide variabelen. De VN deelt verwachte scholing door 18 en gemiddelde scholing door 15 om een 0-1 schaal te maken (zie uitleg boven). Dan nemen ze het gemiddelde van de twee variabelen. Dit doen we met de volgende syntax, waarbij we de `rowwise()` functie gebruiken.
 
@@ -519,7 +516,7 @@ p1 + p2
 
 ```
 
-Beide genormaliseerde variabelen hebben een theoretisch bereik van 0 tot 1. Maar met `rescale` wordt er altijd een echt minimum en maximum gevonden in de data en zul je altijd de waarden 0 en 1 terugvinden. De VN heeft echter door het zelf bepalen van minima en maxima in plaats van ze door de data te laten bepalen, het minimum voor de data in de praktijk hoger gelegd (bij 0.53). In 2023 had geen enkel land een levensverwachting van 20, het theoretische minimum van de VN, dus vinden we 0 niet terug. Het theoretische maximum van 85 werd dan wel weer bereikt. 
+Beide genormaliseerde variabelen hebben een theoretisch bereik van 0 tot 1. Maar met `rescale` wordt er altijd een echt minimum en maximum gevonden in de data en zul je altijd de waarden 0 en 1 terugvinden. De VN heeft echter door het zelf bepalen van minima en maxima in plaats van ze door de data te laten bepalen, het minimum voor de data in de praktijk hoger gelegd (bij 0.53). In 2023 had geen enkel land een levensverwachting van 20, het theoretische minimum van de VN, dus vinden we 0 niet terug. Het theoretische maximum van 85 werd dan wel weer bereikt.
 
 We berekenen nu de index met de `scales::rescale()` genormaliseerde variabelen:
 
@@ -602,4 +599,4 @@ summary(hdi_data$hdi_standardized)
 
 de schaal loopt van -2.12 tot 1.44 met een gemiddelde waarde van 0. Observaties dichter bij het maximum hebben scores hoger dan het gemiddelde voor (bijna) alle onderliggende variabelen.
 
-## References
+## Referenties

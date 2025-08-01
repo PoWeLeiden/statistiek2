@@ -52,7 +52,7 @@ serial_data <- import("./data/serial_autocorrelation.rda")
 5.  Voorspelde waarden en marginale effecten
 6.  Gegevens samenvatten
 
-::: {.callout-note title="Who is this for?"}
+::: {.callout-note title="Voor wie is deze Appendix?"}
 Je hoeft niet te weten hoe je deze analyses moet uitvoeren voor de opdrachten in Statistiek II. Deze gids is bedoeld voor studenten die hun eindpaper schrijven voor Academische Vaardigheden: Kwantitatieve Data-Analyse of een BAP-scriptieproject en graag assumptieschendingen willen vermijden.
 :::
 
@@ -151,7 +151,7 @@ Laten we de 'normale' en 'robuuste' standaardfouten vergelijken:
 
 modelsummary(violence_sqmodel, 
              stars = T, 
-             vcov = c("Normaal", "HC3"), 
+             vcov = c("classical", "HC3"), 
              coef_rename = c(
                "(Intercept)" = "Intercept", 
                "v2x_polyarchy" = "Democratiescore", 

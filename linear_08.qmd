@@ -183,7 +183,7 @@ datasummary(All(table_data)
 
 :   Hier vragen we om een Word document (.docx) genaamd "descr_tabel" op te slaan. Dit bestand vind je terug in je R project folder. Je kan ook een subfolder aanduiden, bv. "Output folder/descr_tabel.docx". Let erop dat je het Word document niet geopend hebt als je de syntax opnieuw wil gebruiken met aanpassingen, anders kun je een foutmelding krijgen.
 
-## Puntenwolken of Scatterplots
+## Puntenwolken of Scatterplots {#sec-report-scatterplots}
 
 We kunnen een visuele weergave tonen van de bivariate relatie tussen twee continue variabelen in een puntenwolk of scatterplot. Hieronder is een voorbeeld voor de variabelen `gini_2019` en `v2x_polyarchy`:
 
