@@ -74,10 +74,9 @@ De `predictions()` functie uit het `marginaleffects` package kan gebruikt worden
 
 Het `marginaleffects`-package is niet volledig compatibel met de `factorize` functie. Dit levert vooral problemen op met 'lege categorieën'. Dit zijn categorieën waar wel een label voor is gemaakt in de dataset, maar waar geen respondenten in zitten. Factorvariabelen in de regressie met lege categorieën leiden tot een foutmelding bij gebruik van `predictions`.
 
-Hieronder kijken we bijvoorbeeld naar de gender variabele in de Nederlandse survey voor ronde 9 van de European Social Survey (ESS). Er zijn 3 waardenlabels aangemaakt: "Male", "Female", "No answer". De "No answer" categorie is leeg en zal automatisch wegvallen bij de regressieanalyse. Echter is het label nog aan de variabele bevestigd na `factorize`. Dit leidt tot een foutmelding omdat R op zoek gaat naar een variabele met die categorie. Om dit te vermijden moet we de overtollige categorie verwijderen uit de dataset met de `droplevels`-functie.
+Hieronder kijken we bijvoorbeeld naar de gender variabele in de Nederlandse survey voor ronde 9 van de European Social Survey (ESS). Er zijn 3 waardenlabels aangemaakt: "Male", "Female", "No answer". De "No answer" categorie is leeg en zal automatisch wegvallen bij de regressieanalyse. Echter is het label nog aan de variabele bevestigd na `factorize`. Dit leidt tot een foutmelding omdat R op zoek gaat naar een variabele met die categorie. Om dit te vermijden moeten we de overtollige categorie verwijderen uit de dataset met de `droplevels`-functie.
 
 ```{r}
-#| label: setup
 #| echo: false
 #| message: false
 #| warning: false
