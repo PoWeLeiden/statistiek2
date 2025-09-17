@@ -412,46 +412,43 @@ Waarschuwing!
 <p>Het <code>marginaleffects</code>-package is niet volledig compatibel met de <code>factorize</code> functie. Dit levert vooral problemen op met ‘lege categorieën’. Dit zijn categorieën waar wel een label voor is gemaakt in de dataset, maar waar geen respondenten in zitten. Factorvariabelen in de regressie met lege categorieën leiden tot een foutmelding bij gebruik van <code>predictions</code>.</p>
 <p>Hieronder kijken we bijvoorbeeld naar de gender variabele in de Nederlandse survey voor ronde 9 van de European Social Survey (ESS). Er zijn 3 waardenlabels aangemaakt: “Male”, “Female”, “No answer”. De “No answer” categorie is leeg en zal automatisch wegvallen bij de regressieanalyse. Echter is het label nog aan de variabele bevestigd na <code>factorize</code>. Dit leidt tot een foutmelding omdat R op zoek gaat naar een variabele met die categorie. Om dit te vermijden moeten we de overtollige categorie verwijderen uit de dataset met de <code>droplevels</code>-functie.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"data/ESS9e03, Netherlands.sav"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Male"      "Female"    "No answer"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      Male    Female No answer 
       833       840         0 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop levels: verwijderen van categorieën zonder observaties</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">droplevels</span>(gndr_F))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Checken van syntax</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Male"   "Female"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   Male Female 
    833    840 </code></pre>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ESS9e03, Netherlands.sav"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr))</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop levels: verwijderen van categorieën zonder observaties</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">droplevels</span>(gndr_F))</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Checken van syntax</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </div>
 </div>
 <p>Hier gebruiken we <code>predictions</code> eerst voor ons binair model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_binary, <span class="at">newdata =</span> demdata) <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="co">#as_tibble() niet strikt nodig, zie waarschuwingsvak hieronder</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_binary, <span class="at">newdata =</span> demdata) <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="co">#as_tibble() niet strikt nodig, zie waarschuwingsvak hieronder</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Zo lees je de syntax:</p>
 <dl>
@@ -470,7 +467,7 @@ Waarschuwing!
 </dl>
 <p>De output kunnen we printen met behulp van de volgende code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 179 × 52
    rowid estimate std.error statistic    p.value s.value conf.low conf.high
@@ -513,13 +510,13 @@ Output uitleg
 </div>
 <p>We kunnen het nieuwe dataobject gebruiken om ook de residuals te berekenen. Dit doen we door het verschil tussen echte en voorspelde waarde in een variabele op te nemen. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> model_binary_predictions <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residual_value =</span> v2x_polyarchy <span class="sc">-</span> estimate) <span class="co">#residual = echte waarde - voorspelde waarde</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> model_binary_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residual_value =</span> v2x_polyarchy <span class="sc">-</span> estimate) <span class="co">#residual = echte waarde - voorspelde waarde</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Deze variabele kunnen we gebruiken om na te gaan welke observaties goed of slecht worden voorspeld. Dit kan nuttig zijn bij het nagaan of aan assumpties voldaan is, zie <a href="linear_07.html" class="quarto-xref"><span>Hoofdstuk 7</span></a> .</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, v2x_polyarchy, estimate, residual_value) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, v2x_polyarchy, estimate, residual_value) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 179 × 4
    country_name v2x_polyarchy estimate residual_value
@@ -543,9 +540,9 @@ Output uitleg
 <p>We kunnen ook nagaan welke waarde op de afhankelijke we kunnen verwachten volgens het model als de onafhankelijke variabele bepaalde waarden aanneemt. Bijvoorbeeld: welke democratiescore kunnen we gemiddeld verwachten voor landen die in 1984 een autocratie waren? Of voor landen die een lage of hoge economische ongelijkheid kennen? We kunnen hier ook de <code>predictions()</code> functie voor gebruiken.</p>
 <p>Eerst voorspellen we de verwachte democratiescore in 2020 voor landen die in 1984 een autocratie versus democratie waren op basis van ons bivariaat model (<code>model_binary</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()  </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()  </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 9
   TYPEDEMO1984_factor estimate std.error statistic   p.value s.value conf.low
@@ -567,9 +564,9 @@ Output uitleg
 </dl>
 <p>We kunnen ook voorspellingen maken op basis van een continue onafhankelijke variabele. We kunnen bijvoorbeeld de score voor electorale democratie voorspellen aan de hand van economische ongelijkheid (gini_2019). Hier gaan we na welke democratiescore we kunnen verwachten als ongelijkheid laag (25) versus hoog is (45).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 11
   rowid estimate std.error statistic  p.value s.value conf.low conf.high
@@ -587,9 +584,9 @@ Output uitleg
 </dl>
 <p>We kunnen eventueel meerdere waarden toevoegen om voorspellingen voor te maken door de code op de volgende manier uit te breiden in het <code>c()</code> gedeelte van de syntax:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 11
   rowid estimate std.error statistic   p.value s.value conf.low conf.high
@@ -614,7 +611,7 @@ Waarschuwing!
 <div class="callout-body-container callout-body">
 <p>We eindigden de <code>predictions()</code> functie met <code>as_tibble()</code>. Deze stap is niet strikt noodzakelijk. Dit is het resultaat zonder de toevoeging:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  TYPEDEMO1984_factor Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -635,7 +632,7 @@ Type: response</code></pre>
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="sec-predictions-for-a-continuous-predictor-variable"><span class="header-section-number">5.3.1</span> Voorspellingen voor een continue predictor</h3>
 <p>Dit waren de resultaten van ons meervoudig lineair regressiemodel:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_multiple)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_multiple)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   term                           estimate std.error statistic      p.value
@@ -679,9 +676,9 @@ Type: response</code></pre>
 </div>
 <p>We kunnen voorspelde waarden gebruiken om een inschatting te maken over het verwachte niveau van democratie bij lage en hoge corruptie. Een regressiecoëfficiënt zegt ons wat er gebeurt als corruptie met 1 eenheid stijgt, maar voorspelde waarden kunnen vaak een intuïtiever beeld geven over de sterkte van een effect. Hier gebruiken we <code>predictions()</code> om verwachte democratiescores te berekenen voor corruptiescores (<code>cpi</code>) van 20 tot 80 met verhogingen van telkens 10 eenheden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">80</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">80</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>preds1 &lt;-</code></dt>
@@ -699,7 +696,7 @@ Type: response</code></pre>
 </dl>
 <p>We printen de voorspellingen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>preds1</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>preds1</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 13
   rowid estimate std.error statistic   p.value s.value conf.low conf.high
@@ -734,8 +731,8 @@ Output uitleg
 </div>
 <p>In bovenstaand voorbeeld houdt <code>predictions()</code> automatisch de 2 overige onafhankelijke variabelen (<code>v2caviol</code> en <code>TYPEDEMO1984_factor</code>) constant op dezelfde waarde bij de berekening van elke voorspelde waarde. Continue predictoren worden constant gehouden op hun gemiddelde, voor factor variabelen wordt de modus (de meest voorkomende categorie) gebruikt. Dit kunnen we nagaan:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estimate, cpi, v2caviol, TYPEDEMO1984_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estimate, cpi, v2caviol, TYPEDEMO1984_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 4
   estimate   cpi v2caviol TYPEDEMO1984_factor
@@ -754,9 +751,9 @@ Output uitleg
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="voorspellingen-voor-een-factor-predictor"><span class="header-section-number">5.3.2</span> Voorspellingen voor een factor predictor</h3>
 <p>We kunnen een gelijkaardige procedure gebruiken om voorspellingen te maken voor de verschillende niveaus van factor variabelen. Dit kunnen we doen met behulp van de <code>by=</code> optie i.p.v <code>newdata = datagrid()</code>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Om ervoor te zorgen dat we voor de overige onafhankelijke variabelen het gemiddelde of de modus nemen, moeten we hier wel nog syntax toevoegen via <code>newdata</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>preds2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, <span class="at">by=</span> <span class="st">"TYPEDEMO1984_factor"</span>, </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">newdata =</span> <span class="st">"mean"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>preds2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, <span class="at">by=</span> <span class="st">"TYPEDEMO1984_factor"</span>, </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">newdata =</span> <span class="st">"mean"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>by="TYPEDEMO1984_factor"</code></dt>
@@ -770,7 +767,7 @@ Output uitleg
 </dl>
 <p>De resultaten zijn als volgt:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>preds2</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>preds2</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 9
   TYPEDEMO1984_factor estimate std.error statistic   p.value s.value conf.low
@@ -787,11 +784,11 @@ Output uitleg
 <p>We kunnen <code>predictions()</code> ook gebruiken om voorspellingen te maken voor specifieke, hypothetische casussen. Bijvoorbeeld, hier vragen we de voorspelde waarde voor de afhankelijke variabele electorale democratie voor een land dat: een democratie was in 1984, 88 scoort op de corruptieperceptie-index (de maximumwaarde in de dataset) en -3.429 voor politiek geweld (de minimumwaarde in de dataset).</p>
 <p>We bepalen deze waarden in het <code>newdata = datagrid()</code> gedeelte van de syntax. Indien we een variabele niet zouden specificeren zou deze constant gehouden worden op het gemiddelde of de modus.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_multiple, </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi=</span><span class="fu">c</span>(<span class="dv">88</span>), </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">v2caviol=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.429</span>), </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">TYPEDEMO1984_factor=</span><span class="fu">c</span>(<span class="st">"Democracies"</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_multiple, </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi=</span><span class="fu">c</span>(<span class="dv">88</span>), </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">v2caviol=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.429</span>), </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">TYPEDEMO1984_factor=</span><span class="fu">c</span>(<span class="st">"Democracies"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 13
   rowid estimate std.error statistic   p.value s.value conf.low conf.high

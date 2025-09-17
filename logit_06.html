@@ -514,8 +514,8 @@ Rapportagevoorbeeld
 
     <script>
 
-      function styleCell_dwy33rsnnu97qypazr9u(i, j, css_id) {
-          var table = document.getElementById("tinytable_dwy33rsnnu97qypazr9u");
+      function styleCell_shpf7enp3vka0p7r1iiz(i, j, css_id) {
+          var table = document.getElementById("tinytable_shpf7enp3vka0p7r1iiz");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -524,8 +524,8 @@ Rapportagevoorbeeld
               console.warn(`Cell at (${i}, ${j}) not found.`);
           }
       }
-      function spanCell_dwy33rsnnu97qypazr9u(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_dwy33rsnnu97qypazr9u");
+      function spanCell_shpf7enp3vka0p7r1iiz(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_shpf7enp3vka0p7r1iiz");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -556,20 +556,20 @@ Rapportagevoorbeeld
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '12', j: 1 },  ], css_id: 'tinytable_css_104n77smps48o30a5zyf',}, 
-          { positions: [ { i: '10', j: 1 },  ], css_id: 'tinytable_css_a8d7gwmdexsh9dbfyzxj',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '11', j: 1 },  ], css_id: 'tinytable_css_6h0weighyt0q6rbys24b',}, 
-          { positions: [ { i: '0', j: 1 },  ], css_id: 'tinytable_css_69n31y7ant42adanyrpi',}, 
-          { positions: [ { i: '12', j: 0 },  ], css_id: 'tinytable_css_69s6h6yg1hjdbq2c21zq',}, 
-          { positions: [ { i: '10', j: 0 },  ], css_id: 'tinytable_css_0epvpl7sl0f18puxdt1z',}, 
-          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '11', j: 0 },  ], css_id: 'tinytable_css_2p8hf9orqq6hgwizv2zd',}, 
-          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_hl5f7lzmd472bmgvjql9',}, 
+          { positions: [ { i: '12', j: 1 },  ], css_id: 'tinytable_css_3fjnlkt54ar3e2u70oiy',}, 
+          { positions: [ { i: '10', j: 1 },  ], css_id: 'tinytable_css_13421g9iq9pgm3vbzm8n',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '11', j: 1 },  ], css_id: 'tinytable_css_adngjilwite1gjptj9s6',}, 
+          { positions: [ { i: '0', j: 1 },  ], css_id: 'tinytable_css_7pfu7u5aokos0g8y6t6s',}, 
+          { positions: [ { i: '12', j: 0 },  ], css_id: 'tinytable_css_mdjrhsde4ua7dr1lpk55',}, 
+          { positions: [ { i: '10', j: 0 },  ], css_id: 'tinytable_css_oovfu9vqwwmvil5dh7yi',}, 
+          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '11', j: 0 },  ], css_id: 'tinytable_css_x718zcwmf1oo0dbklp6w',}, 
+          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_d2f3rsd4ld9x5caedfit',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_dwy33rsnnu97qypazr9u(cell.i, cell.j, group.css_id);
+                  styleCell_shpf7enp3vka0p7r1iiz(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -577,17 +577,17 @@ Rapportagevoorbeeld
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_104n77smps48o30a5zyf, .table th.tinytable_css_104n77smps48o30a5zyf { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_a8d7gwmdexsh9dbfyzxj, .table th.tinytable_css_a8d7gwmdexsh9dbfyzxj { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_6h0weighyt0q6rbys24b, .table th.tinytable_css_6h0weighyt0q6rbys24b { text-align: center; }
-      .table td.tinytable_css_69n31y7ant42adanyrpi, .table th.tinytable_css_69n31y7ant42adanyrpi { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_69s6h6yg1hjdbq2c21zq, .table th.tinytable_css_69s6h6yg1hjdbq2c21zq { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_0epvpl7sl0f18puxdt1z, .table th.tinytable_css_0epvpl7sl0f18puxdt1z { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_2p8hf9orqq6hgwizv2zd, .table th.tinytable_css_2p8hf9orqq6hgwizv2zd { text-align: left; }
-      .table td.tinytable_css_hl5f7lzmd472bmgvjql9, .table th.tinytable_css_hl5f7lzmd472bmgvjql9 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_3fjnlkt54ar3e2u70oiy, .table th.tinytable_css_3fjnlkt54ar3e2u70oiy { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_13421g9iq9pgm3vbzm8n, .table th.tinytable_css_13421g9iq9pgm3vbzm8n { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_adngjilwite1gjptj9s6, .table th.tinytable_css_adngjilwite1gjptj9s6 { text-align: center; }
+      .table td.tinytable_css_7pfu7u5aokos0g8y6t6s, .table th.tinytable_css_7pfu7u5aokos0g8y6t6s { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_mdjrhsde4ua7dr1lpk55, .table th.tinytable_css_mdjrhsde4ua7dr1lpk55 { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_oovfu9vqwwmvil5dh7yi, .table th.tinytable_css_oovfu9vqwwmvil5dh7yi { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_x718zcwmf1oo0dbklp6w, .table th.tinytable_css_x718zcwmf1oo0dbklp6w { text-align: left; }
+      .table td.tinytable_css_d2f3rsd4ld9x5caedfit, .table th.tinytable_css_d2f3rsd4ld9x5caedfit { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_dwy33rsnnu97qypazr9u" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_shpf7enp3vka0p7r1iiz" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         </thead><caption>Opkomst in Nederland (ESS9)</caption>
               <tbody><tr>
@@ -691,8 +691,8 @@ Rapportagevoorbeeld
 
     <script>
 
-      function styleCell_yu2sq0wghxkjhjoct79g(i, j, css_id) {
-          var table = document.getElementById("tinytable_yu2sq0wghxkjhjoct79g");
+      function styleCell_kwzt09cq426rln7fluby(i, j, css_id) {
+          var table = document.getElementById("tinytable_kwzt09cq426rln7fluby");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -701,8 +701,8 @@ Rapportagevoorbeeld
               console.warn(`Cell at (${i}, ${j}) not found.`);
           }
       }
-      function spanCell_yu2sq0wghxkjhjoct79g(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_yu2sq0wghxkjhjoct79g");
+      function spanCell_kwzt09cq426rln7fluby(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_kwzt09cq426rln7fluby");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -733,20 +733,20 @@ Rapportagevoorbeeld
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '12', j: 1 },  ], css_id: 'tinytable_css_bkocdxgiev7uiel5f4kq',}, 
-          { positions: [ { i: '10', j: 1 },  ], css_id: 'tinytable_css_z1oe3b0emxzmdx4fhz09',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '11', j: 1 },  ], css_id: 'tinytable_css_04h2232dju7w7hvnj0jr',}, 
-          { positions: [ { i: '0', j: 1 },  ], css_id: 'tinytable_css_hv9fv80fhgbyngz7xky2',}, 
-          { positions: [ { i: '12', j: 0 },  ], css_id: 'tinytable_css_5mu95hhsk04f8y2jg92l',}, 
-          { positions: [ { i: '10', j: 0 },  ], css_id: 'tinytable_css_aj2bffvmnhqjzolgsizt',}, 
-          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '11', j: 0 },  ], css_id: 'tinytable_css_op1cf8d5q7sdt7my7hu5',}, 
-          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_0n6lk5dfp5i20p5qkb42',}, 
+          { positions: [ { i: '12', j: 1 },  ], css_id: 'tinytable_css_i6f9bfzv1erdggqdpem9',}, 
+          { positions: [ { i: '10', j: 1 },  ], css_id: 'tinytable_css_3ijx26izs57umvabrwyv',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '11', j: 1 },  ], css_id: 'tinytable_css_2dcgxcvvr2sus3elnvba',}, 
+          { positions: [ { i: '0', j: 1 },  ], css_id: 'tinytable_css_rq09ni1dhe40w41duih3',}, 
+          { positions: [ { i: '12', j: 0 },  ], css_id: 'tinytable_css_k2jwohzl2el7u3nfh6km',}, 
+          { positions: [ { i: '10', j: 0 },  ], css_id: 'tinytable_css_2a11h81b6jwcxu6owdlo',}, 
+          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '11', j: 0 },  ], css_id: 'tinytable_css_kxinurfht3nwfn4kp1jf',}, 
+          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_3n1n3bjyp7i5kuvqsjtr',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_yu2sq0wghxkjhjoct79g(cell.i, cell.j, group.css_id);
+                  styleCell_kwzt09cq426rln7fluby(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -754,17 +754,17 @@ Rapportagevoorbeeld
 
     <style>
       /* tinytable css entries after */
-      .table td.tinytable_css_bkocdxgiev7uiel5f4kq, .table th.tinytable_css_bkocdxgiev7uiel5f4kq { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_z1oe3b0emxzmdx4fhz09, .table th.tinytable_css_z1oe3b0emxzmdx4fhz09 { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_04h2232dju7w7hvnj0jr, .table th.tinytable_css_04h2232dju7w7hvnj0jr { text-align: center; }
-      .table td.tinytable_css_hv9fv80fhgbyngz7xky2, .table th.tinytable_css_hv9fv80fhgbyngz7xky2 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_5mu95hhsk04f8y2jg92l, .table th.tinytable_css_5mu95hhsk04f8y2jg92l { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_aj2bffvmnhqjzolgsizt, .table th.tinytable_css_aj2bffvmnhqjzolgsizt { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_op1cf8d5q7sdt7my7hu5, .table th.tinytable_css_op1cf8d5q7sdt7my7hu5 { text-align: left; }
-      .table td.tinytable_css_0n6lk5dfp5i20p5qkb42, .table th.tinytable_css_0n6lk5dfp5i20p5qkb42 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_i6f9bfzv1erdggqdpem9, .table th.tinytable_css_i6f9bfzv1erdggqdpem9 { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_3ijx26izs57umvabrwyv, .table th.tinytable_css_3ijx26izs57umvabrwyv { text-align: center; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_2dcgxcvvr2sus3elnvba, .table th.tinytable_css_2dcgxcvvr2sus3elnvba { text-align: center; }
+      .table td.tinytable_css_rq09ni1dhe40w41duih3, .table th.tinytable_css_rq09ni1dhe40w41duih3 { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_k2jwohzl2el7u3nfh6km, .table th.tinytable_css_k2jwohzl2el7u3nfh6km { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_2a11h81b6jwcxu6owdlo, .table th.tinytable_css_2a11h81b6jwcxu6owdlo { text-align: left; border-bottom: solid black 0.05em; }
+      .table td.tinytable_css_kxinurfht3nwfn4kp1jf, .table th.tinytable_css_kxinurfht3nwfn4kp1jf { text-align: left; }
+      .table td.tinytable_css_3n1n3bjyp7i5kuvqsjtr, .table th.tinytable_css_3n1n3bjyp7i5kuvqsjtr { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_yu2sq0wghxkjhjoct79g" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table-borderless" id="tinytable_kwzt09cq426rln7fluby" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <thead>
         </thead><caption>Opkomst in Nederland (ESS9)</caption>
               <tbody><tr>
