@@ -27,7 +27,7 @@ Om alle gebruikte packages in één keer te installeren, kun je onderstaande cod
 
 package_list <- c("tidyverse", "rio", "summarytools", "DescTools", "skimr",
                   "correlation", "parameters", "performance", "effectsize",
-                  "see", "marginaleffects", " bromo", "ggResidpanel", "rms",
+                  "see", "marginaleffects", " broom", "ggResidpanel", "rms",
                   "car", "modelsummary", "gt", "gtsummary", "kableExtra",
                   "knitr", "rmarkdown","huxtable", "flextable", "lmtest" ,
                   "openintro", "statsr", "tidymodels", "tinytex",
@@ -36,7 +36,7 @@ package_list <- c("tidyverse", "rio", "summarytools", "DescTools", "skimr",
                   "ggstance", "ggrepel", "ggsignif", "naniar", "openxlsx",
                   "sjmisc", "crosstable", "sjlabelled", "psych", "dice",
                   "pwr", "visualize", "infer" , "sandwich", "sjPlot",
-                  "scales", "fastDummies")
+                  "scales", "fastDummies", "data.table")
 
 install.packages(package_list)
 
