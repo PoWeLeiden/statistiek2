@@ -77,31 +77,7 @@ Het `marginaleffects`-package is niet volledig compatibel met de `factorize` fun
 Hieronder kijken we bijvoorbeeld naar de gender variabele in de Nederlandse survey voor ronde 9 van de European Social Survey (ESS). Er zijn 3 waardenlabels aangemaakt: "Male", "Female", "No answer". De "No answer" categorie is leeg en zal automatisch wegvallen bij de regressieanalyse. Echter is het label nog aan de variabele bevestigd na `factorize`. Dit leidt tot een foutmelding omdat R op zoek gaat naar een variabele met die categorie. Om dit te vermijden moeten we de overtollige categorie verwijderen uit de dataset met de `droplevels`-functie.
 
 ```{r}
-#| echo: false
-#| message: false
-#| warning: false
-
 ESS9NL <- import("data/ESS9e03, Netherlands.sav")
-
-ESS9NL <- ESS9NL |>
-  mutate(gndr_F = factorize(gndr))
-         
-levels(ESS9NL$gndr_F)
-table(ESS9NL$gndr_F)
-
-#Drop levels: verwijderen van categorieën zonder observaties
-ESS9NL <- ESS9NL |>
-  mutate(gndr_F = droplevels(gndr_F))
-
-#Checken van syntax
-levels(ESS9NL$gndr_F)
-table(ESS9NL$gndr_F)
-```
-
-```{r}
-#| eval: false
-
-ESS9NL <- import("ESS9e03, Netherlands.sav")
 
 ESS9NL <- ESS9NL |>
   mutate(gndr_F = factorize(gndr))
