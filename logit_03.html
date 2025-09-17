@@ -399,13 +399,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Relevel van variabelen</span></span>
 <span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">vote_F =</span> <span class="fu">relevel</span>(vote_F, <span class="st">"No"</span>), </span>
 <span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">gndr_F =</span> <span class="fu">relevel</span>(gndr_F, <span class="st">"Female"</span>))</span>
-<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
-<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
-<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#droppen van factorize niveaus niet compatibel met predictions</span></span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">droplevels</span>(gndr_F),</span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">vote_F =</span> <span class="fu">droplevels</span>(vote_F))</span>
 <span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten printen</span></span>
-<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Vote_model_mp)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-2-16"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model</span></span>
+<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a>Vote_model_mp <span class="ot">&lt;-</span> <span class="fu">glm</span>(vote_F <span class="sc">~</span> gndr_F <span class="sc">+</span> agea <span class="sc">+</span> trstplt <span class="sc">+</span> lrscale, </span>
+<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> ESS9NL, <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="annotated-cell-2-19"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-20"><a href="#annotated-cell-2-20" aria-hidden="true" tabindex="-1"></a><span class="co">#Resultaten printen</span></span>
+<span id="annotated-cell-2-21"><a href="#annotated-cell-2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Vote_model_mp)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -444,7 +448,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble() gebruiken voor overzicht</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Vote_pred)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,673 × 580
+<pre><code># A tibble: 1,673 × 581
    rowid estimate   p.value s.value conf.low conf.high name    essround edition
    &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;  
  1     1    0.835  6.13e-35   114.     0.796     0.867 ESS9e03        9 3      
@@ -458,7 +462,7 @@ Number of Fisher Scoring iterations: 4</code></pre>
  9     9    0.877  1.88e-47   155.     0.845     0.903 ESS9e03        9 3      
 10    10    0.944  2.64e-39   128.     0.917     0.963 ESS9e03        9 3      
 # ℹ 1,663 more rows
-# ℹ 571 more variables: proddate &lt;chr&gt;, idno &lt;dbl&gt;, cntry &lt;chr&gt;, nwspol &lt;dbl&gt;,
+# ℹ 572 more variables: proddate &lt;chr&gt;, idno &lt;dbl&gt;, cntry &lt;chr&gt;, nwspol &lt;dbl&gt;,
 #   netusoft &lt;dbl&gt;, netustm &lt;dbl&gt;, ppltrst &lt;dbl&gt;, pplfair &lt;dbl&gt;, pplhlp &lt;dbl&gt;,
 #   polintr &lt;dbl&gt;, psppsgva &lt;dbl&gt;, actrolga &lt;dbl&gt;, psppipla &lt;dbl&gt;,
 #   cptppola &lt;dbl&gt;, trstprl &lt;dbl&gt;, trstlgl &lt;dbl&gt;, trstplc &lt;dbl&gt;, trstplt &lt;dbl&gt;,
@@ -585,16 +589,16 @@ No answer</td>
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 11
-  rowid estimate  p.value s.value conf.low conf.high gndr_F  agea lrscale
-  &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1     1    0.699 9.37e- 5    13.4    0.603     0.779 Male    50.7    5.15
-2     2    0.774 1.09e-15    49.7    0.717     0.822 Male    50.7    5.15
-3     3    0.835 1.61e-46   152.     0.802     0.863 Male    50.7    5.15
-4     4    0.882 1.29e-64   212.     0.856     0.904 Male    50.7    5.15
-5     5    0.917 6.30e-48   157.     0.889     0.938 Male    50.7    5.15
-6     6    0.942 3.65e-34   111.     0.912     0.962 Male    50.7    5.15
-# ℹ 2 more variables: trstplt &lt;dbl&gt;, vote_F &lt;fct&gt;</code></pre>
+<pre><code># A tibble: 6 × 12
+  rowid estimate  p.value s.value conf.low conf.high  agea gndr_F lrscale vote_F
+  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;    &lt;int&gt; &lt;fct&gt; 
+1     1    0.699 9.50e- 5    13.4    0.603     0.780    51 Male         5 Yes   
+2     2    0.774 1.27e-15    49.5    0.717     0.822    51 Male         5 Yes   
+3     3    0.835 4.20e-46   151.     0.802     0.863    51 Male         5 Yes   
+4     4    0.882 4.23e-64   211.     0.855     0.904    51 Male         5 Yes   
+5     5    0.917 9.54e-48   156.     0.889     0.939    51 Male         5 Yes   
+6     6    0.942 4.17e-34   111.     0.912     0.962    51 Male         5 Yes   
+# ℹ 2 more variables: trstplt &lt;dbl&gt;, df &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -629,13 +633,11 @@ Output uitleg
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tibble voor overzicht</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(Pred_cat)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 13
-  rowid gndr_F estimate std.error statistic p.value s.value conf.low conf.high
-  &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-1     1 Female    0.863    0.0133      65.1       0     Inf    0.837     0.889
-2     2 Male      0.868    0.0127      68.2       0     Inf    0.843     0.893
-# ℹ 4 more variables: agea &lt;dbl&gt;, trstplt &lt;dbl&gt;, lrscale &lt;dbl&gt;,
-#   rowid_dedup &lt;int&gt;</code></pre>
+<pre><code># A tibble: 2 × 9
+  gndr_F estimate std.error statistic p.value s.value conf.low conf.high    df
+  &lt;fct&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;
+1 Female    0.855    0.0137      62.3       0     Inf    0.828     0.882   Inf
+2 Male      0.860    0.0132      65.1       0     Inf    0.834     0.886   Inf</code></pre>
 </div>
 </div>
 <dl>
@@ -676,7 +678,7 @@ Output uitleg
  gndr_F agea trstplt lrscale Estimate Pr(&gt;|z|)    S 2.5 % 97.5 %
    Male   33       2       8    0.729   &lt;0.001 20.2 0.645  0.799
 
-Type:  invlink(link) </code></pre>
+Type: invlink(link)</code></pre>
 </div>
 </div>
 

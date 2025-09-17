@@ -909,21 +909,14 @@ Number of Fisher Scoring iterations: 4</code></pre>
 <p>The coefficient for our IV is negative, which indicates that female respondents have a lower chance of reporting that they turned out to vote than men (although this difference is not statistically significant). This coefficient is on the log of the odds (logit) scale, which is hard to interpret. We may want to look at the average difference in the probability of turning out between women and men to more clearly communicate the difference between the two groups. We can do this by using the <code>avg_slopes()</code> function from the <code>marginaleffects</code> package. However, in this instance we receive an error message:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(ame_example)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error: Unable to compute predicted values with this model. This error can arise
-  when `insight::get_data()` is unable to extract the dataset from the
-  model object, or when the data frame was modified since fitting the
-  model. You can try to supply a different dataset to the `newdata`
-  argument.
-  
-  In addition, this error message was raised:
-  
-  Error in model.frame.default(Terms, newdata, na.action = na.action, xlev
-  = object$xlevels): factor gender has new levels No answer
+<div class="cell-output cell-output-stdout">
+<pre><code>
+         Contrast Estimate Std. Error     z Pr(&gt;|z|)   S   2.5 % 97.5 %
+ Female - Male      0.0000         NA    NA       NA  NA      NA     NA
+ No answer - Male  -0.0247     0.0187 -1.32    0.187 2.4 -0.0614  0.012
 
-  
-  Bug Tracker:
-  https://github.com/vincentarelbundock/marginaleffects/issues</code></pre>
+Term: gender
+Type: response</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
@@ -1010,7 +1003,7 @@ Solution
   -0.0247     0.0187 -1.32    0.187 2.4 -0.0614  0.012
 
 Term: gender_opt1
-Type:  response 
+Type: response
 Comparison: Female - Male</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Option 2</span></span>
@@ -1022,7 +1015,7 @@ Comparison: Female - Male</code></pre>
   -0.0247     0.0187 -1.32    0.187 2.4 -0.0614  0.012
 
 Term: gender_opt2
-Type:  response 
+Type: response
 Comparison: Female - Male</code></pre>
 </div>
 </div>
@@ -1100,7 +1093,7 @@ F-statistic: 42.09 on 3 and 152 DF,  p-value: &lt; 2.2e-16</code></pre>
  88.0   20310   1.0572     0.0588 17.9733   &lt;0.001 237.5  0.9419  1.173
  88.0  111751   0.6802     0.1107  6.1456   &lt;0.001  30.2  0.4633  0.897
 
-Type:  response </code></pre>
+Type: response</code></pre>
 </div>
 </div>
 <p>There is a lot of data here to try and read/interpret. However, we can create a nice plot to summarize the predictions. Unfortunately, we run into the following error when running this syntax:</p>
@@ -1160,7 +1153,7 @@ Solution
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="common_errors_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="common_errors_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

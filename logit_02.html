@@ -598,13 +598,13 @@ Heiss, Andrew. 2022. <span>‘Marginalia: <span>A</span> Guide to Figuring Out W
 <pre><code># A tibble: 4 × 18
   rowid term    contrast   estimate std.error statistic p.value s.value conf.low
   &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
-1     1 agea    dY/dX       0.00210  0.000519     4.05  5.07e-5  14.3    0.00109
-2     1 gndr_F  Male - Fe…  0.00504  0.0180       0.281 7.79e-1   0.360 -0.0302 
-3     1 lrscale dY/dX       0.00336  0.00453      0.742 4.58e-1   1.13  -0.00551
-4     1 trstplt dY/dX       0.0224   0.00447      5.00  5.67e-7  20.8    0.0136 
-# ℹ 9 more variables: conf.high &lt;dbl&gt;, predicted_lo &lt;dbl&gt;, predicted_hi &lt;dbl&gt;,
-#   predicted &lt;dbl&gt;, gndr_F &lt;fct&gt;, agea &lt;dbl&gt;, trstplt &lt;dbl&gt;, lrscale &lt;dbl&gt;,
-#   vote_F &lt;fct&gt;</code></pre>
+1     1 agea    dY/dX       0.00221  0.000545     4.05  5.08e-5  14.3    0.00114
+2     1 gndr_F  Male - Fe…  0.00529  0.0188       0.281 7.79e-1   0.360 -0.0317 
+3     1 lrscale dY/dX       0.00352  0.00477      0.739 4.60e-1   1.12  -0.00582
+4     1 trstplt dY/dX       0.0235   0.00488      4.80  1.56e-6  19.3    0.0139 
+# ℹ 9 more variables: conf.high &lt;dbl&gt;, agea &lt;int&gt;, gndr_F &lt;fct&gt;, lrscale &lt;int&gt;,
+#   trstplt &lt;int&gt;, vote_F &lt;fct&gt;, predicted_lo &lt;dbl&gt;, predicted_hi &lt;dbl&gt;,
+#   predicted &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <p>Behalve estimate, standaardfout, test statistiek, p-waarde, en onder- en bovengrens van de betrouwbaarheidsintervallen, bevat de MEM dataset ook de gemiddelden en/of modus waarden voor de predictoren.</p>
@@ -615,11 +615,11 @@ Heiss, Andrew. 2022. <span>‘Marginalia: <span>A</span> Guide to Figuring Out W
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   gndr_F  agea trstplt lrscale
-  &lt;fct&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1 Male    50.7    5.34    5.15
-2 Male    50.7    5.34    5.15
-3 Male    50.7    5.34    5.15
-4 Male    50.7    5.34    5.15</code></pre>
+  &lt;fct&gt;  &lt;int&gt;   &lt;int&gt;   &lt;int&gt;
+1 Male      51       5       5
+2 Male      51       5       5
+3 Male      51       5       5
+4 Male      51       5       5</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-warning callout-titled">
