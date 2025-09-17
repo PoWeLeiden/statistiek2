@@ -53,7 +53,7 @@ In dit vak vind je uitleg over het interpreteren van resultaten (bv. vuistregels
 Dit vak wijst op mogelijke problemen die je kunt tegenkomen bij het uitvoeren van de analyse.
 :::
 
-Het laatste deel van het boek bevat twee bijlagen met bijkomende informatie. Appendix A geeft een overzicht van veel voorkomende fouten ('Common Errors') bij het uitvoeren van de analyses en bij het omzetten van een R Markdown bestand naar een html bestand (nodig voor de opdrachten). Appendix B geeft een overzicht van de R 'libraries' of 'packages' (en hun functies) die we gebruiken in deze cursus en de week waarin ze worden geïntroduceerd, en bevat ook het script waarmee je alle packages in 1 keer op je computer kunt installeren.
+Het laatste deel van het boek bevat vijf bijlagen met bijkomende informatie. Appendix A geeft een overzicht van veel voorkomende fouten ('Common Errors') bij het uitvoeren van de analyses en bij het omzetten van een R Markdown bestand naar een html bestand (nodig voor de opdrachten). Appendix B geeft een overzicht van de R 'libraries' of 'packages' (en hun functies) die we gebruiken in deze cursus en de week waarin ze worden geïntroduceerd, en bevat ook het script waarmee je alle packages in 1 keer op je computer kunt installeren. Appendix C bevat de wiskundige formules voor de statistische analyses gebruikt in het handboek. Appendix D bevat informatie over hoe assumptieschendigen opgelost kunnen worden. Dit is geen verplichte leerstof. Appendix E geeft verdere uitleg over hoe je meerdere variabelen kunt combineren in 1 variabele. Dit is geen verplichte leerstof.
 
 ## Statistiek I Boek
 
@@ -61,13 +61,13 @@ De inhoud van dit boek bouwt verder op de leerstof van Statistiek 1. Data manage
 
 ## Overzicht per week
 
-Voor elke week in de cursus moet je relevante hoofdstukken lezen. In 2024-2025 is dit:
+Voor elke week in de cursus moet je relevante hoofdstukken lezen. In 2025-2026 is dit:
 
 | Week | Sectie | Hoofdstukken |
 |------------------------|------------------------|------------------------|
-| 1 | Lineaire Modellen | @sec-linear-covcor ; @sec-reporting-and-presenting-results (8.1 & 8.2) |
-| 2 | Lineaire Modellen | @sec-binary-predictors ; @sec-statistical-significance ; @sec-predicted-residual-values (5.1 & 5.2) ; @sec-reporting-and-presenting-results (8.3) |
-| 3 | Lineaire Modellen | @sec-multiple-linear-regression ; @sec-predicted-residual-values (5.3) ; @sec-model-fit ; @sec-reporting-and-presenting-results (8.3 - 8.6) |
+| 1 | Lineaire Modellen | @sec-linear-covcor ; @sec-reporting-and-presenting-results (8.2 & 8.3) |
+| 2 | Lineaire Modellen | @sec-binary-predictors ; @sec-statistical-significance ; @sec-predicted-residual-values (5.1 & 5.2) ; @sec-reporting-and-presenting-results (8.4) |
+| 3 | Lineaire Modellen | @sec-multiple-linear-regression ; @sec-predicted-residual-values (5.3) ; @sec-model-fit ; @sec-reporting-and-presenting-results (8.4 - 8.7) |
 | 4 | Lineaire Modellen | @sec-ols-assumptions |
 | 5 | Logistische Regressie | @sec-logistic-regression-odds-ratios ; @sec-marginal-effects ; @sec-logit-predicted-probabilities ; @sec-reporting-logit |
 | 6 | Logistische Regressie | @sec-logit-comparing ; @sec-logistic-regression-assumptions |
