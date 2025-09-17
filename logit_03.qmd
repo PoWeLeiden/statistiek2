@@ -56,6 +56,10 @@ ESS9NL <- ESS9NL |>
   #Relevel van variabelen
   mutate(vote_F = relevel(vote_F, "No"), 
          gndr_F = relevel(gndr_F, "Female"))
+#droppen van factorize niveaus niet compatibel met predictions
+ESS9NL <- ESS9NL |>
+  mutate(gndr_F = droplevels(gndr_F),
+         vote_F = droplevels(vote_F))
 
 #Het model
 Vote_model_mp <- glm(vote_F ~ gndr_F + agea + trstplt + lrscale, 

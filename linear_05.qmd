@@ -23,7 +23,7 @@ demdata <- demdata |>
   mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984), 
          Typeregime2006_factor = factorize(Typeregime2006))
 
-# Models for examples
+# Modellen schatten
 model_continuous <- lm(v2x_polyarchy ~ gini_2019, data = demdata)
 
 model_binary <- lm(v2x_polyarchy ~ TYPEDEMO1984_factor, data = demdata)
@@ -65,9 +65,62 @@ model_multiple <- lm(v2x_polyarchy ~ cpi + v2caviol + TYPEDEMO1984_factor, data=
 
 Op basis van het lineaire regressiemodel kunnen we voor elke observatie gebruikt in het model een voorspelling maken van de waarde voor de afhankelijke waarde. Het verschil tussen deze voorspelling en de echte waarde die we vinden in de dataset is de fout ('error') of 'residual'.
 
-De `predictions()` functie uit het `marginaleffects` package kan gebruikt worden om voorspellingen te maken voor elke observatie gebruikt in het model. [^1]
+De `predictions()` functie uit het `marginaleffects` package kan gebruikt worden om voorspellingen te maken voor elke observatie gebruikt in het model. [^linear_05-1]
 
-[^1]: De `augment()` functie uit het `broom` package kunnen we ook gebruiken om de residuals te bestuderen. Dit gebruiken we in een ander hoofdstuk. Hier richten we ons op `predictions()` omdat deze functie gemakkelijker een dataframe produceert met de voorspellingen, fouten en de overige data in de originele dataset.
+[^linear_05-1]: De `augment()` functie uit het `broom` package kunnen we ook gebruiken om de residuals te bestuderen. Dit gebruiken we in een ander hoofdstuk. Hier richten we ons op `predictions()` omdat deze functie gemakkelijker een dataframe produceert met de voorspellingen, fouten en de overige data in de originele dataset.
+
+::: callout-important
+#### Waarschuwing!
+
+Het `marginaleffects`-package is niet volledig compatibel met de `factorize` functie. Dit levert vooral problemen op met 'lege categorieën'. Dit zijn categorieën waar wel een label voor is gemaakt in de dataset, maar waar geen respondenten in zitten. Factorvariabelen in de regressie met lege categorieën leiden tot een foutmelding bij gebruik van `predictions`.
+
+Hieronder kijken we bijvoorbeeld naar de gender variabele in de Nederlandse survey voor ronde 9 van de European Social Survey (ESS). Er zijn 3 waardenlabels aangemaakt: "Male", "Female", "No answer". De "No answer" categorie is leeg en zal automatisch wegvallen bij de regressieanalyse. Echter is het label nog aan de variabele bevestigd na `factorize`. Dit leidt tot een foutmelding omdat R op zoek gaat naar een variabele met die categorie. Om dit te vermijden moet we de overtollige categorie verwijderen uit de dataset met de `droplevels`-functie.
+
+```{r}
+#| label: setup
+#| echo: false
+#| message: false
+#| warning: false
+
+ESS9NL <- import("data/ESS9e03, Netherlands.sav")
+
+ESS9NL <- ESS9NL |>
+  mutate(gndr_F = factorize(gndr))
+         
+levels(ESS9NL$gndr_F)
+table(ESS9NL$gndr_F)
+
+#Drop levels: verwijderen van categorieën zonder observaties
+ESS9NL <- ESS9NL |>
+  mutate(gndr_F = droplevels(gndr_F))
+
+#Checken van syntax
+levels(ESS9NL$gndr_F)
+table(ESS9NL$gndr_F)
+```
+
+```{r}
+#| eval: false
+
+ESS9NL <- import("ESS9e03, Netherlands.sav")
+
+ESS9NL <- ESS9NL |>
+  mutate(gndr_F = factorize(gndr))
+         
+levels(ESS9NL$gndr_F)
+table(ESS9NL$gndr_F)
+
+#Drop levels: verwijderen van categorieën zonder observaties
+ESS9NL <- ESS9NL |>
+  mutate(gndr_F = droplevels(gndr_F))
+
+#Checken van syntax
+levels(ESS9NL$gndr_F)
+table(ESS9NL$gndr_F)
+```
+:::
+
+Hier gebruiken we `predictions` eerst voor ons binair model.
 
 ```{r}
 model_binary_predictions <- predictions(model_binary, newdata = demdata) |> 
@@ -99,15 +152,15 @@ model_binary_predictions
 #### Output uitleg
 
 -   estimate: Dit is de voorspelde waarde op de afhankelijke variabele voor elke observatie in het model. Observaties die niet in het model werden opgenomen (omwille van ontbrekende data) krijgen hier 'NA'.
--   std.error, statistic, p.value, conf.low, en conf.high: de standaardfout van de voorspelling, t-statistiek, p-waarde en het 95% betrouwbaarheidsinterval. De s-waarde is een andere manier om onzekerheid weer te geven maar behoort niet tot de leerstof. [^2]
+-   std.error, statistic, p.value, conf.low, en conf.high: de standaardfout van de voorspelling, t-statistiek, p-waarde en het 95% betrouwbaarheidsinterval. De s-waarde is een andere manier om onzekerheid weer te geven maar behoort niet tot de leerstof. [^linear_05-2]
 -   De overige kolommen bevatten de variabelen uit de originele dataset.
 :::
 
-[^2]: De s-waarde is een poging om de p-waarde te vertalen naar een maat die volgens sommigen gemakkelijker te interpreteren is. In het bijzonder vertelt het ons: "Hoeveel opeenvolgende "kop"-worpen zouden dezelfde hoeveelheid bewijs (of "verrassingen") leveren tegen de nulhypothese dat de munt eerlijk is?" Een p-waarde van 0,05 zou bijvoorbeeld een overeenkomstige s-waarde van 4,3 of zo hebben. We zouden dan kunnen zeggen dat een p-waarde van 0,05 ongeveer net zo verrassend is als vier keer een eerlijke munt opgooien en de munt alle vier de keren op kop zien landen. Zou je je gerust voelen om een verklaring af te leggen dat de munt vals is in plaats van eerlijk op basis van die reeks muntworpen? In de context van de output van `predictions()` (en van de `slopes()`-functie die we in latere hoofdstukken zien), zouden hogere s-waarden aangeven dat we steeds verraster zouden moeten zijn om onze resultaten te zien als de waarde van het ding dat we schatten eigenlijk 0 is. Deze statistiek is niet zo nuttig voor onze voorspelde waarden, maar zou nuttiger kunnen zijn om te begrijpen hoe verrassend een schatting van een coëfficiënt of "marginaal effect" is. Als je wilt, kun meer lezen over wat p-waarden zijn, enkele van de complicaties die onderzoekers tegenkomen bij het interpreteren ervan, en een discussie over wat s-waarden zijn en hoe ze kunnen helpen in deze [blogpost](https://lesslikely.com/statistics/s-values/){target="_blank"}. De s-waarde is geen onderdeel van de leerstof.
+[^linear_05-2]: De s-waarde is een poging om de p-waarde te vertalen naar een maat die volgens sommigen gemakkelijker te interpreteren is. In het bijzonder vertelt het ons: "Hoeveel opeenvolgende "kop"-worpen zouden dezelfde hoeveelheid bewijs (of "verrassingen") leveren tegen de nulhypothese dat de munt eerlijk is?" Een p-waarde van 0,05 zou bijvoorbeeld een overeenkomstige s-waarde van 4,3 of zo hebben. We zouden dan kunnen zeggen dat een p-waarde van 0,05 ongeveer net zo verrassend is als vier keer een eerlijke munt opgooien en de munt alle vier de keren op kop zien landen. Zou je je gerust voelen om een verklaring af te leggen dat de munt vals is in plaats van eerlijk op basis van die reeks muntworpen? In de context van de output van `predictions()` (en van de `slopes()`-functie die we in latere hoofdstukken zien), zouden hogere s-waarden aangeven dat we steeds verraster zouden moeten zijn om onze resultaten te zien als de waarde van het ding dat we schatten eigenlijk 0 is. Deze statistiek is niet zo nuttig voor onze voorspelde waarden, maar zou nuttiger kunnen zijn om te begrijpen hoe verrassend een schatting van een coëfficiënt of "marginaal effect" is. Als je wilt, kun meer lezen over wat p-waarden zijn, enkele van de complicaties die onderzoekers tegenkomen bij het interpreteren ervan, en een discussie over wat s-waarden zijn en hoe ze kunnen helpen in deze [blogpost](https://lesslikely.com/statistics/s-values/){target="_blank"}. De s-waarde is geen onderdeel van de leerstof.
 
-We kunnen het nieuwe dataobject gebruiken om ook de residuals te berekenen. Dit doen we door het verschil tussen echte en voorspelde waarde in een variabele op te nemen. [^3]
+We kunnen het nieuwe dataobject gebruiken om ook de residuals te berekenen. Dit doen we door het verschil tussen echte en voorspelde waarde in een variabele op te nemen. [^linear_05-3]
 
-[^3]: Rusland heeft hier een 'NA' waarde voor `estimate` en `residual_value` omdat het omwille van ontbrekende waarden niet is opgenomen in het regressiemodel.
+[^linear_05-3]: Rusland heeft hier een 'NA' waarde voor `estimate` en `residual_value` omdat het omwille van ontbrekende waarden niet is opgenomen in het regressiemodel.
 
 ```{r}
 model_binary_predictions <- model_binary_predictions |> 
@@ -241,9 +294,9 @@ preds1 |>
 
 ### Voorspellingen voor een factor predictor
 
-We kunnen een gelijkaardige procedure gebruiken om voorspellingen te maken voor de verschillende niveaus van factor variabelen. Dit kunnen we doen met behulp van de `by=` optie i.p.v `newdata = datagrid()`.[^4] Om ervoor te zorgen dat we voor de overige onafhankelijke variabelen het gemiddelde of de modus nemen, moeten we hier wel nog syntax toevoegen via `newdata`:
+We kunnen een gelijkaardige procedure gebruiken om voorspellingen te maken voor de verschillende niveaus van factor variabelen. Dit kunnen we doen met behulp van de `by=` optie i.p.v `newdata = datagrid()`.[^linear_05-4] Om ervoor te zorgen dat we voor de overige onafhankelijke variabelen het gemiddelde of de modus nemen, moeten we hier wel nog syntax toevoegen via `newdata`:
 
-[^4]: We zouden technisch gezien wel `newdata = datagrid()` kunnen gebruiken maar dan moeten we de niveaus van de factor variabele manueel typen (bv. `newdata = datagrid(TYPEDEMO1984_factor = c("Autocracies', "Democracies"))`. De `by =` functie is dus gemakkelijker.
+[^linear_05-4]: We zouden technisch gezien wel `newdata = datagrid()` kunnen gebruiken maar dan moeten we de niveaus van de factor variabele manueel typen (bv. `newdata = datagrid(TYPEDEMO1984_factor = c("Autocracies', "Democracies"))`. De `by =` functie is dus gemakkelijker.
 
 ```{r}
 preds2 <- predictions(model_multiple, by= "TYPEDEMO1984_factor", 
@@ -265,12 +318,7 @@ De resultaten zijn als volgt:
 preds2
 ```
 
-Opnieuw kunnen we zien dat `predictions()` de andere onafhankelijke variabelen constant houdt:
-
-```{r}
-preds2 |> 
-  select(estimate, TYPEDEMO1984_factor, cpi, v2caviol)
-```
+De dataset die we bekomen met de `by` functie is wel iets anders en we vinden hier de onafhankelijke variabelen niet meer terug.
 
 ### Voorspellingen voor specifieke waarden van de onafhankelijke variabelen
 
