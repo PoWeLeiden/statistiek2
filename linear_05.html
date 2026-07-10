@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>5&nbsp; Voorspellingen en Fouten – Statistische analyse en presentatie met R</title>
+<title>7&nbsp; Voorspellingen en Fouten – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,17 +91,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Geen resultaten",
-    "search-matching-documents-text": "Gevonden documenten",
-    "search-copy-link-title": "Kopieer link om te zoeken",
-    "search-hide-matches-text": "Extra overeenkomsten verbergen",
-    "search-more-match-text": "meer overeenkomst in dit document",
-    "search-more-matches-text": "meer overeenkomsten in dit document",
-    "search-clear-button-title": "Wissen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuleren",
-    "search-submit-button-title": "Verzenden",
-    "search-label": "Zoeken"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -114,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_05.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_05.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -134,13 +134,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Zoeken"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -153,59 +153,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <a href="./part_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datamanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_manage1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Datakennis en management</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manage2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Factorvariabelen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_05.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -214,45 +237,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,56 +284,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,16 +357,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhoudsopgave</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#voorspellingen-en-fouten-voor-de-observaties-in-het-model" id="toc-voorspellingen-en-fouten-voor-de-observaties-in-het-model" class="nav-link active" data-scroll-target="#voorspellingen-en-fouten-voor-de-observaties-in-het-model"><span class="header-section-number">5.1</span> Voorspellingen en fouten voor de observaties in het model</a></li>
-  <li><a href="#voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat" id="toc-voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat" class="nav-link" data-scroll-target="#voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat"><span class="header-section-number">5.2</span> Voorspellingen voor bepaalde waarden van de onafhankelijke variabele (Bivariaat)</a></li>
-  <li><a href="#voorspelde-waarden-meervoudige-lineaire-regressie" id="toc-voorspelde-waarden-meervoudige-lineaire-regressie" class="nav-link" data-scroll-target="#voorspelde-waarden-meervoudige-lineaire-regressie"><span class="header-section-number">5.3</span> Voorspelde waarden (Meervoudige Lineaire Regressie)</a>
+  <li><a href="#voorspellingen-en-fouten-voor-de-observaties-in-het-model" id="toc-voorspellingen-en-fouten-voor-de-observaties-in-het-model" class="nav-link active" data-scroll-target="#voorspellingen-en-fouten-voor-de-observaties-in-het-model"><span class="header-section-number">7.1</span> Voorspellingen en fouten voor de observaties in het model</a></li>
+  <li><a href="#voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat" id="toc-voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat" class="nav-link" data-scroll-target="#voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat"><span class="header-section-number">7.2</span> Voorspellingen voor bepaalde waarden van de onafhankelijke variabele (Bivariaat)</a></li>
+  <li><a href="#voorspelde-waarden-meervoudige-lineaire-regressie" id="toc-voorspelde-waarden-meervoudige-lineaire-regressie" class="nav-link" data-scroll-target="#voorspelde-waarden-meervoudige-lineaire-regressie"><span class="header-section-number">7.3</span> Voorspelde waarden (Meervoudige Lineaire Regressie)</a>
   <ul class="collapse">
-  <li><a href="#sec-predictions-for-a-continuous-predictor-variable" id="toc-sec-predictions-for-a-continuous-predictor-variable" class="nav-link" data-scroll-target="#sec-predictions-for-a-continuous-predictor-variable"><span class="header-section-number">5.3.1</span> Voorspellingen voor een continue predictor</a></li>
-  <li><a href="#voorspellingen-voor-een-factor-predictor" id="toc-voorspellingen-voor-een-factor-predictor" class="nav-link" data-scroll-target="#voorspellingen-voor-een-factor-predictor"><span class="header-section-number">5.3.2</span> Voorspellingen voor een factor predictor</a></li>
-  <li><a href="#voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen" id="toc-voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen" class="nav-link" data-scroll-target="#voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen"><span class="header-section-number">5.3.3</span> Voorspellingen voor specifieke waarden van de onafhankelijke variabelen</a></li>
+  <li><a href="#sec-predictions-for-a-continuous-predictor-variable" id="toc-sec-predictions-for-a-continuous-predictor-variable" class="nav-link" data-scroll-target="#sec-predictions-for-a-continuous-predictor-variable"><span class="header-section-number">7.3.1</span> Voorspellingen voor een continue predictor</a></li>
+  <li><a href="#voorspellingen-voor-een-factor-predictor" id="toc-voorspellingen-voor-een-factor-predictor" class="nav-link" data-scroll-target="#voorspellingen-voor-een-factor-predictor"><span class="header-section-number">7.3.2</span> Voorspellingen voor een factor predictor</a></li>
+  <li><a href="#voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen" id="toc-voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen" class="nav-link" data-scroll-target="#voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen"><span class="header-section-number">7.3.3</span> Voorspellingen voor specifieke waarden van de onafhankelijke variabelen</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -351,9 +374,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_05.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_05.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-predicted-residual-values" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></h1>
+<h1 class="title"><span id="sec-predicted-residual-values" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></h1>
 </div>
 
 
@@ -382,76 +405,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factorize</span>(TYPEDEMO1984), </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">Typeregime2006_factor =</span> <span class="fu">factorize</span>(Typeregime2006))</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellen schatten</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>model_continuous <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019, <span class="at">data =</span> demdata)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>model_categorical <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> Typeregime2006_factor, <span class="at">data=</span>demdata)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span>  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factor</span>(TYPEDEMO1984, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Autocracies"</span>, <span class="st">"Democracies"</span>)), </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">Typeregime2006_factor =</span> <span class="fu">factor</span>(Typeregime2006, </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Liberal democracy"</span>, </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"Electoral democracy"</span>, </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"Autocracy"</span>)))</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> cpi <span class="sc">+</span> v2caviol <span class="sc">+</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellen schatten</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>model_continuous <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019, <span class="at">data =</span> demdata)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>model_categorical <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> Typeregime2006_factor, <span class="at">data=</span>demdata)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>model_multiple <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> cpi <span class="sc">+</span> v2caviol <span class="sc">+</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="voorspellingen-en-fouten-voor-de-observaties-in-het-model" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="voorspellingen-en-fouten-voor-de-observaties-in-het-model"><span class="header-section-number">5.1</span> Voorspellingen en fouten voor de observaties in het model</h2>
+<section id="voorspellingen-en-fouten-voor-de-observaties-in-het-model" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="voorspellingen-en-fouten-voor-de-observaties-in-het-model"><span class="header-section-number">7.1</span> Voorspellingen en fouten voor de observaties in het model</h2>
 <p>Op basis van het lineaire regressiemodel kunnen we voor elke observatie gebruikt in het model een voorspelling maken van de waarde voor de afhankelijke waarde. Het verschil tussen deze voorspelling en de echte waarde die we vinden in de dataset is de fout (‘error’) of ‘residual’.</p>
 <p>De <code>predictions()</code> functie uit het <code>marginaleffects</code> package kan gebruikt worden om voorspellingen te maken voor elke observatie gebruikt in het model. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Waarschuwing!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Het <code>marginaleffects</code>-package is niet volledig compatibel met de <code>factorize</code> functie. Dit levert vooral problemen op met ‘lege categorieën’. Dit zijn categorieën waar wel een label voor is gemaakt in de dataset, maar waar geen respondenten in zitten. Factorvariabelen in de regressie met lege categorieën leiden tot een foutmelding bij gebruik van <code>predictions</code>.</p>
-<p>Hieronder kijken we bijvoorbeeld naar de gender variabele in de Nederlandse survey voor ronde 9 van de European Social Survey (ESS). Er zijn 3 waardenlabels aangemaakt: “Male”, “Female”, “No answer”. De “No answer” categorie is leeg en zal automatisch wegvallen bij de regressieanalyse. Echter is het label nog aan de variabele bevestigd na <code>factorize</code>. Dit leidt tot een foutmelding omdat R op zoek gaat naar een variabele met die categorie. Om dit te vermijden moeten we de overtollige categorie verwijderen uit de dataset met de <code>droplevels</code>-functie.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ESS9e03, Netherlands.sav"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">factorize</span>(gndr))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Drop levels: verwijderen van categorieën zonder observaties</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>ESS9NL <span class="ot">&lt;-</span> ESS9NL <span class="sc">|&gt;</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gndr_F =</span> <span class="fu">droplevels</span>(gndr_F))</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Checken van syntax</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ESS9NL<span class="sc">$</span>gndr_F)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ESS9NL<span class="sc">$</span>gndr_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Male"      "Female"    "No answer"</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-     Male    Female No answer 
-      833       840         0 </code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Male"   "Female"</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-  Male Female 
-   833    840 </code></pre>
-</div>
-</div>
-</div>
-</div>
 <p>Hier gebruiken we <code>predictions</code> eerst voor ons binair model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_binary, <span class="at">newdata =</span> demdata) <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="co">#as_tibble() niet strikt nodig, zie waarschuwingsvak hieronder</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_binary, <span class="at">newdata =</span> demdata) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="co">#as_tibble() niet strikt nodig, zie waarschuwingsvak hieronder</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Zo lees je de syntax:</p>
 <dl>
@@ -470,7 +452,7 @@ Waarschuwing!
 </dl>
 <p>De output kunnen we printen met behulp van de volgende code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 179 × 52
    rowid estimate std.error statistic    p.value s.value conf.low conf.high
@@ -513,13 +495,13 @@ Output uitleg
 </div>
 <p>We kunnen het nieuwe dataobject gebruiken om ook de residuals te berekenen. Dit doen we door het verschil tussen echte en voorspelde waarde in een variabele op te nemen. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> model_binary_predictions <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residual_value =</span> v2x_polyarchy <span class="sc">-</span> estimate) <span class="co">#residual = echte waarde - voorspelde waarde</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="ot">&lt;-</span> model_binary_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">residual_value =</span> v2x_polyarchy <span class="sc">-</span> estimate) <span class="co">#residual = echte waarde - voorspelde waarde</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Deze variabele kunnen we gebruiken om na te gaan welke observaties goed of slecht worden voorspeld. Dit kan nuttig zijn bij het nagaan of aan assumpties voldaan is, zie <a href="linear_07.html" class="quarto-xref"><span>Hoofdstuk 7</span></a> .</p>
+<p>Deze variabele kunnen we gebruiken om na te gaan welke observaties goed of slecht worden voorspeld. Dit kan nuttig zijn bij het nagaan of aan assumpties voldaan is, zie <a href="linear_07.html" class="quarto-xref"><span>Chapter 9</span></a> .</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, v2x_polyarchy, estimate, residual_value) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model_binary_predictions <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country_name, v2x_polyarchy, estimate, residual_value) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 179 × 4
    country_name v2x_polyarchy estimate residual_value
@@ -538,14 +520,14 @@ Output uitleg
 </div>
 </div>
 </section>
-<section id="voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat"><span class="header-section-number">5.2</span> Voorspellingen voor bepaalde waarden van de onafhankelijke variabele (Bivariaat)</h2>
+<section id="voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="voorspellingen-voor-bepaalde-waarden-van-de-onafhankelijke-variabele-bivariaat"><span class="header-section-number">7.2</span> Voorspellingen voor bepaalde waarden van de onafhankelijke variabele (Bivariaat)</h2>
 <p>We kunnen ook nagaan welke waarde op de afhankelijke we kunnen verwachten volgens het model als de onafhankelijke variabele bepaalde waarden aanneemt. Bijvoorbeeld: welke democratiescore kunnen we gemiddeld verwachten voor landen die in 1984 een autocratie waren? Of voor landen die een lage of hoge economische ongelijkheid kennen? We kunnen hier ook de <code>predictions()</code> functie voor gebruiken.</p>
 <p>Eerst voorspellen we de verwachte democratiescore in 2020 voor landen die in 1984 een autocratie versus democratie waren op basis van ons bivariaat model (<code>model_binary</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()  </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 9
   TYPEDEMO1984_factor estimate std.error statistic   p.value s.value conf.low
@@ -567,9 +549,9 @@ Output uitleg
 </dl>
 <p>We kunnen ook voorspellingen maken op basis van een continue onafhankelijke variabele. We kunnen bijvoorbeeld de score voor electorale democratie voorspellen aan de hand van economische ongelijkheid (gini_2019). Hier gaan we na welke democratiescore we kunnen verwachten als ongelijkheid laag (25) versus hoog is (45).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 11
   rowid estimate std.error statistic  p.value s.value conf.low conf.high
@@ -587,9 +569,9 @@ Output uitleg
 </dl>
 <p>We kunnen eventueel meerdere waarden toevoegen om voorspellingen voor te maken door de code op de volgende manier uit te breiden in het <code>c()</code> gedeelte van de syntax:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_continuous, </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">gini_2019 =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>,<span class="dv">35</span>,<span class="dv">40</span>,<span class="dv">45</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 11
   rowid estimate std.error statistic   p.value s.value conf.low conf.high
@@ -614,7 +596,7 @@ Waarschuwing!
 <div class="callout-body-container callout-body">
 <p>We eindigden de <code>predictions()</code> functie met <code>as_tibble()</code>. Deze stap is niet strikt noodzakelijk. Dit is het resultaat zonder de toevoeging:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_binary, <span class="at">by =</span> <span class="st">'TYPEDEMO1984_factor'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  TYPEDEMO1984_factor Estimate Std. Error    z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -628,14 +610,14 @@ Type: response</code></pre>
 </div>
 </div>
 </section>
-<section id="voorspelde-waarden-meervoudige-lineaire-regressie" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="voorspelde-waarden-meervoudige-lineaire-regressie"><span class="header-section-number">5.3</span> Voorspelde waarden (Meervoudige Lineaire Regressie)</h2>
+<section id="voorspelde-waarden-meervoudige-lineaire-regressie" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="voorspelde-waarden-meervoudige-lineaire-regressie"><span class="header-section-number">7.3</span> Voorspelde waarden (Meervoudige Lineaire Regressie)</h2>
 <p>Voorspelde waarden en fouten kunnen we ook voor meervoudige regressie bekijken via de <code>predictions()</code> functie. De procedure om voorspelde waarden te vinden voor alle observaties in het model is dezelfde als hierboven dus herhalen we deze niet. De procedure voor voorspellingen op basis van waarden van een onafhankelijke variabele is gelijkaardig, met 1 belangrijk verschil voor factor variabelen.</p>
-<section id="sec-predictions-for-a-continuous-predictor-variable" class="level3" data-number="5.3.1">
-<h3 data-number="5.3.1" class="anchored" data-anchor-id="sec-predictions-for-a-continuous-predictor-variable"><span class="header-section-number">5.3.1</span> Voorspellingen voor een continue predictor</h3>
+<section id="sec-predictions-for-a-continuous-predictor-variable" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-predictions-for-a-continuous-predictor-variable"><span class="header-section-number">7.3.1</span> Voorspellingen voor een continue predictor</h3>
 <p>Dit waren de resultaten van ons meervoudig lineair regressiemodel:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_multiple)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model_multiple)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 5
   term                           estimate std.error statistic      p.value
@@ -650,7 +632,7 @@ Type: response</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-1" class="code-annotation-target"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_multiple) <span class="sc">|&gt;</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="2">2</button><span id="annotated-cell-10-2" class="code-annotation-target"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(cpi) <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3">3</button><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="3">3</button><span id="annotated-cell-10-3" class="code-annotation-target"><a href="#annotated-cell-10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
@@ -679,9 +661,9 @@ Type: response</code></pre>
 </div>
 <p>We kunnen voorspelde waarden gebruiken om een inschatting te maken over het verwachte niveau van democratie bij lage en hoge corruptie. Een regressiecoëfficiënt zegt ons wat er gebeurt als corruptie met 1 eenheid stijgt, maar voorspelde waarden kunnen vaak een intuïtiever beeld geven over de sterkte van een effect. Hier gebruiken we <code>predictions()</code> om verwachte democratiescores te berekenen voor corruptiescores (<code>cpi</code>) van 20 tot 80 met verhogingen van telkens 10 eenheden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">80</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">80</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>preds1 &lt;-</code></dt>
@@ -699,7 +681,7 @@ Type: response</code></pre>
 </dl>
 <p>We printen de voorspellingen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>preds1</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>preds1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 13
   rowid estimate std.error statistic   p.value s.value conf.low conf.high
@@ -734,8 +716,8 @@ Output uitleg
 </div>
 <p>In bovenstaand voorbeeld houdt <code>predictions()</code> automatisch de 2 overige onafhankelijke variabelen (<code>v2caviol</code> en <code>TYPEDEMO1984_factor</code>) constant op dezelfde waarde bij de berekening van elke voorspelde waarde. Continue predictoren worden constant gehouden op hun gemiddelde, voor factor variabelen wordt de modus (de meest voorkomende categorie) gebruikt. Dit kunnen we nagaan:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estimate, cpi, v2caviol, TYPEDEMO1984_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>preds1 <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(estimate, cpi, v2caviol, TYPEDEMO1984_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 4
   estimate   cpi v2caviol TYPEDEMO1984_factor
@@ -750,13 +732,13 @@ Output uitleg
 </div>
 </div>
 </section>
-<section id="voorspellingen-voor-een-factor-predictor" class="level3" data-number="5.3.2">
-<h3 data-number="5.3.2" class="anchored" data-anchor-id="voorspellingen-voor-een-factor-predictor"><span class="header-section-number">5.3.2</span> Voorspellingen voor een factor predictor</h3>
+<section id="voorspellingen-voor-een-factor-predictor" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="voorspellingen-voor-een-factor-predictor"><span class="header-section-number">7.3.2</span> Voorspellingen voor een factor predictor</h3>
 <p>We kunnen een gelijkaardige procedure gebruiken om voorspellingen te maken voor de verschillende niveaus van factor variabelen. Dit kunnen we doen met behulp van de <code>by=</code> optie i.p.v <code>newdata = datagrid()</code>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> Om ervoor te zorgen dat we voor de overige onafhankelijke variabelen het gemiddelde of de modus nemen, moeten we hier wel nog syntax toevoegen via <code>newdata</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>preds2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, <span class="at">by=</span> <span class="st">"TYPEDEMO1984_factor"</span>, </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">newdata =</span> <span class="st">"mean"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>preds2 <span class="ot">&lt;-</span> <span class="fu">predictions</span>(model_multiple, <span class="at">by=</span> <span class="st">"TYPEDEMO1984_factor"</span>, </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">newdata =</span> <span class="st">"mean"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>by="TYPEDEMO1984_factor"</code></dt>
@@ -770,7 +752,7 @@ Output uitleg
 </dl>
 <p>De resultaten zijn als volgt:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>preds2</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>preds2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 9
   TYPEDEMO1984_factor estimate std.error statistic   p.value s.value conf.low
@@ -782,16 +764,16 @@ Output uitleg
 </div>
 <p>De dataset die we bekomen met de <code>by</code> functie is wel iets anders en we vinden hier de onafhankelijke variabelen niet meer terug.</p>
 </section>
-<section id="voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen" class="level3" data-number="5.3.3">
-<h3 data-number="5.3.3" class="anchored" data-anchor-id="voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen"><span class="header-section-number">5.3.3</span> Voorspellingen voor specifieke waarden van de onafhankelijke variabelen</h3>
+<section id="voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="voorspellingen-voor-specifieke-waarden-van-de-onafhankelijke-variabelen"><span class="header-section-number">7.3.3</span> Voorspellingen voor specifieke waarden van de onafhankelijke variabelen</h3>
 <p>We kunnen <code>predictions()</code> ook gebruiken om voorspellingen te maken voor specifieke, hypothetische casussen. Bijvoorbeeld, hier vragen we de voorspelde waarde voor de afhankelijke variabele electorale democratie voor een land dat: een democratie was in 1984, 88 scoort op de corruptieperceptie-index (de maximumwaarde in de dataset) en -3.429 voor politiek geweld (de minimumwaarde in de dataset).</p>
 <p>We bepalen deze waarden in het <code>newdata = datagrid()</code> gedeelte van de syntax. Indien we een variabele niet zouden specificeren zou deze constant gehouden worden op het gemiddelde of de modus.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_multiple, </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi=</span><span class="fu">c</span>(<span class="dv">88</span>), </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">v2caviol=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.429</span>), </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">TYPEDEMO1984_factor=</span><span class="fu">c</span>(<span class="st">"Democracies"</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(model_multiple, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">cpi=</span><span class="fu">c</span>(<span class="dv">88</span>), </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                               <span class="at">v2caviol=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">3.429</span>), </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">TYPEDEMO1984_factor=</span><span class="fu">c</span>(<span class="st">"Democracies"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 13
   rowid estimate std.error statistic   p.value s.value conf.low conf.high
@@ -1003,12 +985,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Gekopieerd!");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Gekopieerd!");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1419,12 +1401,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./linear_04.html" class="pagination-link" aria-label="Meervoudige Lineaire Regressie">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./linear_06.html" class="pagination-link" aria-label="Model Fit en Modellen Vergelijken">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>15&nbsp; Interacties in het Regressiemodel – Statistische analyse en presentatie met R</title>
+<title>17&nbsp; Interacties in het Regressiemodel – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,17 +91,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Geen resultaten",
-    "search-matching-documents-text": "Gevonden documenten",
-    "search-copy-link-title": "Kopieer link om te zoeken",
-    "search-hide-matches-text": "Extra overeenkomsten verbergen",
-    "search-more-match-text": "meer overeenkomst in dit document",
-    "search-more-matches-text": "meer overeenkomsten in dit document",
-    "search-clear-button-title": "Wissen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuleren",
-    "search-submit-button-title": "Verzenden",
-    "search-label": "Zoeken"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -114,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_01.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_01.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -134,13 +134,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Zoeken"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -153,59 +153,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <a href="./part_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datamanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_manage1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Datakennis en management</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manage2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Factorvariabelen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -214,45 +237,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,56 +284,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,20 +357,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhoudsopgave</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#een-interactie-in-het-regressiemodel" id="toc-een-interactie-in-het-regressiemodel" class="nav-link active" data-scroll-target="#een-interactie-in-het-regressiemodel"><span class="header-section-number">15.1</span> Een interactie in het regressiemodel</a></li>
-  <li><a href="#sec-interaction-term-in-a-regression-table" id="toc-sec-interaction-term-in-a-regression-table" class="nav-link" data-scroll-target="#sec-interaction-term-in-a-regression-table"><span class="header-section-number">15.2</span> Regressietabellen</a></li>
+  <li><a href="#een-interactie-in-het-regressiemodel" id="toc-een-interactie-in-het-regressiemodel" class="nav-link active" data-scroll-target="#een-interactie-in-het-regressiemodel"><span class="header-section-number">17.1</span> Een interactie in het regressiemodel</a></li>
+  <li><a href="#sec-interaction-term-in-a-regression-table" id="toc-sec-interaction-term-in-a-regression-table" class="nav-link" data-scroll-target="#sec-interaction-term-in-a-regression-table"><span class="header-section-number">17.2</span> Regressietabellen</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_01.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_01.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-including-an-interaction-term-in-a-regression-model" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></h1>
+<h1 class="title"><span id="sec-including-an-interaction-term-in-a-regression-model" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></h1>
 </div>
 
 
@@ -373,12 +396,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)   <span class="co">#regressietabellen maken</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"data/anes_interactions.rda"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"data/anes_interactions.rda"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>De dataset die we voor dit overzicht gebruiken bevat survey data van de 2020 American National Elections Study (<a href="https://electionstudies.org/data-center/2020-time-series-study/" target="_blank">ANES</a>). Deze survey werd afgenomen net voor de presidentsverkiezingen in 2020 waarin de toenmalige president Donald Trump (Republikeinse Partij) campagne voerde voor een tweede termijn. Zijn uitdager was Joseph Biden (Democratische Partij).</p>
 <p>De dataset is reeds “schoon”: ontbrekende gegevens werden als “NA” aangeduid en binaire/categorische variabelen zijn geconverteerd naar factor variabelen. Laten we even kijken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(anes)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(anes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Data frame: anes</caption>
@@ -471,8 +494,8 @@ City</td>
 </table>
 </div>
 </div>
-<section id="een-interactie-in-het-regressiemodel" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="een-interactie-in-het-regressiemodel"><span class="header-section-number">15.1</span> Een interactie in het regressiemodel</h2>
+<section id="een-interactie-in-het-regressiemodel" class="level2" data-number="17.1">
+<h2 data-number="17.1" class="anchored" data-anchor-id="een-interactie-in-het-regressiemodel"><span class="header-section-number">17.1</span> Een interactie in het regressiemodel</h2>
 <p>Zowel bij lineaire (<code>lm</code>) als logistische (<code>glm</code>) regressie kunnen we meerdere onafhankelijke variabelen toevoegen door gebruik te maken van het ‘+’ teken. We kunnen een interactie tussen twee onafhankelijke variabelen toevoegen door het ‘*’ teken in plaats van de ‘+’ te gebruiken.</p>
 <p>In het volgende lineaire regressiemodel voorspellen we hoe respondenten kandidaat en uitdager Joe Biden evalueren op een schaal van 0 (‘heel koud of ongunstig’) tot 100 (‘heel warm of gunstig’) door gebruik te maken van 3 predictors:</p>
 <ol type="1">
@@ -485,7 +508,7 @@ City</td>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>biden_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(biden <span class="sc">~</span> pid <span class="sc">+</span> right_track <span class="sc">+</span> rural_urban, <span class="at">data =</span> anes)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Overzicht resultaten</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(biden_model)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(biden_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -519,7 +542,7 @@ F-statistic:  2161 on 5 and 7141 DF,  p-value: &lt; 2.2e-16</code></pre>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>biden_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(biden <span class="sc">~</span> pid <span class="sc">*</span> right_track <span class="sc">+</span> rural_urban, <span class="at">data =</span> anes)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Overzicht resultaten</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(biden_int)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(biden_int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -567,7 +590,7 @@ Output uitleg
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>righttrack_int <span class="ot">&lt;-</span> <span class="fu">glm</span>(right_track <span class="sc">~</span> vote2016 <span class="sc">*</span> age <span class="sc">+</span> rural_urban, </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> anes)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Overzicht resultaten</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(righttrack_int)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(righttrack_int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -606,13 +629,13 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <p>De coëfficiënt van de interactie vertelt ons of dit het geval is. In het lineaire “biden_int” model, bijvoorbeeld, vinden we dat de coëfficiënt statistisch significant is: de relatie tussen partij-identificatie en hoe een respondent Biden evalueert, hangt af van de opinie van de respondent over de richting dat het land uitgaat.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> De interactievariabele in het logistische “righttrack_int” model is echter niet statistisch significant (we gebruiken hier een standaard 95% betrouwbaarheidsniveau). Dit betekent dat bijvoorbeeld de relatie tussen leeftijd en opinie over het land hetzelfde is ongeacht of respondenten in 2016 op Clinton of Trump hebben gestemd.</p>
 <p>Om interactietermen beter te begrijpen, kunnen we R gebruiken om:</p>
 <ul>
-<li>Het marginale effect van 1 onafhankelijke variabele (X) op Y te berekenen bij verschillende waarden van de andere onafhankelijke (Z) (<a href="interaction_02.html" class="quarto-xref"><span>Hoofdstuk 16</span></a>).</li>
-<li>De voorspelde waarden voor Y te berekenen voor verschillende combinaties van waarden van de 2 onafhankelijke variabelen (<a href="interaction_03.html" class="quarto-xref"><span>Hoofdstuk 17</span></a>).</li>
+<li>Het marginale effect van 1 onafhankelijke variabele (X) op Y te berekenen bij verschillende waarden van de andere onafhankelijke (Z) (<a href="interaction_02.html" class="quarto-xref"><span>Chapter 18</span></a>).</li>
+<li>De voorspelde waarden voor Y te berekenen voor verschillende combinaties van waarden van de 2 onafhankelijke variabelen (<a href="interaction_03.html" class="quarto-xref"><span>Chapter 19</span></a>).</li>
 </ul>
 </section>
-<section id="sec-interaction-term-in-a-regression-table" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="sec-interaction-term-in-a-regression-table"><span class="header-section-number">15.2</span> Regressietabellen</h2>
-<p>In de volgende 2 hoofdstukken gaan we dieper in op hoe je interactie-effecten best kan begrijpen en communiceren met plot. Hier lichten we kort toe hoe ze te presenteren in regressietabellen. We maken hiervoor weer gebruik van de <code>modelsummary()</code> functie uit het <code>modelsummary</code> package. De basisprincipes zijn dezelfde als degene die we bespraken in eerdere hoofdstukken (lineaire regressietabellen: <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Paragraaf 8.5</span></a>; logistische regressietabellen: <a href="logit_06.html#sec-presentation-regression-tables-logit" class="quarto-xref"><span>Paragraaf 14.2</span></a>).</p>
+<section id="sec-interaction-term-in-a-regression-table" class="level2" data-number="17.2">
+<h2 data-number="17.2" class="anchored" data-anchor-id="sec-interaction-term-in-a-regression-table"><span class="header-section-number">17.2</span> Regressietabellen</h2>
+<p>In de volgende 2 hoofdstukken gaan we dieper in op hoe je interactie-effecten best kan begrijpen en communiceren met plot. Hier lichten we kort toe hoe ze te presenteren in regressietabellen. We maken hiervoor weer gebruik van de <code>modelsummary()</code> functie uit het <code>modelsummary</code> package. De basisprincipes zijn dezelfde als degene die we bespraken in eerdere hoofdstukken (lineaire regressietabellen: <a href="linear_08.html#sec-presenting-linear-regression-regression-tables" class="quarto-xref"><span>Section 10.5</span></a>; logistische regressietabellen: <a href="logit_06.html#sec-presentation-regression-tables-logit" class="quarto-xref"><span>Section 16.2</span></a>).</p>
 <p>We zullen de resultaten van het model zonder en het model met interactie naast elkaar presenteren. Zo ziet de lezer onmiddellijk het verschil tussen beide modellen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lijst van modellen</span></span>
@@ -633,7 +656,7 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <span id="annotated-cell-6-16"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a>               <span class="st">"pid:right_trackRight Direction"</span> <span class="ot">=</span> <span class="st">"PID x Juiste Richting"</span>), </span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4">4</button><span id="annotated-cell-6-17" class="code-annotation-target"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5">5</button><span id="annotated-cell-6-18" class="code-annotation-target"><a href="#annotated-cell-6-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>,</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6">6</button><span id="annotated-cell-6-19" class="code-annotation-target"><a href="#annotated-cell-6-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6">6</button><span id="annotated-cell-6-19" class="code-annotation-target"><a href="#annotated-cell-6-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
@@ -665,177 +688,143 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <div class="cell-output-display">
 <!-- preamble start -->
 
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
     <script>
-
-      function styleCell_v2knj2nxt9sd3bb7608c(i, j, css_id) {
-          var table = document.getElementById("tinytable_v2knj2nxt9sd3bb7608c");
-          var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-          if (cell) {
-              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
-              cell.classList.add(css_id);
-          } else {
-              console.warn(`Cell at (${i}, ${j}) not found.`);
-          }
-      }
-      function spanCell_v2knj2nxt9sd3bb7608c(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_v2knj2nxt9sd3bb7608c");
-        const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-        if (!targetCell) {
-          console.warn(`Cell at (${i}, ${j}) not found.`);
-        }
-
-        // Get all cells that need to be removed
-        const cellsToRemove = [];
-        for (let r = 0; r < rowspan; r++) {
-          for (let c = 0; c < colspan; c++) {
-            if (r === 0 && c === 0) continue; // Skip the target cell
-            const cell = table.querySelector(`[data-row="${i + r}"][data-col="${j + c}"]`);
-            if (cell) {
-              cellsToRemove.push(cell);
-            }
-          }
-        }
-
-        // Remove all cells
-        cellsToRemove.forEach(cell => cell.remove());
-
-        // Set rowspan and colspan of the target cell if it exists
-        if (targetCell) {
-          targetCell.rowSpan = rowspan;
-          targetCell.colSpan = colspan;
-        }
-      }
+      // Create table-specific functions using external factory
+      const tableFns_9boe0hjn7kdnq1x2ejoq = TinyTable.createTableFunctions("tinytable_9boe0hjn7kdnq1x2ejoq");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '17', j: 1 }, { i: '17', j: 2 },  ], css_id: 'tinytable_css_m2orrhxr6hdewcesetkq',}, 
-          { positions: [ { i: '14', j: 1 }, { i: '14', j: 2 },  ], css_id: 'tinytable_css_ubye8er82u8fz5khhiuc',}, 
-          { positions: [ { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '1', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '9', j: 2 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '12', j: 2 }, { i: '5', j: 1 }, { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '13', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '16', j: 2 }, { i: '15', j: 2 },  ], css_id: 'tinytable_css_cii5ps472pyias1sx3r6',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_z0vchnd8zlzto88rh7wg',}, 
-          { positions: [ { i: '17', j: 0 },  ], css_id: 'tinytable_css_jcb3ghr6npky88u4ksvq',}, 
-          { positions: [ { i: '14', j: 0 },  ], css_id: 'tinytable_css_m2ssxixmfl7y7q0ldza7',}, 
-          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '10', j: 0 }, { i: '11', j: 0 }, { i: '12', j: 0 }, { i: '13', j: 0 }, { i: '15', j: 0 }, { i: '16', j: 0 },  ], css_id: 'tinytable_css_qw8za3md74umcytjzyxj',}, 
-          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_uo2zbwdnzhqd8fa96up5',}, 
+          { positions: [ { i: '17', j: 2 }, { i: '17', j: 3 } ], css_id: 'tinytable_css_vxiyi1y7f8pmc8mw4bmq',}, 
+          { positions: [ { i: '14', j: 2 }, { i: '14', j: 3 } ], css_id: 'tinytable_css_dfb5r41bp0ium7qizz8a',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '15', j: 3 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_3yejooleox23hqvaw7kp',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_xjo9lrbv3cdj9llrfunf',}, 
+          { positions: [ { i: '17', j: 1 } ], css_id: 'tinytable_css_xqf50puzq42fn3k03ci5',}, 
+          { positions: [ { i: '14', j: 1 } ], css_id: 'tinytable_css_wmolkar3lojul84a1yca',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 } ], css_id: 'tinytable_css_heww06v9qb7polf3jhye',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_lvf2u7w6oq8golfcr190',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_v2knj2nxt9sd3bb7608c(cell.i, cell.j, group.css_id);
+                  tableFns_9boe0hjn7kdnq1x2ejoq.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
-      /* tinytable css entries after */
-      .table td.tinytable_css_m2orrhxr6hdewcesetkq, .table th.tinytable_css_m2orrhxr6hdewcesetkq { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_ubye8er82u8fz5khhiuc, .table th.tinytable_css_ubye8er82u8fz5khhiuc { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_cii5ps472pyias1sx3r6, .table th.tinytable_css_cii5ps472pyias1sx3r6 { text-align: center; }
-      .table td.tinytable_css_z0vchnd8zlzto88rh7wg, .table th.tinytable_css_z0vchnd8zlzto88rh7wg { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_jcb3ghr6npky88u4ksvq, .table th.tinytable_css_jcb3ghr6npky88u4ksvq { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_m2ssxixmfl7y7q0ldza7, .table th.tinytable_css_m2ssxixmfl7y7q0ldza7 { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_qw8za3md74umcytjzyxj, .table th.tinytable_css_qw8za3md74umcytjzyxj { text-align: left; }
-      .table td.tinytable_css_uo2zbwdnzhqd8fa96up5, .table th.tinytable_css_uo2zbwdnzhqd8fa96up5 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    /* tinytable css entries after */
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_vxiyi1y7f8pmc8mw4bmq, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_vxiyi1y7f8pmc8mw4bmq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_dfb5r41bp0ium7qizz8a, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_dfb5r41bp0ium7qizz8a {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_3yejooleox23hqvaw7kp, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_3yejooleox23hqvaw7kp { text-align: center }
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_xjo9lrbv3cdj9llrfunf, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_xjo9lrbv3cdj9llrfunf {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_xqf50puzq42fn3k03ci5, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_xqf50puzq42fn3k03ci5 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_wmolkar3lojul84a1yca, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_wmolkar3lojul84a1yca {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_heww06v9qb7polf3jhye, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_heww06v9qb7polf3jhye { text-align: left }
+    #tinytable_9boe0hjn7kdnq1x2ejoq td.tinytable_css_lvf2u7w6oq8golfcr190, #tinytable_9boe0hjn7kdnq1x2ejoq th.tinytable_css_lvf2u7w6oq8golfcr190 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_v2knj2nxt9sd3bb7608c" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_9boe0hjn7kdnq1x2ejoq" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <caption>Evaluatie van kandidaat Biden</caption>
         <thead>
-        </thead><caption>Evaluatie van kandidaat Biden</caption>
-              <tbody><tr>
-                <th scope="col" data-row="0" data-col="0"> </th>
-                <th scope="col" data-row="0" data-col="1">(1)</th>
-                <th scope="col" data-row="0" data-col="2">(2)</th>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
               </tr>
-        
-        </tbody><tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+        </thead>
+        <tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
 <tr><td colspan="3">OLS coëfficiënten met standaardfouten tussen haakjes</td></tr></tfoot>
         <tbody>
                 <tr>
-                  <td data-row="1" data-col="0">Constante</td>
-                  <td data-row="1" data-col="1">93.917***</td>
-                  <td data-row="1" data-col="2">95.659***</td>
+                  <td data-row="1" data-col="1">Constante</td>
+                  <td data-row="1" data-col="2">93.917***</td>
+                  <td data-row="1" data-col="3">95.659***</td>
                 </tr>
                 <tr>
-                  <td data-row="2" data-col="0"></td>
-                  <td data-row="2" data-col="1">(0.654)</td>
-                  <td data-row="2" data-col="2">(0.673)</td>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.654)</td>
+                  <td data-row="2" data-col="3">(0.673)</td>
                 </tr>
                 <tr>
-                  <td data-row="3" data-col="0">Partij-Identificatie (PID)</td>
-                  <td data-row="3" data-col="1">-10.261***</td>
-                  <td data-row="3" data-col="2">-10.824***</td>
+                  <td data-row="3" data-col="1">Partij-Identificatie (PID)</td>
+                  <td data-row="3" data-col="2">-10.261***</td>
+                  <td data-row="3" data-col="3">-10.824***</td>
                 </tr>
                 <tr>
-                  <td data-row="4" data-col="0"></td>
-                  <td data-row="4" data-col="1">(0.136)</td>
-                  <td data-row="4" data-col="2">(0.147)</td>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.136)</td>
+                  <td data-row="4" data-col="3">(0.147)</td>
                 </tr>
                 <tr>
-                  <td data-row="5" data-col="0">Land gaat in de goede richting</td>
-                  <td data-row="5" data-col="1">-12.815***</td>
-                  <td data-row="5" data-col="2">-33.188***</td>
+                  <td data-row="5" data-col="1">Land gaat in de goede richting</td>
+                  <td data-row="5" data-col="2">-12.815***</td>
+                  <td data-row="5" data-col="3">-33.188***</td>
                 </tr>
                 <tr>
-                  <td data-row="6" data-col="0"></td>
-                  <td data-row="6" data-col="1">(0.699)</td>
-                  <td data-row="6" data-col="2">(2.160)</td>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.699)</td>
+                  <td data-row="6" data-col="3">(2.160)</td>
                 </tr>
                 <tr>
-                  <td data-row="7" data-col="0">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="7" data-col="1">-4.167***</td>
-                  <td data-row="7" data-col="2">-4.084***</td>
+                  <td data-row="7" data-col="1">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="7" data-col="2">-4.167***</td>
+                  <td data-row="7" data-col="3">-4.084***</td>
                 </tr>
                 <tr>
-                  <td data-row="8" data-col="0"></td>
-                  <td data-row="8" data-col="1">(0.822)</td>
-                  <td data-row="8" data-col="2">(0.816)</td>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2">(0.822)</td>
+                  <td data-row="8" data-col="3">(0.816)</td>
                 </tr>
                 <tr>
-                  <td data-row="9" data-col="0">Kleine stad (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="9" data-col="1">-2.985***</td>
-                  <td data-row="9" data-col="2">-2.808***</td>
+                  <td data-row="9" data-col="1">Kleine stad (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="9" data-col="2">-2.985***</td>
+                  <td data-row="9" data-col="3">-2.808***</td>
                 </tr>
                 <tr>
-                  <td data-row="10" data-col="0"></td>
-                  <td data-row="10" data-col="1">(0.701)</td>
-                  <td data-row="10" data-col="2">(0.697)</td>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2">(0.701)</td>
+                  <td data-row="10" data-col="3">(0.697)</td>
                 </tr>
                 <tr>
-                  <td data-row="11" data-col="0">Stad (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="11" data-col="1">-0.308</td>
-                  <td data-row="11" data-col="2">-0.320</td>
+                  <td data-row="11" data-col="1">Stad (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="11" data-col="2">-0.308</td>
+                  <td data-row="11" data-col="3">-0.320</td>
                 </tr>
                 <tr>
-                  <td data-row="12" data-col="0"></td>
-                  <td data-row="12" data-col="1">(0.671)</td>
-                  <td data-row="12" data-col="2">(0.667)</td>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2">(0.671)</td>
+                  <td data-row="12" data-col="3">(0.667)</td>
                 </tr>
                 <tr>
-                  <td data-row="13" data-col="0">PID x Juiste Richting</td>
-                  <td data-row="13" data-col="1"></td>
-                  <td data-row="13" data-col="2">3.714***</td>
+                  <td data-row="13" data-col="1">PID x Juiste Richting</td>
+                  <td data-row="13" data-col="2"></td>
+                  <td data-row="13" data-col="3">3.714***</td>
                 </tr>
                 <tr>
-                  <td data-row="14" data-col="0"></td>
                   <td data-row="14" data-col="1"></td>
-                  <td data-row="14" data-col="2">(0.373)</td>
+                  <td data-row="14" data-col="2"></td>
+                  <td data-row="14" data-col="3">(0.373)</td>
                 </tr>
                 <tr>
-                  <td data-row="15" data-col="0">Num.Obs.</td>
-                  <td data-row="15" data-col="1">7147</td>
+                  <td data-row="15" data-col="1">Num.Obs.</td>
                   <td data-row="15" data-col="2">7147</td>
+                  <td data-row="15" data-col="3">7147</td>
                 </tr>
                 <tr>
-                  <td data-row="16" data-col="0">R2</td>
-                  <td data-row="16" data-col="1">0.602</td>
-                  <td data-row="16" data-col="2">0.607</td>
+                  <td data-row="16" data-col="1">R2</td>
+                  <td data-row="16" data-col="2">0.602</td>
+                  <td data-row="16" data-col="3">0.607</td>
                 </tr>
                 <tr>
-                  <td data-row="17" data-col="0">R2 Adj.</td>
-                  <td data-row="17" data-col="1">0.602</td>
-                  <td data-row="17" data-col="2">0.607</td>
+                  <td data-row="17" data-col="1">R2 Adj.</td>
+                  <td data-row="17" data-col="2">0.602</td>
+                  <td data-row="17" data-col="3">0.607</td>
                 </tr>
         </tbody>
       </table>
@@ -857,7 +846,7 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>),</span>
 <span id="annotated-cell-7-11"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
 <span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
-<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>) </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>) </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
@@ -873,177 +862,143 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <div class="cell-output-display">
 <!-- preamble start -->
 
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
     <script>
-
-      function styleCell_6u4kvk56insjeq0fjucp(i, j, css_id) {
-          var table = document.getElementById("tinytable_6u4kvk56insjeq0fjucp");
-          var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-          if (cell) {
-              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
-              cell.classList.add(css_id);
-          } else {
-              console.warn(`Cell at (${i}, ${j}) not found.`);
-          }
-      }
-      function spanCell_6u4kvk56insjeq0fjucp(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_6u4kvk56insjeq0fjucp");
-        const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-        if (!targetCell) {
-          console.warn(`Cell at (${i}, ${j}) not found.`);
-        }
-
-        // Get all cells that need to be removed
-        const cellsToRemove = [];
-        for (let r = 0; r < rowspan; r++) {
-          for (let c = 0; c < colspan; c++) {
-            if (r === 0 && c === 0) continue; // Skip the target cell
-            const cell = table.querySelector(`[data-row="${i + r}"][data-col="${j + c}"]`);
-            if (cell) {
-              cellsToRemove.push(cell);
-            }
-          }
-        }
-
-        // Remove all cells
-        cellsToRemove.forEach(cell => cell.remove());
-
-        // Set rowspan and colspan of the target cell if it exists
-        if (targetCell) {
-          targetCell.rowSpan = rowspan;
-          targetCell.colSpan = colspan;
-        }
-      }
+      // Create table-specific functions using external factory
+      const tableFns_9fe30o14aev8z59eoa21 = TinyTable.createTableFunctions("tinytable_9fe30o14aev8z59eoa21");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '17', j: 1 }, { i: '17', j: 2 },  ], css_id: 'tinytable_css_iotd505ae63rvxce6deo',}, 
-          { positions: [ { i: '14', j: 1 }, { i: '14', j: 2 },  ], css_id: 'tinytable_css_umc6kcndw9bnq09tuo5e',}, 
-          { positions: [ { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '1', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '9', j: 2 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '12', j: 2 }, { i: '5', j: 1 }, { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '13', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '16', j: 2 }, { i: '15', j: 2 },  ], css_id: 'tinytable_css_x1sz95a3j9i686z8lfjt',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_ztbibx5t2iggswnf5gyw',}, 
-          { positions: [ { i: '17', j: 0 },  ], css_id: 'tinytable_css_br7ful3mnvz9bpfma1jn',}, 
-          { positions: [ { i: '14', j: 0 },  ], css_id: 'tinytable_css_la4swwf4p3te2773x6db',}, 
-          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '10', j: 0 }, { i: '11', j: 0 }, { i: '12', j: 0 }, { i: '13', j: 0 }, { i: '15', j: 0 }, { i: '16', j: 0 },  ], css_id: 'tinytable_css_r4cw8svkssjbjtqekanp',}, 
-          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_embysx53rovd8m1hjl75',}, 
+          { positions: [ { i: '17', j: 2 }, { i: '17', j: 3 } ], css_id: 'tinytable_css_z7knekqt56lzz9kgy4vx',}, 
+          { positions: [ { i: '14', j: 2 }, { i: '14', j: 3 } ], css_id: 'tinytable_css_wc3sgm54wfihuckoth0n',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '10', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 }, { i: '13', j: 3 }, { i: '15', j: 3 }, { i: '16', j: 3 } ], css_id: 'tinytable_css_fqwr001hzkxu90t7x6pe',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_kdfolix20e2kymv2nrfq',}, 
+          { positions: [ { i: '17', j: 1 } ], css_id: 'tinytable_css_g6u200xpg3040yelpojb',}, 
+          { positions: [ { i: '14', j: 1 } ], css_id: 'tinytable_css_co3lfo53m0bnx5dht0kt',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 } ], css_id: 'tinytable_css_sz5x6gf9j159qpi3txtr',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_2lhs7wgzvyhpfsdttt9t',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_6u4kvk56insjeq0fjucp(cell.i, cell.j, group.css_id);
+                  tableFns_9fe30o14aev8z59eoa21.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
-      /* tinytable css entries after */
-      .table td.tinytable_css_iotd505ae63rvxce6deo, .table th.tinytable_css_iotd505ae63rvxce6deo { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_umc6kcndw9bnq09tuo5e, .table th.tinytable_css_umc6kcndw9bnq09tuo5e { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_x1sz95a3j9i686z8lfjt, .table th.tinytable_css_x1sz95a3j9i686z8lfjt { text-align: center; }
-      .table td.tinytable_css_ztbibx5t2iggswnf5gyw, .table th.tinytable_css_ztbibx5t2iggswnf5gyw { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_br7ful3mnvz9bpfma1jn, .table th.tinytable_css_br7ful3mnvz9bpfma1jn { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_la4swwf4p3te2773x6db, .table th.tinytable_css_la4swwf4p3te2773x6db { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_r4cw8svkssjbjtqekanp, .table th.tinytable_css_r4cw8svkssjbjtqekanp { text-align: left; }
-      .table td.tinytable_css_embysx53rovd8m1hjl75, .table th.tinytable_css_embysx53rovd8m1hjl75 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    /* tinytable css entries after */
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_z7knekqt56lzz9kgy4vx, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_z7knekqt56lzz9kgy4vx {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_wc3sgm54wfihuckoth0n, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_wc3sgm54wfihuckoth0n {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_fqwr001hzkxu90t7x6pe, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_fqwr001hzkxu90t7x6pe { text-align: center }
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_kdfolix20e2kymv2nrfq, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_kdfolix20e2kymv2nrfq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_g6u200xpg3040yelpojb, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_g6u200xpg3040yelpojb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_co3lfo53m0bnx5dht0kt, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_co3lfo53m0bnx5dht0kt {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_sz5x6gf9j159qpi3txtr, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_sz5x6gf9j159qpi3txtr { text-align: left }
+    #tinytable_9fe30o14aev8z59eoa21 td.tinytable_css_2lhs7wgzvyhpfsdttt9t, #tinytable_9fe30o14aev8z59eoa21 th.tinytable_css_2lhs7wgzvyhpfsdttt9t {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_6u4kvk56insjeq0fjucp" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_9fe30o14aev8z59eoa21" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <caption>Evaluatie van kandidaat Biden</caption>
         <thead>
-        </thead><caption>Evaluatie van kandidaat Biden</caption>
-              <tbody><tr>
-                <th scope="col" data-row="0" data-col="0"> </th>
-                <th scope="col" data-row="0" data-col="1">(1)</th>
-                <th scope="col" data-row="0" data-col="2">(2)</th>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
               </tr>
-        
-        </tbody><tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+        </thead>
+        <tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
 <tr><td colspan="3">OLS coëfficiënten met standaardfouten tussen haakjes</td></tr></tfoot>
         <tbody>
                 <tr>
-                  <td data-row="1" data-col="0">Constante</td>
-                  <td data-row="1" data-col="1">93.917***</td>
-                  <td data-row="1" data-col="2">95.659***</td>
+                  <td data-row="1" data-col="1">Constante</td>
+                  <td data-row="1" data-col="2">93.917***</td>
+                  <td data-row="1" data-col="3">95.659***</td>
                 </tr>
                 <tr>
-                  <td data-row="2" data-col="0"></td>
-                  <td data-row="2" data-col="1">(0.654)</td>
-                  <td data-row="2" data-col="2">(0.673)</td>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.654)</td>
+                  <td data-row="2" data-col="3">(0.673)</td>
                 </tr>
                 <tr>
-                  <td data-row="3" data-col="0">Partij-Identificatie (PID)</td>
-                  <td data-row="3" data-col="1">-10.261***</td>
-                  <td data-row="3" data-col="2">-10.824***</td>
+                  <td data-row="3" data-col="1">Partij-Identificatie (PID)</td>
+                  <td data-row="3" data-col="2">-10.261***</td>
+                  <td data-row="3" data-col="3">-10.824***</td>
                 </tr>
                 <tr>
-                  <td data-row="4" data-col="0"></td>
-                  <td data-row="4" data-col="1">(0.136)</td>
-                  <td data-row="4" data-col="2">(0.147)</td>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.136)</td>
+                  <td data-row="4" data-col="3">(0.147)</td>
                 </tr>
                 <tr>
-                  <td data-row="5" data-col="0">Land gaat in de goede richting</td>
-                  <td data-row="5" data-col="1">-12.815***</td>
-                  <td data-row="5" data-col="2">-33.188***</td>
+                  <td data-row="5" data-col="1">Land gaat in de goede richting</td>
+                  <td data-row="5" data-col="2">-12.815***</td>
+                  <td data-row="5" data-col="3">-33.188***</td>
                 </tr>
                 <tr>
-                  <td data-row="6" data-col="0"></td>
-                  <td data-row="6" data-col="1">(0.699)</td>
-                  <td data-row="6" data-col="2">(2.160)</td>
+                  <td data-row="6" data-col="1"></td>
+                  <td data-row="6" data-col="2">(0.699)</td>
+                  <td data-row="6" data-col="3">(2.160)</td>
                 </tr>
                 <tr>
-                  <td data-row="7" data-col="0">PID x Juiste Richting</td>
-                  <td data-row="7" data-col="1"></td>
-                  <td data-row="7" data-col="2">3.714***</td>
+                  <td data-row="7" data-col="1">PID x Juiste Richting</td>
+                  <td data-row="7" data-col="2"></td>
+                  <td data-row="7" data-col="3">3.714***</td>
                 </tr>
                 <tr>
-                  <td data-row="8" data-col="0"></td>
                   <td data-row="8" data-col="1"></td>
-                  <td data-row="8" data-col="2">(0.373)</td>
+                  <td data-row="8" data-col="2"></td>
+                  <td data-row="8" data-col="3">(0.373)</td>
                 </tr>
                 <tr>
-                  <td data-row="9" data-col="0">Stad (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="9" data-col="1">-0.308</td>
-                  <td data-row="9" data-col="2">-0.320</td>
+                  <td data-row="9" data-col="1">Stad (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="9" data-col="2">-0.308</td>
+                  <td data-row="9" data-col="3">-0.320</td>
                 </tr>
                 <tr>
-                  <td data-row="10" data-col="0"></td>
-                  <td data-row="10" data-col="1">(0.671)</td>
-                  <td data-row="10" data-col="2">(0.667)</td>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2">(0.671)</td>
+                  <td data-row="10" data-col="3">(0.667)</td>
                 </tr>
                 <tr>
-                  <td data-row="11" data-col="0">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="11" data-col="1">-4.167***</td>
-                  <td data-row="11" data-col="2">-4.084***</td>
+                  <td data-row="11" data-col="1">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="11" data-col="2">-4.167***</td>
+                  <td data-row="11" data-col="3">-4.084***</td>
                 </tr>
                 <tr>
-                  <td data-row="12" data-col="0"></td>
-                  <td data-row="12" data-col="1">(0.822)</td>
-                  <td data-row="12" data-col="2">(0.816)</td>
+                  <td data-row="12" data-col="1"></td>
+                  <td data-row="12" data-col="2">(0.822)</td>
+                  <td data-row="12" data-col="3">(0.816)</td>
                 </tr>
                 <tr>
-                  <td data-row="13" data-col="0">Kleine stad (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="13" data-col="1">-2.985***</td>
-                  <td data-row="13" data-col="2">-2.808***</td>
+                  <td data-row="13" data-col="1">Kleine stad (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="13" data-col="2">-2.985***</td>
+                  <td data-row="13" data-col="3">-2.808***</td>
                 </tr>
                 <tr>
-                  <td data-row="14" data-col="0"></td>
-                  <td data-row="14" data-col="1">(0.701)</td>
-                  <td data-row="14" data-col="2">(0.697)</td>
+                  <td data-row="14" data-col="1"></td>
+                  <td data-row="14" data-col="2">(0.701)</td>
+                  <td data-row="14" data-col="3">(0.697)</td>
                 </tr>
                 <tr>
-                  <td data-row="15" data-col="0">Num.Obs.</td>
-                  <td data-row="15" data-col="1">7147</td>
+                  <td data-row="15" data-col="1">Num.Obs.</td>
                   <td data-row="15" data-col="2">7147</td>
+                  <td data-row="15" data-col="3">7147</td>
                 </tr>
                 <tr>
-                  <td data-row="16" data-col="0">R2</td>
-                  <td data-row="16" data-col="1">0.602</td>
-                  <td data-row="16" data-col="2">0.607</td>
+                  <td data-row="16" data-col="1">R2</td>
+                  <td data-row="16" data-col="2">0.602</td>
+                  <td data-row="16" data-col="3">0.607</td>
                 </tr>
                 <tr>
-                  <td data-row="17" data-col="0">R2 Adj.</td>
-                  <td data-row="17" data-col="1">0.602</td>
-                  <td data-row="17" data-col="2">0.607</td>
+                  <td data-row="17" data-col="1">R2 Adj.</td>
+                  <td data-row="17" data-col="2">0.602</td>
+                  <td data-row="17" data-col="3">0.607</td>
                 </tr>
         </tbody>
       </table>
@@ -1076,7 +1031,7 @@ Waarschuwing!
 <span id="annotated-cell-11-10"><a href="#annotated-cell-11-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">"rural_urbanSmall Town"</span> <span class="ot">=</span> <span class="st">"Kleine stad (Ref. Stedelijke buitenwijk)"</span>), </span>
 <span id="annotated-cell-11-11"><a href="#annotated-cell-11-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>), </span>
 <span id="annotated-cell-11-12"><a href="#annotated-cell-11-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Evaluatie van kandidaat Biden"</span>, <span class="co"># </span></span>
-<span id="annotated-cell-11-13"><a href="#annotated-cell-11-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)  </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-11-13"><a href="#annotated-cell-11-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">notes =</span> <span class="st">"OLS coëfficiënten met standaardfouten tussen haakjes"</span>)  </span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
@@ -1092,157 +1047,123 @@ Waarschuwing!
 <div class="cell-output-display">
 <!-- preamble start -->
 
+    <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script>
+
     <script>
-
-      function styleCell_nxfiz3gumvvensdqsbvs(i, j, css_id) {
-          var table = document.getElementById("tinytable_nxfiz3gumvvensdqsbvs");
-          var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-          if (cell) {
-              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
-              cell.classList.add(css_id);
-          } else {
-              console.warn(`Cell at (${i}, ${j}) not found.`);
-          }
-      }
-      function spanCell_nxfiz3gumvvensdqsbvs(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_nxfiz3gumvvensdqsbvs");
-        const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-        if (!targetCell) {
-          console.warn(`Cell at (${i}, ${j}) not found.`);
-        }
-
-        // Get all cells that need to be removed
-        const cellsToRemove = [];
-        for (let r = 0; r < rowspan; r++) {
-          for (let c = 0; c < colspan; c++) {
-            if (r === 0 && c === 0) continue; // Skip the target cell
-            const cell = table.querySelector(`[data-row="${i + r}"][data-col="${j + c}"]`);
-            if (cell) {
-              cellsToRemove.push(cell);
-            }
-          }
-        }
-
-        // Remove all cells
-        cellsToRemove.forEach(cell => cell.remove());
-
-        // Set rowspan and colspan of the target cell if it exists
-        if (targetCell) {
-          targetCell.rowSpan = rowspan;
-          targetCell.colSpan = colspan;
-        }
-      }
+      // Create table-specific functions using external factory
+      const tableFns_dtwl46zgin9zdkiwge5i = TinyTable.createTableFunctions("tinytable_dtwl46zgin9zdkiwge5i");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '13', j: 1 }, { i: '13', j: 2 },  ], css_id: 'tinytable_css_vyq34pox7c0xb6mo2vuv',}, 
-          { positions: [ { i: '10', j: 1 }, { i: '10', j: 2 },  ], css_id: 'tinytable_css_mwei47eiivq3u600p2ex',}, 
-          { positions: [ { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '9', j: 2 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '12', j: 2 }, { i: '1', j: 1 }, { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '11', j: 2 },  ], css_id: 'tinytable_css_o39uv8lzpnpi83jqkb1f',}, 
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_60aqgxm8f0t7tnywua5i',}, 
-          { positions: [ { i: '13', j: 0 },  ], css_id: 'tinytable_css_xmwh6066yqj9qi19pjgi',}, 
-          { positions: [ { i: '10', j: 0 },  ], css_id: 'tinytable_css_rrbouvev3ci4ep7tyout',}, 
-          { positions: [ { i: '1', j: 0 }, { i: '2', j: 0 }, { i: '3', j: 0 }, { i: '4', j: 0 }, { i: '5', j: 0 }, { i: '6', j: 0 }, { i: '7', j: 0 }, { i: '8', j: 0 }, { i: '9', j: 0 }, { i: '11', j: 0 }, { i: '12', j: 0 },  ], css_id: 'tinytable_css_bw6ti259da39hv82nkv6',}, 
-          { positions: [ { i: '0', j: 0 },  ], css_id: 'tinytable_css_t9bf6tgco84jqq3kx1l0',}, 
+          { positions: [ { i: '13', j: 2 }, { i: '13', j: 3 } ], css_id: 'tinytable_css_ey7qmit2oxnfp05zyoaq',}, 
+          { positions: [ { i: '10', j: 2 }, { i: '10', j: 3 } ], css_id: 'tinytable_css_fwpz1ivleeebqynavw52',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '6', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 }, { i: '9', j: 3 }, { i: '11', j: 3 }, { i: '12', j: 3 } ], css_id: 'tinytable_css_gavj2xsge5c7wh8g2kao',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_fqwgu4vv5g1bc3fw2ts4',}, 
+          { positions: [ { i: '13', j: 1 } ], css_id: 'tinytable_css_8nnxrmqnyg2c83xr3ic1',}, 
+          { positions: [ { i: '10', j: 1 } ], css_id: 'tinytable_css_2q8ilcextgaxln8ie4ge',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 } ], css_id: 'tinytable_css_fcmtamdr85gps5b7rx5r',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_at1xfqiikhra5ed3ogo8',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_nxfiz3gumvvensdqsbvs(cell.i, cell.j, group.css_id);
+                  tableFns_dtwl46zgin9zdkiwge5i.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
-      /* tinytable css entries after */
-      .table td.tinytable_css_vyq34pox7c0xb6mo2vuv, .table th.tinytable_css_vyq34pox7c0xb6mo2vuv { text-align: center; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_mwei47eiivq3u600p2ex, .table th.tinytable_css_mwei47eiivq3u600p2ex { text-align: center; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_o39uv8lzpnpi83jqkb1f, .table th.tinytable_css_o39uv8lzpnpi83jqkb1f { text-align: center; }
-      .table td.tinytable_css_60aqgxm8f0t7tnywua5i, .table th.tinytable_css_60aqgxm8f0t7tnywua5i { text-align: center; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-      .table td.tinytable_css_xmwh6066yqj9qi19pjgi, .table th.tinytable_css_xmwh6066yqj9qi19pjgi { text-align: left; border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_rrbouvev3ci4ep7tyout, .table th.tinytable_css_rrbouvev3ci4ep7tyout { text-align: left; border-bottom: solid black 0.05em; }
-      .table td.tinytable_css_bw6ti259da39hv82nkv6, .table th.tinytable_css_bw6ti259da39hv82nkv6 { text-align: left; }
-      .table td.tinytable_css_t9bf6tgco84jqq3kx1l0, .table th.tinytable_css_t9bf6tgco84jqq3kx1l0 { text-align: left; border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+    /* tinytable css entries after */
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_ey7qmit2oxnfp05zyoaq, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_ey7qmit2oxnfp05zyoaq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_fwpz1ivleeebqynavw52, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_fwpz1ivleeebqynavw52 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_gavj2xsge5c7wh8g2kao, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_gavj2xsge5c7wh8g2kao { text-align: center }
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_fqwgu4vv5g1bc3fw2ts4, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_fqwgu4vv5g1bc3fw2ts4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_8nnxrmqnyg2c83xr3ic1, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_8nnxrmqnyg2c83xr3ic1 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_2q8ilcextgaxln8ie4ge, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_2q8ilcextgaxln8ie4ge {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_fcmtamdr85gps5b7rx5r, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_fcmtamdr85gps5b7rx5r { text-align: left }
+    #tinytable_dtwl46zgin9zdkiwge5i td.tinytable_css_at1xfqiikhra5ed3ogo8, #tinytable_dtwl46zgin9zdkiwge5i th.tinytable_css_at1xfqiikhra5ed3ogo8 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="table table-borderless" id="tinytable_nxfiz3gumvvensdqsbvs" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_dtwl46zgin9zdkiwge5i" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+        <caption>Evaluatie van kandidaat Biden</caption>
         <thead>
-        </thead><caption>Evaluatie van kandidaat Biden</caption>
-              <tbody><tr>
-                <th scope="col" data-row="0" data-col="0"> </th>
-                <th scope="col" data-row="0" data-col="1">(1)</th>
-                <th scope="col" data-row="0" data-col="2">(2)</th>
+              <tr>
+                <th scope="col" data-row="0" data-col="1"> </th>
+                <th scope="col" data-row="0" data-col="2">(1)</th>
+                <th scope="col" data-row="0" data-col="3">(2)</th>
               </tr>
-        
-        </tbody><tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
+        </thead>
+        <tfoot><tr><td colspan="3">+ p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</td></tr>
 <tr><td colspan="3">OLS coëfficiënten met standaardfouten tussen haakjes</td></tr></tfoot>
         <tbody>
                 <tr>
-                  <td data-row="1" data-col="0">Constante</td>
-                  <td data-row="1" data-col="1">93.917***</td>
-                  <td data-row="1" data-col="2">95.659***</td>
+                  <td data-row="1" data-col="1">Constante</td>
+                  <td data-row="1" data-col="2">93.917***</td>
+                  <td data-row="1" data-col="3">95.659***</td>
                 </tr>
                 <tr>
-                  <td data-row="2" data-col="0"></td>
-                  <td data-row="2" data-col="1">(0.654)</td>
-                  <td data-row="2" data-col="2">(0.673)</td>
+                  <td data-row="2" data-col="1"></td>
+                  <td data-row="2" data-col="2">(0.654)</td>
+                  <td data-row="2" data-col="3">(0.673)</td>
                 </tr>
                 <tr>
-                  <td data-row="3" data-col="0">Partij-Identificatie (PID)</td>
-                  <td data-row="3" data-col="1">-10.261***</td>
-                  <td data-row="3" data-col="2">-10.824***</td>
+                  <td data-row="3" data-col="1">Partij-Identificatie (PID)</td>
+                  <td data-row="3" data-col="2">-10.261***</td>
+                  <td data-row="3" data-col="3">-10.824***</td>
                 </tr>
                 <tr>
-                  <td data-row="4" data-col="0"></td>
-                  <td data-row="4" data-col="1">(0.136)</td>
-                  <td data-row="4" data-col="2">(0.147)</td>
+                  <td data-row="4" data-col="1"></td>
+                  <td data-row="4" data-col="2">(0.136)</td>
+                  <td data-row="4" data-col="3">(0.147)</td>
                 </tr>
                 <tr>
-                  <td data-row="5" data-col="0">PID x Juiste Richting</td>
-                  <td data-row="5" data-col="1"></td>
-                  <td data-row="5" data-col="2">3.714***</td>
+                  <td data-row="5" data-col="1">PID x Juiste Richting</td>
+                  <td data-row="5" data-col="2"></td>
+                  <td data-row="5" data-col="3">3.714***</td>
                 </tr>
                 <tr>
-                  <td data-row="6" data-col="0"></td>
                   <td data-row="6" data-col="1"></td>
-                  <td data-row="6" data-col="2">(0.373)</td>
+                  <td data-row="6" data-col="2"></td>
+                  <td data-row="6" data-col="3">(0.373)</td>
                 </tr>
                 <tr>
-                  <td data-row="7" data-col="0">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="7" data-col="1">-4.167***</td>
-                  <td data-row="7" data-col="2">-4.084***</td>
+                  <td data-row="7" data-col="1">Landelijk gebied (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="7" data-col="2">-4.167***</td>
+                  <td data-row="7" data-col="3">-4.084***</td>
                 </tr>
                 <tr>
-                  <td data-row="8" data-col="0"></td>
-                  <td data-row="8" data-col="1">(0.822)</td>
-                  <td data-row="8" data-col="2">(0.816)</td>
+                  <td data-row="8" data-col="1"></td>
+                  <td data-row="8" data-col="2">(0.822)</td>
+                  <td data-row="8" data-col="3">(0.816)</td>
                 </tr>
                 <tr>
-                  <td data-row="9" data-col="0">Kleine stad (Ref. Stedelijke buitenwijk)</td>
-                  <td data-row="9" data-col="1">-2.985***</td>
-                  <td data-row="9" data-col="2">-2.808***</td>
+                  <td data-row="9" data-col="1">Kleine stad (Ref. Stedelijke buitenwijk)</td>
+                  <td data-row="9" data-col="2">-2.985***</td>
+                  <td data-row="9" data-col="3">-2.808***</td>
                 </tr>
                 <tr>
-                  <td data-row="10" data-col="0"></td>
-                  <td data-row="10" data-col="1">(0.701)</td>
-                  <td data-row="10" data-col="2">(0.697)</td>
+                  <td data-row="10" data-col="1"></td>
+                  <td data-row="10" data-col="2">(0.701)</td>
+                  <td data-row="10" data-col="3">(0.697)</td>
                 </tr>
                 <tr>
-                  <td data-row="11" data-col="0">Num.Obs.</td>
-                  <td data-row="11" data-col="1">7147</td>
+                  <td data-row="11" data-col="1">Num.Obs.</td>
                   <td data-row="11" data-col="2">7147</td>
+                  <td data-row="11" data-col="3">7147</td>
                 </tr>
                 <tr>
-                  <td data-row="12" data-col="0">R2</td>
-                  <td data-row="12" data-col="1">0.602</td>
-                  <td data-row="12" data-col="2">0.607</td>
+                  <td data-row="12" data-col="1">R2</td>
+                  <td data-row="12" data-col="2">0.602</td>
+                  <td data-row="12" data-col="3">0.607</td>
                 </tr>
                 <tr>
-                  <td data-row="13" data-col="0">R2 Adj.</td>
-                  <td data-row="13" data-col="1">0.602</td>
-                  <td data-row="13" data-col="2">0.607</td>
+                  <td data-row="13" data-col="1">R2 Adj.</td>
+                  <td data-row="13" data-col="2">0.602</td>
+                  <td data-row="13" data-col="3">0.607</td>
                 </tr>
         </tbody>
       </table>
@@ -1452,12 +1373,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Gekopieerd!");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Gekopieerd!");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1873,7 +1794,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./interaction_02.html" class="pagination-link" aria-label="Marginale Effecten in Interactiemodellen">
-        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

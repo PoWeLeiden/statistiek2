@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Relaties tussen Continue Variabelen – Statistische analyse en presentatie met R</title>
+<title>3&nbsp; Relaties tussen Continue Variabelen – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -111,17 +111,17 @@ div.csl-indent {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Geen resultaten",
-    "search-matching-documents-text": "Gevonden documenten",
-    "search-copy-link-title": "Kopieer link om te zoeken",
-    "search-hide-matches-text": "Extra overeenkomsten verbergen",
-    "search-more-match-text": "meer overeenkomst in dit document",
-    "search-more-matches-text": "meer overeenkomsten in dit document",
-    "search-clear-button-title": "Wissen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuleren",
-    "search-submit-button-title": "Verzenden",
-    "search-label": "Zoeken"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -163,13 +163,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_01.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_01.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -183,13 +183,13 @@ window.Quarto = {
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Zoeken"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -202,59 +202,82 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <a href="./part_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datamanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_manage1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Datakennis en management</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manage2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Factorvariabelen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./linear_01.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -263,45 +286,45 @@ window.Quarto = {
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -310,56 +333,56 @@ window.Quarto = {
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -383,17 +406,16 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhoudsopgave</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-recall-peeking-inside-data-objects" id="toc-sec-recall-peeking-inside-data-objects" class="nav-link active" data-scroll-target="#sec-recall-peeking-inside-data-objects"><span class="header-section-number">1.1</span> Ter herinnering: data objecten</a></li>
-  <li><a href="#sec-visualizing-bivariate-relationships-with-a-scatterplot" id="toc-sec-visualizing-bivariate-relationships-with-a-scatterplot" class="nav-link" data-scroll-target="#sec-visualizing-bivariate-relationships-with-a-scatterplot"><span class="header-section-number">1.2</span> Visualisatie met een scatterplot</a></li>
-  <li><a href="#covariantie" id="toc-covariantie" class="nav-link" data-scroll-target="#covariantie"><span class="header-section-number">1.3</span> Covariantie</a></li>
-  <li><a href="#sec-correlation-coefficients" id="toc-sec-correlation-coefficients" class="nav-link" data-scroll-target="#sec-correlation-coefficients"><span class="header-section-number">1.4</span> Correlaties</a></li>
-  <li><a href="#bivariate-lineaire-regressie" id="toc-bivariate-lineaire-regressie" class="nav-link" data-scroll-target="#bivariate-lineaire-regressie"><span class="header-section-number">1.5</span> Bivariate lineaire regressie</a>
+  <li><a href="#sec-visualizing-bivariate-relationships-with-a-scatterplot" id="toc-sec-visualizing-bivariate-relationships-with-a-scatterplot" class="nav-link active" data-scroll-target="#sec-visualizing-bivariate-relationships-with-a-scatterplot"><span class="header-section-number">3.1</span> Visualisatie met een scatterplot</a></li>
+  <li><a href="#covariantie" id="toc-covariantie" class="nav-link" data-scroll-target="#covariantie"><span class="header-section-number">3.2</span> Covariantie</a></li>
+  <li><a href="#sec-correlation-coefficients" id="toc-sec-correlation-coefficients" class="nav-link" data-scroll-target="#sec-correlation-coefficients"><span class="header-section-number">3.3</span> Correlaties</a></li>
+  <li><a href="#bivariate-lineaire-regressie" id="toc-bivariate-lineaire-regressie" class="nav-link" data-scroll-target="#bivariate-lineaire-regressie"><span class="header-section-number">3.4</span> Bivariate lineaire regressie</a>
   <ul class="collapse">
-  <li><a href="#analyse-en-output" id="toc-analyse-en-output" class="nav-link" data-scroll-target="#analyse-en-output"><span class="header-section-number">1.5.1</span> Analyse en output</a></li>
-  <li><a href="#regressielijn-in-een-scatterplot" id="toc-regressielijn-in-een-scatterplot" class="nav-link" data-scroll-target="#regressielijn-in-een-scatterplot"><span class="header-section-number">1.5.2</span> Regressielijn in een scatterplot</a></li>
+  <li><a href="#analyse-en-output" id="toc-analyse-en-output" class="nav-link" data-scroll-target="#analyse-en-output"><span class="header-section-number">3.4.1</span> Analyse en output</a></li>
+  <li><a href="#regressielijn-in-een-scatterplot" id="toc-regressielijn-in-een-scatterplot" class="nav-link" data-scroll-target="#regressielijn-in-een-scatterplot"><span class="header-section-number">3.4.2</span> Regressielijn in een scatterplot</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -401,9 +423,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_01.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_01.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-linear-covcor" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></h1>
+<h1 class="title"><span id="sec-linear-covcor" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></h1>
 </div>
 
 
@@ -421,7 +443,7 @@ window.Quarto = {
 
 
 <p>In dit hoofdstuk onderzoeken we de bivariate relatie tussen twee continue variabelen in R. We gaan in op de covariantie, de correlatie, en de bivariate lineaire regressieanalyse.</p>
-<p>We beginnen dit overzicht met het laden van relevante R packages (‘libraries’). Deze packages zijn reeds geïnstalleerd op de universitaire computers, maar moeten eerst geladen worden. Als je op je eigen computer werkt, moet je de packages eerst installeren via <code>install.packages()</code> (zie Appendix B voor het overzicht van packages om te installeren). De dataset die we gebruiken bevat informatie over de politieke en economische karakteristieken van landen over de hele wereld. <!--- Keep data sentence ----> De dataset (<code>demdata.rds</code>) is beschikbaar op Brightspace samen met het codeboek.</p>
+<p>We beginnen dit overzicht met het laden van relevante R packages (‘libraries’). Deze packages zijn reeds geïnstalleerd op de universitaire computers, maar moeten eerst geladen worden. Als je op je eigen computer werkt, moet je de packages eerst installeren via <code>install.packages()</code> (zie <a href="package_overview.html" class="quarto-xref"><span>Appendix B</span></a> voor het overzicht van packages om te installeren). De dataset die we gebruiken bevat informatie over de politieke en economische karakteristieken van landen over de hele wereld.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)          <span class="co">#laden van data</span></span>
@@ -431,7 +453,7 @@ window.Quarto = {
 <span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Data</span></span>
 <span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>) <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-9" class="code-annotation-target"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
@@ -447,169 +469,25 @@ window.Quarto = {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Waarschuwing
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Maak gebruik van een R project folder om je data files, scripts en opdrachten in te bewaren. Dit maakt werken met R een stuk gemakkelijker. Hoe je dit doet wordt beschreven in <a href="https://poweleiden.github.io/statistiek1/data_01_basics.html#setting-up-an-r-project" target="_blank">Statistiek I, 1.5</a>. Wanneer je data inlaadt, doe dit dan niet door te dubbelklikken op het bestand op je computer, maar gebruik hiervoor de <code>import()</code> syntax uit het <code>rio</code> package. Zie <a href="common_errors.html#sec-error-import" class="quarto-xref"><span>Paragraaf A.1.2</span></a>.</p>
+<p>Maak gebruik van een R project folder om je data files, scripts en opdrachten in te bewaren. Dit maakt werken met R een stuk gemakkelijker. Hoe je dit doet wordt beschreven in <a href="https://poweleiden.github.io/statistiek1/data_01_basics.html#setting-up-an-r-project" target="_blank">Statistiek I, 1.5</a>. Wanneer je data inlaadt, doe dit dan niet door te dubbelklikken op het bestand op je computer, maar gebruik hiervoor de <code>import()</code> syntax uit het <code>rio</code> package. Zie <a href="common_errors.html#sec-error-import" class="quarto-xref"><span>Section A.1.2</span></a>.</p>
 </div>
 </div>
-<section id="sec-recall-peeking-inside-data-objects" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="sec-recall-peeking-inside-data-objects"><span class="header-section-number">1.1</span> Ter herinnering: data objecten</h2>
-<p>We kunnen de inhoud van een data object op verschillende manieren bekijken. Vaak gaat een dataset gepaard met een codeboek dat we kunnen inkijken, maar we kunnen ook data verder inspecteren met R. We kunnen bijvoorbeeld gewoon de naam van het data object (hier: ‘demdata’) typen om vervolgens de inhoud te printen. De ‘tibble’ transformatie maakt dit overzichtelijker:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>demdata</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 179 × 41
-   country_name  year v2x_polyarchy v2x_libdem v2x_egaldem v2cacamps v2caviol
-   &lt;chr&gt;        &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1 Mexico        2020         0.647      0.412       0.369     1.53     0.023
- 2 Suriname      2020         0.761      0.627       0.56      0.12    -0.813
- 3 Sweden        2020         0.908      0.879       0.83     -2.08    -2.37 
- 4 Switzerland   2020         0.894      0.851       0.832    -1.70    -2.66 
- 5 Ghana         2020         0.72       0.614       0.534    -0.441   -0.008
- 6 South Africa  2020         0.703      0.578       0.477     0.092    0.395
- 7 Japan         2020         0.832      0.743       0.75     -1.54    -1.95 
- 8 Myanmar       2020         0.436      0.271       0.253     0.886    1.28 
- 9 Russia        2020         0.262      0.103       0.203     0.558    0.195
-10 Albania       2020         0.485      0.409       0.358    -0.501   -0.119
-# ℹ 169 more rows
-# ℹ 34 more variables: e_peaveduc &lt;dbl&gt;, cpi &lt;dbl&gt;, e_regiongeo &lt;dbl&gt;,
-#   e_regionpol_6C &lt;dbl&gt;, v2elcomvot &lt;dbl&gt;, compulsory_voting &lt;dbl&gt;,
-#   bicameral &lt;dbl&gt;, dem_diff &lt;dbl&gt;, dem_increase &lt;dbl&gt;, dem_decrease &lt;dbl&gt;,
-#   TypeSoc2005 &lt;dbl&gt;, TypeEcon2006 &lt;dbl&gt;, HDI2005 &lt;dbl&gt;, GDP2006 &lt;dbl&gt;,
-#   TYPEDEMO1984 &lt;dbl&gt;, TYPEDEMO2007 &lt;dbl&gt;, Fragile2006 &lt;dbl&gt;,
-#   Typeregime2006 &lt;dbl&gt;, TYPEGOV2007 &lt;dbl&gt;, CPI8085 &lt;dbl&gt;, …</code></pre>
-</div>
-</div>
-<p>De ‘tibble’ transformatie maakt de output duidelijker. We zien nu een overzicht van de eerste variabelen in de dataset (de kolommen) en de eerste observaties (rijen).</p>
-<p>We zouden ook de voorkeur kunnen geven aan een overzicht van alle variabelen in de dataset en hun kenmerken (‘attributes’). In Statistiek 1 (zie <a href="https://poweleiden.github.io/statistiek1/data_01_basics.html#data-frames" target="_blank">hier</a>) werd hiervoor de <code>str()</code> functie gebruikt. Hier gebruiken we <code>glimpse()</code> als een vereenvoudigde manier om dit te doen. Het resultaat is een overzicht van alle 41 variabelen in de dataset. We doen dit hier voor een verkorte versie van de dataset om minder lange output te verkrijgen.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Een kleinere dataset door selectie van beperkt aantal variabelen</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>demdata_sub <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(v2x_egaldem, TypeSoc2005, HDI2005, TYPEDEMO1984, gini_2019)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(demdata_sub)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 179
-Columns: 5
-$ v2x_egaldem  &lt;dbl&gt; 0.369, 0.560, 0.830, 0.832, 0.534, 0.477, 0.750, 0.253, 0…
-$ TypeSoc2005  &lt;dbl&gt; 3, 2, 3, 3, 2, 2, 3, 2, 3, 3, 2, 2, 2, 3, 3, 3, 3, 2, 2, …
-$ HDI2005      &lt;dbl&gt; 0.829, 0.774, 0.956, 0.955, 0.553, 0.674, 0.953, 0.583, 0…
-$ TYPEDEMO1984 &lt;dbl&gt; 2, 1, 2, 2, 1, 1, 2, 1, NA, 1, 2, 1, 2, 1, 2, 2, 2, 2, 1,…
-$ gini_2019    &lt;dbl&gt; NA, NA, 26.5, 30.1, NA, NA, NA, NA, 32.5, 37.5, NA, NA, 4…</code></pre>
-</div>
-</div>
-<p>Ten slotte kunnen we de <code>view_df()</code> functie gebruiken uit het <code>sjPlot</code> package om de namen van alle variabelen te zien, hun labels (indien van toepassing), de mogelijke waarden voor deze variabelen en de labels van deze waarden (indien van toepassing). De informatie wordt in het Viewer venster (standaard rechtsonder) weergegeven. Als je klikt op “Show in new window” krijg je een grotere weergave in een tab van je browser.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view_df</span>(demdata_sub)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Data frame: demdata_sub</caption>
-<colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">ID</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Name</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Label</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Values</td>
-<td data-quarto-table-cell-role="th" style="text-align: left; border-bottom: double; font-style: italic; font-weight: normal; padding: 0.2cm; vertical-align: top;">Value Labels</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">1</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">v2x_egaldem</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: 0.0-0.9</em></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">2</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">TypeSoc2005</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Type of human development, (3-cat, classified from<br>
-HDI) (UNDP 2008)</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">1<br>
-2<br>
-3</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Low human development<br>
-Medium human development<br>
-High human development</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">3</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">HDI2005</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">Human Development Index (HDI), 2005 100-pt scale<br>
-(UNDP 2007)</td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: 0.3-1.0</em></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">4</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">TYPEDEMO1984</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Type of democracy, 1984</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">1<br>
-2</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top; background-color: #eeeeee;">Autocracies<br>
-Democracies</td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">5</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;">gini_2019</td>
-<td style="text-align: left; padding: 0.2cm; vertical-align: top;"></td>
-<td colspan="2" style="text-align: left; padding: 0.2cm; vertical-align: top;"><em>range: 22.6-48.0</em></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Output uitleg
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>view_df()</code> creëert output met de volgende kolommen:</p>
-<ul>
-<li>Name: Naam van de variabele</li>
-<li>Label: Label van de variabele, indien aanwezig in de dataset. Doorgaans een korte inhoudelijke beschrijving van de variabele.</li>
-<li>Values: Indien de variabele continu is vind je hier het minimum en maximum van de variabele in de dataset “range: X-X”. Bijvoorbeeld, de <code>v2x_egaldem</code> variabele reikt van 0 tot 0.9. Indien de variabele slechts enkele discrete waarden bevat, worden deze getoond (zie bv. <code>TypeSoc2005</code>).</li>
-<li>Value Labels: Sommige variabelen hebben labels voor de specifieke waarden die ze aannemen. Dit label beschrijft waar de cijferwaarde voor staat. Bijvoorbeeld, observaties met een 1 voor <code>TYPEDEMO1984</code> zijn autocratieën en observaties die een 2 scoren zijn democratieën.</li>
-</ul>
-</div>
-</div>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Waarschuwing!
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><code>view_df()</code> is een handige functie om een overzicht van je dataset te hebben, maar als je dataset veel variabelen heeft wordt veel output geproduceerd. Voeg dus <code>view_df(data)</code> niet toe aan je R Markdown (.rmd) bestand wanneer je je taak inlevert. Gebruik de functie voor jezelf, maar verwijder dan deze syntax om je ingeleverde taak overzichtelijk te houden.</p>
-</div>
-</div>
-</section>
-<section id="sec-visualizing-bivariate-relationships-with-a-scatterplot" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sec-visualizing-bivariate-relationships-with-a-scatterplot"><span class="header-section-number">1.2</span> Visualisatie met een scatterplot</h2>
+<section id="sec-visualizing-bivariate-relationships-with-a-scatterplot" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-visualizing-bivariate-relationships-with-a-scatterplot"><span class="header-section-number">3.1</span> Visualisatie met een scatterplot</h2>
 <p>In ons voorbeeld onderzoeken we de relatie tussen economische ongelijkheid en het niveau van electorale democratie in landen.</p>
 <p>De variabele <code>gini_2019</code> meet het niveau van economische ongelijkheid en heeft waarden tussen 0 en 100 (hogere waarden = meer ongelijkheid).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> De variabele <code>v2x_polyarchy</code> meet het niveau van electorale democratie in een land. De variabele is continue met een bereik tussen 0 en 1. Hogere waarden betekenen een hoger niveau van democratie.</p>
 <p>We kunnen de relatie tussen deze twee continue variabelen onderzoeken met behulp van een scatterplot. Zie <a href="https://poweleiden.github.io/statistiek1/analysis_02_graphs.html" target="_blank">Hoofdstuk 8</a> in het Statistiek I boek voor meer informatie over <code>ggplot()</code>, ook over de opties om plots mooier te maken.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(demdata, <span class="fu">aes</span>(<span class="at">x=</span>gini_2019, <span class="at">y=</span>v2x_polyarchy)) <span class="sc">+</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economische ongelijkheid en electorale democratie"</span>, </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gini Coefficient (2019)"</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Electorale Democratie (2020)"</span>) <span class="sc">+</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="at">from=</span><span class="dv">25</span>, <span class="at">to=</span><span class="dv">45</span>, <span class="at">by=</span><span class="dv">5</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(demdata, <span class="fu">aes</span>(<span class="at">x=</span>gini_2019, <span class="at">y=</span>v2x_polyarchy)) <span class="sc">+</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economische ongelijkheid en electorale democratie"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gini Coefficient (2019)"</span>, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Electorale Democratie (2020)"</span>) <span class="sc">+</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="at">from=</span><span class="dv">25</span>, <span class="at">to=</span><span class="dv">45</span>, <span class="at">by=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 109 rows containing missing values or values outside the scale range
 (`geom_point()`).</code></pre>
@@ -617,7 +495,7 @@ Waarschuwing!
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_01_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_01_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -675,17 +553,17 @@ Waarschuwing!
 <p>In dit voorbeeld hebben we de schaal van de x-as aangepast om een duidelijkere weergave te bekomen. Dit is niet altijd nodig, de standaard optie waarbij deze syntax-regel wordt weggelaten produceert vaak al goede resultaten. Let er ook op dat je deze syntax niet gewoon overneemt, zeker als de variabele die je op de x-as wil plotten anders geschaald is (bv. van 0 tot 10). Dit kan anders vreemde resultaten opleveren. Denk eraan bij het overnemen van syntax uit dit boek: copy, paste, en <em>update</em>.</p>
 </div>
 </div>
-<p>Zie <a href="linear_08.html#sec-report-scatterplots" class="quarto-xref"><span>Paragraaf 8.2</span></a> voor verdere instructies over het maken van duidelijke scatterplots en richtlijnen om een plot te beschrijven.</p>
+<p>Zie <a href="linear_08.html#sec-report-scatterplots" class="quarto-xref"><span>Section 10.2</span></a> voor verdere instructies over het maken van duidelijke scatterplots en richtlijnen om een plot te beschrijven.</p>
 </section>
-<section id="covariantie" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="covariantie"><span class="header-section-number">1.3</span> Covariantie</h2>
+<section id="covariantie" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="covariantie"><span class="header-section-number">3.2</span> Covariantie</h2>
 <p>In bovenstaande figuur zagen we meer landen in de linkerbovenhoek dan in de linkeronderhoek, en meer lagere waarden voor electorale democratie naarmate we hogere waarden voor gini 2019 zien. Dit lijkt te wijzen op een <em>negatieve</em> relatie: landen met lage ongelijkheid scoren doorgaans hoog op democratie.</p>
 <p>Nu gebruiken we de covariantie statistiek om de relatie tussen onze twee variabelen duidelijker te vatten en onze interpretatie van bovenstaande figuur te verifiëren. We maken gebruik van de <code>cov()</code> functie in R. Deze functie is ingebouwd in R en kunnen we gebruiken zonder extra packages te laden.</p>
 <p>We nemen “gini_2019” als x-variabele en “v2x_polyarchy” als y-variabele in lijn met ons scatterplot. De covariantiestatistiek is echter symmetrisch en we zouden dezelfde uitkomst verkrijgen als we de variabelen zouden omdraaien.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(<span class="at">x =</span> demdata<span class="sc">$</span>gini_2019, </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> demdata<span class="sc">$</span>v2x_polyarchy,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"complete.obs"</span>)   </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(<span class="at">x =</span> demdata<span class="sc">$</span>gini_2019, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> demdata<span class="sc">$</span>v2x_polyarchy,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">use =</span> <span class="st">"complete.obs"</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.560385</code></pre>
 </div>
@@ -711,14 +589,14 @@ Waarschuwing!
 </dl>
 <p>De covariantie is -0.56. Dit is in lijn met onze interpretatie van het scatterplot. Er is een negatieve relatie tussen onze variabelen, hogere waarden voor ongelijkheid zijn doorgaans geassocieerd met lagere waarden voor democratie.</p>
 </section>
-<section id="sec-correlation-coefficients" class="level2 page-columns page-full" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="sec-correlation-coefficients"><span class="header-section-number">1.4</span> Correlaties</h2>
+<section id="sec-correlation-coefficients" class="level2 page-columns page-full" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-correlation-coefficients"><span class="header-section-number">3.3</span> Correlaties</h2>
 <p>We kunnen ook de correlatiecoëfficiënt gebruiken om de relatie tussen onze continue variabelen te onderzoeken. De correlatie is een <em>gestandaardiseerde</em> maatstaf in tegenstelling tot de covariantie.</p>
 <p>Er bestaan meerdere correlatiecoëfficiënten. Doorgaans gebruiken we de Pearson correlatiecoëfficiënt voor continue variabelen (vaak aangeduid met een schuine letter r: <span class="math inline">\(r\)</span>). We maken gebruik van de <code>cor.test()</code> functie, die ingebouwd is in R.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Ook de correlatie is een symmetrische maatstaf. Je krijgt dus dezelfde uitkomst wanneer je de x en y-variabelen zou omdraaien.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> demdata<span class="sc">$</span>gini_2019, </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> demdata<span class="sc">$</span>v2x_polyarchy, </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(<span class="at">x =</span> demdata<span class="sc">$</span>gini_2019, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> demdata<span class="sc">$</span>v2x_polyarchy, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -749,7 +627,7 @@ sample estimates:
 </dd>
 <dt><code>method = "pearson")</code></dt>
 <dd>
-<p>Vertelt R dat we de Pearson correlatiecoëfficiënt willen gebruiken. We kunnen een andere methode vragen door bijvoorbeeld “method = spearman” te typen.</p>
+<p>Vertelt R dat we de Pearson correlatiecoëfficiënt willen gebruiken. We kunnen een andere methode vragen door bijvoorbeeld <code>method = spearman</code> te typen.</p>
 </dd>
 </dl>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -802,16 +680,16 @@ Interpretatie
 </div>
 </div>
 <div class="no-row-height column-margin column-container"><div id="ref-jacob1988statistical" class="csl-entry" role="listitem">
-Cohen, Jacob. 1988. <em>Statistical power analysis for the behavioral sciences</em>. 2nd dr. Hillsdale, NJ: Erlbaum Associates.
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2nd ed. Hillsdale, NJ: Erlbaum Associates.
 </div></div></section>
-<section id="bivariate-lineaire-regressie" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="bivariate-lineaire-regressie"><span class="header-section-number">1.5</span> Bivariate lineaire regressie</h2>
+<section id="bivariate-lineaire-regressie" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="bivariate-lineaire-regressie"><span class="header-section-number">3.4</span> Bivariate lineaire regressie</h2>
 <p>De laatste manier waarop we de bivariate relatie tussen twee continue (interval/ratio) variabelen kunnen onderzoeken is met een bivariaat regressiemodel.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
 <p>Hier gebruiken we wederom electorale democratie als afhankelijke variabele en gini als onafhankelijke variabele. In dit geval is welke variabele we als afhankelijke en welke we als onafhankelijke beschouwen sterk bepalend voor het resultaat.</p>
-<section id="analyse-en-output" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="analyse-en-output"><span class="header-section-number">1.5.1</span> Analyse en output</h3>
+<section id="analyse-en-output" class="level3" data-number="3.4.1">
+<h3 data-number="3.4.1" class="anchored" data-anchor-id="analyse-en-output"><span class="header-section-number">3.4.1</span> Analyse en output</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019, <span class="at">data =</span> demdata)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_2019, <span class="at">data =</span> demdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>De syntax lees je als volgt:</p>
 <dl>
@@ -847,7 +725,7 @@ Waarschuwing!
 </div>
 <p>We kunnen de resultaten bekijken door de naam van ons model in de console te typen en enter te drukken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>m1</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -860,7 +738,7 @@ Coefficients:
 </div>
 <p>Dit geeft ons de regressiecoëfficiënten voor de constante en de onafhankelijke variabele. De informatie die we krijgen is zeer beperkt.<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> Het is gebruikelijker om de output te bekijken met de <code>summary()</code> functie aangezien deze meer informatie geeft:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -902,9 +780,9 @@ Output uitleg
 <li>Estimate: De coëfficiënt voor elke term in het model. Bv. voor de constante (“(Intercept)” = 1.060311) en de onfahankelijke variabele (“gini_2019” = -0.0118</li>
 <li>Std. Error: de standaardfout van de coëfficiënt</li>
 <li>t value: De t-waarde of t-statistiek van de coëfficiënt</li>
-<li>Pr(&gt;|t|): De p-waarde die bij de t-statistiek hoort. Voor meer informatie, zie <a href="linear_03.html" class="quarto-xref"><span>Hoofdstuk 3</span></a> .</li>
+<li>Pr(&gt;|t|): De p-waarde die bij de t-statistiek hoort. Voor meer informatie, zie <a href="linear_03.html" class="quarto-xref"><span>Chapter 5</span></a> .</li>
 </ul></li>
-<li>Het onderste gedeelte van de output gaan over de ‘fit’ van het model, behandeld in <a href="linear_06.html" class="quarto-xref"><span>Hoofdstuk 6</span></a> .</li>
+<li>Het onderste gedeelte van de output gaat over de ‘fit’ van het model, behandeld in <a href="linear_06.html" class="quarto-xref"><span>Chapter 8</span></a> .</li>
 </ul>
 </div>
 </div>
@@ -922,23 +800,23 @@ Interpretatie
 <p>De <code>Estimate</code> kolom bevat de waarden voor de coëfficiënten van het model:</p>
 <ul>
 <li><p>(Intercept): Wat is de verwachte waarde voor de afhankelijke variabele als de onafhankelijke variabele in het model de waarde 0 aanneemt? Hier vinden we dat bij 0 ongelijkheid, de verwachte democratiescore gelijk is aan 1.06. Het intercept (of de constante) is niet altijd realistisch, bijvoorbeeld wanneer een predictor 0 niet kan aannemen in de praktijk of wanneer de schatting van de afhankelijke het werkelijke bereik ervan overschrijdt (democratiescores gemeten hier hebben een minimum van 0 en een maximum van 1)</p></li>
-<li><p>Coëfficiënten voor continue onafhankelijke variabelen (bv. <code>gini_2019</code>): De coëfficiënt geeft de verwachte verandering in de afhankelijke variabele Y weer wanneer de onafhankelijke variabele X met 1 eenheid stijgt. Hier zien we dat electorale democratie verwacht wordt met-0.01 punten te dalen als ongelijkheid met 1 punt stijgt. Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.4</span></a> voor meer informatie over rapportage in taken en papers.</p></li>
+<li><p>Coëfficiënten voor continue onafhankelijke variabelen (bv. <code>gini_2019</code>): De coëfficiënt geeft de verwachte verandering in de afhankelijke variabele Y weer wanneer de onafhankelijke variabele X met 1 eenheid stijgt. Hier zien we dat electorale democratie verwacht wordt met-0.01 punten te dalen als ongelijkheid met 1 punt stijgt. Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Section 10.4</span></a> voor meer informatie over rapportage in taken en papers.</p></li>
 </ul>
-<p>De coëfficiënt voor <code>gini_2019</code> is -0.01. Wat wil dit zeggen over de sterkte van het effect? Regressiecoëfficiënten zijn niet gestandaardiseerd zoals de correlatiecoëfficiënt dus zijn er geen vuistregels te hanteren. In latere hoofdstukken bespreken we gestandaardiseerde regressiecoëfficiënten <a href="linear_04.html#sec-standardized-coefficients" class="quarto-xref"><span>Paragraaf 4.2</span></a> en voorspelde waarden <a href="linear_05.html" class="quarto-xref"><span>Hoofdstuk 5</span></a>). Deze kunnen helpen bij de interpretatie over de sterkte van het effect, maar (zoals bij de correlatie) zal een bespreking van de sterkte ook in moeten gaan op andere studies, de context etc.</p>
+<p>De coëfficiënt voor <code>gini_2019</code> is -0.01. Wat wil dit zeggen over de sterkte van het effect? Regressiecoëfficiënten zijn niet gestandaardiseerd zoals de correlatiecoëfficiënt dus zijn er geen vuistregels te hanteren. In latere hoofdstukken bespreken we gestandaardiseerde regressiecoëfficiënten <a href="linear_04.html#sec-standardized-coefficients" class="quarto-xref"><span>Section 6.2</span></a> en voorspelde waarden <a href="linear_05.html" class="quarto-xref"><span>Chapter 7</span></a>). Deze kunnen helpen bij de interpretatie over de sterkte van het effect, maar (zoals bij de correlatie) zal een bespreking van de sterkte ook in moeten gaan op andere studies, de context etc.</p>
 </div>
 </div>
 </section>
-<section id="regressielijn-in-een-scatterplot" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="regressielijn-in-een-scatterplot"><span class="header-section-number">1.5.2</span> Regressielijn in een scatterplot</h3>
+<section id="regressielijn-in-een-scatterplot" class="level3" data-number="3.4.2">
+<h3 data-number="3.4.2" class="anchored" data-anchor-id="regressielijn-in-een-scatterplot"><span class="header-section-number">3.4.2</span> Regressielijn in een scatterplot</h3>
 <p>De regressielijn wordt vaak toegevoegd aan een scatterplot. Dit kunnen we als volgt doen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(demdata, <span class="fu">aes</span>(<span class="at">x =</span> gini_2019, <span class="at">y =</span> v2x_polyarchy)) <span class="sc">+</span> </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economische ongelijkheid en electorale democratie"</span>, </span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gini Coëfficiënt (2019)"</span>, </span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Electorale Democratie (2020)"</span>) <span class="sc">+</span>  </span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">25</span>, <span class="at">to =</span> <span class="dv">45</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(demdata, <span class="fu">aes</span>(<span class="at">x =</span> gini_2019, <span class="at">y =</span> v2x_polyarchy)) <span class="sc">+</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Economische ongelijkheid en electorale democratie"</span>, </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gini Coëfficiënt (2019)"</span>, </span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Electorale Democratie (2020)"</span>) <span class="sc">+</span>  </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">25</span>, <span class="at">to =</span> <span class="dv">45</span>, <span class="at">by =</span> <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
@@ -953,7 +831,7 @@ Interpretatie
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="linear_01_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="linear_01_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1169,12 +1047,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Gekopieerd!");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Gekopieerd!");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1589,8 +1467,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./linear_02.html" class="pagination-link" aria-label="Bivariate Regressie met Binaire en Categorische Predictoren">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./linear_02.html" class="pagination-link" aria-label="Bivariate Regressie met Binaire &amp; Categorische Predictoren">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

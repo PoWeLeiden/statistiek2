@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>17&nbsp; Voorspelde Waarden van Interactiemodellen – Statistische analyse en presentatie met R</title>
+<title>19&nbsp; Voorspelde Waarden van Interactiemodellen – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,17 +91,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Geen resultaten",
-    "search-matching-documents-text": "Gevonden documenten",
-    "search-copy-link-title": "Kopieer link om te zoeken",
-    "search-hide-matches-text": "Extra overeenkomsten verbergen",
-    "search-more-match-text": "meer overeenkomst in dit document",
-    "search-more-matches-text": "meer overeenkomsten in dit document",
-    "search-clear-button-title": "Wissen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuleren",
-    "search-submit-button-title": "Verzenden",
-    "search-label": "Zoeken"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -114,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_03.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_03.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -134,13 +134,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Zoeken"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -153,59 +153,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <a href="./part_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datamanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_manage1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Datakennis en management</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manage2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Factorvariabelen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -214,45 +237,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,56 +284,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,22 +357,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhoudsopgave</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#binaire-x-continue-interactie" id="toc-binaire-x-continue-interactie" class="nav-link active" data-scroll-target="#binaire-x-continue-interactie"><span class="header-section-number">17.1</span> Binaire X Continue Interactie</a></li>
-  <li><a href="#continue-x-continue-interactie" id="toc-continue-x-continue-interactie" class="nav-link" data-scroll-target="#continue-x-continue-interactie"><span class="header-section-number">17.2</span> Continue X Continue Interactie</a></li>
-  <li><a href="#binaire-x-binaire-interactie" id="toc-binaire-x-binaire-interactie" class="nav-link" data-scroll-target="#binaire-x-binaire-interactie"><span class="header-section-number">17.3</span> Binaire x Binaire Interactie</a></li>
-  <li><a href="#logistische-regressie-voorbeeld" id="toc-logistische-regressie-voorbeeld" class="nav-link" data-scroll-target="#logistische-regressie-voorbeeld"><span class="header-section-number">17.4</span> Logistische regressie: voorbeeld</a></li>
+  <li><a href="#binaire-x-continue-interactie" id="toc-binaire-x-continue-interactie" class="nav-link active" data-scroll-target="#binaire-x-continue-interactie"><span class="header-section-number">19.1</span> Binaire X Continue Interactie</a></li>
+  <li><a href="#continue-x-continue-interactie" id="toc-continue-x-continue-interactie" class="nav-link" data-scroll-target="#continue-x-continue-interactie"><span class="header-section-number">19.2</span> Continue X Continue Interactie</a></li>
+  <li><a href="#binaire-x-binaire-interactie" id="toc-binaire-x-binaire-interactie" class="nav-link" data-scroll-target="#binaire-x-binaire-interactie"><span class="header-section-number">19.3</span> Binaire x Binaire Interactie</a></li>
+  <li><a href="#logistische-regressie-voorbeeld" id="toc-logistische-regressie-voorbeeld" class="nav-link" data-scroll-target="#logistische-regressie-voorbeeld"><span class="header-section-number">19.4</span> Logistische regressie: voorbeeld</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_03.html"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_interactions.html">Interacties in Lineaire en Logistische Regressiemodellen</a></li><li class="breadcrumb-item"><a href="./interaction_03.html"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-predicted-values-from-interaction-models" class="quarto-section-identifier"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></h1>
+<h1 class="title"><span id="sec-predicted-values-from-interaction-models" class="quarto-section-identifier"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></h1>
 </div>
 
 
@@ -379,11 +402,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Modellen</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>biden_int <span class="ot">&lt;-</span> <span class="fu">lm</span>(biden <span class="sc">~</span> pid <span class="sc">*</span> right_track <span class="sc">+</span> rural_urban, <span class="at">data =</span> anes)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>righttrack_int <span class="ot">&lt;-</span> <span class="fu">glm</span>(right_track <span class="sc">~</span> vote2016 <span class="sc">*</span> age <span class="sc">+</span> rural_urban, </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> anes)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> anes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We kunnen marginale effecten gebruiken om interactie-effecten te verduidelijken zoals we in het vorige hoofdstuk gezien hebben. Maar we kunnen ook kijken naar voorspelde waarden (of kansen bij logistische regressie) van Y als een onafhankelijke variabele X en een onafhankelijke variable Z (de moderator) andere waarden aannemen. We gebruiken de <code>predictions()</code> functie uit het <code>marginaleffects</code> package. We bouwen verder op reeds geziene informatie in andere hoofdstukken (lineaire regressie: <a href="linear_05.html" class="quarto-xref"><span>Hoofdstuk 5</span></a>; logistische regressie: <a href="logit_03.html" class="quarto-xref"><span>Hoofdstuk 11</span></a>).</p>
-<section id="binaire-x-continue-interactie" class="level2" data-number="17.1">
-<h2 data-number="17.1" class="anchored" data-anchor-id="binaire-x-continue-interactie"><span class="header-section-number">17.1</span> Binaire X Continue Interactie</h2>
+<p>We kunnen marginale effecten gebruiken om interactie-effecten te verduidelijken zoals we in het vorige hoofdstuk gezien hebben. Maar we kunnen ook kijken naar voorspelde waarden (of kansen bij logistische regressie) van Y als een onafhankelijke variabele X en een onafhankelijke variable Z (de moderator) andere waarden aannemen. We gebruiken de <code>predictions()</code> functie uit het <code>marginaleffects</code> package. We bouwen verder op reeds geziene informatie in andere hoofdstukken (lineaire regressie: <a href="linear_05.html" class="quarto-xref"><span>Chapter 7</span></a>; logistische regressie: <a href="logit_03.html" class="quarto-xref"><span>Chapter 13</span></a>).</p>
+<section id="binaire-x-continue-interactie" class="level2" data-number="19.1">
+<h2 data-number="19.1" class="anchored" data-anchor-id="binaire-x-continue-interactie"><span class="header-section-number">19.1</span> Binaire X Continue Interactie</h2>
 <p>We hebben reeds een model geschat waarbij scores voor kandidaat Biden voorspeld worden met een interactie van partij-identificatie (pid) en perceptie over de richting dat het land uitgaat (right_track).</p>
 <p>Op basis van dit model (biden_int), berekenen we nu met <code>predictions()</code> de voorspelde waarden voor elke combinatie van waarden voor de 2 onafhankelijke variabelen in de interactie (bv. pid = 1 &amp; right_track = “Right Direction”, pid = 1 &amp; right_track = “Wrong Track”, pid = 2 &amp; right_track = “Right Direction”…). Als er te veel waarden zouden zijn om realistisch op deze manier te werk te gaan dan kiezen we voorspellingen op basis van een subset van waarden (bv. minimum, gemiddelde, maximum).</p>
 <p>Andere onafhankelijke variabelen in het model worden op hun gemiddelde (continue variabelen) of modus (factor variabelen) gehouden.</p>
@@ -391,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Voorspelde waarden berekenen en opslaan in data object</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>biden_int_preds <span class="ot">&lt;-</span> <span class="fu">predictions</span>(biden_int, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">pid =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>), </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">right_track =</span> <span class="fu">c</span>(<span class="st">"Right Direction"</span>, <span class="st">"Wrong Track"</span>)))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                               <span class="at">right_track =</span> <span class="fu">c</span>(<span class="st">"Right Direction"</span>, <span class="st">"Wrong Track"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>biden_int_preds &lt;- predictions(biden_int,</code></dt>
@@ -406,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>De dataset die we verkrijgen heeft 14 rijen met voorspelde waarden: 7 (waarden voor <code>pid</code>) * 2 (waarden voor <code>right_track</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print resultaten</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>biden_int_preds</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>biden_int_preds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  pid     right_track Estimate Std. Error     z Pr(&gt;|z|)      S 2.5 % 97.5 %
@@ -428,7 +451,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Type: response</code></pre>
 </div>
 </div>
-<p>De voorspellingen kunnen we visueel presenteren in een plot. Het proces dat we volgen is vrijwel hetzelfde als wat we doen voor een model zonder interactie (zie <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.7</span></a>). Er is echter een belangrijke toevoeging: het <code>linetype</code> gedeelte van de syntax, dat enkel gebruikt kan worden indien er een factor variabele is.</p>
+<p>De voorspellingen kunnen we visueel presenteren in een plot. Het proces dat we volgen is vrijwel hetzelfde als wat we doen voor een model zonder interactie (zie <a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Section 10.7</span></a>). Er is echter een belangrijke toevoeging: het <code>linetype</code> gedeelte van de syntax, dat enkel gebruikt kan worden indien er een factor variabele is.</p>
 <p>Voor we het plot produceren veranderen we de waarden voor right_track naar het Nederlands zodat ze correct worden weergegeven op het plot. Net zoals bij marginale effecten zouden we de code voor predictions (hierboven) ook kunnen combineren met de <code>ggplot</code> code via de pipe operator.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>biden_int_preds <span class="sc">|&gt;</span></span>
@@ -442,7 +465,7 @@ Type: response</code></pre>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Partij-identificatie"</span>, </span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde waarden"</span>, </span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">linetype =</span> <span class="st">"Richting land"</span> ) <span class="sc">+</span> </span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -454,12 +477,12 @@ Type: response</code></pre>
 <dl>
 <dt><code>ggplot(..., linetype = right_track)) + geom_line() + geom_ribbon(...) +</code></dt>
 <dd>
-<p>Dit gedeelte van de syntax is grotendeels ook al gebruikt in eerdere weken. Een belangrijke toevoeging is <code>linetype = right_track</code>. Zo vragen we <code>ggplot()</code> om de voorspelde waarden voor elke categorie van “right_track” weer te geven als verschillende lijnen. We zouden de voorspellingen ook kunnen onderscheiden op een andere manier, bv. met kleur (<code>color = right_track</code>). De <code>linetype</code> (en <code>color</code>) functies werken enkel met factor variabelen. De variabele <code>right_track</code>is hier reeds een factor dus we hebben geen verdere data management stappen moeten ondernemen. Zie <a href="common_errors.html#sec-linetype-error" class="quarto-xref"><span>Paragraaf A.5</span></a> voor meer informatie.</p>
+<p>Dit gedeelte van de syntax is grotendeels ook al gebruikt in eerdere weken. Een belangrijke toevoeging is <code>linetype = right_track</code>. Zo vragen we <code>ggplot()</code> om de voorspelde waarden voor elke categorie van “right_track” weer te geven als verschillende lijnen. We zouden de voorspellingen ook kunnen onderscheiden op een andere manier, bv. met kleur (<code>color = right_track</code>). De <code>linetype</code> (en <code>color</code>) functies werken enkel met factor variabelen. De variabele <code>right_track</code>is hier reeds een factor dus we hebben geen verdere data management stappen moeten ondernemen. Zie <a href="common_errors.html#sec-linetype-error" class="quarto-xref"><span>Section A.5</span></a> voor meer informatie.</p>
 </dd>
 </dl>
 </section>
-<section id="continue-x-continue-interactie" class="level2" data-number="17.2">
-<h2 data-number="17.2" class="anchored" data-anchor-id="continue-x-continue-interactie"><span class="header-section-number">17.2</span> Continue X Continue Interactie</h2>
+<section id="continue-x-continue-interactie" class="level2" data-number="19.2">
+<h2 data-number="19.2" class="anchored" data-anchor-id="continue-x-continue-interactie"><span class="header-section-number">19.2</span> Continue X Continue Interactie</h2>
 <p>Om voorspelde waarden voor interacties tussen continue variabelen te berekenen en te plotten, is het proces iets ingewikkelder, omdat er veel mogelijke combinaties van waarden zijn om voorspellingen voor te maken.</p>
 <p>In het vorige hoofdstuk hebben we het <code>biden_int2</code> model gebruikt om Biden scores te voorspellen met een interactie tussen <code>age</code> en <code>socialists</code>. We schatten dat model opnieuw hieronder.</p>
 <div class="cell">
@@ -467,7 +490,7 @@ Type: response</code></pre>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>biden_int2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(biden <span class="sc">~</span> socialists <span class="sc">*</span> age <span class="sc">+</span> rural_urban, <span class="at">data =</span> anes)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#resultaten bekijekn</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(biden_int2)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(biden_int2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   term                   estimate std.error statistic  p.value
@@ -489,7 +512,7 @@ Type: response</code></pre>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_below =</span> <span class="fu">mean</span>(socialists) <span class="sc">-</span> <span class="fu">sd</span>(socialists), <span class="co">#1 SD onder gemiddelde</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(socialists),                        <span class="co">#gemiddelde</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_above =</span> <span class="fu">mean</span>(socialists) <span class="sc">+</span> <span class="fu">sd</span>(socialists)) <span class="co">#1 SD boven gemiddelde</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_above =</span> <span class="fu">mean</span>(socialists) <span class="sc">+</span> <span class="fu">sd</span>(socialists)) <span class="co">#1 SD boven gemiddelde</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  mean_below     mean mean_above
 1   9.716161 38.33639   66.95661</code></pre>
@@ -504,7 +527,7 @@ Type: response</code></pre>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">age =</span> <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">50</span>,<span class="dv">60</span>,<span class="dv">70</span>,<span class="dv">80</span>))) </span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#print resultaten</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>biden_int2_preds</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>biden_int2_preds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  socialists age Estimate Std. Error     z Pr(&gt;|z|)     S 2.5 % 97.5 %
@@ -534,10 +557,10 @@ Type: response</code></pre>
 </div>
 </div>
 <p>Deze dataset heeft 21 observaties: 7 waarden voor age * 3 waarden voor socialists.</p>
-<p>We plotten de voorspelde waarden zoals hiervoor met het <code>linetype</code> statement. We moeten de socialist variabele in de predictions dataset wel veranderen in een factor om het statement te kunnen gebruiken. We gebruiken hier de ‘factor’ functie gezien de data numeriek is en niet gelabeld (bij labels gebruiken we doorgaans factorize).</p>
+<p>We plotten de voorspelde waarden zoals hiervoor met het <code>linetype</code> statement. We moeten de socialist variabele in de predictions dataset wel veranderen in een factor om het statement te kunnen gebruiken.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Class variabele</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(biden_int2_preds<span class="sc">$</span>socialists)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(biden_int2_preds<span class="sc">$</span>socialists)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "numeric"</code></pre>
 </div>
@@ -545,7 +568,7 @@ Type: response</code></pre>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>biden_int2_preds <span class="ot">&lt;-</span> biden_int2_preds <span class="sc">|&gt;</span> </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">socialists =</span> <span class="fu">factor</span>(socialists, </span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">levels =</span> <span class="fu">c</span>(<span class="fl">9.72</span>, <span class="fl">38.34</span>, <span class="fl">66.96</span>), </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1SD &lt; Gemiddelde"</span>, <span class="st">"Gemiddelde"</span>, <span class="st">"1SD &gt; Gemiddelde"</span>)))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"1SD &lt; Gemiddelde"</span>, <span class="st">"Gemiddelde"</span>, <span class="st">"1SD &gt; Gemiddelde"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We kunnen dan de plot maken op een vergelijkbare manier als eerder:</p>
 <div class="cell">
@@ -555,7 +578,7 @@ Type: response</code></pre>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Voorspelde score voor Biden"</span>, </span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde score"</span>, </span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Leeftijd"</span>, </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">linetype=</span> <span class="st">"Voorkeur socialisten (hoger = meer voorkeur)"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">linetype=</span> <span class="st">"Voorkeur socialisten (hoger = meer voorkeur)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -565,8 +588,8 @@ Type: response</code></pre>
 </div>
 </div>
 </section>
-<section id="binaire-x-binaire-interactie" class="level2" data-number="17.3">
-<h2 data-number="17.3" class="anchored" data-anchor-id="binaire-x-binaire-interactie"><span class="header-section-number">17.3</span> Binaire x Binaire Interactie</h2>
+<section id="binaire-x-binaire-interactie" class="level2" data-number="19.3">
+<h2 data-number="19.3" class="anchored" data-anchor-id="binaire-x-binaire-interactie"><span class="header-section-number">19.3</span> Binaire x Binaire Interactie</h2>
 <p>Voor een interactie met twee binaire variabelen gelden gelijkaardige principes.</p>
 <p>Een dergelijke interactie gebruiken we in het <code>biden_int3</code>-model, namelijk een interactie tussen (<code>right_track</code>) en <code>vote2016</code> (Clinton kiezer = 0, Trump kiezer = 1). Als controlevariabele voegen we <code>rural_urban</code> toe.</p>
 <div class="cell">
@@ -574,7 +597,7 @@ Type: response</code></pre>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>biden_int3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(biden <span class="sc">~</span> right_track <span class="sc">*</span> vote2016 <span class="sc">+</span> rural_urban, <span class="at">data =</span> anes)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">#resultaten printen</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(biden_int3)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(biden_int3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   term                                     estimate std.error statistic  p.value
@@ -593,7 +616,7 @@ Type: response</code></pre>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  biden_int3, </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"right_track"</span>, <span class="st">"vote2016"</span>), </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> <span class="st">"mean"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> <span class="st">"mean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
      right_track     vote2016 Estimate Std. Error     z Pr(&gt;|z|)     S 2.5 %
@@ -620,7 +643,7 @@ Type: response</code></pre>
 <p>Deze optie hebben we hier nodig (gezien we het ‘by’ statement gebruiken) om de overige onafhankelijke variabelen op hun gemiddelde of modus te houden.</p>
 </dd>
 </dl>
-<p>De resultaten kunnen we in een plot visualiseren. De syntax is vrijwel hetzelfde als die voor plots van voorspelde waarden voor 1 factor variable (<a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Paragraaf 8.7</span></a>). We moeten gebruikmaken van <code>geom_pointrange()</code>. Nieuw is dat we voorspellingen onderscheiden van elkaar op basis van de waarden van de moderator via de <code>shape =</code> optie. Deze vertelt aan ggplot verschillende vormen te gebruiken voor de voorspelde waarden.[^interaction_03-3]</p>
+<p>De resultaten kunnen we in een plot visualiseren. De syntax is vrijwel hetzelfde als die voor plots van voorspelde waarden voor 1 factor variable (<a href="linear_08.html#sec-presenting-linear-regression-predicted-values-plots" class="quarto-xref"><span>Section 10.7</span></a>). We moeten gebruikmaken van <code>geom_pointrange()</code>. Nieuw is dat we voorspellingen onderscheiden van elkaar op basis van de waarden van de moderator via de <code>shape =</code> optie. Deze vertelt aan ggplot verschillende vormen te gebruiken voor de voorspelde waarden.[^interaction_03-3]</p>
 <p>Voor we plotten vertalen we de labels voor <code>vote2016</code> naar het Nederlands.</p>
 <p>[^interaction_03-3] Dit zou eventueel ook kunnen via kleuren (bv. <code>color = vote2016)</code>. Let er wel op dat niet iedereen kleuren kan zien (R heeft wel color-bind palettes beschikbaar). Bovendien kan een plot met kleuren onduidelijk worden afgedrukt in zwart/wit.</p>
 <div class="cell">
@@ -636,7 +659,7 @@ Type: response</code></pre>
 <span id="annotated-cell-13-10"><a href="#annotated-cell-13-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde score Biden"</span>, </span>
 <span id="annotated-cell-13-11"><a href="#annotated-cell-13-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">shape =</span> <span class="st">"Stemkeuze 2016"</span>) <span class="sc">+</span> </span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="3">3</button><span id="annotated-cell-13-12" class="code-annotation-target"><a href="#annotated-cell-13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span> , <span class="dv">100</span>)) <span class="sc">+</span></span>
-<span id="annotated-cell-13-13"><a href="#annotated-cell-13-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Wrong Track"</span> <span class="ot">=</span> <span class="st">"Verkeerde richting"</span>, <span class="st">"Right Direction"</span> <span class="ot">=</span> <span class="st">"Goede richting"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-13-13"><a href="#annotated-cell-13-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Wrong Track"</span> <span class="ot">=</span> <span class="st">"Verkeerde richting"</span>, <span class="st">"Right Direction"</span> <span class="ot">=</span> <span class="st">"Goede richting"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
@@ -662,11 +685,11 @@ Type: response</code></pre>
 </div>
 </div>
 </section>
-<section id="logistische-regressie-voorbeeld" class="level2" data-number="17.4">
-<h2 data-number="17.4" class="anchored" data-anchor-id="logistische-regressie-voorbeeld"><span class="header-section-number">17.4</span> Logistische regressie: voorbeeld</h2>
+<section id="logistische-regressie-voorbeeld" class="level2" data-number="19.4">
+<h2 data-number="19.4" class="anchored" data-anchor-id="logistische-regressie-voorbeeld"><span class="header-section-number">19.4</span> Logistische regressie: voorbeeld</h2>
 <p>Bovenstaande syntax is ook van toepassing voor logistische regressie. Hier voorspellen we probabiliteiten in plaats van scores. In dit voorbeeld gebruiken we een <code>rightrack_int</code> model waarin we <code>rightrack</code> voorspellen en een interactie hebben tussen <code>vote2016</code> en <code>age</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(righttrack_int)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(righttrack_int)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 5
   term                   estimate std.error statistic  p.value
@@ -695,7 +718,7 @@ Type: response</code></pre>
 <span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde kans"</span>, </span>
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Leeftijd"</span>, </span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">linetype =</span> <span class="st">"2016 Stemkeuze"</span>) <span class="sc">+</span> </span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -903,12 +926,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Gekopieerd!");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Gekopieerd!");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1319,12 +1342,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./interaction_02.html" class="pagination-link" aria-label="Marginale Effecten in Interactiemodellen">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./common_errors.html" class="pagination-link" aria-label="Veelgemaakte fouten in R">
-        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./common_errors.html" class="pagination-link" aria-label="Veelgemaakte fouten">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

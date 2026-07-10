@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Bivariate Regressie met Binaire en Categorische Predictoren – Statistische analyse en presentatie met R</title>
+<title>4&nbsp; Bivariate Regressie met Binaire &amp; Categorische Predictoren – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,17 +91,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Geen resultaten",
-    "search-matching-documents-text": "Gevonden documenten",
-    "search-copy-link-title": "Kopieer link om te zoeken",
-    "search-hide-matches-text": "Extra overeenkomsten verbergen",
-    "search-more-match-text": "meer overeenkomst in dit document",
-    "search-more-matches-text": "meer overeenkomsten in dit document",
-    "search-clear-button-title": "Wissen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuleren",
-    "search-submit-button-title": "Verzenden",
-    "search-label": "Zoeken"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -114,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_02.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_02.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -134,13 +134,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Zoeken"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -153,59 +153,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <a href="./part_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datamanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_manage1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Datakennis en management</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manage2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Factorvariabelen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_02.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -214,45 +237,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,56 +284,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,23 +357,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhoudsopgave</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#data-management-converteren-naar-een-factor-variabele" id="toc-data-management-converteren-naar-een-factor-variabele" class="nav-link active" data-scroll-target="#data-management-converteren-naar-een-factor-variabele"><span class="header-section-number">2.1</span> Data Management: Converteren naar een factor variabele</a>
-  <ul class="collapse">
-  <li><a href="#sec-relevelling" id="toc-sec-relevelling" class="nav-link" data-scroll-target="#sec-relevelling"><span class="header-section-number">2.1.1</span> Veranderen van de referentiecategorie</a></li>
-  </ul></li>
-  <li><a href="#factor-variabelen-als-predictoren" id="toc-factor-variabelen-als-predictoren" class="nav-link" data-scroll-target="#factor-variabelen-als-predictoren"><span class="header-section-number">2.2</span> Factor variabelen als predictoren</a></li>
+  <li><a href="#data-voorbereiden-omzetten-naar-factorvariabele" id="toc-data-voorbereiden-omzetten-naar-factorvariabele" class="nav-link active" data-scroll-target="#data-voorbereiden-omzetten-naar-factorvariabele"><span class="header-section-number">4.1</span> Data voorbereiden: omzetten naar factorvariabele</a></li>
+  <li><a href="#opnemen-in-een-model-en-coëfficiënten-interpreteren" id="toc-opnemen-in-een-model-en-coëfficiënten-interpreteren" class="nav-link" data-scroll-target="#opnemen-in-een-model-en-coëfficiënten-interpreteren"><span class="header-section-number">4.2</span> Opnemen in een model en coëfficiënten interpreteren</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_02.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_linear.html">Lineaire Statistische Modellen</a></li><li class="breadcrumb-item"><a href="./linear_02.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-binary-predictors" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></h1>
+<h1 class="title"><span id="sec-binary-predictors" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></h1>
 </div>
 
 
@@ -367,100 +387,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In het vorige hoofdstuk bespraken we hoe een lineaire regressieanalyse te gebruiken om de relatie tussen continue variabelen na te gaan. In dit hoofdstuk wordt uitgelegd hoe je een bivariate regressie kan uitvoeren met binaire en categorische variabelen.</p>
-<p>We beginnen zoals gewoonlijk met het laden van relevante R packages (‘libraries’). Deze packages zijn reeds geïnstalleerd op de universitaire computers, maar moeten eerst geladen worden. We laden ook onze dataset.</p>
+<p>Ons vorige hoofdstuk sloten we af door te laten zien hoe je een lineaire regressie uitvoert met een continue (interval/ratio) onafhankelijke variabele. In dit hoofdstuk bekijken we hoe je een lineair regressiemodel gebruikt met een binaire of categorische onafhankelijke variabele.</p>
+<p>Zoals altijd beginnen we ons R-script met het laden van de relevante libraries en het inladen van onze data. Let op: deze libraries staan al geïnstalleerd op de computers van de universiteit, maar moeten voor gebruik eerst geladen worden.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)             <span class="co">#laden van data</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)       <span class="co">#datamanipulatie en grafieken</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)           <span class="co">#samenvattingen regressiemodellen</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects) <span class="co">#voorspelde waarden berekenen</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)          <span class="co">#data inladen</span></span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)    <span class="co">#data bewerken en plotten</span></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Onze data importeren</span></span>
+<span id="annotated-cell-1-6"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>) <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="1">Je hebt <code>as_tibble()</code> hier niet altijd nodig, zoals hier getoond. We doen dit hier omdat het gemakkelijker is om grotere datasets hiermee weer te geven. Zie <a href="https://poweleiden.github.io/statistics1/data_02_filtering_selecting.html#tibbles" target="_blank">Statistiek I, 2.1</a>.</span>
+</dd>
+</dl>
 </div>
-<section id="data-management-converteren-naar-een-factor-variabele" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="data-management-converteren-naar-een-factor-variabele"><span class="header-section-number">2.1</span> Data Management: Converteren naar een factor variabele</h2>
-<p>Via lineaire regressieanalyse kunnen we een continue afhankelijke variabele ook voorspellen aan de hand van binaire (2 waarden) en categorische (3 of meer waarden) variabelen.</p>
-<p>Om deze variabelen te gebruiken in een regressiemodel moeten ze toegevoegd worden als dichotome of “<a href="https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faqwhat-is-dummy-coding/" target="_blank">dummy</a>” variabelen. Als de variabele binair is, wordt 1 dummy gebruikt, als de variabelen meer categorieën kent, worden meerdere dummies gebruikt.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> R voegt automatisch dummies toe voor factor variabelen, dus transformeren we binaire en categorische variabelen naar factor variabelen voor we ze in een regressie analyse gebruiken.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p>In dit voorbeeld maken we gebruik van de variabele “TYPEDEMO1984”. Deze binaire variabele toont of een land een democratie of autocratie was in het jaar 1984. De variabele is numeriek opgeslagen (dit kunnen we controleren met behulp van de functie <code>class()</code>). De waarde 1 staat voor autocratie, de waarde 2 voor democratie.</p>
+</div>
+<section id="data-voorbereiden-omzetten-naar-factorvariabele" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="data-voorbereiden-omzetten-naar-factorvariabele"><span class="header-section-number">4.1</span> Data voorbereiden: omzetten naar factorvariabele</h2>
+<p>Een voordeel van lineaire regressiemodellen is dat we een afhankelijke variabele kunnen voorspellen met verschillende <em>typen</em> predictorvariabelen, waaronder <em>binaire</em> en <em>categorische</em> onafhankelijke variabelen. Hierbij vergelijkt onze regressie de (voorspelde) gemiddelde waarde van de afhankelijke variabele in de ene categorie met de (voorspelde) gemiddelde waarde in de andere categorie of categorieën.</p>
+<p>Om binaire en categorische variabelen als predictoren in een regressiemodel te kunnen gebruiken, moeten we ze opnemen als een dichotome of “<a href="https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faqwhat-is-dummy-coding/" target="_blank">dummy</a>”-variabele. Er wordt één dummyvariabele gebruikt wanneer de variabele binair is, terwijl er meerdere dummy’s worden opgenomen wanneer de variabele categorisch is.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> R maakt automatisch dummy’s aan voor factorvariabelen, dus we zullen onze binaire/categorische variabelen altijd eerst omzetten naar factorvariabelen voordat we ze in een regressie opnemen.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Hier zetten we een binaire variabele genaamd <code>TYPEDEMO1984</code>, en een categorische variabele genaamd <code>Typeregime2006</code>, om naar factorvariabelen met behulp van de procedures beschreven in <a href="data_manage2.html" class="quarto-xref"><span>Chapter 2</span></a>. Let op dat we hierbij volledig nieuwe variabelen aanmaken.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Informatie over type variabele: </span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(demdata<span class="sc">$</span>TYPEDEMO1984)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "numeric"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#simpele tabel</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>TYPEDEMO1984)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- 1  2 
-86 57 </code></pre>
-</div>
-</div>
-<p>Aangezien de variabele numeriek is, transformeren we deze eerst naar een factor variabele. We kunnen dit doen met de ingebouwde <code>factor()</code> functie (zie <a href="https://poweleiden.github.io/statistiek1/data_01_basics.html#creating-variables-in-r" target="_blank">Statistiek I, 1.6.3</a>) of met de <code>factorize()</code> functie afkomstig uit het <code>rio</code> package. Deze laatste functie is vooral handig als de waarden labels hebben zoals hier het geval is ( 1 = “Autocratie”, 2 = “Democratie”). Als er geen labels zijn, moet je <code>factor()</code> gebruiken gezien <code>factorize()</code> in dat geval niet de juiste uitkomsten geeft. Zie <a href="common_errors.html#sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" class="quarto-xref"><span>Paragraaf A.2</span></a> voor meer informatie.</p>
-<p>De labels kun je zien met behulp van de <code>view_df()</code> functie uit het <code>sjPlot</code> package (zie <a href="linear_01.html#sec-recall-peeking-inside-data-objects" class="quarto-xref"><span>Paragraaf 1.1</span></a>) of door gebruik te maken van de ingebouwde functie <code>attributes()</code> (vooraleer je transformeert naar factor): <code>attributes(demdata$TYPEDEMO1984)</code>. Daarbij kijk je of er informatie is waar “$labels” staat.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(demdata<span class="sc">$</span>TYPEDEMO1984)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$label
-[1] "Type of democracy, 1984"
-
-$format.stata
-[1] "%10.0g"
-
-$labels
-Autocracies Democracies 
-          1           2 </code></pre>
-</div>
-</div>
-<p>We gebruiken <code>factorize()</code> gezien de waarden van onze variabelen labels hebben (1 = “Autocratie”, 2 = “Democratie”). We kijken ook na of de functie gelukt is.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transformeren naar factor</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factorize</span>(TYPEDEMO1984))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Niveaus (levels) bekijken en tabel om te checken</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>TYPEDEMO1984_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Omzetten naar factor</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Binair voorbeeld</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">TYPEDEMO1984_factor =</span> <span class="fu">factor</span>(TYPEDEMO1984, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Autocracies"</span>, <span class="st">"Democracies"</span>)), </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Categorisch voorbeeld</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Typeregime2006_factor =</span> <span class="fu">factor</span>(Typeregime2006, </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>), </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Liberal democracy"</span>, </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"Electoral democracy"</span>, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                                       <span class="st">"Autocracy"</span>)))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Check your work!</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>TYPEDEMO1984_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Autocracies" "Democracies"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>TYPEDEMO1984_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>TYPEDEMO1984_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Autocracies Democracies 
          86          57 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>TYPEDEMO1984_factor, demdata<span class="sc">$</span>TYPEDEMO1984)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             
+               1  2
+  Autocracies 86  0
+  Democracies  0 57</code></pre>
 </div>
-<p>De syntax is eenvoudig:</p>
-<dl>
-<dt><code>factorize(</code></dt>
-<dd>
-<p>Naam van de functie die wordt toegepast op de variabele tussen haakjes.</p>
-</dd>
-<dt><code>TYPEDEMO1984</code></dt>
-<dd>
-<p>Aangeduide variabele. Het laagste numerieke niveau van deze variabele zal als eerste niveau van de factor gebruikt worden en dus als referentiecategorie.</p>
-</dd>
-</dl>
-<p>Dezelfde procedure wordt gehanteerd voor een categorische variabele met 3 of meer categorieën. Bijvoorbeeld, de variabele <code>Typeregime2006</code> geeft weer of een land een liberale democratie was (=1), een electorale democratie (=2), of een autocratie (=3) in het jaar 2006. Deze variabele heeft ook waarden-labels dus kunnen we opnieuw <code>factorize()</code> gebruiken:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#transformeer naar factor variabele</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006_factor =</span> <span class="fu">factorize</span>(Typeregime2006))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Werk checken</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Liberal democracy"   "Electoral democracy" "Autocracy"          </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   Liberal democracy Electoral democracy           Autocracy 
                  71                  53                  41 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(demdata<span class="sc">$</span>Typeregime2006_factor, demdata<span class="sc">$</span>Typeregime2006)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     
+                       1  2  3
+  Liberal democracy   71  0  0
+  Electoral democracy  0 53  0
+  Autocracy            0  0 41</code></pre>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled">
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -470,52 +473,17 @@ Waarschuwing!
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We raden aan om nieuwe variabelen aan te maken wanneer je een bestaande variabele omzet naar een factorvariabele (of wanneer je hercodeert) zoals hiervoven (bv., <code>mutate(TYPEDEMO1984_factor = factorize(TYPEDEMO1984))</code>). Als je een nieuwe variabele aanmaakt, overschrijf je nooit de originele. Dit kan helpen om fouten makkelijker te corrigeren (zonder dat je dataset opnieuw moet inladen en eerdere syntax runnen).</p>
-</div>
-</div>
-<section id="sec-relevelling" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-relevelling"><span class="header-section-number">2.1.1</span> Veranderen van de referentiecategorie</h3>
-<p><code>factorize()</code> gebruikt de eerste numerieke waarde als referentiegroep bij het maken van een factorvariabele. <code>factor()</code> doet dit ook, tenzij we expliciet de volgorde van de factorniveaus (levels) aanduiden in de syntax (zie het voorbeeld in <a href="common_errors.html#sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" class="quarto-xref"><span>Paragraaf A.2</span></a>).</p>
-<p>In elk geval kunnen we de referentiecategorie veranderen als we dat willen. Dit kunnen we doen met behulp van de <code>relevel()</code> functie. Hieronder veranderen we de referentiecategorie voor “Typeregime2006_factor” naar “Electoral Democracy”.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> demdata <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Typeregime2006_factor_relevel =</span> <span class="fu">relevel</span>(Typeregime2006_factor, <span class="st">"Electoral democracy"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<dl>
-<dt><code>relevel(</code></dt>
-<dd>
-<p>Naam van de functie</p>
-</dd>
-<dt><code>Typeregime2006_factor,</code></dt>
-<dd>
-<p>We gebruiken “Typeregime2006_factor” uit de “demdata” dataset.</p>
-</dd>
-<dt><code>"Electoral democracy")</code></dt>
-<dd>
-<p>We geven de naam op van de categorie die we als referentiecategorie willen nemen tussen dubbele aanhalingstekens. We gebruiken de naam tussen aanhalingstekens omdat de variabele reeds hierboven naar een factor is omgezet, anders zou dit niet werken.</p>
-</dd>
-</dl>
-<p>We checken altijd beter of alles goed is gegaan:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Checken:</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_factor)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Liberal democracy"   "Electoral democracy" "Autocracy"          </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(demdata<span class="sc">$</span>Typeregime2006_factor_relevel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Electoral democracy" "Liberal democracy"   "Autocracy"          </code></pre>
+<p>We hebben hier twee belangrijke dingen gedaan: (1) we hebben de oorspronkelijke variabele niet overschreven bij het aanmaken van de factor en (2) we hebben ons werk dubbel gecontroleerd om te zien of het aanmaken van de factor tot de verwachte output heeft geleid. Dit is vooral belangrijk bij factorvariabelen, omdat het niet correct opzetten ervan kan leiden tot fouten bij het uitvoeren van een lineair regressiemodel. Als we bijvoorbeeld per ongeluk een factor aanmaken waarbij slechts één niveau van de variabele niet-NA-waarden heeft, zal dit voorkomen dat een regressiemodel kan draaien, zoals we bespreken in <a href="common_errors.html#sec-contrasts-can-be-applied-only-to-factors-with-2-or-more-levels" class="quarto-xref"><span>Section A.2</span></a>.</p>
 </div>
 </div>
 </section>
-</section>
-<section id="factor-variabelen-als-predictoren" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="factor-variabelen-als-predictoren"><span class="header-section-number">2.2</span> Factor variabelen als predictoren</h2>
-<p>We voegen binaire en categorische onafhankelijke variabelen toe aan de regressieanalyse op dezelfde manier als bij continue variabelen:</p>
+<section id="opnemen-in-een-model-en-coëfficiënten-interpreteren" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="opnemen-in-een-model-en-coëfficiënten-interpreteren"><span class="header-section-number">4.2</span> Opnemen in een model en coëfficiënten interpreteren</h2>
+<p>We nemen binaire/categorische variabelen op in een regressiemodel op dezelfde manier als we deden bij een continue variabele. Bijvoorbeeld:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Met binaire predictor: </span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_binary)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># De binaire variabele gebruiken als predictor: </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>model_binary <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> TYPEDEMO1984_factor, <span class="at">data=</span>demdata)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_binary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -537,9 +505,9 @@ Residual standard error: 0.2163 on 141 degrees of freedom
 Multiple R-squared:  0.2786,    Adjusted R-squared:  0.2735 
 F-statistic: 54.47 on 1 and 141 DF,  p-value: 1.247e-11</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Met categorische predictor: </span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model_categorical <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> Typeregime2006_factor, <span class="at">data=</span>demdata)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_categorical)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># De categorische variabele gebruiken als predictor: </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>model_categorical <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> Typeregime2006_factor, <span class="at">data=</span>demdata)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_categorical)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -573,14 +541,14 @@ F-statistic: 171.2 on 2 and 162 DF,  p-value: &lt; 2.2e-16</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Output uitleg
+Uitleg output
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>De output van een model met binaire/categorische predictor is dezelfde als die van een model met een continue predictor met 1 verschil. R zal de variabelenaam bij de coëfficiënten anders weergeven als er een factor variabele is. Dan krijg je de naam van de variabele, onmiddellijk gevolgd door de categorie die de waarde 1 aanneemt in de dummy. Bijvoorbeeld: “TypeDemo1984_factorDemocracies” or “Typeregime2006_factorAutocracy.”</p>
+<p>De output van een model met een binaire/categorische variabele is hetzelfde als wanneer de predictor continu is, met één uitzondering: R zal de variabelenamen in het Coefficients-gedeelte anders weergeven, afhankelijk van of de variabele een factorvariabele is of niet. Als de variabele geen factorvariabele is, toont R simpelweg de variabelenaam (bijv. “gini_2019”). Als de variabele een factor is, wordt de weergave als volgt opgemaakt: “variabeleCategorie”. Bijvoorbeeld: “TYPEDEMO1984_factorDemocracies” of “regime2006_fctAutocracy”.</p>
 </div>
 </div>
-<p>Er zijn subtiele verschillen in de interpretatie als een factor variabele opgenomen wordt in het model:</p>
+<p>Er zijn een aantal subtiele verschillen in hoe we de coëfficiënten interpreteren van een model dat (alleen) een factorvariabele als predictorvariabele opneemt:</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -591,23 +559,23 @@ Interpretatie
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>De <code>Estimate</code> kolom toont de coëfficiënten van het regressiemodel.</p>
-<p>Het”(Intercept)” toont nog steeds de verwachte waarde op de afhankelijke variabele als de onafhankelijke variabele gelijk is aan 0. Als de enige onafhankelijke variabele een factor is dan toont het intercept de gemiddelde waarde op Y voor de referentiegroep (factor dummy = 0).</p>
-<p>Hier vinden we dat de gemiddelde waarde voor <code>v2x_polyarchy</code> voor autocratieën (gemeten volgens de <code>TYPEDEMO1984_factor</code> variabele) gelijk is aan het Intercept dat we hierboven vonden.</p>
+<p>De kolom <code>Estimate</code> geeft de coëfficiëntwaarden van ons regressiemodel.</p>
+<p>De rij “(Intercept)” geeft je de coëfficiënt voor het Intercept: wat is de gemiddelde waarde van de AV die we verwachten te observeren op basis van dit model als alle opgenomen onafhankelijke variabelen = 0. Als de enige predictorvariabele in het model een factorvariabele is, dan is de (Intercept)-waarde gelijk aan het gemiddelde van de afhankelijke variabele onder observaties in het eerste niveau van de factorvariabele, wat we vaak de “referentiegroep” noemen.</p>
+<p>Hier is bijvoorbeeld de gemiddelde waarde van <code>v2x_polyarchy</code> onder landen met een waarde “Liberal Democracy” op <code>TYPEDEMO84_factor;</code> deze is identiek aan de (Intercept)-waarde hierboven.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-25"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-25-1"><a href="#annotated-cell-25-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1">1</button><span id="annotated-cell-25-2" class="code-annotation-target"><a href="#annotated-cell-25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TYPEDEMO1984_factor <span class="sc">==</span> <span class="st">"Autocracies"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-25-3"><a href="#annotated-cell-25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="2">2</button><span id="annotated-cell-25-4" class="code-annotation-target"><a href="#annotated-cell-25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-18"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-18-1"><a href="#annotated-cell-18-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="1">1</button><span id="annotated-cell-18-2" class="code-annotation-target"><a href="#annotated-cell-18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(TYPEDEMO1984_factor <span class="sc">==</span> <span class="st">"Autocracies"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-18-3"><a href="#annotated-cell-18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="2">2</button><span id="annotated-cell-18-4" class="code-annotation-target"><a href="#annotated-cell-18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-25" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="2" data-code-annotation="1">De filter verwijdert observaties die niet de waarde “Autocracies” hebben voor TYPEDEMO1984_factor</span>
+<span data-code-cell="annotated-cell-18" data-code-lines="2" data-code-annotation="1">Dit verwijdert alle observaties die niet de waarde “Autocracies” hebben op onze factorvariabele</span>
 </dd>
-<dt data-target-cell="annotated-cell-25" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="4" data-code-annotation="2">Deze optie dwingt R om alle decimalen weer te geven voor een betere vergelijking met het Intercept.</span>
+<span data-code-cell="annotated-cell-18" data-code-lines="4" data-code-annotation="2">Deze optie wordt gebruikt om R te dwingen alle decimalen van de gemiddelde waarde te tonen, zodat je deze kunt vergelijken met de Intercept-waarde die wordt gerapporteerd in de summary-output</span>
 </dd>
 </dl>
 </div>
@@ -616,32 +584,32 @@ Interpretatie
 1      0.4175698</code></pre>
 </div>
 </div>
-<p>De coëfficiënten voor binaire en categorische variabelen worden best gezien als het verschil in de gemiddelde score voor Y tussen de referentiecategorie en andere categorieën. De coëfficiënt voor “TYPEDEMO1984_factorDemocracies” is bijvoorbeeld 0.2726758.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> Dit betekent dat de gemiddelde score op Y voor democratieën 0.2726758 schaalpunten groter is dan de gemiddelde waarde voor autocratieën (de referentiecategorie).</p>
-<p>We kunnen dit wiskundig nagaan:</p>
+<p>De coëfficiënt voor een continue predictorvariabele wordt geïnterpreteerd als de helling van een lijn (bijv. hoeveel verandert Y gemiddeld met elke verandering van één eenheid in X?). De coëfficiënt(en) voor een factorvariabele daarentegen worden het best besproken als het verschil in de gemiddelde waarde van de afhankelijke variabele tussen de categorie genoemd in de output en de referentiegroep (het eerste niveau van de factor). De coëfficiënt voor “TYPEDEMO1984_factorDemocracies” is bijvoorbeeld 0.2726758.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> We interpreteren dit als volgt: de gemiddelde waarde van de afhankelijke variabele onder landen met een waarde “Democracies” op <code>TYPEDEMO1984_factor</code> is 0.2726758 schaalpunten hoger dan de gemiddelde waarde onder landen met een waarde “Autocracies” (onze referentiegroep) op die variabele.</p>
+<p>We kunnen dit opnieuw zien door naar de onderliggende gemiddelde waarden te kijken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gemiddelde voor democratieën</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TYPEDEMO1984_factor) <span class="sc">|&gt;</span> </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># De gemiddelden</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TYPEDEMO1984_factor) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm =</span> T)) <span class="sc">|&gt;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  TYPEDEMO1984_factor mean_democracy
 1         Autocracies      0.4175698
 2         Democracies      0.6902456
 3                &lt;NA&gt;      0.4638056</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gemiddelde democratieën - gemiddelde autocratieën</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.6902456</span> <span class="sc">-</span> <span class="fl">0.4175698</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gem. in Democracies - Gem. in Autocracies</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.6902456</span> <span class="sc">-</span> <span class="fl">0.4175698</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2726758</code></pre>
 </div>
 </div>
-<p>Hetzelfde geldt voor categorische factorvariabelen. De “(Intercept)” waarde in <code>model_categorical</code> is de gemiddelde waarde voor de observaties in de referentiecategorie (hier: “Liberal Democracy”). De coefficiënten tonen hoe de andere groepen verschillen van dit gemiddelde. De gemiddelde 2020 democratiescore voor landen die in 2006 een “Electoral Democracy” waren is -0.32 schaalpunten lager dan de gemiddelde 2020 democratiescore voor de “Liberal Democracy” referentiegroep.</p>
+<p>Datzelfde geldt voor modellen met categorische factorvariabelen. De “(Intercept)”-waarde in <code>model_categorical</code> hierboven vertelt ons de gemiddelde waarde van de afhankelijke variabele onder observaties in de referentiegroep van de factorvariabele (hier: “Liberal Democracy”), terwijl de coëfficiënten voor de factorvariabele ons het verschil ten opzichte van deze gemiddelde score vertellen. De gemiddelde democratiescore van 2020 onder landen die in 2006 gecodeerd zijn als “Electoral Democracy” is bijvoorbeeld -0.32 schaalpunten lager dan de gemiddelde democratiescore van 2020 onder de landen uit de referentiegroep “Liberal Democracy”.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Typeregime2006_factor) <span class="sc">|&gt;</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span> </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Typeregime2006_factor) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_democracy =</span> <span class="fu">mean</span>(v2x_polyarchy, <span class="at">na.rm=</span>T)) <span class="sc">|&gt;</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Typeregime2006_factor mean_democracy
 1     Liberal democracy      0.7540423
@@ -649,18 +617,18 @@ Interpretatie
 3             Autocracy      0.2482683
 4                  &lt;NA&gt;      0.3777143</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gemiddelde Elec Democracy - gemiddelde in Lib Democracy</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4329811</span> <span class="sc">-</span> <span class="fl">0.7540423</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gem. in Elec Democracy - Gem. in Lib Democracy</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.4329811</span> <span class="sc">-</span> <span class="fl">0.7540423</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.3210612</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gemiddelde in Autocracy - gemiddelde in Lib Democracy</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2482683</span> <span class="sc">-</span> <span class="fl">0.7540423</span></span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gem. in Autocracy - Gem. in Lib Democracy</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fl">0.2482683</span> <span class="sc">-</span> <span class="fl">0.7540423</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.505774</code></pre>
 </div>
 </div>
-<p>Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Paragraaf 8.4</span></a> voor verdere informatie over hoe de resultaten te presenteren in taken en papers.</p>
+<p>Zie <a href="linear_08.html#sec-reporting-linear-regression" class="quarto-xref"><span>Section 10.4</span></a> voor hoe je deze waarden rapporteert in je opdrachten en in formele papers.</p>
 </div>
 </div>
 
@@ -669,9 +637,9 @@ Interpretatie
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>We gebruiken k-1 dummies, waarbij k = aantal categorieën. Als een categorische variabele 4 categorieën heeft (Bijvoorbeeld: Noorden, Westen, Zuiden en Oosten), dan gebruiken we (4-1=) 3 dummies.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Transformatie is niet nodig als de originele variabelen reeds opgeslaan zijn als factor in de dataset, maar misschien moet de referentiecategorie wel aangepast worden (zie verder).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Normaal ronden we af op 2 of 3 decimalen, maar hier tonen we de hele coëfficiënt zodat deze beter vergeleken kan worden met het verschil tussen de gemiddelden.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Specifiek nemen we k-1 dummy’s op, waarbij k = het aantal categorieën. Als de categorische variabele vier categorieën heeft (bijvoorbeeld: Noord, West, Zuid en Oost), dan nemen we drie dummyvariabelen op in het model. Als de variabele twee categorieën heeft (d.w.z. een binaire variabele), dan nemen we één dummyvariabele op in het model.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In sommige gevallen is de variabele in onze dataset al opgeslagen als factorvariabele, waardoor we deze eerste stap kunnen overslaan. Het kan echter nodig zijn om te veranderen welke categorie als referentiecategorie wordt gebruikt.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Normaal gesproken zouden we dit afronden op 2 of 3 decimalen, maar we laten hier de volledige coëfficiënt zien zodat je kunt zien hoe deze zich verhoudt tot het verschil in gemiddelden.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -863,12 +831,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Gekopieerd!");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Gekopieerd!");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1279,12 +1247,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./linear_01.html" class="pagination-link" aria-label="Relaties tussen Continue Variabelen">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./linear_03.html" class="pagination-link" aria-label="Statistische Significantie">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

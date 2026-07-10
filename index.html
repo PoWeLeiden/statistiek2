@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leila Demarest &amp; Joshua Robison">
+<meta name="dcterms.date" content="2026-07-10">
 
 <title>Statistische analyse en presentatie met R</title>
 <style>
@@ -65,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./part_linear.html" rel="next">
+<link href="./part_cleaning.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -91,17 +92,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Geen resultaten",
-    "search-matching-documents-text": "Gevonden documenten",
-    "search-copy-link-title": "Kopieer link om te zoeken",
-    "search-hide-matches-text": "Extra overeenkomsten verbergen",
-    "search-more-match-text": "meer overeenkomst in dit document",
-    "search-more-matches-text": "meer overeenkomsten in dit document",
-    "search-clear-button-title": "Wissen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuleren",
-    "search-submit-button-title": "Verzenden",
-    "search-label": "Zoeken"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -114,13 +115,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Voorwoord</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -134,13 +135,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Zoeken"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -153,59 +154,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <a href="./part_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datamanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_manage1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Datakennis en management</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manage2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Factorvariabelen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -214,45 +238,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,56 +285,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./common_errors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhoudsopgave</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#voorwoord" id="toc-voorwoord" class="nav-link active" data-scroll-target="#voorwoord">Voorwoord</a>
@@ -359,16 +383,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Auteur</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
              <p>Leila Demarest &amp; Joshua Robison </p>
           </div>
   </div>
     
     <div>
-    <div class="quarto-title-meta-heading">Publicatiedatum</div>
+    <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">3 oktober 2025</p>
+      <p class="date">July 10, 2026</p>
     </div>
   </div>
   
@@ -383,19 +407,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="voorwoord" class="level1 unnumbered">
 <h1 class="unnumbered">Voorwoord</h1>
 <p>Dit boek bevat het R-materiaal voor de cursus <em>Statistiek II</em>.</p>
-<p>We hebben het boek in drie delen verdeeld:</p>
-<ol type="1">
-<li><strong>Lineaire Statistische Modellen</strong>: Dit onderdeel richt zich op het verklaren van de variatie in een continue afhankelijke variabele met behulp van lineaire statische analyses, in het bijzonder de regressieanalyse.</li>
-<li><strong>Logistische Regressiemodellen</strong>: Dit onderdeel richt zich op het voorspellen van een binaire afhankelijke variabele met logistische regressieanalyse.</li>
-<li><strong>Interacties in Lineaire en Logistische Modellen</strong>: Dit onderdeel richt zich op het gebruik van interactietermen in zowel de lineaire als logistische regressie.</li>
-</ol>
-<p>De drie onderdelen presenteren de belangrijkste syntax om de aangeleerde analysemethoden uit te voeren. De syntax wordt stapsgewijs uitgelegd en de logica van de verschillende functies wordt toegelicht. We voorzien de syntax ook van bijkomende commentaar waar nodig (in tekst met grijze achtergrond of in commentaarvakjes die je ziet als je met je computermuis hierop staat). Een voorbeeld:</p>
+<p>We hebben het boek in vier delen verdeeld:</p>
+<p>1.<strong>Datamanagement</strong>: Dit onderdeel richt zich op de stappen die onderzoekers vaak moeten nemen om hun data voor te bereiden op analyse (“data cleaning”), waaronder het aanmaken van factorvariabelen.</p>
+<p>2. <strong>Lineaire Statistische Modellen</strong>: Dit onderdeel richt zich op het verklaren van de variatie in een continue afhankelijke variabele met behulp van lineaire statische analyses, in het bijzonder de regressieanalyse.</p>
+<p>3. <strong>Logistische Regressiemodellen</strong>: Dit onderdeel richt zich op het voorspellen van een binaire afhankelijke variabele met logistische regressieanalyse.</p>
+<p>4. <strong>Interacties in Lineaire en Logistische Modellen</strong>: Dit onderdeel richt zich op het gebruik van interactietermen in zowel de lineaire als logistische regressie.</p>
+<p>De vier onderdelen presenteren de belangrijkste syntax om de aangeleerde analysemethoden uit te voeren. De syntax wordt stapsgewijs uitgelegd en de logica van de verschillende functies wordt toegelicht. We voorzien de syntax ook van bijkomende commentaar waar nodig (in tekst met grijze achtergrond of in commentaarvakjes die je ziet als je met je computermuis hierop staat). Een voorbeeld:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages</span></span>
 <span id="annotated-cell-1-2"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)   <span class="co">#voor data management en grafieken</span></span>
 <span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Een linear regressiemodel</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> drat, <span class="at">data =</span> mtcars)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(mpg <span class="sc">~</span> drat, <span class="at">data =</span> mtcars)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
@@ -465,7 +488,7 @@ Waarschuwing!
 </section>
 <section id="overzicht-per-week" class="level2">
 <h2 class="anchored" data-anchor-id="overzicht-per-week">Overzicht per week</h2>
-<p>Voor elke week in de cursus moet je relevante hoofdstukken lezen. In 2025-2026 is dit:</p>
+<p>Voor elke week in de cursus moet je relevante hoofdstukken lezen. In 2026-2027 is dit:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -475,45 +498,45 @@ Waarschuwing!
 <thead>
 <tr class="header">
 <th>Week</th>
-<th>Sectie</th>
-<th>Hoofdstukken</th>
+<th>Section</th>
+<th>Chapters</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>1</td>
 <td>Lineaire Modellen</td>
-<td><a href="linear_01.html" class="quarto-xref"><span>1&nbsp; Relaties tussen Continue Variabelen</span></a> ; <a href="linear_08.html" class="quarto-xref"><span>8&nbsp; Rapporteren en Presenteren van Resultaten</span></a> (8.2 &amp; 8.3)</td>
+<td><a href="data_manage1.html" class="quarto-xref"><span>1&nbsp; Datakennis en management</span></a>; <a href="linear_01.html" class="quarto-xref"><span>3&nbsp; Relaties tussen Continue Variabelen</span></a> ; <a href="linear_08.html" class="quarto-xref"><span>10&nbsp; Rapporteren en Presenteren van Resultaten</span></a> (9.2 &amp; 9.3)</td>
 </tr>
 <tr class="even">
 <td>2</td>
 <td>Lineaire Modellen</td>
-<td><a href="linear_02.html" class="quarto-xref"><span>2&nbsp; Bivariate Regressie met Binaire en Categorische Predictoren</span></a> ; <a href="linear_03.html" class="quarto-xref"><span>3&nbsp; Statistische Significantie</span></a> ; <a href="linear_05.html" class="quarto-xref"><span>5&nbsp; Voorspellingen en Fouten</span></a> (5.1 &amp; 5.2) ; <a href="linear_08.html" class="quarto-xref"><span>8&nbsp; Rapporteren en Presenteren van Resultaten</span></a> (8.4)</td>
+<td><a href="data_manage2.html" class="quarto-xref"><span>2&nbsp; Factorvariabelen</span></a> ; <a href="linear_02.html" class="quarto-xref"><span>4&nbsp; Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></a> ; <a href="linear_03.html" class="quarto-xref"><span>5&nbsp; Statistische Significantie</span></a> ; <a href="linear_05.html" class="quarto-xref"><span>7&nbsp; Voorspellingen en Fouten</span></a> (6.1 &amp; 6.2) ; <a href="linear_08.html" class="quarto-xref"><span>10&nbsp; Rapporteren en Presenteren van Resultaten</span></a> (9.4)</td>
 </tr>
 <tr class="odd">
 <td>3</td>
 <td>Lineaire Modellen</td>
-<td><a href="linear_04.html" class="quarto-xref"><span>4&nbsp; Meervoudige Lineaire Regressie</span></a> ; <a href="linear_05.html" class="quarto-xref"><span>5&nbsp; Voorspellingen en Fouten</span></a> (5.3) ; <a href="linear_06.html" class="quarto-xref"><span>6&nbsp; Model Fit en Modellen Vergelijken</span></a> ; <a href="linear_08.html" class="quarto-xref"><span>8&nbsp; Rapporteren en Presenteren van Resultaten</span></a> (8.4 - 8.7)</td>
+<td><a href="linear_04.html" class="quarto-xref"><span>6&nbsp; Meervoudige Lineaire Regressie</span></a> ; <a href="linear_05.html" class="quarto-xref"><span>7&nbsp; Voorspellingen en Fouten</span></a> (6.3) ; <a href="linear_06.html" class="quarto-xref"><span>8&nbsp; Model Fit en Modellen Vergelijken</span></a> ; <a href="linear_08.html" class="quarto-xref"><span>10&nbsp; Rapporteren en Presenteren van Resultaten</span></a> (9.4 - 9.7)</td>
 </tr>
 <tr class="even">
 <td>4</td>
 <td>Lineaire Modellen</td>
-<td><a href="linear_07.html" class="quarto-xref"><span>7&nbsp; OLS Assumpties</span></a></td>
+<td><a href="linear_07.html" class="quarto-xref"><span>9&nbsp; OLS Assumpties</span></a></td>
 </tr>
 <tr class="odd">
 <td>5</td>
 <td>Logistische Regressie</td>
-<td><a href="logit_01.html" class="quarto-xref"><span>9&nbsp; Logistische Regressie &amp; Odds Ratios</span></a> ; <a href="logit_02.html" class="quarto-xref"><span>10&nbsp; Marginale Effecten</span></a> ; <a href="logit_03.html" class="quarto-xref"><span>11&nbsp; Voorspelde kansen</span></a> ; <a href="logit_06.html" class="quarto-xref"><span>14&nbsp; Rapporteren en Presenteren van Resultaten</span></a></td>
+<td><a href="logit_01.html" class="quarto-xref"><span>11&nbsp; Logistische Regressie &amp; Odds Ratios</span></a> ; <a href="logit_02.html" class="quarto-xref"><span>12&nbsp; Marginale Effecten</span></a> ; <a href="logit_03.html" class="quarto-xref"><span>13&nbsp; Voorspelde kansen</span></a> ; <a href="logit_06.html" class="quarto-xref"><span>16&nbsp; Rapporteren en Presenteren van Resultaten</span></a></td>
 </tr>
 <tr class="even">
 <td>6</td>
 <td>Logistische Regressie</td>
-<td><a href="logit_04.html" class="quarto-xref"><span>12&nbsp; Model Fit en Modellen Vergelijken</span></a> ; <a href="logit_05.html" class="quarto-xref"><span>13&nbsp; Assumpties van Logistische Regressie</span></a></td>
+<td><a href="logit_04.html" class="quarto-xref"><span>14&nbsp; Model Fit en Modellen Vergelijken</span></a> ; <a href="logit_05.html" class="quarto-xref"><span>15&nbsp; Assumpties van Logistische Regressie</span></a></td>
 </tr>
 <tr class="odd">
 <td>7</td>
 <td>Interacties</td>
-<td><a href="interaction_01.html" class="quarto-xref"><span>15&nbsp; Interacties in het Regressiemodel</span></a> ; <a href="interaction_02.html" class="quarto-xref"><span>16&nbsp; Marginale Effecten in Interactiemodellen</span></a> ; <a href="interaction_03.html" class="quarto-xref"><span>17&nbsp; Voorspelde Waarden van Interactiemodellen</span></a></td>
+<td><a href="interaction_01.html" class="quarto-xref"><span>17&nbsp; Interacties in het Regressiemodel</span></a> ; <a href="interaction_02.html" class="quarto-xref"><span>18&nbsp; Marginale Effecten in Interactiemodellen</span></a> ; <a href="interaction_03.html" class="quarto-xref"><span>19&nbsp; Voorspelde Waarden van Interactiemodellen</span></a></td>
 </tr>
 </tbody>
 </table>
@@ -710,12 +733,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Gekopieerd!");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Gekopieerd!");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1127,8 +1150,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./part_linear.html" class="pagination-link" aria-label="Lineaire Statistische Modellen">
-        <span class="nav-page-text">Lineaire Statistische Modellen</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./part_cleaning.html" class="pagination-link" aria-label="Datamanagement">
+        <span class="nav-page-text">Datamanagement</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

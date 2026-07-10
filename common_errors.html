@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.42">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Bijlage A — Veelgemaakte fouten in R – Statistische analyse en presentatie met R</title>
+<title>Appendix A — Veelgemaakte fouten – Statistische analyse en presentatie met R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -91,17 +91,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Geen resultaten",
-    "search-matching-documents-text": "Gevonden documenten",
-    "search-copy-link-title": "Kopieer link om te zoeken",
-    "search-hide-matches-text": "Extra overeenkomsten verbergen",
-    "search-more-match-text": "meer overeenkomst in dit document",
-    "search-more-matches-text": "meer overeenkomsten in dit document",
-    "search-clear-button-title": "Wissen",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Annuleren",
-    "search-submit-button-title": "Verzenden",
-    "search-label": "Zoeken"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -114,13 +114,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./common_errors.html">Appendices</a></li><li class="breadcrumb-item"><a href="./common_errors.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Schakel zijbalknavigatie" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./common_errors.html">Appendices</a></li><li class="breadcrumb-item"><a href="./common_errors.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Zoeken" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -134,13 +134,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Statistische analyse en presentatie met R</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Schakel donkere modus"><i class="bi"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Zoeken"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -153,59 +153,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lineaire Statistische Modellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+            <a href="./part_cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datamanagement</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data_manage1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Datakennis en management</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data_manage2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Factorvariabelen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_linear.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lineaire Statistische Modellen</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./linear_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Relaties tussen Continue Variabelen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire en Categorische Predictoren</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Bivariate Regressie met Binaire &amp; Categorische Predictoren</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Statistische Significantie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Meervoudige Lineaire Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Voorspellingen en Fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">OLS Assumpties</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./linear_08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -214,45 +237,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_logistic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Logistische Regressie &amp; Odds Ratios</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Marginale Effecten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Voorspelde kansen</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Model Fit en Modellen Vergelijken</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Assumpties van Logistische Regressie</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./logit_06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Rapporteren en Presenteren van Resultaten</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,56 +284,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="./part_interactions.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interacties in Lineaire en Logistische Regressiemodellen</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Schakel sectie">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./interaction_01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Interacties in het Regressiemodel</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Marginale Effecten in Interactiemodellen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./interaction_03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./common_errors.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></span></a>
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./package_overview.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./Formulas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formules</span></span></a>
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Formulas</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -334,19 +357,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Inhoudsopgave</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#your-r-assignment-file-.rmd-wont-knit-to-an-html-file" id="toc-your-r-assignment-file-.rmd-wont-knit-to-an-html-file" class="nav-link active" data-scroll-target="#your-r-assignment-file-.rmd-wont-knit-to-an-html-file"><span class="header-section-number">A.1</span> Your R assignment file (.rmd) won’t knit to an html file</a>
+  <li><a href="#je-r-opdrachtbestand-.rmd-wil-niet-knitten-naar-een-html-bestand" id="toc-je-r-opdrachtbestand-.rmd-wil-niet-knitten-naar-een-html-bestand" class="nav-link active" data-scroll-target="#je-r-opdrachtbestand-.rmd-wil-niet-knitten-naar-een-html-bestand"><span class="header-section-number">A.1</span> Je R-opdrachtbestand (.rmd) wil niet knitten naar een html-bestand</a>
   <ul class="collapse">
-  <li><a href="#incorrectly-specifying-the-yaml" id="toc-incorrectly-specifying-the-yaml" class="nav-link" data-scroll-target="#incorrectly-specifying-the-yaml"><span class="header-section-number">A.1.1</span> Incorrectly Specifying the “yaml”</a></li>
-  <li><a href="#sec-error-import" id="toc-sec-error-import" class="nav-link" data-scroll-target="#sec-error-import"><span class="header-section-number">A.1.2</span> Not Properly Importing Your Data</a></li>
-  <li><a href="#not-loading-libraries-within-the-.rmd-file" id="toc-not-loading-libraries-within-the-.rmd-file" class="nav-link" data-scroll-target="#not-loading-libraries-within-the-.rmd-file"><span class="header-section-number">A.1.3</span> Not loading libraries within the .rmd file</a></li>
-  <li><a href="#librarypackage-conflicts" id="toc-librarypackage-conflicts" class="nav-link" data-scroll-target="#librarypackage-conflicts"><span class="header-section-number">A.1.4</span> Library/Package Conflicts</a></li>
+  <li><a href="#de-yaml-onjuist-gespecificeerd" id="toc-de-yaml-onjuist-gespecificeerd" class="nav-link" data-scroll-target="#de-yaml-onjuist-gespecificeerd"><span class="header-section-number">A.1.1</span> De “yaml” onjuist gespecificeerd</a></li>
+  <li><a href="#sec-error-import" id="toc-sec-error-import" class="nav-link" data-scroll-target="#sec-error-import"><span class="header-section-number">A.1.2</span> Je data niet correct importeren</a></li>
+  <li><a href="#libraries-niet-laden-binnen-het-.rmd-bestand" id="toc-libraries-niet-laden-binnen-het-.rmd-bestand" class="nav-link" data-scroll-target="#libraries-niet-laden-binnen-het-.rmd-bestand"><span class="header-section-number">A.1.3</span> Libraries niet laden binnen het .rmd-bestand</a></li>
+  <li><a href="#conflicten-tussen-librariespackages" id="toc-conflicten-tussen-librariespackages" class="nav-link" data-scroll-target="#conflicten-tussen-librariespackages"><span class="header-section-number">A.1.4</span> Conflicten tussen libraries/packages</a></li>
   </ul></li>
-  <li><a href="#sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" id="toc-sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" class="nav-link" data-scroll-target="#sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models"><span class="header-section-number">A.2</span> Not seeing the right number of categories for factor variables in regression models</a></li>
-  <li><a href="#sec-glm-factor" id="toc-sec-glm-factor" class="nav-link" data-scroll-target="#sec-glm-factor"><span class="header-section-number">A.3</span> “Error in glm.fit…NA/NAN/Inf in ‘y’” and “not meaningful for factors”</a></li>
-  <li><a href="#sec-slopes-error" id="toc-sec-slopes-error" class="nav-link" data-scroll-target="#sec-slopes-error"><span class="header-section-number">A.4</span> “Unable to compute predicted values with this model”</a></li>
+  <li><a href="#sec-contrasts-can-be-applied-only-to-factors-with-2-or-more-levels" id="toc-sec-contrasts-can-be-applied-only-to-factors-with-2-or-more-levels" class="nav-link" data-scroll-target="#sec-contrasts-can-be-applied-only-to-factors-with-2-or-more-levels"><span class="header-section-number">A.2</span> “contrasts can be applied only to factors with 2 or more levels”</a></li>
+  <li><a href="#sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" id="toc-sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" class="nav-link" data-scroll-target="#sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models"><span class="header-section-number">A.3</span> Niet het juiste aantal categorieën zien voor factorvariabelen in regressiemodellen</a></li>
+  <li><a href="#sec-glm-factor" id="toc-sec-glm-factor" class="nav-link" data-scroll-target="#sec-glm-factor"><span class="header-section-number">A.4</span> “Error in glm.fit…NA/NAN/Inf in ‘y’” en “not meaningful for factors”</a></li>
   <li><a href="#sec-linetype-error" id="toc-sec-linetype-error" class="nav-link" data-scroll-target="#sec-linetype-error"><span class="header-section-number">A.5</span> “A continuous variable cannot be mapped to the linetype aesthetic”</a></li>
   </ul>
 </nav>
@@ -354,9 +377,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./common_errors.html">Appendices</a></li><li class="breadcrumb-item"><a href="./common_errors.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten in R</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./common_errors.html">Appendices</a></li><li class="breadcrumb-item"><a href="./common_errors.html"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Veelgemaakte fouten</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-common-errors" class="quarto-section-identifier">Bijlage A — Veelgemaakte fouten in R</span></h1>
+<h1 class="title"><span id="sec-common-errors" class="quarto-section-identifier">Appendix A — Veelgemaakte fouten</span></h1>
 </div>
 
 
@@ -373,245 +396,344 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="callout callout-style-default callout-note callout-titled">
+<p>Deze appendix documenteert een aantal van de meest voorkomende fouten die kunnen optreden bij het werken met R in Statistiek II. Dit document is een aanvulling op een vergelijkbaar document voor de bewerkingen die zijn geïntroduceerd in Statistiek I (zie <a href="https://poweleiden.github.io/statistics1/common_errors.html" target="_blank">hier</a>)</p>
+<p>Als je niet zeker weet waar je moet zoeken, probeer dan in dit document te zoeken (met CTRL/CMD + F) op de foutmelding die je krijgt. Als je jouw specifieke fout niet in dit document kunt vinden, kun je de foutmelding die R geeft googelen, omdat dit vaak een mogelijke oplossing oplevert.</p>
+<section id="je-r-opdrachtbestand-.rmd-wil-niet-knitten-naar-een-html-bestand" class="level2" data-number="A.1">
+<h2 data-number="A.1" class="anchored" data-anchor-id="je-r-opdrachtbestand-.rmd-wil-niet-knitten-naar-een-html-bestand"><span class="header-section-number">A.1</span> Je R-opdrachtbestand (.rmd) wil niet knitten naar een html-bestand</h2>
+<div class="callout callout-style-default callout-warning callout-titled" title="Het probleem">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Output uitleg
+Het probleem
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Dit document wordt regelmatig bijgewerkt op basis van feedback van studenten uit zowel Leiden als Den Haag, en is daarom vooralsnog alleen in het Engels beschikbaar.</p>
+<p>Je probeert je opdracht te knitten en krijgt een foutmelding zoals “No such file or directory”; meer algemeen: je kunt niet knitten naar een html</p>
 </div>
 </div>
-<p>This Appendix documents some of the most common errors that might arise when working with R in Statistics II. This document complements a similar one available for the operations introduced in Statistics I (see <a href="https://poweleiden.github.io/statistics1/common_errors.html" target="_blank">here</a>)</p>
-<p>If you are unsure where to look, try to search this document for any error message you get (using CTRL/CMD + F). If you cannot find your particular error in this document, then you can Google the error message that R produces as this can often turn up a potential solution.</p>
-<section id="your-r-assignment-file-.rmd-wont-knit-to-an-html-file" class="level2" data-number="A.1">
-<h2 data-number="A.1" class="anchored" data-anchor-id="your-r-assignment-file-.rmd-wont-knit-to-an-html-file"><span class="header-section-number">A.1</span> Your R assignment file (.rmd) won’t knit to an html file</h2>
-<div class="callout callout-style-default callout-warning callout-titled" title="The Problem">
+<p>Het scenario: je bent succesvol aan het werken in het .rmd-bestand dat je hebt gekregen voor een R-opdracht. Echter, je krijgt een foutmelding zoals “No such file or directory” wanneer je het bestand probeert te “knitten” naar een html (d.w.z. R vragen om het .rmd-bestand om te zetten naar een html-bestand). Meer algemeen: alles werkt terwijl je in R Studio aan het werk bent, totdat je het uiteindelijke bestand probeert te knitten.</p>
+<p>Er zijn verschillende mogelijke oorzaken voor dit probleem. Ze hebben echter mogelijk een gemeenschappelijke basis: wanneer je R vraagt om een bestand te “knitten”, begint R in principe met een schone lei en werkt het <em>van boven naar onder</em> door je .rmd-bestand. Met “schone lei” bedoelen we dat R zich zal gedragen alsof je geen libraries hebt geladen, geen data hebt geïmporteerd of regressieresultaten (etc.) hebt opgeslagen in de Environment, en dat het alle syntax die je hebt geschreven om deze dingen te doen, opnieuw gaat uitvoeren. Hier bespreken we drie manieren waarop dit het ‘knit’-proces kan laten vastlopen. Eerst geven we echter een algemeen advies:</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Advies">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Problem
+Advies
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are trying to knit your assignment and you receive an error such as “No such file or directory”; more generally, you cannot knit to an html</p>
+<p>Knit terwijl je werkt!</p>
 </div>
 </div>
-<p>The scenario: you have been successfully working through an R assignment in the .rmd file that was provided to you. However, you receive an error message such as “No such file or directory” when you try and “knit” the file to an html (i.e., ask R to convert the .rmd file into an html file). More generally, everything works while working in R Studio until you try to knit the final file.</p>
-<p>There are a variety of potential causes for this problem. They perhaps share a common root though: when you ask R to “knit” a file, R will essentially from a blank slate and begin working <em>downwards</em> through your .rmd file. By blank slate, we mean that R will act as if you have not loaded any libraries or imported data or stored regression results (etc.) in the Environment and start running all the syntax that you have created to do these things. Here we’ll discuss three ways this could short circuit the ‘knitting’ process. First, though, we’ll note a general piece of advice:</p>
-<div class="callout callout-style-default callout-important callout-titled" title="Advice">
+<p>Als je eerder problemen hebt gehad met het knitten van een document, raden we aan om “te knitten terwijl je werkt”. Concreet: knit je .rmd-bestand (zet het om naar een html) na elk belangrijk onderdeel (bijv. na het laden van packages en je data, na vraag 1, na vraag 2…). Dit kan je helpen om sneller het specifieke probleem in je bestand te vinden en op te lossen. Als je bijvoorbeeld je document succesvol kunt knitten na de eerste drie vragen van een opdracht, maar een probleem krijgt na de vierde, dan betekent dit dat er specifiek iets met de vierde vraag is dat het proces ontregelt. Dit kan je helpen onnodige tijd en moeite te besparen die je anders zou steken in het doorwerken van de eerdere delen van het bestand.</p>
+<section id="de-yaml-onjuist-gespecificeerd" class="level3" data-number="A.1.1">
+<h3 data-number="A.1.1" class="anchored" data-anchor-id="de-yaml-onjuist-gespecificeerd"><span class="header-section-number">A.1.1</span> De “yaml” onjuist gespecificeerd</h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="De oorzaak">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Advice
+De oorzaak
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Knit as you go!</p>
+<p>De “yaml” is onjuist gespecificeerd</p>
 </div>
 </div>
-<p>If you have had difficulties knitting a document before, we suggest “knitting as you go”. Specifically, knit your .rmd file (convert it into an html) after every major section (e.g., after loading packages and your data, after question 1, after question 2…). Doing so may enable you to more quickly find, and troubleshoot, the specific problem affecting your file. For instance, if you can successfully knit your document after the first three questions of an assignment but have a problem after the fourth, then this implies that it is something specifically about the fourth question that is derailing the process. This can help you avoid spending unnecessary time and effort working through the earlier portions of the file.</p>
-<section id="incorrectly-specifying-the-yaml" class="level3" data-number="A.1.1">
-<h3 data-number="A.1.1" class="anchored" data-anchor-id="incorrectly-specifying-the-yaml"><span class="header-section-number">A.1.1</span> Incorrectly Specifying the “yaml”</h3>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-The Cause
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The “yaml” has been incorrectly specified</p>
-</div>
-</div>
-<p>All .rmd documents begin with something called the “yaml”. This is the portion of the document that lays out the basic attributes of the file you are trying to create: its title, author information, and other basic formatting details. Here is an example:</p>
+<p>Alle .rmd-documenten beginnen met iets dat de “yaml” wordt genoemd. Dit is het gedeelte van het document waarin de basiskenmerken van het bestand dat je wilt maken worden vastgelegd: de titel, informatie over de auteur, en andere basale opmaakdetails. Hier is een voorbeeld:</p>
 <p><img src="figures/yaml_1.png" class="img-fluid"></p>
-<p>The “yaml” is the first thing that R deals with when knitting your file, so if there is a mistake here then the file won’t be produced. We have seen three types of error in student submissions on this front:</p>
+<p>De “yaml” is het eerste waarmee R aan de slag gaat bij het knitten van je bestand, dus als hier een fout in staat, zal het bestand niet worden aangemaakt. We hebben drie soorten fouten gezien in inleveringen van studenten op dit vlak:</p>
 <ul>
-<li><p>Removing quotation marks: the title, author, and date information should all be enclosed within quotation marks. Removing them will lead to an error.</p></li>
-<li><p>Adding information in the “sys.date()” area: “r sys.date()” is a specific snippet of syntax that tells R to use the date on your computer as the date in the html that is being produced. This general syntax is nice because it means we do not need to constantly update this line if we are working with a file over time. However, if you add information here (e.g., “r sys.date(27-09-2023”), then R will grind to a halt because this is not how the syntax works. In fact, we had to take special care formatting this bullet point because a mistake with writing out the “sys.date” information initially prevented this file from knitting to an html!</p></li>
-<li><p>Adding additional options: For instance, we have seen students add something like “pdf: default” to the format area. R can knit to pdf files, but this requires some additional packages be installed to handle the conversion from an .rmd file to a .pdf file. Creating .pdf files can also be a little finicky as well. Adding this information can thus produce errors.</p></li>
+<li><p>Aanhalingstekens verwijderen: de titel-, auteur- en datuminformatie moeten allemaal tussen aanhalingstekens staan. Als je deze verwijdert, leidt dit tot een fout.</p></li>
+<li><p>Informatie toevoegen in het “sys.date()”-gedeelte: “r sys.date()” is een specifiek stukje syntax dat R vertelt om de datum op jouw computer te gebruiken als de datum in de html die wordt gemaakt. Deze algemene syntax is handig omdat we deze regel niet steeds hoeven aan te passen als we langere tijd met een bestand werken. Als je hier echter informatie toevoegt (bijv. “r sys.date(27-09-2023”), loopt R vast omdat de syntax niet zo werkt. We moesten dit specifieke opsommingspunt zelfs extra voorzichtig opmaken, omdat een fout bij het uitschrijven van de “sys.date”-informatie er in eerste instantie voor zorgde dat dit bestand niet naar html kon worden geknit!</p></li>
+<li><p>Extra opties toevoegen: We hebben bijvoorbeeld gezien dat studenten iets als “pdf: default” toevoegen aan het format-gedeelte. R kan knitten naar pdf-bestanden, maar dit vereist dat er extra packages geïnstalleerd zijn om de omzetting van een .rmd-bestand naar een .pdf-bestand te verwerken. Het aanmaken van .pdf-bestanden kan ook wat lastig zijn. Het toevoegen van deze informatie kan dus tot fouten leiden.</p></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled" title="The Solution">
+<div class="callout callout-style-default callout-note callout-titled" title="De oplossing">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Solution
+De oplossing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Uh…don’t do those things!</p>
+<p>Doe… die dingen dus niet!</p>
 </div>
 </div>
-<p>More specifically, you should only make one change to the “yaml” area - you should update the author information to include your name and your student number while making sure that this information is provided in quotation marks. Everything else should be left as is.</p>
-<p>As an example:</p>
+<p>Concreter: je zou maar één wijziging moeten aanbrengen in het “yaml”-gedeelte - je moet de auteursinformatie bijwerken met je naam en studentnummer, en er daarbij op letten dat deze informatie tussen aanhalingstekens staat. Al het andere moet ongewijzigd blijven.</p>
+<p>Een voorbeeld:</p>
 <p><img src="figures/yaml_2.png" class="img-fluid"></p>
 </section>
 <section id="sec-error-import" class="level3" data-number="A.1.2">
-<h3 data-number="A.1.2" class="anchored" data-anchor-id="sec-error-import"><span class="header-section-number">A.1.2</span> Not Properly Importing Your Data</h3>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
+<h3 data-number="A.1.2" class="anchored" data-anchor-id="sec-error-import"><span class="header-section-number">A.1.2</span> Je data niet correct importeren</h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="De oorzaak">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Cause
+De oorzaak
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You are manually loading data via the Files window rather than using syntax</p>
+<p>Je laadt data handmatig via het Files-venster in plaats van via syntax</p>
 </div>
 </div>
-<p>We load data into the R Environment, thereby enabling us to work with it, via syntax. Specifically, we use the <code>import()</code> function from the <code>rio</code> package:</p>
+<p>We laden data in de R Environment, waardoor we ermee kunnen werken, via syntax. Concreet gebruiken we de <code>import()</code> functie uit de <code>rio</code> package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ess <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ess_nl.sav"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ess <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ess_nl.sav"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We have seen some students take a different, and worse, route to this same end. Specifically, there is a “Files” window in R Studio that is typically presented in the bottom/right of the R Studio window, as so:</p>
+<p>We hebben gezien dat sommige studenten een andere, en minder goede, route naar hetzelfde doel nemen. Er is namelijk een “Files”-venster in R Studio dat doorgaans rechtsonder in het R Studio-venster wordt weergegeven, zo:</p>
 <p><img src="figures/files.png" class="img-fluid"></p>
-<p>Here we can see that there are some data files within the working directory containing this .rmd file (e.g., “ess_nl.sav” or “demdata.rds”). We may be able to load this data by double clicking on the file and using the “Import Dataset” option that pops up. However, this is a <strong>bad</strong> idea. Remember that R begins working <em>downwards</em> within your .rmd file as it tries to knit it to an html. If you take this route to loading the data, then R will move through the yaml and fail to find the necessary syntax to load the <code>rio</code> package or to load your data via <code>import()</code>. It won’t know that you have loaded the file manually because it is, per above, working in a type of blank slate environment. This is will almost certainly lead to lots of errors as R works through your file because you will be asking it to do things with data that it doesn’t know exists since you are not including the necessary information within the .rmd file itself.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="The Solution">
+<p>Hier zien we dat er een aantal databestanden staan binnen de working directory die dit .rmd-bestand bevat (bijv. “ess_nl.sav” of “demdata.rds”). We kunnen deze data mogelijk laden door op het bestand te dubbelklikken en de optie “Import Dataset” te gebruiken die dan verschijnt. Dit is echter een <strong>slecht</strong> idee. Denk erom dat R <em>van boven naar onder</em> door je .rmd-bestand werkt terwijl het proberen te knitten naar een html. Als je deze route neemt om je data te laden, dan zal R door de yaml heen bewegen en de nodige syntax om de <code>rio</code>-package te laden of om je data via <code>import()</code> te laden, niet vinden. Het zal niet weten dat je het bestand handmatig hebt geladen, omdat het, zoals hierboven besproken, werkt in een soort schone-lei-omgeving. Dit leidt vrijwel zeker tot allerlei fouten terwijl R door je bestand werkt, omdat je het vraagt om dingen te doen met data waarvan het niet weet dat deze bestaat, omdat je de benodigde informatie niet in het .rmd-bestand zelf hebt opgenomen.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="De oplossing">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Solution
+De oplossing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Properly load your data.</p>
+<p>Laad je data op de juiste manier.</p>
 </div>
 </div>
-<p>The solution is simple: use the appropriate syntax to load your data.</p>
+<p>De oplossing is simpel: gebruik de juiste syntax om je data te laden.</p>
 </section>
-<section id="not-loading-libraries-within-the-.rmd-file" class="level3" data-number="A.1.3">
-<h3 data-number="A.1.3" class="anchored" data-anchor-id="not-loading-libraries-within-the-.rmd-file"><span class="header-section-number">A.1.3</span> Not loading libraries within the .rmd file</h3>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Problem">
+<section id="libraries-niet-laden-binnen-het-.rmd-bestand" class="level3" data-number="A.1.3">
+<h3 data-number="A.1.3" class="anchored" data-anchor-id="libraries-niet-laden-binnen-het-.rmd-bestand"><span class="header-section-number">A.1.3</span> Libraries niet laden binnen het .rmd-bestand</h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="Het probleem">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Problem
+Het probleem
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Performing operations outside of the .rmd file that are required for your analyses</p>
+<p>Bewerkingen uitvoeren buiten het .rmd-bestand die nodig zijn voor je analyses</p>
 </div>
 </div>
-<p>This is a more general version of the previous issue. For instance, perhaps you have loaded the <code>rio</code> library and correctly imported your data via syntax … just not in the .rmd file (e.g., you may have entered these commands directly in the Console portion of R Studio or perhaps have run them from within an R Script that is separate from your .rmd file). The same problem would emerge: <em>you</em> would have access to the libraries and functions in question to work with while completing your assignment, but <em>R</em> <em>wouldn’t</em> when it started to knit your document because it’s not in the set of commands you’re directly sending it.</p>
-<p>One tip off here may be in the error message that R provides you. Consider the following error message taken from a student’s error-prone .rmd file last year:</p>
+<p>Dit is een algemenere versie van het vorige probleem. Misschien heb je bijvoorbeeld de <code>rio</code>-library geladen en je data correct geïmporteerd via syntax… maar gewoon niet in het .rmd-bestand (bijv. je hebt deze commando’s mogelijk direct ingevoerd in het Console-gedeelte van R Studio, of je hebt ze uitgevoerd vanuit een R Script dat los staat van je .rmd-bestand). Hetzelfde probleem zou dan ontstaan: <em>jij</em> zou toegang hebben tot de libraries en functies in kwestie om mee te werken tijdens het maken van je opdracht, maar <em>R</em> zou dat <em>niet</em> hebben wanneer het je document begint te knitten, omdat het niet in de set commando’s staat die je er rechtstreeks naartoe stuurt.</p>
+<p>Een aanwijzing hiervoor kan te vinden zijn in de foutmelding die R je geeft. Bekijk de volgende foutmelding, overgenomen uit een foutgevoelig .rmd-bestand van een student van vorig jaar:</p>
 <p><img src="figures/error.png" class="img-fluid"></p>
-<p>In this instance, the student is running into an issue with knitting. R provides us with information about the specific input that is causing a problem (“Error in import(….)”) and the specific problem (“could not find function ‘import’”). One way this error could emerge is if <code>rio</code> were loaded <em>outside</em> of the .rmd file (that is: the .rmd file does not contain <code>library(rio)</code> to load the library for use) such that R will have no idea where to find this command. (Another potential explanation for this error is below.)</p>
-<div class="callout callout-style-default callout-note callout-titled" title="The Solution">
+<p>In dit geval loopt de student tegen een probleem aan bij het knitten. R geeft ons informatie over de specifieke input die het probleem veroorzaakt (“Error in import(….)”) en het specifieke probleem (“could not find function ‘import’”). Deze fout kan bijvoorbeeld ontstaan als <code>rio</code> <em>buiten</em> het .rmd-bestand is geladen (dat wil zeggen: het .rmd-bestand bevat geen <code>library(rio)</code> om de library te laden voor gebruik), zodat R geen idee heeft waar het dit commando kan vinden. (Een andere mogelijke verklaring voor deze fout staat hieronder.)</p>
+<div class="callout callout-style-default callout-note callout-titled" title="De oplossing">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Solution
+De oplossing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Keep all your steps in the same .rmd file</p>
+<p>Houd al je stappen in hetzelfde .rmd-bestand</p>
 </div>
 </div>
-<p>This is a type of problem that can readily emerge, but also one that can be readily fixed: make sure you have included all of the relevant syntax in the .rmd file.</p>
+<p>Dit is een type probleem dat gemakkelijk kan ontstaan, maar ook gemakkelijk kan worden opgelost: zorg ervoor dat je alle relevante syntax hebt opgenomen in het .rmd-bestand.</p>
 </section>
-<section id="librarypackage-conflicts" class="level3" data-number="A.1.4">
-<h3 data-number="A.1.4" class="anchored" data-anchor-id="librarypackage-conflicts"><span class="header-section-number">A.1.4</span> Library/Package Conflicts</h3>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
+<section id="conflicten-tussen-librariespackages" class="level3" data-number="A.1.4">
+<h3 data-number="A.1.4" class="anchored" data-anchor-id="conflicten-tussen-librariespackages"><span class="header-section-number">A.1.4</span> Conflicten tussen libraries/packages</h3>
+<div class="callout callout-style-default callout-tip callout-titled" title="De oorzaak">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Cause
+De oorzaak
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Two or more R libraries conflict with one another and have been loaded in such a way that this grinds R to a halt; packages loaded in an order that creates issues</p>
+<p>Twee of meer R-libraries conflicteren met elkaar en zijn zodanig geladen dat dit R doet vastlopen; packages zijn in een volgorde geladen die problemen veroorzaakt</p>
 </div>
 </div>
-<p>R libraries may sometimes feature identically named commands (e.g., both the <code>tidyverse</code>/<code>dplyr</code> and <code>car</code> libraries contain a function named <code>recode()</code>). In such instances, R will use the function from the library loaded most recently/last. This can create problems down the line; see <strong>SECTION</strong> for more on this particular conflict.</p>
-<p>Another way this could emerge is if the syntax for loading the library and syntax for using it are mis-ordered. This, for instance, would lead to an error:</p>
+<p>R-libraries kunnen soms commando’s bevatten met identieke namen (bijv. zowel de <code>tidyverse</code>/<code>dplyr</code> als de <code>car</code> library bevatten een functie genaamd <code>recode()</code>). In zulke gevallen gebruikt R de functie uit de library die het meest recent/laatst is geladen. Dit kan later problemen veroorzaken; zie <a href="linear_07.html" class="quarto-xref"><span>Chapter 9</span></a> voor meer over dit specifieke conflict.</p>
+<p>Een andere manier waarop dit kan ontstaan, is wanneer de syntax voor het laden van de library en de syntax voor het gebruiken ervan in de verkeerde volgorde staan. Dit zou bijvoorbeeld tot een fout leiden:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in import("demdata.rds"): could not find function "import"</code></pre>
+<pre><code>Error in `import()`:
+! could not find function "import"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'rio' was built under R version 4.4.3</code></pre>
+<pre><code>Warning: package 'rio' was built under R version 4.5.3</code></pre>
 </div>
 </div>
-<p>R would try and use the <code>import</code> function here, but an error would emerge because the library from which this command originates has not been loaded at that point and, hence, R will not know how to act.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="The Solution">
+<p>R zou hier de <code>import</code>-functie proberen te gebruiken, maar er zou een foutmelding ontstaan omdat de library waaruit dit commando komt op dat moment nog niet is geladen, waardoor R niet weet hoe te handelen.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="De oplossing">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Solution
+De oplossing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Load relevant libraries at the start of the R document and pay attention to potential conflicts</p>
+<p>Laad relevante libraries aan het begin van het R-document en let op mogelijke conflicten</p>
 </div>
 </div>
-<p>We recommend you begin your assignment by reading it in full to understand all of the steps that you will need to accomplish and then loading all of the relevant libraries at the start of the document so that R will know what it has accessible to use in later portions. This should be done in a way that does not introduce conflicts. Here we note two particular sources of conflict, both with the <code>tidyverse</code> library:</p>
+<p>We raden aan om je opdracht te beginnen door deze volledig door te lezen, zodat je alle stappen begrijpt die je moet uitvoeren, en vervolgens alle relevante libraries aan het begin van het document te laden, zodat R weet wat het later in het document tot zijn beschikking heeft. Dit moet op zo’n manier gebeuren dat er geen conflicten ontstaan. Hier noemen we twee specifieke bronnen van conflict, beide met de <code>tidyverse</code>-library:</p>
 <ul>
 <li><code>expss</code></li>
 <li><code>car</code></li>
 </ul>
-<p>We recommend loading these libraries <em>before</em> loading the <code>tidyverse</code> library to avoid conflicts (or, if necessary, taking one of the other strategies for avoiding conflict discussed in <strong>SECTION</strong>).</p>
+<p>We raden aan om deze libraries te laden <em>vóór</em> het laden van de <code>tidyverse</code>-library om conflicten te voorkomen (of, indien nodig, een van de andere strategieën toe te passen om conflicten te vermijden die worden besproken in <a href="linear_07.html" class="quarto-xref"><span>Chapter 9</span></a>).</p>
 </section>
 </section>
-<section id="sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" class="level2" data-number="A.2">
-<h2 data-number="A.2" class="anchored" data-anchor-id="sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models"><span class="header-section-number">A.2</span> Not seeing the right number of categories for factor variables in regression models</h2>
-<div class="callout callout-style-default callout-warning callout-titled" title="The Problem">
+<section id="sec-contrasts-can-be-applied-only-to-factors-with-2-or-more-levels" class="level2" data-number="A.2">
+<h2 data-number="A.2" class="anchored" data-anchor-id="sec-contrasts-can-be-applied-only-to-factors-with-2-or-more-levels"><span class="header-section-number">A.2</span> “contrasts can be applied only to factors with 2 or more levels”</h2>
+<div class="callout callout-style-default callout-warning callout-titled" title="Het probleem">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Problem
+Het probleem
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You tried to convert a categorical variable into a factor variable but only one coefficient is present in the regression output</p>
+<p>Je probeert een regressiemodel uit te voeren met een binaire en/of categorische predictorvariabele en krijgt een foutmelding: “Error in <code>contrasts&lt;-</code>(<code>*tmp*</code>, value = contr.funs[1 + isOF[nn]]) : contrasts can be applied only to factors with 2 or more levels”</p>
 </div>
 </div>
-<p>We include categorical variables in a regression model by first converting the variable into a factor variable. R will then include the appropriate number of indicators in the model for us. For instance, if we have a categorical variable with four levels, then R will include three indicators in the model if we successfully convert the variable into a factor variable.</p>
-<p>Suppose we have a numeric variable in our dataset corresponding to the gross domestic product in a country where countries are sorted into one of three groups: “low” GDP (value of 1), medium GDP (value of 2), and “high” GDP (value of 3). We would include this variable in our model by converting it into a factor variable. We should then see two indicators for this variable in the model (with the left out group acting as the reference category). For instance:</p>
+<p>We nemen binaire/categorische variabelen op in een regressiemodel door die variabele eerst om te zetten naar een factorvariabele. R neemt vervolgens automatisch het juiste aantal indicatoren voor ons op in het model. Hier is een voorbeeld waarin we proberen het niveau van kiezersopkomst in een land (<code>vt_parl</code>) te voorspellen op basis van of het land in het jaar 2007 een democratie of autocratie was (<code>demo2007</code>). We krijgen hier een foutmelding die voorkomt dat het model kan worden uitgevoerd.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution of Variable</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dta<span class="sc">$</span>gdp_3cat)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Het model uitvoeren</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>demo_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(vt_parl <span class="sc">~</span> demo2007, <span class="at">data =</span> dta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `contrasts&lt;-`:
+! contrasts can be applied only to factors with 2 or more levels</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>demo_model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error:
+! object 'demo_model' not found</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="De oorzaak">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+De oorzaak
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Er is een fout opgetreden bij het aanmaken van de factor, waardoor de variabele alleen niet-NA-waarden had voor één van de twee factorniveaus.</p>
+</div>
+</div>
+<p>In dit voorbeeld was <code>demo2007</code> een factorversie van een variabele genaamd <code>TYPEDEMO2007</code>. Hier zijn de eigenschappen van die variabele:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(dta<span class="sc">$</span>TYPEDEMO2007)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$label
+[1] "Type of democracy, 2007"
+
+$format.stata
+[1] "%10.0g"
+
+$labels
+Autocracies Democracies 
+          0           1 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dta<span class="sc">$</span>TYPEDEMO2007, <span class="at">useNA =</span> <span class="st">"always"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   0    1 &lt;NA&gt; 
+  49  104   26 </code></pre>
+</div>
+</div>
+<p>De oorspronkelijke variabele is een numerieke variabele met twee waarden: 0 (verwijzend naar autocratieën) en 1 (verwijzend naar democratieën). Er zijn dan 26 observaties met ontbrekende (&lt;NA&gt;) data op de variabele.</p>
+<p>Hier is de syntax die is gebruikt om de factorvariabele aan te maken die in het model hierboven wordt gebruikt:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#een factorvariabele aanmaken voor het voorbeeld: </span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">demo2007 =</span> <span class="fu">factor</span>(TYPEDEMO2007, </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>), </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Autocracy"</span>, <span class="st">"Democracy"</span>))</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Het probleem zit in het <code>levels = c()</code> gedeelte van de syntax. In plaats van de numerieke waarden 0 en 1 te gebruiken, hebben we hier 0 en 2 gebruikt. Als het <code>levels = c()</code> gedeelte echter niet overeenkomt met de oorspronkelijke waarden van de variabele die we omzetten naar een factor, dan krijgen observaties met de niet-overeenkomende waarden een NA-waarde op de nieuwe variabele (zie <a href="data_manage2.html" class="quarto-xref"><span>Chapter 2</span></a>). Dit kunnen we hier zien:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(dta<span class="sc">$</span>demo2007)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Autocracy" "Democracy"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dta<span class="sc">$</span>demo2007, <span class="at">useNA =</span> <span class="st">"always"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Autocracy Democracy      &lt;NA&gt; 
+       49         0       130 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dta<span class="sc">$</span>demo2007, dta<span class="sc">$</span>TYPEDEMO2007, <span class="at">useNA =</span> <span class="st">"always"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           
+              0   1 &lt;NA&gt;
+  Autocracy  49   0    0
+  Democracy   0   0    0
+  &lt;NA&gt;        0 104   26</code></pre>
+</div>
+</div>
+<p>De 104 observaties op <code>TYPEDEMO2007</code> met een waarde van 1 hebben allemaal een <na>-waarde op de nieuwe variabele. Ons regressiemodel loopt dus tegen een probleem aan dat het niet kan oplossen: we hebben het gevraagd om de gemiddelde waarde van de afhankelijke variabele te vergelijken in situaties waarin de onafhankelijke variabele gelijk is aan “Democracy” en in situaties waarin deze gelijk is aan “Autocracy”…maar er zijn geen observaties in het eerste geval om in de vergelijking te gebruiken!</na></p>
+<div class="callout callout-style-default callout-note callout-titled" title="De oplossing">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+De oplossing
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Overschrijf variabelen niet wanneer je nieuwe variabelen aanmaakt, en controleer je werk dubbel!</p>
+</div>
+</div>
+<p>Niemand is perfect, dus soms sluipen er fouten in onze poging om variabelen te hercoderen of om te zetten naar factorvariabelen. Er zijn twee, onderling samenhangende, dingen die we kunnen doen om deze problemen te minimaliseren. Ten eerste kunnen we nieuwe variabelen aanmaken in plaats van de oorspronkelijke data te overschrijven wanneer we een variabele hercoderen of omzetten naar een factorvariabele. Ten tweede kunnen we de variabelen die we hebben aangemaakt onderzoeken om dubbel te controleren of alles klopt zoals we verwachten. Het eerste punt hier maakt het tweede punt mogelijk: als we de oorspronkelijke variabele overschrijven, hebben we geen “grondwaarheid” waarmee we de nieuwe variabele kunnen vergelijken. We kunnen onze fout dan ook niet herstellen zonder onze data volledig opnieuw te laden en al onze data cleaning-syntax opnieuw te doorlopen. Als we onze oorspronkelijke data daarentegen niet overschrijven, kunnen we ons werk gemakkelijk controleren en, als we een fout zien, alleen dat specifieke deel van de syntax herstellen en opnieuw uitvoeren.</p>
+</section>
+<section id="sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models" class="level2" data-number="A.3">
+<h2 data-number="A.3" class="anchored" data-anchor-id="sec-not-seeing-the-right-number-of-categories-for-factor-variables-in-regression-models"><span class="header-section-number">A.3</span> Niet het juiste aantal categorieën zien voor factorvariabelen in regressiemodellen</h2>
+<div class="callout callout-style-default callout-warning callout-titled" title="Het probleem">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Het probleem
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Je hebt geprobeerd een categorische variabele om te zetten naar een factorvariabele, maar er is slechts één coëfficiënt aanwezig in de regressie-output</p>
+</div>
+</div>
+<p>We nemen categorische variabelen op in een regressiemodel door de variabele eerst om te zetten naar een factorvariabele. R neemt vervolgens automatisch het juiste aantal indicatoren voor ons op in het model. Als we bijvoorbeeld een categorische variabele met vier niveaus hebben, dan neemt R drie indicatoren op in het model als we de variabele succesvol omzetten naar een factorvariabele.</p>
+<p>Stel dat we een numerieke variabele in onze dataset hebben die het bruto binnenlands product van een land weergeeft, waarbij landen zijn ingedeeld in een van drie groepen: “laag” BBP (waarde 1), gemiddeld BBP (waarde 2), en “hoog” BBP (waarde 3). We zouden deze variabele in ons model opnemen door haar om te zetten naar een factorvariabele. We zouden dan twee indicatoren voor deze variabele moeten zien in het model (waarbij de weggelaten groep als referentiecategorie fungeert). Bijvoorbeeld:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Verdeling van de variabele</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(dta<span class="sc">$</span>gdp_3cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  1  2  3 
 40 78 40 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert to factor variable</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_3cat_factor =</span> <span class="fu">factorize</span>(gdp_3cat))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Run and summarize the regression</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gdp_3cat_factor, <span class="at">data=</span>dta)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Omzetten naar factorvariabele</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_3cat_factor =</span> <span class="fu">factorize</span>(gdp_3cat))</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Regressie uitvoeren en samenvatten</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gdp_3cat_factor, <span class="at">data=</span>dta)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -634,48 +756,55 @@ Multiple R-squared:  0.1875,    Adjusted R-squared:  0.1823
 F-statistic:    36 on 1 and 156 DF,  p-value: 1.329e-08</code></pre>
 </div>
 </div>
-<p>We only have one indicator in our model for the factor variable. Why?<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
+<p>We hebben maar één indicator in ons model voor de factorvariabele. Waarom?<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="De oorzaak">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Cause
+De oorzaak
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You used <code>factorize()</code> with non-labelled data.</p>
+<p>Je hebt <code>factorize()</code> gebruikt met niet-gelabelde data. Of je hebt <code>factor()</code> gebruikt, maar iets weggelaten of verkeerd gespeld in <code>levels=c()</code>.</p>
 </div>
 </div>
-<p>We can convert a variable into a factor variable in either of two ways in R:</p>
+<p>We kunnen een variabele op twee manieren omzetten naar een factorvariabele in R:</p>
 <ul>
-<li><code>factor()</code>: This is a built in function that will work with any type of data.</li>
-<li><code>factorize()</code>: This function comes from the <code>rio</code> package.</li>
+<li><code>factor()</code>: Dit is een ingebouwde functie die werkt met elk type data.</li>
+<li><code>factorize()</code>: Deze functie komt uit de <code>rio</code>-package.</li>
 </ul>
-<p><code>factorize()</code> is a handy tool but it only works with variables that have value labels stored within the dataset. In these instances, <code>factorize()</code> will automatically attach each numeric value with its corresponding value. While labelled data is common (but not universal) when the dataset in question is either a <code>.dta</code> or <code>.sav</code> file format, it is not common with <code>.csv</code> for <code>.xlsx</code> file formats. Note that by labelled data we mean situations where the labels are included within the datset itself rather than only being found in a separate codebook.</p>
-<p>We can use the following function to obtain information as to whether a variable has value labels associated with it in the dataset that we are using: <code>attr(dataset$varname, "labels")</code>. Here is an example with two variables: one labelled and one unlabelled:</p>
+<p><code>factorize()</code> is een handige tool, maar werkt alleen met variabelen die waardelabels hebben opgeslagen binnen de dataset. In die gevallen koppelt <code>factorize()</code> automatisch elke numerieke waarde aan de bijbehorende waarde. Gelabelde data komt vaak (maar niet altijd) voor wanneer de dataset in kwestie een <code>.dta</code>- of <code>.sav</code>-bestandsformaat heeft, maar komt niet vaak voor bij <code>.csv</code>- of <code>.xlsx</code>-bestandsformaten. Let op: met gelabelde data bedoelen we situaties waarin de labels binnen de dataset zelf zijn opgenomen, in plaats van alleen in een apart codeboek te staan.</p>
+<p>We kunnen de volgende functie gebruiken om te achterhalen of een variabele waardelabels heeft in de dataset die we gebruiken: <code>attributes()</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Hier is een voorbeeld met twee variabelen: één gelabeld en één niet-gelabeld:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Unlabelled</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(dta<span class="sc">$</span>gdp_3cat, <span class="st">"labels"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Niet-gelabeld</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(dta<span class="sc">$</span>gdp_3cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Labelled</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(dta<span class="sc">$</span>Fragile2006, <span class="st">"labels"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gelabeld</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(dta<span class="sc">$</span>Fragile2006)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     Fragile Intermediate       Stable 
+<pre><code>$label
+[1] "Classification of fragile states (3-cat) (Recoded from Stable2006)"
+
+$format.stata
+[1] "%10.0g"
+
+$labels
+     Fragile Intermediate       Stable 
            1            2            3 </code></pre>
 </div>
 </div>
-<p>In the former case, we observe the value of “NULL” meaning that no value labels are stored in the metadata for this variable. <code>factorize()</code> works by applying stored labels to numeric values, but there is nothing here to apply.</p>
-<p>On the other hand, we see values reported in the latter case. The variable in question is a numeric variable with three values: 1 (associated with the label “Fragile”), 2 (associated with the label “Intermediate”), and 3 (associated with the label “Stable”). We can use <code>factorize()</code> in this instance with the resulting model reporting the correct number of terms in the model.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>In het eerste geval zien we de waarde “NULL”, wat betekent dat er geen waardelabels zijn opgeslagen in de metadata voor deze variabele. <code>factorize()</code> werkt door opgeslagen labels toe te passen op numerieke waarden, maar hier is niets om toe te passen.</p>
+<p>In het tweede geval zien we daarentegen wel waarden gerapporteerd. De variabele in kwestie is een numerieke variabele met drie waarden: 1 (geassocieerd met het label “Fragile”), 2 (geassocieerd met het label “Intermediate”), en 3 (geassocieerd met het label “Stable”). We kunnen <code>factorize()</code> in dit geval gebruiken, waarbij het resulterende model het juiste aantal termen in het model rapporteert.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fragile =</span> <span class="fu">factorize</span>(Fragile2006))</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> fragile, <span class="at">data=</span>dta)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">fragile =</span> <span class="fu">factorize</span>(Fragile2006))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> fragile, <span class="at">data=</span>dta)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -699,28 +828,28 @@ Multiple R-squared:  0.2996,    Adjusted R-squared:  0.2909
 F-statistic: 34.44 on 2 and 161 DF,  p-value: 3.539e-13</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<div class="callout callout-style-default callout-note callout-titled" title="De oplossing">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+De oplossing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Using <code>factor()</code> instead of <code>factorize()</code></p>
+<p><code>factor()</code> gebruiken in plaats van <code>factorize()</code></p>
 </div>
 </div>
-<p>The built in <code>factor()</code> command will be more useful in this type of situation. Here we specify the levels of the factor variable (with the reference group being the first category provided in <code>levels=c()</code>) and its associated labels.</p>
+<p>Het ingebouwde <code>factor()</code>-commando is algemener toepasbaar dan <code>factorize()</code>. Hier specificeren we de niveaus van de factorvariabele (waarbij de referentiegroep de eerste categorie is die is opgegeven in <code>levels=c()</code>) en de bijbehorende labels.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_3cat_correct =</span> <span class="fu">factor</span>(gdp_3cat, </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>)))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gdp_3cat_correct, <span class="at">data=</span>dta)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp_3cat_correct =</span> <span class="fu">factor</span>(gdp_3cat, </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>)))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gdp_3cat_correct, <span class="at">data=</span>dta)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -744,32 +873,90 @@ Multiple R-squared:  0.2034,    Adjusted R-squared:  0.1931
 F-statistic: 19.79 on 2 and 155 DF,  p-value: 2.224e-08</code></pre>
 </div>
 </div>
+<p>Er is ook hier een manier waarop dit fout kan gaan, zoals we bespreken in <a href="data_manage2.html" class="quarto-xref"><span>Chapter 2</span></a>: er is een fout in het <code>levels = c()</code> gedeelte. Bijvoorbeeld:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># factor met fouten: </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">|&gt;</span> <span class="fu">mutate</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gdp_error1 =</span> <span class="fu">factor</span>(gdp_3cat, </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>)), </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">gdp_error2 =</span> <span class="fu">factor</span>(gdp_3cat, </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>), </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>)))</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellen</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gdp_error1, <span class="at">data =</span> dta)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = v2x_polyarchy ~ gdp_error1, data = dta)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.43121 -0.15467 -0.00005  0.14054  0.39479 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       0.42105    0.03157  13.337   &lt;2e-16 ***
+gdp_error1Medium  0.08716    0.03883   2.244   0.0267 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1997 on 116 degrees of freedom
+  (61 observations deleted due to missingness)
+Multiple R-squared:  0.04162,   Adjusted R-squared:  0.03336 
+F-statistic: 5.038 on 1 and 116 DF,  p-value: 0.0267</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gdp_error2, <span class="at">data =</span> dta))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = v2x_polyarchy ~ gdp_error2, data = dta)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.43121 -0.15467 -0.00005  0.14054  0.39479 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       0.42105    0.03157  13.337   &lt;2e-16 ***
+gdp_error2Medium  0.08716    0.03883   2.244   0.0267 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1997 on 116 degrees of freedom
+  (61 observations deleted due to missingness)
+Multiple R-squared:  0.04162,   Adjusted R-squared:  0.03336 
+F-statistic: 5.038 on 1 and 116 DF,  p-value: 0.0267</code></pre>
+</div>
+</div>
+<p>Ook hier krijgen we niet de juiste output. Het probleem in het eerste geval is dat we vergeten zijn één van de categorieën op te nemen in het <code>levels = ()</code> gedeelte (al zou dit geen probleem zijn als het onze bedoeling was om deze observaties in de nieuwe variabele te verwijderen). Het probleem in het tweede geval is dat één van de waardeniveaus onjuist is opgegeven (4 in plaats van 3).</p>
 </section>
-<section id="sec-glm-factor" class="level2" data-number="A.3">
-<h2 data-number="A.3" class="anchored" data-anchor-id="sec-glm-factor"><span class="header-section-number">A.3</span> “Error in glm.fit…NA/NAN/Inf in ‘y’” and “not meaningful for factors”</h2>
-<div class="callout callout-style-default callout-warning callout-titled" title="The Problem">
+<section id="sec-glm-factor" class="level2" data-number="A.4">
+<h2 data-number="A.4" class="anchored" data-anchor-id="sec-glm-factor"><span class="header-section-number">A.4</span> “Error in glm.fit…NA/NAN/Inf in ‘y’” en “not meaningful for factors”</h2>
+<div class="callout callout-style-default callout-warning callout-titled" title="Het probleem">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Problem
+Het probleem
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We’re trying to perform a logistic model where our DV is a factor variable but are running into a message saying “Error in glm.fit(x = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, : NA/NaN/Inf in ‘y’” and “In Ops.factor(y, mu) : ‘-’ not meaningful for factors”</p>
+<p>We proberen een logistisch model uit te voeren waarbij onze afhankelijke variabele een factorvariabele is, maar krijgen een foutmelding die zegt “Error in glm.fit(x = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, : NA/NaN/Inf in ‘y’” en “In Ops.factor(y, mu) : ‘-’ not meaningful for factors”</p>
 </div>
 </div>
-<p>Suppose that we wish to predict a binary outcome for whether a person reports being close to a political party or not based on their age. We would use create a factor variable of the binary outcome variable and then use the <code>glm()</code> function, rather than <code>lm()</code> to do so. However, if we ran the following syntax, we would run into an error:</p>
+<p>Stel dat we een binaire uitkomst willen voorspellen voor de vraag of een persoon aangeeft zich verbonden te voelen met een politieke partij of niet, op basis van diens leeftijd. We zouden dan een factorvariabele van de binaire uitkomstvariabele aanmaken en vervolgens de <code>glm()</code>-functie gebruiken, in plaats van <code>lm()</code>. Als we echter de volgende syntax zouden uitvoeren, zouden we tegen een foutmelding aanlopen:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Factorize the variable</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ess <span class="ot">&lt;-</span> ess <span class="sc">|&gt;</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">close_party =</span> <span class="fu">factor</span>(clsprty, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not Close"</span>, <span class="st">"Close to Party"</span>)))</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Run the model</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(close_party <span class="sc">~</span> agea, <span class="at">data =</span> ess)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#De variabele factoriseren</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>ess <span class="ot">&lt;-</span> ess <span class="sc">|&gt;</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">close_party =</span> <span class="fu">factor</span>(clsprty, </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>), </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Not Close"</span>, <span class="st">"Close to Party"</span>)))</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Het model uitvoeren</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(close_party <span class="sc">~</span> agea, <span class="at">data =</span> ess)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in Ops.factor(y, mu): '-' not meaningful for factors</code></pre>
 </div>
@@ -780,38 +967,39 @@ The Problem
 <pre><code>Warning in Ops.factor(y, mu): '-' not meaningful for factors</code></pre>
 </div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in glm.fit(x = structure(c(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, : NA/NaN/Inf in 'y'</code></pre>
+<pre><code>Error in `glm.fit()`:
+! NA/NaN/Inf in 'y'</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
+<div class="callout callout-style-default callout-tip callout-titled" title="De oorzaak">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Cause
+De oorzaak
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We haven’t specified a “family” for the model.</p>
+<p>We hebben geen “family” opgegeven voor het model.</p>
 </div>
 </div>
-<p>The <code>glm()</code> function can be used to fit a variety of different models depending on the nature of the dependent variable. We specify the type of model (and hence the nature of the DV) via a <code>family=</code> option. If we do not specify a family option, then <code>glm()</code> will default to attempting to perform a linear model, which creates an error when the DV is a factor variable.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<p>De <code>glm()</code>-functie kan gebruikt worden om verschillende soorten modellen te fitten, afhankelijk van de aard van de afhankelijke variabele. We specificeren het type model (en dus de aard van de afhankelijke variabele) via een <code>family=</code>-optie. Als we geen family-optie opgeven, dan probeert <code>glm()</code> standaard een lineair model uit te voeren, wat een foutmelding oplevert wanneer de afhankelijke variabele een factorvariabele is.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Oplossing">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+Oplossing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Specify the correct family, here: “family =”binomial”</p>
+<p>Geef de juiste family op, hier: “family =”binomial””</p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(close_party <span class="sc">~</span> agea, <span class="at">data =</span> ess, <span class="at">family =</span> <span class="st">'binomial'</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glm</span>(close_party <span class="sc">~</span> agea, <span class="at">data =</span> ess, <span class="at">family =</span> <span class="st">'binomial'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:  glm(formula = close_party ~ agea, family = "binomial", data = ess)
@@ -827,218 +1015,25 @@ Residual Deviance: 2214     AIC: 2218</code></pre>
 </div>
 </div>
 </section>
-<section id="sec-slopes-error" class="level2" data-number="A.4">
-<h2 data-number="A.4" class="anchored" data-anchor-id="sec-slopes-error"><span class="header-section-number">A.4</span> “Unable to compute predicted values with this model”</h2>
-<div class="callout callout-style-default callout-warning callout-titled" title="The Problem">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-The Problem
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>We’re using <code>avg_slopes()</code> to try and find the slope for a variable but are running into an error: “Unable to compute predicted values with this model”</p>
-</div>
-</div>
-<p>Suppose we have a binary dependent variable that we wish to predict with a binary or category independent variable. For instance, we might want to know if the chances of voting are higher/lower among men versus women. We would convert both variables to factor variables and perform a logistic model. The syntax below walks through this process by first investigating the variables (e.g., what labels are associated with each category); converting both variables to factors; and then running the model and reporting the results.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Value Values</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-2" class="code-annotation-target"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ess<span class="sc">$</span>vote,<span class="st">"labels"</span>)</span>
-<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ess<span class="sc">$</span>gndr, <span class="st">"labels"</span>)</span>
-<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-5"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution</span></span>
-<span id="annotated-cell-12-6"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ess<span class="sc">$</span>vote)</span>
-<span id="annotated-cell-12-7"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ess<span class="sc">$</span>gndr)</span>
-<span id="annotated-cell-12-8"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-9"><a href="#annotated-cell-12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert into factor</span></span>
-<span id="annotated-cell-12-10"><a href="#annotated-cell-12-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Vote: 0 = did not vote, 1 = voted</span></span>
-<span id="annotated-cell-12-11"><a href="#annotated-cell-12-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Gender: 0 = male, 1 = female</span></span>
-<span id="annotated-cell-12-12"><a href="#annotated-cell-12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-13"><a href="#annotated-cell-12-13" aria-hidden="true" tabindex="-1"></a>ess <span class="ot">&lt;-</span> ess <span class="sc">|&gt;</span> </span>
-<span id="annotated-cell-12-14"><a href="#annotated-cell-12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">voted =</span> <span class="fu">factor</span>(vote, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), </span>
-<span id="annotated-cell-12-15"><a href="#annotated-cell-12-15" aria-hidden="true" tabindex="-1"></a>                        <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Did Not Vote"</span>, <span class="st">"Voted"</span>)), </span>
-<span id="annotated-cell-12-16"><a href="#annotated-cell-12-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">gender =</span> <span class="fu">factorize</span>(gndr))</span>
-<span id="annotated-cell-12-17"><a href="#annotated-cell-12-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-12-18"><a href="#annotated-cell-12-18" aria-hidden="true" tabindex="-1"></a><span class="co">#Model and Summary</span></span>
-<span id="annotated-cell-12-19"><a href="#annotated-cell-12-19" aria-hidden="true" tabindex="-1"></a>ame_example <span class="ot">&lt;-</span> <span class="fu">glm</span>(voted <span class="sc">~</span> gender, <span class="at">data=</span>ess, <span class="at">family=</span><span class="st">"binomial"</span>)</span>
-<span id="annotated-cell-12-20"><a href="#annotated-cell-12-20" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ame_example)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="2" data-code-annotation="1"><code>attr(data$variable, "labels")</code> is a shortened version of <code>attributes(data$variable)</code> that only shows whether there are value labels associated with the variable.</span>
-</dd>
-</dl>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                 Yes                   No Not eligible to vote 
-                   1                    2                    3 
-             Refusal           Don't know            No answer 
-                   7                    8                    9 
-     Male    Female No answer 
-        1         2         9 
-
-   1    2    3 
-1291  247  130 
-
-  1   2 
-833 840 
-
-Call:
-glm(formula = voted ~ gender, family = "binomial", data = ess)
-
-Coefficients:
-             Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept)    1.7484     0.1015  17.229   &lt;2e-16 ***
-genderFemale  -0.1836     0.1392  -1.318    0.187    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-(Dispersion parameter for binomial family taken to be 1)
-
-    Null deviance: 1355.5  on 1537  degrees of freedom
-Residual deviance: 1353.7  on 1536  degrees of freedom
-  (135 observations deleted due to missingness)
-AIC: 1357.7
-
-Number of Fisher Scoring iterations: 4</code></pre>
-</div>
-</div>
-<p>The coefficient for our IV is negative, which indicates that female respondents have a lower chance of reporting that they turned out to vote than men (although this difference is not statistically significant). This coefficient is on the log of the odds (logit) scale, which is hard to interpret. We may want to look at the average difference in the probability of turning out between women and men to more clearly communicate the difference between the two groups. We can do this by using the <code>avg_slopes()</code> function from the <code>marginaleffects</code> package. However, in this instance we receive an error message:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(ame_example)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-         Contrast Estimate Std. Error     z Pr(&gt;|z|)   S   2.5 % 97.5 %
- Female - Male      0.0000         NA    NA       NA  NA      NA     NA
- No answer - Male  -0.0247     0.0187 -1.32    0.187 2.4 -0.0614  0.012
-
-Term: gender
-Type: response</code></pre>
-</div>
-</div>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-The Cause
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>There is a category with no observations.</p>
-</div>
-</div>
-<p>Let’s take a look at the <code>gender</code> variable we created earlier compared with its original form:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Original Variable</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(ess<span class="sc">$</span>gndr, <span class="st">"labels"</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>     Male    Female No answer 
-        1         2         9 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ess<span class="sc">$</span>gndr)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-  1   2 
-833 840 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Recoded</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ess<span class="sc">$</span>gender)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Male"      "Female"    "No answer"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(ess<span class="sc">$</span>gender)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-     Male    Female No answer 
-      833       840         0 </code></pre>
-</div>
-</div>
-<p>The <code>gndr</code> variable has three labels associated with it: Male (=1), Female (=2), and No Answer (=9). However, no observations have a value of 9 on this original variable. Regardless, <code>factorize()</code> will still port over the label for “No Answer”. The issue is that <code>avg_slopes()</code> is expecting there to be observations with a label of “No Answer” - when it finds none, it crashes.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Solution">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Solution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Use <code>droplevels()</code> to removing categories with no observations or use <code>factor()</code> to create the variable to begin with</p>
-</div>
-</div>
-<p>We can avoid this issue in either of two ways. First, we could use <code>droplevels()</code> to drop levels (and their associated labels) that have no observations. Second, we can preempt the problem by simply using <code>factor()</code> and only including the categories we care about.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Recoding Using the Two Options</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>ess <span class="ot">&lt;-</span> ess <span class="sc">|&gt;</span> </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Option 1: droplevels()</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">gender_opt1 =</span> <span class="fu">factorize</span>(gndr), </span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">gender_opt1 =</span> <span class="fu">droplevels</span>(gender_opt1), </span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Option 2: factor() from the beginning</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">gender_opt2 =</span> <span class="fu">factor</span>(gndr,</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), </span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)))</span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Levels</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ess<span class="sc">$</span>gender_opt1)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Male"   "Female"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ess<span class="sc">$</span>gender_opt2)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "Male"   "Female"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Option 1: </span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>ame_example_opt1 <span class="ot">&lt;-</span> <span class="fu">glm</span>(voted <span class="sc">~</span> gender_opt1, <span class="at">data=</span>ess, <span class="at">family=</span><span class="st">"binomial"</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(ame_example_opt1)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error     z Pr(&gt;|z|)   S   2.5 % 97.5 %
-  -0.0247     0.0187 -1.32    0.187 2.4 -0.0614  0.012
-
-Term: gender_opt1
-Type: response
-Comparison: Female - Male</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Option 2</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>ame_example_opt2 <span class="ot">&lt;-</span> <span class="fu">glm</span>(voted <span class="sc">~</span> gender_opt2, <span class="at">data=</span>ess, <span class="at">family=</span><span class="st">"binomial"</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(ame_example_opt2)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- Estimate Std. Error     z Pr(&gt;|z|)   S   2.5 % 97.5 %
-  -0.0247     0.0187 -1.32    0.187 2.4 -0.0614  0.012
-
-Term: gender_opt2
-Type: response
-Comparison: Female - Male</code></pre>
-</div>
-</div>
-</section>
 <section id="sec-linetype-error" class="level2" data-number="A.5">
 <h2 data-number="A.5" class="anchored" data-anchor-id="sec-linetype-error"><span class="header-section-number">A.5</span> “A continuous variable cannot be mapped to the linetype aesthetic”</h2>
-<div class="callout callout-style-default callout-warning callout-titled" title="The Problem">
+<div class="callout callout-style-default callout-warning callout-titled" title="Het probleem">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Problem
+Het probleem
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We’re trying to create a predicted values plot from a model with an interaction involving a continuous variable and see the error “A continuous variable cannot be mapped to the linetype aesthetic”</p>
+<p>We proberen een plot van voorspelde waarden te maken van een model met een interactie waarin een continue variabele is betrokken, en zien de foutmelding “A continuous variable cannot be mapped to the linetype aesthetic”</p>
 </div>
 </div>
-<p>Suppose we predict a country’s democracy score with a continuous measure of gross domestic product (<code>gdp_ppp</code>), a continuous measure of corruption (<code>cpi</code>), and their interaction:</p>
+<p>Stel dat we de democratiescore van een land voorspellen met een continue maat voor het bruto binnenlands product (<code>gdp_ppp</code>), een continue maat voor corruptie (<code>cpi</code>), en hun interactie:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>inter_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gdp_ppp<span class="sc">*</span>cpi, <span class="at">data=</span>dta)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(inter_model)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(inter_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1063,14 +1058,14 @@ Multiple R-squared:  0.4538,    Adjusted R-squared:  0.443
 F-statistic: 42.09 on 3 and 152 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
-<p>Interpreting coefficients in a model with an interaction can be tricky and especially so when both variables are continuous variables. One solution is to use <code>predictions()</code> function to obtain predicted values across the range of our main variable for different values of our moderator (e.g., “low”, “medium”, and “high”). For instance:</p>
+<p>Het interpreteren van coëfficiënten in een model met een interactie kan lastig zijn, en dat geldt des te meer wanneer beide variabelen continue variabelen zijn. Een oplossing is om de <code>predictions()</code>-functie te gebruiken om voorspelde waarden te verkrijgen over het bereik van onze hoofdvariabele, voor verschillende waarden van onze moderator (bijv. “laag”, “gemiddeld” en “hoog”). Bijvoorbeeld:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>inter_preds <span class="ot">&lt;-</span> <span class="fu">predictions</span>(inter_model, </span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>                           <span class="at">newdata =</span> <span class="fu">datagrid</span>(</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">cpi =</span> <span class="fu">c</span>(<span class="dv">12</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="fl">43.94</span>,<span class="dv">56</span>,<span class="dv">88</span>), </span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">gdp_ppp =</span> <span class="fu">c</span>(<span class="fl">711.4</span>, <span class="fl">20309.8</span>, <span class="fl">111751.3</span>)))</span>
 <span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>inter_preds</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>inter_preds</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
   cpi gdp_ppp Estimate Std. Error       z Pr(&gt;|z|)     S   2.5 % 97.5 %
@@ -1096,11 +1091,11 @@ F-statistic: 42.09 on 3 and 152 DF,  p-value: &lt; 2.2e-16</code></pre>
 Type: response</code></pre>
 </div>
 </div>
-<p>There is a lot of data here to try and read/interpret. However, we can create a nice plot to summarize the predictions. Unfortunately, we run into the following error when running this syntax:</p>
+<p>Er is hier veel data om te lezen/interpreteren. We kunnen echter een mooie plot maken om de voorspellingen samen te vatten. Helaas lopen we tegen de volgende foutmelding aan wanneer we deze syntax uitvoeren:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(inter_preds, <span class="fu">aes</span>(<span class="at">x=</span>cpi, <span class="at">y=</span>estimate, <span class="at">linetype =</span> gdp_ppp)) <span class="sc">+</span> </span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `geom_line()`:
 ! Problem while computing aesthetics.
@@ -1110,50 +1105,50 @@ Caused by error in `scale_f()`:
 ℹ Choose a different aesthetic or use `scale_linetype_binned()`.</code></pre>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled" title="The Cause">
+<div class="callout callout-style-default callout-tip callout-titled" title="De oorzaak">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-The Cause
+De oorzaak
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The variable being used to specify <code>linetype</code> (or <code>color</code>, etc.) is numeric in value.</p>
+<p>De variabele die wordt gebruikt om <code>linetype</code> (of <code>color</code>, etc.) te specificeren, is numeriek van waarde.</p>
 </div>
 </div>
-<p>We created three sets of predictions above: one where <code>gdp_ppp</code> = 711.4 and <code>cpi</code> took on one of five values from across its range; one where <code>gdp_ppp</code> = 20309.8 and <code>cpi</code> took on one of those five values; and one where <code>cpi</code> = 111751.3 and <code>cpi</code>took on one of those values. We can visually differentiate between these different predictions by telling <code>ggplot()</code> to use a different type of line for each set (or, perhaps, a different color). But, the <code>linetype</code> function requires the variable in question to be a factor.</p>
-<div class="callout callout-style-default callout-note callout-titled" title="Solution">
+<p>We hebben hierboven drie sets voorspellingen aangemaakt: één waarbij <code>gdp_ppp</code> = 711.4 en <code>cpi</code> een van vijf waarden uit haar bereik aannam; één waarbij <code>gdp_ppp</code> = 20309.8 en <code>cpi</code> een van diezelfde vijf waarden aannam; en één waarbij <code>cpi</code> = 111751.3 en <code>cpi</code> een van die waarden aannam. We kunnen visueel onderscheid maken tussen deze verschillende voorspellingen door <code>ggplot()</code> te vertellen om voor elke set een ander type lijn te gebruiken (of, mogelijk, een andere kleur). Maar de <code>linetype</code>-functie vereist dat de betreffende variabele een factor is.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Oplossing">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Solution
+Oplossing
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Convert the problematic numeric variable to a factor and then run the <code>ggplot()</code> command.</p>
+<p>Zet de probleemveroorzakende numerieke variabele om naar een factor en voer daarna het <code>ggplot()</code>-commando uit.</p>
 </div>
 </div>
-<p>We can avoid this issue by converting the offending variable to a factor variable using the <code>factor()</code> function.</p>
+<p>We kunnen dit probleem vermijden door de betreffende variabele om te zetten naar een factorvariabele met behulp van de <code>factor()</code>-functie.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert to factor</span></span>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Omzetten naar factor</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>inter_preds <span class="ot">&lt;-</span> inter_preds <span class="sc">|&gt;</span> </span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">gdp_ppp =</span> <span class="fu">factor</span>(gdp_ppp, </span>
 <span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">levels=</span><span class="fu">c</span>( <span class="fl">711.4</span>, <span class="fl">20309.8</span>, <span class="fl">111751.3</span>), </span>
 <span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels=</span><span class="fu">c</span>(<span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span>)))</span>
 <span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Create the plot</span></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a><span class="co">#De plot maken</span></span>
 <span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(inter_preds, <span class="fu">aes</span>(<span class="at">x=</span>cpi, <span class="at">y=</span>estimate, <span class="at">linetype =</span> gdp_ppp)) <span class="sc">+</span> </span>
 <span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>conf.low, <span class="at">ymax=</span>conf.high), <span class="at">alpha =</span> <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="common_errors_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="common_errors_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1164,9 +1159,10 @@ Solution
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>There could an additional culprit: missing data. Suppose that you have 1 DV and two IVs, one of which is a categorical variable with three levels (low, middle, and high) and the other a continuous variable. R will automatically drop observations from the model that have missing data on at least one of the variables in the model (DV and IV). Suppose that all of the observations with a classification of “high” on the categorical variable have missing (NA) values on the continuous variable - in that instance, R would not have the necessary data to estimate a coefficient for the “high” category and, as a result, you would likely only get indicators for one category of the categorical variable (comparing it to the reference group) and one for the continuous variable.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Of course, in practice we might want to follow the <code>factorize()</code> step with a subsequent step where we <code>relevel</code> the variable, i.e., change the reference group. Alternatively we could simply use <code>factor()</code> in this instance as well and handle the levelling and labelling all at once.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>What if the DV was simply coded 0/1 and not converted to a factor? The syntax in this example would run but a different problem would emerge: the <code>glm()</code> command would fit a linear model (i.e., a linear regression model) to the data rather than a logistic model. This is another reason to explicitly specify the family to be used when using the <code>glm()</code> function.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Er zou nog een andere boosdoener kunnen zijn: ontbrekende data. Stel dat je 1 afhankelijke variabele en twee onafhankelijke variabelen hebt, waarvan er één een categorische variabele is met drie niveaus (laag, midden en hoog) en de andere een continue variabele. R laat automatisch observaties uit het model vallen die op minstens één van de variabelen in het model (afhankelijke of onafhankelijke variabele) ontbrekende data hebben. Stel dat alle observaties met een classificatie “hoog” op de categorische variabele ontbrekende (NA) waarden hebben op de continue variabele - in dat geval zou R niet de nodige data hebben om een coëfficiënt te schatten voor de categorie “hoog” en zou je daardoor waarschijnlijk maar indicatoren krijgen voor één categorie van de categorische variabele (in vergelijking met de referentiegroep) en één voor de continue variabele.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We zouden ook <code>attributes(dta$gdp_3cat)</code> kunnen gebruiken voor hetzelfde doel. Het belangrijkste verschil is dat dit commando ook andere informatie over de variabele geeft.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>In de praktijk zouden we de <code>factorize()</code>-stap natuurlijk kunnen laten volgen door een stap waarin we de variabele <code>relevel</code>-en, d.w.z. de referentiegroep veranderen. We zouden in dit geval ook eenvoudigweg <code>factor()</code> kunnen gebruiken en het levelen en labelen in één keer kunnen afhandelen.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Wat als de afhankelijke variabele simpelweg gecodeerd was als 0/1 en niet was omgezet naar een factor? De syntax in dit voorbeeld zou dan wel werken, maar er zou een ander probleem ontstaan: het <code>glm()</code>-commando zou dan een lineair model (d.w.z. een lineair regressiemodel) fitten op de data in plaats van een logistisch model. Dit is nog een reden om expliciet de te gebruiken family op te geven bij het gebruik van de <code>glm()</code>-functie.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1358,12 +1354,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Gekopieerd!");
+    button.setAttribute("title", "Copied!");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Gekopieerd!");
+      button.setAttribute("data-bs-title", "Copied!");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
@@ -1774,12 +1770,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./interaction_03.html" class="pagination-link" aria-label="Voorspelde Waarden van Interactiemodellen">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Voorspelde Waarden van Interactiemodellen</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./package_overview.html" class="pagination-link" aria-label="Overzicht R Packages">
-        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht R Packages</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./package_overview.html" class="pagination-link" aria-label="Overzicht van R Packages">
+        <span class="nav-page-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Overzicht van R Packages</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
