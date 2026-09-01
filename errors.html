@@ -455,43 +455,38 @@ window.Quarto = {
 
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Packages</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggResidpanel)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6">6</button><span id="annotated-cell-1-7" class="code-annotation-target"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Gebruikte datasets</span></span>
-<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>)</span>
-<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>ess_demsatis <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ess_demsatis.dta"</span>)</span>
-<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>normal_residual_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"normal_residual_data.rda"</span>)</span>
-<span id="annotated-cell-1-13"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>serial_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"./data/serial_autocorrelation.rda"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-4" class="code-annotation-target"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(modelsummary)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-5" class="code-annotation-target"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Gebruikte datasets</span></span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>demdata <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"demdata.rds"</span>)</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>ess_demsatis <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"ess_demsatis.dta"</span>)</span>
+<span id="annotated-cell-1-11"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>normal_residual_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"normal_residual_data.rda"</span>)</span>
+<span id="annotated-cell-1-12"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>serial_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"./data/serial_autocorrelation.rda"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="1">Assumpties testen met plots</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="1">Data importeren</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="3" data-code-annotation="2">Data importeren</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="3" data-code-annotation="2">Datamanipulatie/plots</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="3">Datamanipulatie/plots</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="4" data-code-annotation="3">Regressietabellen maken</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="4">Regressietabellen maken</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="5" data-code-annotation="4">Voorspelde waarden en marginale effecten</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="5">Voorspelde waarden en marginale effecten</span>
-</dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
-<dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="7" data-code-annotation="6">Gegevens samenvatten</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="5">Gegevens samenvatten</span>
 </dd>
 </dl>
 </div>
@@ -551,14 +546,7 @@ y_{i} = b_{0} + b_{1} * x_{1} + b_{2} * x_{2} ... b_{k} * x_{k} + e_{i}
 <p>We kunnen kijken of de assumptie van homoskedasticiteit geschonden is via <code>resid_panel()</code> zoals besproken in <a href="linear_07.html" class="quarto-xref"><span>Hoofdstuk 9</span></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assumptie bekijken</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(violence_sqmodel, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"resid"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
-ℹ Please use tidy evaluation idioms with `aes()`.
-ℹ See also `vignette("ggplot2-in-packages")` for more information.
-ℹ The deprecated feature was likely used in the ggResidpanel package.
-  Please report the issue to the authors.</code></pre>
-</div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(violence_sqmodel, <span class="at">which =</span> <span class="dv">1</span>, <span class="at">add.smooth =</span> <span class="cn">FALSE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -590,13 +578,13 @@ Opmerking
 <p>Een gangbare manier is om de berekenmethode voor de standaardfouten van de coëfficiënten in het model aan te passen. De standaardfouten die normaal door R worden berekend gaan uit van homoskedasticiteit, maar we kunnen ‘heteroskedasticiteit-robuuste’ standaardfouten berekenen als alternatief. Belangrijk is om te onthouden dat deze oplossing een mathematisch ‘truukje’ is, ons model past nog altijd slecht en het is belangrijk theoretisch hierover na te denken. De eerste stap blijft altijd om na te denken over mogelijk ontbrekende predictoren.</p>
 <p>De eenvoudigste manier om robuuste standaardfouten te verkrijgen is via het <code>modelsummary</code> package. We bekijken eerst nog even de ‘normale’ regressie-output voor het model:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(violence_sqmodel, </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Intercept"</span>, </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy"</span> <span class="ot">=</span> <span class="st">"Democratiescore"</span>, </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy_sq"</span> <span class="ot">=</span> <span class="st">"Democratiescore gekwadrateerd"</span>), </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(violence_sqmodel, </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Intercept"</span>, </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy"</span> <span class="ot">=</span> <span class="st">"Democratiescore"</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy_sq"</span> <span class="ot">=</span> <span class="st">"Democratiescore gekwadrateerd"</span>), </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
@@ -604,25 +592,25 @@ Opmerking
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_k2wbrapqt76o81n8686r = TinyTable.createTableFunctions("tinytable_k2wbrapqt76o81n8686r");
+      const tableFns_z5d2hiht3kei1n7o6gk6 = TinyTable.createTableFunctions("tinytable_z5d2hiht3kei1n7o6gk6");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '9', j: 2 } ], css_id: 'tinytable_css_camoqs946ae82we244qq',}, 
-          { positions: [ { i: '6', j: 2 } ], css_id: 'tinytable_css_ls06ugcd6scvldby01gy',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 } ], css_id: 'tinytable_css_pzuaqmqrroyuu82rorgj',}, 
-          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_rglcjfdtcajcv16mtbys',}, 
-          { positions: [ { i: '9', j: 1 } ], css_id: 'tinytable_css_4gegpxqqt1lhghhyj6ez',}, 
-          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_bn6oxv269osh31hbkohq',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 } ], css_id: 'tinytable_css_c89nt2ipl27sxw16ix2o',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_yz0cb4en1ilgqu86bz9u',}, 
+          { positions: [ { i: '9', j: 2 } ], css_id: 'tinytable_css_jutmhg169832ijvgstc0',}, 
+          { positions: [ { i: '6', j: 2 } ], css_id: 'tinytable_css_o7jx3k1jf8fsgofnasgq',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 } ], css_id: 'tinytable_css_ynjqciqksar0s4a47p1h',}, 
+          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_2hnd2z6jgoa0ei1mtjbu',}, 
+          { positions: [ { i: '9', j: 1 } ], css_id: 'tinytable_css_ox4kbwf94fcwf75gbmjl',}, 
+          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_6ctzadsz03tgv27bqk3i',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 } ], css_id: 'tinytable_css_wjaunt74jb9pd8k2oqd5',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_paekcgzlwr5ksersuqbf',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_k2wbrapqt76o81n8686r.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_z5d2hiht3kei1n7o6gk6.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -631,17 +619,17 @@ Opmerking
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_camoqs946ae82we244qq, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_camoqs946ae82we244qq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_ls06ugcd6scvldby01gy, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_ls06ugcd6scvldby01gy {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_pzuaqmqrroyuu82rorgj, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_pzuaqmqrroyuu82rorgj { text-align: center }
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_rglcjfdtcajcv16mtbys, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_rglcjfdtcajcv16mtbys {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_4gegpxqqt1lhghhyj6ez, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_4gegpxqqt1lhghhyj6ez {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_bn6oxv269osh31hbkohq, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_bn6oxv269osh31hbkohq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_c89nt2ipl27sxw16ix2o, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_c89nt2ipl27sxw16ix2o { text-align: left }
-    #tinytable_k2wbrapqt76o81n8686r td.tinytable_css_yz0cb4en1ilgqu86bz9u, #tinytable_k2wbrapqt76o81n8686r th.tinytable_css_yz0cb4en1ilgqu86bz9u {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_jutmhg169832ijvgstc0, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_jutmhg169832ijvgstc0 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_o7jx3k1jf8fsgofnasgq, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_o7jx3k1jf8fsgofnasgq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_ynjqciqksar0s4a47p1h, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_ynjqciqksar0s4a47p1h { text-align: center }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_2hnd2z6jgoa0ei1mtjbu, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_2hnd2z6jgoa0ei1mtjbu {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_ox4kbwf94fcwf75gbmjl, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_ox4kbwf94fcwf75gbmjl {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_6ctzadsz03tgv27bqk3i, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_6ctzadsz03tgv27bqk3i {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_wjaunt74jb9pd8k2oqd5, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_wjaunt74jb9pd8k2oqd5 { text-align: left }
+    #tinytable_z5d2hiht3kei1n7o6gk6 td.tinytable_css_paekcgzlwr5ksersuqbf, #tinytable_z5d2hiht3kei1n7o6gk6 th.tinytable_css_paekcgzlwr5ksersuqbf {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_k2wbrapqt76o81n8686r" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_z5d2hiht3kei1n7o6gk6" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -695,14 +683,14 @@ Opmerking
 </div>
 <p>De tabel hierboven maakt gebruik van de normale standaardfouten. We kunnen de robuuste opvragen via de <code>vcov</code> optie:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(violence_sqmodel, </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="st">"HC3"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Intercept"</span>, </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy"</span> <span class="ot">=</span> <span class="st">"Democratiescore"</span>, </span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy_sq"</span> <span class="ot">=</span> <span class="st">"Democratiescore gekwadrateerd"</span>), </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(violence_sqmodel, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="st">"HC3"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Intercept"</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy"</span> <span class="ot">=</span> <span class="st">"Democratiescore"</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy_sq"</span> <span class="ot">=</span> <span class="st">"Democratiescore gekwadrateerd"</span>), </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
@@ -710,25 +698,25 @@ Opmerking
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_4ezvmgfclxjsi8v4644r = TinyTable.createTableFunctions("tinytable_4ezvmgfclxjsi8v4644r");
+      const tableFns_skoo250tx75qzkc5bkm2 = TinyTable.createTableFunctions("tinytable_skoo250tx75qzkc5bkm2");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '9', j: 2 } ], css_id: 'tinytable_css_8ug66my7lbqq6j44t852',}, 
-          { positions: [ { i: '6', j: 2 } ], css_id: 'tinytable_css_56pfc3khfs2wbikftcw6',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 } ], css_id: 'tinytable_css_6icdtn6djlrmkpdr05np',}, 
-          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_lpnaa7jq7xcqy653ll6g',}, 
-          { positions: [ { i: '9', j: 1 } ], css_id: 'tinytable_css_suxnfvwc2r15wsf3ffb3',}, 
-          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_wjcjg5d6xtjtor3lhuxm',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 } ], css_id: 'tinytable_css_uxnhk6m25ii9q9psiwlw',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_jfszmuwd6i3f4nll59h6',}, 
+          { positions: [ { i: '9', j: 2 } ], css_id: 'tinytable_css_k5iuj9yc86e5eycazkmc',}, 
+          { positions: [ { i: '6', j: 2 } ], css_id: 'tinytable_css_l3f6prgtqjwmjdca8ixa',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 } ], css_id: 'tinytable_css_7t6nboxii44njllsqlzo',}, 
+          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_21zcrkcuu14x4aguwelu',}, 
+          { positions: [ { i: '9', j: 1 } ], css_id: 'tinytable_css_gy8e1vtgrfuh4j5zkmf5',}, 
+          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_d7jjcvyzad4f1i8166n5',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 } ], css_id: 'tinytable_css_wq5nibkbik90l859qvyk',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_12zvro4hysb8wovjrayd',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_4ezvmgfclxjsi8v4644r.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_skoo250tx75qzkc5bkm2.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -737,17 +725,17 @@ Opmerking
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_8ug66my7lbqq6j44t852, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_8ug66my7lbqq6j44t852 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_56pfc3khfs2wbikftcw6, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_56pfc3khfs2wbikftcw6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_6icdtn6djlrmkpdr05np, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_6icdtn6djlrmkpdr05np { text-align: center }
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_lpnaa7jq7xcqy653ll6g, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_lpnaa7jq7xcqy653ll6g {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_suxnfvwc2r15wsf3ffb3, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_suxnfvwc2r15wsf3ffb3 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_wjcjg5d6xtjtor3lhuxm, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_wjcjg5d6xtjtor3lhuxm {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_uxnhk6m25ii9q9psiwlw, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_uxnhk6m25ii9q9psiwlw { text-align: left }
-    #tinytable_4ezvmgfclxjsi8v4644r td.tinytable_css_jfszmuwd6i3f4nll59h6, #tinytable_4ezvmgfclxjsi8v4644r th.tinytable_css_jfszmuwd6i3f4nll59h6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_k5iuj9yc86e5eycazkmc, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_k5iuj9yc86e5eycazkmc {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_l3f6prgtqjwmjdca8ixa, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_l3f6prgtqjwmjdca8ixa {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_7t6nboxii44njllsqlzo, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_7t6nboxii44njllsqlzo { text-align: center }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_21zcrkcuu14x4aguwelu, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_21zcrkcuu14x4aguwelu {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_gy8e1vtgrfuh4j5zkmf5, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_gy8e1vtgrfuh4j5zkmf5 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_d7jjcvyzad4f1i8166n5, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_d7jjcvyzad4f1i8166n5 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_wq5nibkbik90l859qvyk, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_wq5nibkbik90l859qvyk { text-align: left }
+    #tinytable_skoo250tx75qzkc5bkm2 td.tinytable_css_12zvro4hysb8wovjrayd, #tinytable_skoo250tx75qzkc5bkm2 th.tinytable_css_12zvro4hysb8wovjrayd {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_4ezvmgfclxjsi8v4644r" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_skoo250tx75qzkc5bkm2" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -807,14 +795,14 @@ Opmerking
 </dl>
 <p>Laten we de ‘normale’ en ‘robuuste’ standaardfouten vergelijken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(violence_sqmodel, </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="fu">c</span>(<span class="st">"classical"</span>, <span class="st">"HC3"</span>), </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Intercept"</span>, </span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy"</span> <span class="ot">=</span> <span class="st">"Democratiescore"</span>, </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy_sq"</span> <span class="ot">=</span> <span class="st">"Democratiescore gekwadrateerd"</span>),</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(violence_sqmodel, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="fu">c</span>(<span class="st">"classical"</span>, <span class="st">"HC3"</span>), </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">coef_rename =</span> <span class="fu">c</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Intercept"</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy"</span> <span class="ot">=</span> <span class="st">"Democratiescore"</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>               <span class="st">"v2x_polyarchy_sq"</span> <span class="ot">=</span> <span class="st">"Democratiescore gekwadrateerd"</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
@@ -822,25 +810,25 @@ Opmerking
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_aujk72mkkg7fntig6oab = TinyTable.createTableFunctions("tinytable_aujk72mkkg7fntig6oab");
+      const tableFns_7e02wr1b5h61yh68yfuo = TinyTable.createTableFunctions("tinytable_7e02wr1b5h61yh68yfuo");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '9', j: 2 }, { i: '9', j: 3 } ], css_id: 'tinytable_css_xzp28cpbf86gclhd0tup',}, 
-          { positions: [ { i: '6', j: 2 }, { i: '6', j: 3 } ], css_id: 'tinytable_css_fwxgfkpdqj2zb77dikpu',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_2c2arqu92w6dlcffbjn9',}, 
-          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_lsjnyaa71ih5q9ymjut4',}, 
-          { positions: [ { i: '9', j: 1 } ], css_id: 'tinytable_css_v2m5lb7hbq2u5a7u6n27',}, 
-          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_ttna5sulbl1pz8odo70k',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 } ], css_id: 'tinytable_css_vp9t35thicz61coztslh',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_u81urtfzp5obhwdkstgt',}, 
+          { positions: [ { i: '9', j: 2 }, { i: '9', j: 3 } ], css_id: 'tinytable_css_a0v0ux2bzl6kd19o0lr5',}, 
+          { positions: [ { i: '6', j: 2 }, { i: '6', j: 3 } ], css_id: 'tinytable_css_nrt0i266qehizjxq3a3t',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '1', j: 3 }, { i: '2', j: 3 }, { i: '3', j: 3 }, { i: '4', j: 3 }, { i: '5', j: 3 }, { i: '7', j: 3 }, { i: '8', j: 3 } ], css_id: 'tinytable_css_xeaahityzdewn3j50spt',}, 
+          { positions: [ { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_gvvbo8cg4h1dc5mmrjep',}, 
+          { positions: [ { i: '9', j: 1 } ], css_id: 'tinytable_css_nowaiy7pne49lxqu3auc',}, 
+          { positions: [ { i: '6', j: 1 } ], css_id: 'tinytable_css_lb3qkc1fikszvchrpxlt',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 } ], css_id: 'tinytable_css_kfx8uzz9xph8yjhdzk6r',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_z3wgw54fmq3vtgv3z5jr',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_aujk72mkkg7fntig6oab.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_7e02wr1b5h61yh68yfuo.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -849,17 +837,17 @@ Opmerking
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_xzp28cpbf86gclhd0tup, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_xzp28cpbf86gclhd0tup {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_fwxgfkpdqj2zb77dikpu, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_fwxgfkpdqj2zb77dikpu {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_2c2arqu92w6dlcffbjn9, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_2c2arqu92w6dlcffbjn9 { text-align: center }
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_lsjnyaa71ih5q9ymjut4, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_lsjnyaa71ih5q9ymjut4 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_v2m5lb7hbq2u5a7u6n27, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_v2m5lb7hbq2u5a7u6n27 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_ttna5sulbl1pz8odo70k, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_ttna5sulbl1pz8odo70k {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_vp9t35thicz61coztslh, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_vp9t35thicz61coztslh { text-align: left }
-    #tinytable_aujk72mkkg7fntig6oab td.tinytable_css_u81urtfzp5obhwdkstgt, #tinytable_aujk72mkkg7fntig6oab th.tinytable_css_u81urtfzp5obhwdkstgt {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_a0v0ux2bzl6kd19o0lr5, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_a0v0ux2bzl6kd19o0lr5 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_nrt0i266qehizjxq3a3t, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_nrt0i266qehizjxq3a3t {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_xeaahityzdewn3j50spt, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_xeaahityzdewn3j50spt { text-align: center }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_gvvbo8cg4h1dc5mmrjep, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_gvvbo8cg4h1dc5mmrjep {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_nowaiy7pne49lxqu3auc, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_nowaiy7pne49lxqu3auc {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_lb3qkc1fikszvchrpxlt, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_lb3qkc1fikszvchrpxlt {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_kfx8uzz9xph8yjhdzk6r, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_kfx8uzz9xph8yjhdzk6r { text-align: left }
+    #tinytable_7e02wr1b5h61yh68yfuo td.tinytable_css_z3wgw54fmq3vtgv3z5jr, #tinytable_7e02wr1b5h61yh68yfuo th.tinytable_css_z3wgw54fmq3vtgv3z5jr {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_aujk72mkkg7fntig6oab" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_7e02wr1b5h61yh68yfuo" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -931,8 +919,8 @@ Opmerking
 <p>We blijven de bovenstaande <code>vcov</code> optie gebruiken, maar binnen de <code>predictions()</code> functie uit het <code>marginaleffects</code> package (bv., <code>predictions(model, ..., vcov = "HC3")</code>) voor voorspelde waarden.</p>
 <p>Voor coëfficiëntenplots kunnen we de syntax echter niet netjes combineren met <code>tidy()</code> zoals we deden in <a href="linear_08.html" class="quarto-xref"><span>Hoofdstuk 10</span></a>. In de plaats daarvan gebruiken we de <code>avg_slopes()</code> functie uit het <code>marginaleffects</code> package. <code>avg_slopes()</code> schat de marginale effecten van elke predictor in het model. Bij OLS is dit gelijk aan de coëfficiënten.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultaten via tidy</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(violence_sqmodel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultaten via tidy</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(violence_sqmodel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 5
   term             estimate std.error statistic  p.value
@@ -941,8 +929,8 @@ Opmerking
 2 v2x_polyarchy      -1.73      1.10      -1.58 0.117   
 3 v2x_polyarchy_sq    3.83      1.05       3.64 0.000361</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultaten  via avg_slopes</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(violence_sqmodel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultaten  via avg_slopes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">avg_slopes</span>(violence_sqmodel)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
              Term Estimate Std. Error     z Pr(&gt;|z|)    S 2.5 % 97.5 %
@@ -993,11 +981,11 @@ Comparison: dY/dX</code></pre>
 <p>Stel dat we meten in welke mate burgers tevreden zijn met democratie in verschillende Europese landen (bv. met links-rechtspositie als predictor). We kunnen de European Social Survey (ESS) gebruike, waarbij respondenten uit verschillende landen werden ondervraagd. Wanneer de analyse meerdere landen beschouwt, zijn respondenten geclustert in hun land.</p>
 <p>We bekijken de resultaten van een dergelijk model. De afhankelijke variabele meet tevredenheid met democratie op een schaal van 0 (“zeer ontevreden”) tot 10 (“zeer tevreden”). De onafhankelijke variabele meet links-rechtspositie met een schaal van 0 (“links”) tot 10 (“rechts”).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model </span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>demsatis_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(stfdem <span class="sc">~</span> lrscale, <span class="at">data =</span> ess_demsatis)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(demsatis_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>demsatis_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(stfdem <span class="sc">~</span> lrscale, <span class="at">data =</span> ess_demsatis)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coefficients</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(demsatis_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term        estimate std.error statistic   p.value conf.low conf.high
@@ -1083,13 +1071,13 @@ Comparison: dY/dX</code></pre>
 <h3 data-number="D.3.2" class="anchored" data-anchor-id="mogelijke-oplossing-clustered-standard-errors-fixed-effects"><span class="header-section-number">D.3.2</span> Mogelijke oplossing: Clustered standard errors &amp; fixed effects</h3>
 <p>We schatten ons model met geclusterde standaardfouten met de code uitgelegd hieronder. Om “fixed effects” toe te voegen transformeren we gewoon de clustervariabele in een factor-variabele. Wanneer we deze factor toevoegen aan het model neemt R dummies op voor elke cluster, behoudens de referentiecategorie. <a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># factor maken</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ess_demsatis <span class="ot">&lt;-</span> ess_demsatis <span class="sc">|&gt;</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_name_F =</span> <span class="fu">factor</span>(country_name))</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Controleren of alles juist is gegaan: Austria is hier de referentiecategorie</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ess_demsatis<span class="sc">$</span>country_name_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># factor maken</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ess_demsatis <span class="ot">&lt;-</span> ess_demsatis <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">country_name_F =</span> <span class="fu">factor</span>(country_name))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Controleren of alles juist is gegaan: Austria is hier de referentiecategorie</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(ess_demsatis<span class="sc">$</span>country_name_F)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Austria"        "Belgium"        "Bulgaria"       "Croatia"       
  [5] "Cyprus"         "Finland"        "France"         "Germany"       
@@ -1099,11 +1087,11 @@ Comparison: dY/dX</code></pre>
 [21] "Portugal"       "Serbia"         "Slovakia"       "Slovenia"      
 [25] "Spain"          "Sweden"         "Switzerland"    "United Kingdom"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Factor toevoegen aan model</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>demsatis_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(stfdem <span class="sc">~</span> lrscale <span class="sc">+</span> country_name_F, <span class="at">data =</span> ess_demsatis)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënten opvragen</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(demsatis_model2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Factor toevoegen aan model</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>demsatis_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(stfdem <span class="sc">~</span> lrscale <span class="sc">+</span> country_name_F, <span class="at">data =</span> ess_demsatis)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënten opvragen</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(demsatis_model2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 29 × 7
    term                estimate std.error statistic   p.value conf.low conf.high
@@ -1125,11 +1113,11 @@ Comparison: dY/dX</code></pre>
 <p>De coëfficient voor <code>lrscale</code> toont de associatie tussen links-rechtspositie en tevredenheid met democratie, gecontroleerd voor het land waar de respondent zich bevindt. De dummy-coëfficiënten tonen het verschil tussen elk land en de referentiecategorie (Oostenrijk), gecontroleerd voor <code>lrscale</code>. We vinden bijvoorbeeld dat als we Bulgaarse en Oostenrijkse burgers met dezelfde ideologiescore zouden vergelijken, dan zouden we verwachten dat tevredenheid van Bulgaarse burgers gemiddeld genomen 2.42 eenheden lager is dan die van Oostenrijkse burgers.</p>
 <p>De resultaten hieboven maken nog gebruik van de ‘normale’ standaardfouten. We kunnen de geclusterde standaardfouten toevoegen via <code>modelsummary()</code> met de <code>vcov =</code> optie, zoals hieronder (<code>coef_rename</code> hebben we hier even weggelaten).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  demsatis_model2, </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">stars =</span> T, </span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>country_name_F, </span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  demsatis_model2, </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">stars =</span> T, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>country_name_F, </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
@@ -1137,25 +1125,25 @@ Comparison: dY/dX</code></pre>
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_a62bwwq6ore323k0sgau = TinyTable.createTableFunctions("tinytable_a62bwwq6ore323k0sgau");
+      const tableFns_t4vduti47w790fvvlilt = TinyTable.createTableFunctions("tinytable_t4vduti47w790fvvlilt");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '61', j: 2 } ], css_id: 'tinytable_css_p7iditv4ptz2cdw6o47d',}, 
-          { positions: [ { i: '58', j: 2 } ], css_id: 'tinytable_css_7w6xexw27p71mgaw54vq',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '20', j: 2 }, { i: '21', j: 2 }, { i: '22', j: 2 }, { i: '23', j: 2 }, { i: '24', j: 2 }, { i: '25', j: 2 }, { i: '26', j: 2 }, { i: '27', j: 2 }, { i: '28', j: 2 }, { i: '29', j: 2 }, { i: '30', j: 2 }, { i: '31', j: 2 }, { i: '32', j: 2 }, { i: '33', j: 2 }, { i: '34', j: 2 }, { i: '35', j: 2 }, { i: '36', j: 2 }, { i: '37', j: 2 }, { i: '38', j: 2 }, { i: '39', j: 2 }, { i: '40', j: 2 }, { i: '41', j: 2 }, { i: '42', j: 2 }, { i: '43', j: 2 }, { i: '44', j: 2 }, { i: '45', j: 2 }, { i: '46', j: 2 }, { i: '47', j: 2 }, { i: '48', j: 2 }, { i: '49', j: 2 }, { i: '50', j: 2 }, { i: '51', j: 2 }, { i: '52', j: 2 }, { i: '53', j: 2 }, { i: '54', j: 2 }, { i: '55', j: 2 }, { i: '56', j: 2 }, { i: '57', j: 2 }, { i: '59', j: 2 }, { i: '60', j: 2 } ], css_id: 'tinytable_css_nrphau79kjtq40ppxr5i',}, 
-          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_lpigbtw64en4t2f8oa02',}, 
-          { positions: [ { i: '61', j: 1 } ], css_id: 'tinytable_css_eg5rgfmbwif1tcnte4h3',}, 
-          { positions: [ { i: '58', j: 1 } ], css_id: 'tinytable_css_ci5l0amhd6d06kjqkm75',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 }, { i: '22', j: 1 }, { i: '23', j: 1 }, { i: '24', j: 1 }, { i: '25', j: 1 }, { i: '26', j: 1 }, { i: '27', j: 1 }, { i: '28', j: 1 }, { i: '29', j: 1 }, { i: '30', j: 1 }, { i: '31', j: 1 }, { i: '32', j: 1 }, { i: '33', j: 1 }, { i: '34', j: 1 }, { i: '35', j: 1 }, { i: '36', j: 1 }, { i: '37', j: 1 }, { i: '38', j: 1 }, { i: '39', j: 1 }, { i: '40', j: 1 }, { i: '41', j: 1 }, { i: '42', j: 1 }, { i: '43', j: 1 }, { i: '44', j: 1 }, { i: '45', j: 1 }, { i: '46', j: 1 }, { i: '47', j: 1 }, { i: '48', j: 1 }, { i: '49', j: 1 }, { i: '50', j: 1 }, { i: '51', j: 1 }, { i: '52', j: 1 }, { i: '53', j: 1 }, { i: '54', j: 1 }, { i: '55', j: 1 }, { i: '56', j: 1 }, { i: '57', j: 1 }, { i: '59', j: 1 }, { i: '60', j: 1 } ], css_id: 'tinytable_css_0na8iau9axyu48b2pv50',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_w82ibbhzvazpedqmefwu',}, 
+          { positions: [ { i: '61', j: 2 } ], css_id: 'tinytable_css_e0c4usz9zf4jfgcem7bv',}, 
+          { positions: [ { i: '58', j: 2 } ], css_id: 'tinytable_css_hia24gy8nlwoee5orzlp',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '4', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 }, { i: '7', j: 2 }, { i: '8', j: 2 }, { i: '9', j: 2 }, { i: '10', j: 2 }, { i: '11', j: 2 }, { i: '12', j: 2 }, { i: '13', j: 2 }, { i: '14', j: 2 }, { i: '15', j: 2 }, { i: '16', j: 2 }, { i: '17', j: 2 }, { i: '18', j: 2 }, { i: '19', j: 2 }, { i: '20', j: 2 }, { i: '21', j: 2 }, { i: '22', j: 2 }, { i: '23', j: 2 }, { i: '24', j: 2 }, { i: '25', j: 2 }, { i: '26', j: 2 }, { i: '27', j: 2 }, { i: '28', j: 2 }, { i: '29', j: 2 }, { i: '30', j: 2 }, { i: '31', j: 2 }, { i: '32', j: 2 }, { i: '33', j: 2 }, { i: '34', j: 2 }, { i: '35', j: 2 }, { i: '36', j: 2 }, { i: '37', j: 2 }, { i: '38', j: 2 }, { i: '39', j: 2 }, { i: '40', j: 2 }, { i: '41', j: 2 }, { i: '42', j: 2 }, { i: '43', j: 2 }, { i: '44', j: 2 }, { i: '45', j: 2 }, { i: '46', j: 2 }, { i: '47', j: 2 }, { i: '48', j: 2 }, { i: '49', j: 2 }, { i: '50', j: 2 }, { i: '51', j: 2 }, { i: '52', j: 2 }, { i: '53', j: 2 }, { i: '54', j: 2 }, { i: '55', j: 2 }, { i: '56', j: 2 }, { i: '57', j: 2 }, { i: '59', j: 2 }, { i: '60', j: 2 } ], css_id: 'tinytable_css_w2ga36sh6empvmbvu4vj',}, 
+          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_fjopzccte7e61z1x4bsj',}, 
+          { positions: [ { i: '61', j: 1 } ], css_id: 'tinytable_css_ck01m0ecp06mz7ru5jc9',}, 
+          { positions: [ { i: '58', j: 1 } ], css_id: 'tinytable_css_5vo71grc9ijkgq54ezmn',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '4', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 }, { i: '7', j: 1 }, { i: '8', j: 1 }, { i: '9', j: 1 }, { i: '10', j: 1 }, { i: '11', j: 1 }, { i: '12', j: 1 }, { i: '13', j: 1 }, { i: '14', j: 1 }, { i: '15', j: 1 }, { i: '16', j: 1 }, { i: '17', j: 1 }, { i: '18', j: 1 }, { i: '19', j: 1 }, { i: '20', j: 1 }, { i: '21', j: 1 }, { i: '22', j: 1 }, { i: '23', j: 1 }, { i: '24', j: 1 }, { i: '25', j: 1 }, { i: '26', j: 1 }, { i: '27', j: 1 }, { i: '28', j: 1 }, { i: '29', j: 1 }, { i: '30', j: 1 }, { i: '31', j: 1 }, { i: '32', j: 1 }, { i: '33', j: 1 }, { i: '34', j: 1 }, { i: '35', j: 1 }, { i: '36', j: 1 }, { i: '37', j: 1 }, { i: '38', j: 1 }, { i: '39', j: 1 }, { i: '40', j: 1 }, { i: '41', j: 1 }, { i: '42', j: 1 }, { i: '43', j: 1 }, { i: '44', j: 1 }, { i: '45', j: 1 }, { i: '46', j: 1 }, { i: '47', j: 1 }, { i: '48', j: 1 }, { i: '49', j: 1 }, { i: '50', j: 1 }, { i: '51', j: 1 }, { i: '52', j: 1 }, { i: '53', j: 1 }, { i: '54', j: 1 }, { i: '55', j: 1 }, { i: '56', j: 1 }, { i: '57', j: 1 }, { i: '59', j: 1 }, { i: '60', j: 1 } ], css_id: 'tinytable_css_d0fwb91n7175ojplgnt5',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_kjgphd91q4592vt4o357',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_a62bwwq6ore323k0sgau.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_t4vduti47w790fvvlilt.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -1164,17 +1152,17 @@ Comparison: dY/dX</code></pre>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_p7iditv4ptz2cdw6o47d, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_p7iditv4ptz2cdw6o47d {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_7w6xexw27p71mgaw54vq, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_7w6xexw27p71mgaw54vq {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_nrphau79kjtq40ppxr5i, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_nrphau79kjtq40ppxr5i { text-align: center }
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_lpigbtw64en4t2f8oa02, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_lpigbtw64en4t2f8oa02 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_eg5rgfmbwif1tcnte4h3, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_eg5rgfmbwif1tcnte4h3 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_ci5l0amhd6d06kjqkm75, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_ci5l0amhd6d06kjqkm75 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_0na8iau9axyu48b2pv50, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_0na8iau9axyu48b2pv50 { text-align: left }
-    #tinytable_a62bwwq6ore323k0sgau td.tinytable_css_w82ibbhzvazpedqmefwu, #tinytable_a62bwwq6ore323k0sgau th.tinytable_css_w82ibbhzvazpedqmefwu {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_e0c4usz9zf4jfgcem7bv, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_e0c4usz9zf4jfgcem7bv {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_hia24gy8nlwoee5orzlp, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_hia24gy8nlwoee5orzlp {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_w2ga36sh6empvmbvu4vj, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_w2ga36sh6empvmbvu4vj { text-align: center }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_fjopzccte7e61z1x4bsj, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_fjopzccte7e61z1x4bsj {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_ck01m0ecp06mz7ru5jc9, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_ck01m0ecp06mz7ru5jc9 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_5vo71grc9ijkgq54ezmn, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_5vo71grc9ijkgq54ezmn {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_d0fwb91n7175ojplgnt5, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_d0fwb91n7175ojplgnt5 { text-align: left }
+    #tinytable_t4vduti47w790fvvlilt td.tinytable_css_kjgphd91q4592vt4o357, #tinytable_t4vduti47w790fvvlilt th.tinytable_css_kjgphd91q4592vt4o357 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_a62bwwq6ore323k0sgau" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_t4vduti47w790fvvlilt" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         
         <thead>
               <tr>
@@ -1442,18 +1430,18 @@ Comparison: dY/dX</code></pre>
 </dl>
 <p>We kunnen de <code>vcov</code> optie ook gebruiken voor voorspellingen en marginal effects binnen de <code>avg_slopes</code> en <code>predictions</code> functies:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(demsatis_model2, </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">lrscale =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)), </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov =</span> <span class="sc">~</span>country_name_F) <span class="sc">|&gt;</span> </span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lrscale, <span class="at">y =</span> estimate)) <span class="sc">+</span> </span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Voorspelde waarden met geclusterde standaardfouten"</span>, </span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Links-rechtspositionering"</span>, </span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde tevredenheid met democratie"</span>) <span class="sc">+</span> </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)) <span class="sc">+</span> </span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predictions</span>(demsatis_model2, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">lrscale =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)), </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">vcov =</span> <span class="sc">~</span>country_name_F) <span class="sc">|&gt;</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> lrscale, <span class="at">y =</span> estimate)) <span class="sc">+</span> </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Voorspelde waarden met geclusterde standaardfouten"</span>, </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Links-rechtspositionering"</span>, </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Voorspelde tevredenheid met democratie"</span>) <span class="sc">+</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)) <span class="sc">+</span> </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1475,15 +1463,15 @@ Presentatie
 <p>Met de <code>modelsummary</code> functie hierboven creëerden we een regressietabel met de coëfficiënten voor alle `country_name_F’- categorieën. Als er echter heel veel dummies zijn (en die dummies zijn ook minder relevant voor de interpetatie), dan worden ze vaak weggelaten in de output. Wel moet je in de notitie aan de lezer verduidelijken dat ‘fixed effects’ en geclusterde standaardfouten werden gebruikt.</p>
 <p>We gebruiken <code>coef_map</code> om bepaalde coëfficiënten weg te kunnen laten in de output (zie <a href="interaction_01.html#sec-interaction-term-in-a-regression-table" class="quarto-xref"><span>Paragraaf 17.2</span></a>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  demsatis_model2, </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">stars =</span> T, </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>country_name_F, </span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_map =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"Links-Rechtspositie"</span>),</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Democratische tevredenheid en links-rechtspositie"</span>, </span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">notes =</span> <span class="st">"Lineaire regressiecoëfficiënten met geclusterde standaardfouten tussen haakjes. Model geschat met country fixed effects."</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  demsatis_model2, </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">stars =</span> T, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>country_name_F, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">coef_map =</span> <span class="fu">c</span>(<span class="st">"(Intercept)"</span> <span class="ot">=</span> <span class="st">"Constante"</span>, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"lrscale"</span> <span class="ot">=</span> <span class="st">"Links-Rechtspositie"</span>),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>),</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Democratische tevredenheid en links-rechtspositie"</span>, </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">notes =</span> <span class="st">"Lineaire regressiecoëfficiënten met geclusterde standaardfouten tussen haakjes. Model geschat met country fixed effects."</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
@@ -1491,25 +1479,25 @@ Presentatie
 
     <script>
       // Create table-specific functions using external factory
-      const tableFns_efsnhplnthovvgm34ynx = TinyTable.createTableFunctions("tinytable_efsnhplnthovvgm34ynx");
+      const tableFns_m8zdnxfg0t4sr7ljuyau = TinyTable.createTableFunctions("tinytable_m8zdnxfg0t4sr7ljuyau");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '7', j: 2 } ], css_id: 'tinytable_css_a3z7rj3r5fmuldnpv80b',}, 
-          { positions: [ { i: '4', j: 2 } ], css_id: 'tinytable_css_d2jxudwt9as1bswfsbcb',}, 
-          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 } ], css_id: 'tinytable_css_u7mhg7o6wlqytsnjfm2n',}, 
-          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_uwp5bdk46l4mf3p1klq2',}, 
-          { positions: [ { i: '7', j: 1 } ], css_id: 'tinytable_css_cmegvbb3295qqfsqi82c',}, 
-          { positions: [ { i: '4', j: 1 } ], css_id: 'tinytable_css_p0y7rm43e7no7jndmns1',}, 
-          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 } ], css_id: 'tinytable_css_q3mem2aufziepam81spl',}, 
-          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_hselmrhnr5wmastidfg3',}, 
+          { positions: [ { i: '7', j: 2 } ], css_id: 'tinytable_css_hen1cel86bcpw5neogcj',}, 
+          { positions: [ { i: '4', j: 2 } ], css_id: 'tinytable_css_1d3cvqphifs2gkmwlwlv',}, 
+          { positions: [ { i: '1', j: 2 }, { i: '2', j: 2 }, { i: '3', j: 2 }, { i: '5', j: 2 }, { i: '6', j: 2 } ], css_id: 'tinytable_css_qeirp622is9954ahiawl',}, 
+          { positions: [ { i: '0', j: 2 } ], css_id: 'tinytable_css_1k5xgywzetv4il0tyukv',}, 
+          { positions: [ { i: '7', j: 1 } ], css_id: 'tinytable_css_v3o91630dkpwlt778wl7',}, 
+          { positions: [ { i: '4', j: 1 } ], css_id: 'tinytable_css_0gx84rj5q9elkhc12d84',}, 
+          { positions: [ { i: '1', j: 1 }, { i: '2', j: 1 }, { i: '3', j: 1 }, { i: '5', j: 1 }, { i: '6', j: 1 } ], css_id: 'tinytable_css_hgfheuymnqzzew3y9vbd',}, 
+          { positions: [ { i: '0', j: 1 } ], css_id: 'tinytable_css_wmbutcunjmlpr36qf1t6',}, 
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_efsnhplnthovvgm34ynx.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_m8zdnxfg0t4sr7ljuyau.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
@@ -1518,17 +1506,17 @@ Presentatie
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
     <style>
     /* tinytable css entries after */
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_a3z7rj3r5fmuldnpv80b, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_a3z7rj3r5fmuldnpv80b {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_d2jxudwt9as1bswfsbcb, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_d2jxudwt9as1bswfsbcb {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_u7mhg7o6wlqytsnjfm2n, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_u7mhg7o6wlqytsnjfm2n { text-align: center }
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_uwp5bdk46l4mf3p1klq2, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_uwp5bdk46l4mf3p1klq2 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_cmegvbb3295qqfsqi82c, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_cmegvbb3295qqfsqi82c {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_p0y7rm43e7no7jndmns1, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_p0y7rm43e7no7jndmns1 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_q3mem2aufziepam81spl, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_q3mem2aufziepam81spl { text-align: left }
-    #tinytable_efsnhplnthovvgm34ynx td.tinytable_css_hselmrhnr5wmastidfg3, #tinytable_efsnhplnthovvgm34ynx th.tinytable_css_hselmrhnr5wmastidfg3 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_hen1cel86bcpw5neogcj, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_hen1cel86bcpw5neogcj {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_1d3cvqphifs2gkmwlwlv, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_1d3cvqphifs2gkmwlwlv {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_qeirp622is9954ahiawl, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_qeirp622is9954ahiawl { text-align: center }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_1k5xgywzetv4il0tyukv, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_1k5xgywzetv4il0tyukv {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: center }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_v3o91630dkpwlt778wl7, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_v3o91630dkpwlt778wl7 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_0gx84rj5q9elkhc12d84, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_0gx84rj5q9elkhc12d84 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_hgfheuymnqzzew3y9vbd, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_hgfheuymnqzzew3y9vbd { text-align: left }
+    #tinytable_m8zdnxfg0t4sr7ljuyau td.tinytable_css_wmbutcunjmlpr36qf1t6, #tinytable_m8zdnxfg0t4sr7ljuyau th.tinytable_css_wmbutcunjmlpr36qf1t6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%; ; text-align: left }
     </style>
     <div class="container">
-      <table class="tinytable" id="tinytable_efsnhplnthovvgm34ynx" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="tinytable" id="tinytable_m8zdnxfg0t4sr7ljuyau" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
         <caption>Democratische tevredenheid en links-rechtspositie</caption>
         <thead>
               <tr>
@@ -1581,12 +1569,12 @@ Presentatie
 <p>De assumptie van onafhankelijke fouten kan ook geschonden worden als we dezelfde eenheid (bv. een persoon, land, bedrijf) observeren over meerder punten in de tijd. Dit wordt ‘time-series’ data genoemd.</p>
 <p>Stel bijvoorbeeld dat we geïnteresseerd zijn in de relatie tussen welvaart en democratie in een land. We maken hier gebruik van V-Dem data en kijken naar de relatie tussen welvaart van een land (<code>e_gdp</code>) en democratiescore (<code>v2x_polyarchy</code>). We richten ons eerst op Nederland. Hieronder tonen we hoe de data eruit ziet.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Filteren op Nederland</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>netherlands <span class="ot">&lt;-</span> serial_data <span class="sc">|&gt;</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country_name <span class="sc">==</span> <span class="st">"Netherlands"</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#eerste 15 rijen in de dataset bekijken</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(netherlands, <span class="at">n =</span> <span class="dv">15</span>L)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Filteren op Nederland</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>netherlands <span class="ot">&lt;-</span> serial_data <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country_name <span class="sc">==</span> <span class="st">"Netherlands"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co">#eerste 15 rijen in de dataset bekijken</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(netherlands, <span class="at">n =</span> <span class="dv">15</span>L)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   country_name year v2x_polyarchy    e_gdp
 1   Netherlands 1789         0.076 2309.141
@@ -1608,11 +1596,11 @@ Presentatie
 </div>
 <p>De dataset meet de variabelen vanaf 1789. Maar vinden we een relatie tussen de twee variabelen? Gaat hogere welvaart gepaard met meer democratie? We kunnen een lineaire regressie schatten om dit te proberen nagaan. We beperken ons hier tot een bivariate analyse. In de praktijk zou je ook op zoek willen gaan naar controlevariabelen.<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Het model</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>neth_model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> e_gdp, <span class="at">data =</span> netherlands)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënt bekijken</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(neth_model1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Het model</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>neth_model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> e_gdp, <span class="at">data =</span> netherlands)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënt bekijken</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(neth_model1, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 7
   term          estimate   std.error statistic  p.value   conf.low  conf.high
@@ -1647,8 +1635,8 @@ Presentatie
 <h4 data-number="D.3.3.1" class="anchored" data-anchor-id="lagged-dependent-variables-maken"><span class="header-section-number">D.3.3.1</span> Lagged Dependent Variables maken</h4>
 <p>We kunnen de <code>lag()</code> functie gebruiken om onze afhankelijke variabele te ‘vertragen’ voor een nieuw aangemaakte variabele.<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>netherlands <span class="ot">&lt;-</span> netherlands <span class="sc">|&gt;</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dem_lag =</span> <span class="fu">lag</span>(v2x_polyarchy, <span class="dv">1</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>netherlands <span class="ot">&lt;-</span> netherlands <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dem_lag =</span> <span class="fu">lag</span>(v2x_polyarchy, <span class="dv">1</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl>
 <dt><code>lag(v2x_polyarchy, 1)</code></dt>
@@ -1658,7 +1646,7 @@ Presentatie
 </dl>
 <p>Laten we even kijken wat dat doet:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(netherlands, <span class="at">n =</span> <span class="dv">15</span>L)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(netherlands, <span class="at">n =</span> <span class="dv">15</span>L)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   country_name year v2x_polyarchy    e_gdp dem_lag
 1   Netherlands 1789         0.076 2309.141      NA
@@ -1694,11 +1682,11 @@ Waarschuwing!
 </div>
 <p>We voegen nu de lagged dependent variabele toe als predictor aan ons origineel model</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Het nieuwe model</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>neth_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> e_gdp <span class="sc">+</span> dem_lag, <span class="at">data =</span> netherlands)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënten opvragen</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(neth_model2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Het nieuwe model</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>neth_model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> e_gdp <span class="sc">+</span> dem_lag, <span class="at">data =</span> netherlands)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënten opvragen</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(neth_model2, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 7
   term            estimate    std.error statistic   p.value   conf.low conf.high
@@ -1707,8 +1695,8 @@ Waarschuwing!
 2 e_gdp       0.0000000561 0.0000000838     0.669 5.04e-  1   -1.09e-7   2.21e-7
 3 dem_lag     0.978        0.0155          63.3   2.53e-145    9.48e-1   1.01e+0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Opvragen model fit statistieken via broom::glance()</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(neth_model2)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Opvragen model fit statistieken via broom::glance()</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(neth_model2)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
   r.squared adj.r.squared  sigma statistic   p.value    df logLik   AIC   BIC
@@ -1721,7 +1709,7 @@ Waarschuwing!
 <p>De coëfficiënt voor <code>e_gdp</code> toont de associate tussen BBP en democratiescores gecontroleerd voor democratiescore in het voorgaande jaar. Dit vertelt ons eigenlijk of BBP gerelataard is aan <em>verandering in democratiescore</em> van jaar tot jaar. De coëfficiënt is positief, maar niet langer significant.</p>
 <p>Hebben we daarmee het probleem van autocorrelatie opgelost? We gaan het na:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">durbinWatsonTest</span>(neth_model2) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">durbinWatsonTest</span>(neth_model2) </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> lag Autocorrelation D-W Statistic p-value
    1       0.2865016      1.425975   0.004
@@ -1760,10 +1748,10 @@ Waarschuwing!
 <p>We tonen hier de transitie in de dataset van Mexico naar Suriname. In rij 7 bevind zich de data voor Mexico voor het laats beschikbare jaar 2019. Dan springt de dataset naar het eerste jaar voor Suriname, namelijk 1960. Als we kijken naar de <code>dem_lag</code> variabele zien we dat Suriname in 1960 de democratiescore van Mexico in 2019 heeft meegekregen. Dat mag natuurlijk niet. Zonder correctie doet R dit voor alle punten in de dataset waar we van 1 land naar een ander land gaan.</p>
 <p>We vermijden dit door de <code>group_by()</code> functie te gebruiken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>serial_data <span class="ot">&lt;-</span> serial_data <span class="sc">|&gt;</span> </span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country_name) <span class="sc">|&gt;</span> </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dem_lag =</span> <span class="fu">lag</span>(v2x_polyarchy)) <span class="sc">|&gt;</span> </span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>serial_data <span class="ot">&lt;-</span> serial_data <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country_name) <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dem_lag =</span> <span class="fu">lag</span>(v2x_polyarchy)) <span class="sc">|&gt;</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() </span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <dl class="page-columns page-full">
 <dt><code>group_by(country_name)</code></dt>
@@ -1782,8 +1770,8 @@ Heiss, Andrew. 2024. <span>‘Visualizing {Dplyr}’s Mutate(), Summarize(), Gro
 </dl>
 <p>Laten we bekijken wat er gebeurt is</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>serial_data <span class="sc">|&gt;</span> </span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">225</span><span class="sc">:</span><span class="dv">235</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>serial_data <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">225</span><span class="sc">:</span><span class="dv">235</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 5
    country_name  year v2x_polyarchy   e_gdp dem_lag
@@ -1810,13 +1798,13 @@ Heiss, Andrew. 2024. <span>‘Visualizing {Dplyr}’s Mutate(), Summarize(), Gro
 <h2 data-number="D.4" class="anchored" data-anchor-id="omgaan-met-niet-normaal-verdeelde-residuals"><span class="header-section-number">D.4</span> Omgaan met niet-normaal verdeelde residuals</h2>
 <section id="wat-was-het-probleem-ook-al-weer-1" class="level3" data-number="D.4.1">
 <h3 data-number="D.4.1" class="anchored" data-anchor-id="wat-was-het-probleem-ook-al-weer-1"><span class="header-section-number">D.4.1</span> Wat was het probleem ook al weer?</h3>
-<p>De laatste assumptie die we hier bekijken stelt dat de errors/residuals/fouten in een OLS model normaal verdeeld zijn. Of aan deze assumptie voldaan is kunnen we nagaan met plots gemaakt via <code>resid_panel()</code>: een histogram van de residuals en een Q-Q plot van de residuals.</p>
+<p>De laatste assumptie die we hier bekijken stelt dat de errors/residuals/fouten in een OLS model normaal verdeeld zijn. Of aan deze assumptie voldaan is kunnen we nagaan met een Q-Q plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model schatten</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>norm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_disp <span class="sc">+</span> pr_fct <span class="sc">+</span> region1, <span class="at">data =</span> normal_residual_data)</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënten opvragen</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(norm_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model schatten</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>norm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(v2x_polyarchy <span class="sc">~</span> gini_disp <span class="sc">+</span> pr_fct <span class="sc">+</span> region1, <span class="at">data =</span> normal_residual_data)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Coëfficiënten opvragen</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(norm_model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
   term            estimate std.error statistic p.value conf.low conf.high
@@ -1828,14 +1816,8 @@ Heiss, Andrew. 2024. <span>‘Visualizing {Dplyr}’s Mutate(), Summarize(), Gro
 5 region1Europe    0.176     0.0665      2.65  0.00997   0.0435   0.309  
 6 region1Americas  0.168     0.0710      2.37  0.0207    0.0265   0.310  </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assumptie checken</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">resid_panel</span>(norm_model, <span class="at">plots =</span> <span class="fu">c</span>(<span class="st">"hist"</span>, <span class="st">"qq"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.
-ℹ The deprecated feature was likely used in the ggResidpanel package.
-  Please report the issue to the authors.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assumptie checken</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(norm_model, <span class="at">which =</span> <span class="dv">2</span>)</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1846,7 +1828,7 @@ Heiss, Andrew. 2024. <span>‘Visualizing {Dplyr}’s Mutate(), Summarize(), Gro
 </div>
 <p>Beide grafieken leiden tot dezelfde vaststelling: de assumptie is geschonden (zie <a href="linear_07.html" class="quarto-xref"><span>Hoofdstuk 9</span></a>). Met een relatief grote steekproef is een schending van deze assumptie doorgaans geen probleem. In kleine steekproeven kan dit wel problematisch zijn. Hier zien we met de <code>glance()</code> functie uit het <code>broom</code> package dat we met een kleine steekproef te maken hebben:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(norm_model)<span class="sc">$</span>nobs</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glance</span>(norm_model)<span class="sc">$</span>nobs</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 77</code></pre>
 </div>
@@ -1859,14 +1841,14 @@ Heiss, Andrew. 2024. <span>‘Visualizing {Dplyr}’s Mutate(), Summarize(), Gro
 <p>We nemen een steekproef van de oorspronkelijke steekproef met dezelfde grootte. Dit gebeurt met teruglegging van de observaties, dat wil zeggen 1 observatie kan meerdere malen opgenomen worden in de nieuwe steekproef. Dat moet natuurlijk, anders kom je gewoon telkens dezelfde steekproef uit. Op basis van de nieuwe steekproef schatten we coëfficiënt en standaardfout opnieuw en slagen de resultaten op. Dit doen we een aantal keren. Ten slotte kijken we naar alle verschillende coëfficiënten die we uitgekomen zijn en in het bijzonder naar de standaardafwijking van de verzameling coëfficiënten. Deze standaardafwijking wordt de ’gebootstrapte’standaardfout.</p>
 <p>Ook deze standaardfout kunnen we bekomen met de <code>vcov=</code> optie in de <code>modelsummary()</code> syntax. Wat nieuw is hier is dat we een element van toeval toevoegen in de berekening: R gaat ‘random’ nieuwe steekproeven trekken. Op zich is dit goed -moeten wij het niet doen!- maar juist door dit toevalselement kan de uitkomst telkens licht anders zijn. Om resultaten reproduceerbaar te houden zetten we hier dan ook een ‘seed’: een seed is een zelfgekozen startgeval (je kan 1 gebruiken maar ook je verjaardag enz.). Met de seed houdt R bij welke steekproeven precies getrokken werden en worden telkens dezelfde resultaten bereikt. Voor je je seed vastlegt wil je wel eerst nagaan of je met hetzelfde aantal steekproeven sterk verschillende resultaten uitkomt, want in dat geval vraag je R best meer steekproeven te trekken voor betere schattingen, zie onder).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># seed vastleggen</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model schatten </span></span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(norm_model, </span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="st">"bootstrap"</span>, </span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># seed vastleggen</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Model schatten </span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(norm_model, </span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="st">"bootstrap"</span>, </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
@@ -1999,14 +1981,14 @@ Heiss, Andrew. 2024. <span>‘Visualizing {Dplyr}’s Mutate(), Summarize(), Gro
 </dl>
 <p>We kunnen de standaardfouten vergelijken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seed: zelfde als hierboven want dan krijgen we zelfde resultaten</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellen vergelijken</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(norm_model, </span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="fu">c</span>(<span class="st">"classical"</span>, <span class="st">"bootstrap"</span>),</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Seed: zelfde als hierboven want dan krijgen we zelfde resultaten</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellen vergelijken</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(norm_model, </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="fu">c</span>(<span class="st">"classical"</span>, <span class="st">"bootstrap"</span>),</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
@@ -2151,13 +2133,13 @@ Heiss, Andrew. 2024. <span>‘Visualizing {Dplyr}’s Mutate(), Summarize(), Gro
 </ul>
 <p>Zoals gezegd neemt R zelf nieuwe toevalssteekproeven. Standaard worden 250 steekproeven genomen. Zoals eerder gezegd zet je een ‘seed’ om resultaten gelijk te houden, maar natuurlijk is het niet echt betrouwbaar als resultaten bij elke trekking sterk veranderen. Vooraleer te beslissen om je seed vast te leggen, wil je nagaan of resultaten sterk verschillen zonder seed. Als dit het geval is, wil je R vragen meer steekproeven te trekken om betere schattingen te maken van de standaardfouten. Dit doen we in onderstaande syntax door R om 1000 steekproeven te vragen. We zetten een seed in de syntax, maar ga ervanuit dat we eerst goed gekeken hebben naar verschillende uitkomsten vooraleer een seed te zetten.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) </span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(norm_model, </span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="st">"bootstrap"</span>, </span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">R =</span> <span class="dv">1000</span>, </span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(norm_model, </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">stars =</span> T, </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">vcov =</span> <span class="st">"bootstrap"</span>, </span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">R =</span> <span class="dv">1000</span>, </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">gof_map =</span> <span class="fu">c</span>(<span class="st">"nobs"</span>, <span class="st">"r.squared"</span>, <span class="st">"adj.r.squared"</span>))</span></code><button title="Kopieer naar klembord" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <!-- preamble start -->
 
