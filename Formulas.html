@@ -401,28 +401,28 @@ Tip voor de HTML-versie van dit document
 </div>
 <section id="covariantie-en-correlatie" class="level2" data-number="C.1">
 <h2 data-number="C.1" class="anchored" data-anchor-id="covariantie-en-correlatie"><span class="header-section-number">C.1</span> Covariantie en Correlatie</h2>
-<p>(Steekproef) Covariantie</p>
-<p><span class="math display">\[cov(x,y) = \frac{\sum (x_{i} - \bar{x})(y_{i} - \bar{y})}{n-1}\]</span></p>
+<p>Covariantie</p>
+<p><span class="math display">\[\text{Cov}(x,y) = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{n - 1}\]</span></p>
 <p>Pearson Correlatie</p>
-<p><span class="math display">\[r = \frac{cov(x,y)}{SD(x) * SD(y)}\]</span></p>
+<p><span class="math display">\[\text{Cor}(x,y) = \frac{\text{Cov}(x,y)}{s_x \cdot s_y} = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{(n-1) \cdot s_x \cdot s_y}\]</span></p>
 </section>
 <section id="lineaire-regressie" class="level2" data-number="C.2">
 <h2 data-number="C.2" class="anchored" data-anchor-id="lineaire-regressie"><span class="header-section-number">C.2</span> Lineaire Regressie</h2>
 <p>Lineaire Regressievergelijking</p>
 <p><span class="math display">\[y_{i} = b_{0} + b_{1}x_{1i} + b_{2}x_{2i} + ... + b_{k}x_{ki} + \epsilon_{i}\]</span></p>
-<p>Enkelvoudige Lineaire Regressie: Helling</p>
+<p>Bivariate Lineaire Regressie: Helling</p>
 <p><span class="math display">\[b_{1} = \frac{\sum(x_{i} - \bar{x})(y_{i} - \bar{y})}{\sum(x_{i} - \bar{x})^2}\]</span></p>
-<p>Enkelvoudige Lineaire Regressie: Intercept/Constante</p>
+<p>Bivariate Lineaire Regressie: Intercept/Constante</p>
 <p><span class="math display">\[b_{0} = \bar{y} - b_{1}\bar{x}\]</span></p>
 <p>Regressiemodel met Interactie</p>
 <p><span class="math display">\[y = b_{0} + b_{1}x_{1} + b_{2}x_{2} + b_{3}(x_{1}x_{2}) + \epsilon\]</span></p>
-<p>Marginale Effecten in Interactiemodel</p>
-<p><span class="math display">\[b_{1} + (x2 * b_{3})\]</span> <span class="math display">\[b_{2} + (x1 * b_{3})\]</span></p>
-<p>t-toets voor regressiecoëfficiënten</p>
+<p>Gemiddelde Marginale Effecten in Interactiemodel</p>
+<p><em>Marginaal effect van</em> <span class="math inline">\(X_1\)</span>: <span class="math display">\[b_1 + b_3 X_2\]</span> <em>Marginaal effect van</em> <span class="math inline">\(X_2\)</span>: <span class="math display">\[b_2 + b_3 X_1\]</span></p>
+<p>t-statistiek voor regressiecoëfficiënten</p>
 <p><span class="math display">\[t = \frac{b}{SE_{b}}\]</span></p>
 <p>Betrouwbaarheidsinterval: Coëfficiënt</p>
 <p><span class="math display">\[CI = b \pm (t_{df} * SE)\]</span></p>
-<p>Regressie Kwadratensom (ook: Model Kwadratensom)</p>
+<p>Kwadratensom van het regressiemodel (Sum of Squares regression model)</p>
 <p><span class="math display">\[SS_{Regression} = \sum(\hat{y} - \bar{y})^2\]</span></p>
 <p>Residuele Kwadratensom (RSS)</p>
 <p><span class="math display">\[SS_{Residual} = \sum(y_{i} - \hat{y})^2\]</span></p>
@@ -431,17 +431,19 @@ Tip voor de HTML-versie van dit document
 <p>R<sup>2</sup></p>
 <p><span class="math display">\[R^2 = \frac{SS_{Regression}}{SS_{Total}}\]</span></p>
 <p><span class="math display">\[R^2 = 1 - \frac{SS_{Residual}}{SS_{Total}} \]</span></p>
-<p>Gemiddelde Kwadraten: Residueel</p>
-<p><span class="math display">\[MS_{Residual} = \frac{SS_{Residual}}{\textrm{df}_{Residual}}\]</span> <span class="math display">\[\textrm{df}_{Residual} = n-k\]</span> Gemiddelde Kwadraten: Regressiemodel</p>
+<p>Gemiddelde Kwadraten (Mean squares): Residueel</p>
+<p><span class="math display">\[MS_{Residual} = \frac{SS_{Residual}}{\textrm{df}_{Residual}}\]</span> <span class="math display">\[\textrm{df}_{Residual} = n-k\]</span></p>
+<p>Gemiddelde Kwadraten (Mean squares): Regressiemodel</p>
 <p><span class="math display">\[MS_{Model} = \frac{SS_{Regression}}{df_{Model}}\]</span></p>
 <p><span class="math display">\[df_{Model} = k\]</span> F</p>
 <p><span class="math display">\[F = \frac{MS_{Model}}{MS_{Residual}}\]</span></p>
 </section>
 <section id="logistische-regressie" class="level2" data-number="C.3">
 <h2 data-number="C.3" class="anchored" data-anchor-id="logistische-regressie"><span class="header-section-number">C.3</span> Logistische Regressie</h2>
-<p>Logistisch Regressiemodel met één Verklarende Variabele</p>
-<p><span class="math display">\[\textrm{log(Odds)} = b_0 + b_1x_{1i} + b_2x_{2i}...\]</span></p>
-<p><span class="math display">\[P(Y_{i} = 1) = \frac{1}{1 + e^{-(b_{0} + b_{1}x_{1i})}}\]</span></p>
+<p>Logistisch Regressiemodel</p>
+<p><span class="math display">\[P(Y_{i} = 1) = \frac{1}{1 + e^{-(b_{0} + b_{1}x_{1i} + b_2x_{2i}...)}}\]</span></p>
+<p><em>Alternatief</em> <span class="math display">\[P(Y_{i} = 1) = \frac{e^{b_0 + b_1x_{1i} + b_2x_{2i} + ...}}{1 + e^{b_0 + b_1x_{1i} + b_2x_{2i} + ...}}\]</span></p>
+<p><em>logit</em> <span class="math display">\[\textrm{log(Odds)} = b_0 + b_1x_{1i} + b_2x_{2i}...\]</span></p>
 <p>Odds en Kans</p>
 <p><span class="math display">\[odds = \frac{p}{1 - p}\]</span></p>
 <p><span class="math display">\[p = \frac{odds}{1 + odds}\]</span></p>
@@ -461,23 +463,23 @@ Tip voor de HTML-versie van dit document
 <h2 data-number="C.4" class="anchored" data-anchor-id="appendix-kritieke-waarden-van-de-t-verdeling"><span class="header-section-number">C.4</span> Appendix: Kritieke Waarden van de t-verdeling</h2>
 <div class="cell" title="Kritieke Waarden van de t-verdeling (Tweezijdige Toets)">
 <div class="cell-output-display">
-<div id="mfqcqharzt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mfqcqharzt table {
+<div id="vaueoemuvt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vaueoemuvt table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mfqcqharzt thead, #mfqcqharzt tbody, #mfqcqharzt tfoot, #mfqcqharzt tr, #mfqcqharzt td, #mfqcqharzt th {
+#vaueoemuvt thead, #vaueoemuvt tbody, #vaueoemuvt tfoot, #vaueoemuvt tr, #vaueoemuvt td, #vaueoemuvt th {
   border-style: none;
 }
 
-#mfqcqharzt p {
+#vaueoemuvt p {
   margin: 0;
   padding: 0;
 }
 
-#mfqcqharzt .gt_table {
+#vaueoemuvt .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -503,12 +505,12 @@ Tip voor de HTML-versie van dit document
   border-left-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_caption {
+#vaueoemuvt .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mfqcqharzt .gt_title {
+#vaueoemuvt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -520,7 +522,7 @@ Tip voor de HTML-versie van dit document
   border-bottom-width: 0;
 }
 
-#mfqcqharzt .gt_subtitle {
+#vaueoemuvt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -532,7 +534,7 @@ Tip voor de HTML-versie van dit document
   border-top-width: 0;
 }
 
-#mfqcqharzt .gt_heading {
+#vaueoemuvt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -544,13 +546,13 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_bottom_border {
+#vaueoemuvt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_col_headings {
+#vaueoemuvt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -565,7 +567,7 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_col_heading {
+#vaueoemuvt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -585,7 +587,7 @@ Tip voor de HTML-versie van dit document
   overflow-x: hidden;
 }
 
-#mfqcqharzt .gt_column_spanner_outer {
+#vaueoemuvt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -597,15 +599,15 @@ Tip voor de HTML-versie van dit document
   padding-right: 4px;
 }
 
-#mfqcqharzt .gt_column_spanner_outer:first-child {
+#vaueoemuvt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mfqcqharzt .gt_column_spanner_outer:last-child {
+#vaueoemuvt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mfqcqharzt .gt_column_spanner {
+#vaueoemuvt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -617,11 +619,11 @@ Tip voor de HTML-versie van dit document
   width: 100%;
 }
 
-#mfqcqharzt .gt_spanner_row {
+#vaueoemuvt .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mfqcqharzt .gt_group_heading {
+#vaueoemuvt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -647,7 +649,7 @@ Tip voor de HTML-versie van dit document
   text-align: left;
 }
 
-#mfqcqharzt .gt_empty_group_heading {
+#vaueoemuvt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -662,15 +664,15 @@ Tip voor de HTML-versie van dit document
   vertical-align: middle;
 }
 
-#mfqcqharzt .gt_from_md > :first-child {
+#vaueoemuvt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mfqcqharzt .gt_from_md > :last-child {
+#vaueoemuvt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mfqcqharzt .gt_row {
+#vaueoemuvt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -689,7 +691,7 @@ Tip voor de HTML-versie van dit document
   overflow-x: hidden;
 }
 
-#mfqcqharzt .gt_stub {
+#vaueoemuvt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -702,7 +704,7 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#mfqcqharzt .gt_stub_row_group {
+#vaueoemuvt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -716,15 +718,15 @@ Tip voor de HTML-versie van dit document
   vertical-align: top;
 }
 
-#mfqcqharzt .gt_row_group_first td {
+#vaueoemuvt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mfqcqharzt .gt_row_group_first th {
+#vaueoemuvt .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mfqcqharzt .gt_summary_row {
+#vaueoemuvt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -734,16 +736,16 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#mfqcqharzt .gt_first_summary_row {
+#vaueoemuvt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_first_summary_row.thick {
+#vaueoemuvt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mfqcqharzt .gt_last_summary_row {
+#vaueoemuvt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -753,7 +755,7 @@ Tip voor de HTML-versie van dit document
   border-bottom-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_grand_summary_row {
+#vaueoemuvt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -763,7 +765,7 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#mfqcqharzt .gt_first_grand_summary_row {
+#vaueoemuvt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -773,7 +775,7 @@ Tip voor de HTML-versie van dit document
   border-top-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_last_grand_summary_row_top {
+#vaueoemuvt .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -783,11 +785,11 @@ Tip voor de HTML-versie van dit document
   border-bottom-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_striped {
+#vaueoemuvt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mfqcqharzt .gt_table_body {
+#vaueoemuvt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -796,7 +798,7 @@ Tip voor de HTML-versie van dit document
   border-bottom-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_footnotes {
+#vaueoemuvt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -810,7 +812,7 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_footnote {
+#vaueoemuvt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -819,7 +821,7 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#mfqcqharzt .gt_sourcenotes {
+#vaueoemuvt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -833,7 +835,7 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#mfqcqharzt .gt_sourcenote {
+#vaueoemuvt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -841,72 +843,72 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#mfqcqharzt .gt_left {
+#vaueoemuvt .gt_left {
   text-align: left;
 }
 
-#mfqcqharzt .gt_center {
+#vaueoemuvt .gt_center {
   text-align: center;
 }
 
-#mfqcqharzt .gt_right {
+#vaueoemuvt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mfqcqharzt .gt_font_normal {
+#vaueoemuvt .gt_font_normal {
   font-weight: normal;
 }
 
-#mfqcqharzt .gt_font_bold {
+#vaueoemuvt .gt_font_bold {
   font-weight: bold;
 }
 
-#mfqcqharzt .gt_font_italic {
+#vaueoemuvt .gt_font_italic {
   font-style: italic;
 }
 
-#mfqcqharzt .gt_super {
+#vaueoemuvt .gt_super {
   font-size: 65%;
 }
 
-#mfqcqharzt .gt_footnote_marks {
+#vaueoemuvt .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mfqcqharzt .gt_asterisk {
+#vaueoemuvt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mfqcqharzt .gt_indent_1 {
+#vaueoemuvt .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mfqcqharzt .gt_indent_2 {
+#vaueoemuvt .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mfqcqharzt .gt_indent_3 {
+#vaueoemuvt .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mfqcqharzt .gt_indent_4 {
+#vaueoemuvt .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mfqcqharzt .gt_indent_5 {
+#vaueoemuvt .gt_indent_5 {
   text-indent: 25px;
 }
 
-#mfqcqharzt .katex-display {
+#vaueoemuvt .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#mfqcqharzt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vaueoemuvt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1132,23 +1134,23 @@ Tip voor de HTML-versie van dit document
 <p>De tabel hieronder geeft de kritieke waarden van de chi-kwadraatverdeling (<span class="math inline">\(\chi^2\)</span>) bij een betrouwbaarheidsniveau van 95% (d.w.z. <span class="math inline">\(\alpha = 0.05\)</span>), voor verschillende vrijheidsgraden (df).</p>
 <div class="cell" title="Kritieke Waarden van de Chi-kwadraatverdeling (95% Betrouwbaarheid)">
 <div class="cell-output-display">
-<div id="wuqhopgppd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wuqhopgppd table {
+<div id="xgffivkong" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xgffivkong table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wuqhopgppd thead, #wuqhopgppd tbody, #wuqhopgppd tfoot, #wuqhopgppd tr, #wuqhopgppd td, #wuqhopgppd th {
+#xgffivkong thead, #xgffivkong tbody, #xgffivkong tfoot, #xgffivkong tr, #xgffivkong td, #xgffivkong th {
   border-style: none;
 }
 
-#wuqhopgppd p {
+#xgffivkong p {
   margin: 0;
   padding: 0;
 }
 
-#wuqhopgppd .gt_table {
+#xgffivkong .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1174,12 +1176,12 @@ Tip voor de HTML-versie van dit document
   border-left-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_caption {
+#xgffivkong .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wuqhopgppd .gt_title {
+#xgffivkong .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1191,7 +1193,7 @@ Tip voor de HTML-versie van dit document
   border-bottom-width: 0;
 }
 
-#wuqhopgppd .gt_subtitle {
+#xgffivkong .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1203,7 +1205,7 @@ Tip voor de HTML-versie van dit document
   border-top-width: 0;
 }
 
-#wuqhopgppd .gt_heading {
+#xgffivkong .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1215,13 +1217,13 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_bottom_border {
+#xgffivkong .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_col_headings {
+#xgffivkong .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1236,7 +1238,7 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_col_heading {
+#xgffivkong .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1256,7 +1258,7 @@ Tip voor de HTML-versie van dit document
   overflow-x: hidden;
 }
 
-#wuqhopgppd .gt_column_spanner_outer {
+#xgffivkong .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1268,15 +1270,15 @@ Tip voor de HTML-versie van dit document
   padding-right: 4px;
 }
 
-#wuqhopgppd .gt_column_spanner_outer:first-child {
+#xgffivkong .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wuqhopgppd .gt_column_spanner_outer:last-child {
+#xgffivkong .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wuqhopgppd .gt_column_spanner {
+#xgffivkong .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1288,11 +1290,11 @@ Tip voor de HTML-versie van dit document
   width: 100%;
 }
 
-#wuqhopgppd .gt_spanner_row {
+#xgffivkong .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wuqhopgppd .gt_group_heading {
+#xgffivkong .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1318,7 +1320,7 @@ Tip voor de HTML-versie van dit document
   text-align: left;
 }
 
-#wuqhopgppd .gt_empty_group_heading {
+#xgffivkong .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1333,15 +1335,15 @@ Tip voor de HTML-versie van dit document
   vertical-align: middle;
 }
 
-#wuqhopgppd .gt_from_md > :first-child {
+#xgffivkong .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wuqhopgppd .gt_from_md > :last-child {
+#xgffivkong .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wuqhopgppd .gt_row {
+#xgffivkong .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1360,7 +1362,7 @@ Tip voor de HTML-versie van dit document
   overflow-x: hidden;
 }
 
-#wuqhopgppd .gt_stub {
+#xgffivkong .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1373,7 +1375,7 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#wuqhopgppd .gt_stub_row_group {
+#xgffivkong .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1387,15 +1389,15 @@ Tip voor de HTML-versie van dit document
   vertical-align: top;
 }
 
-#wuqhopgppd .gt_row_group_first td {
+#xgffivkong .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wuqhopgppd .gt_row_group_first th {
+#xgffivkong .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wuqhopgppd .gt_summary_row {
+#xgffivkong .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1405,16 +1407,16 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#wuqhopgppd .gt_first_summary_row {
+#xgffivkong .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_first_summary_row.thick {
+#xgffivkong .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wuqhopgppd .gt_last_summary_row {
+#xgffivkong .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1424,7 +1426,7 @@ Tip voor de HTML-versie van dit document
   border-bottom-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_grand_summary_row {
+#xgffivkong .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1434,7 +1436,7 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#wuqhopgppd .gt_first_grand_summary_row {
+#xgffivkong .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1444,7 +1446,7 @@ Tip voor de HTML-versie van dit document
   border-top-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_last_grand_summary_row_top {
+#xgffivkong .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1454,11 +1456,11 @@ Tip voor de HTML-versie van dit document
   border-bottom-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_striped {
+#xgffivkong .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wuqhopgppd .gt_table_body {
+#xgffivkong .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1467,7 +1469,7 @@ Tip voor de HTML-versie van dit document
   border-bottom-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_footnotes {
+#xgffivkong .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1481,7 +1483,7 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_footnote {
+#xgffivkong .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1490,7 +1492,7 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#wuqhopgppd .gt_sourcenotes {
+#xgffivkong .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1504,7 +1506,7 @@ Tip voor de HTML-versie van dit document
   border-right-color: #D3D3D3;
 }
 
-#wuqhopgppd .gt_sourcenote {
+#xgffivkong .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1512,72 +1514,72 @@ Tip voor de HTML-versie van dit document
   padding-right: 5px;
 }
 
-#wuqhopgppd .gt_left {
+#xgffivkong .gt_left {
   text-align: left;
 }
 
-#wuqhopgppd .gt_center {
+#xgffivkong .gt_center {
   text-align: center;
 }
 
-#wuqhopgppd .gt_right {
+#xgffivkong .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wuqhopgppd .gt_font_normal {
+#xgffivkong .gt_font_normal {
   font-weight: normal;
 }
 
-#wuqhopgppd .gt_font_bold {
+#xgffivkong .gt_font_bold {
   font-weight: bold;
 }
 
-#wuqhopgppd .gt_font_italic {
+#xgffivkong .gt_font_italic {
   font-style: italic;
 }
 
-#wuqhopgppd .gt_super {
+#xgffivkong .gt_super {
   font-size: 65%;
 }
 
-#wuqhopgppd .gt_footnote_marks {
+#xgffivkong .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wuqhopgppd .gt_asterisk {
+#xgffivkong .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wuqhopgppd .gt_indent_1 {
+#xgffivkong .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wuqhopgppd .gt_indent_2 {
+#xgffivkong .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wuqhopgppd .gt_indent_3 {
+#xgffivkong .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wuqhopgppd .gt_indent_4 {
+#xgffivkong .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wuqhopgppd .gt_indent_5 {
+#xgffivkong .gt_indent_5 {
   text-indent: 25px;
 }
 
-#wuqhopgppd .katex-display {
+#xgffivkong .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#wuqhopgppd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#xgffivkong div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
